@@ -1,0 +1,23 @@
+{
+  "id": "1809829",
+  "name": "安全平台web",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "14616209",
+      "name": "baseline-perm_identity-24px",
+      "font_class": "baseline-perm_identity-24px",
+      "unicode": "e600",
+      "unicode_decimal": 58880
+    },
+    {
+      "icon_id": "14616210",
+      "name": "outline-lock-24px",
+      "font_class": "outline-lock-24px",
+      "unicode": "e601",
+      "unicode_decimal": 58881
+    }
+  ]
+}
