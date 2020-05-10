@@ -21,7 +21,7 @@
     "@angular/router": "~8.2.14",
     "@ngrx/store": "^9.1.2",
     "font-awesome": "^4.7.0",
-    "jquery": "^1.9.1",
+    "jquery": "^3.5.0",
     "node-sass": "^4.14.1",
     "popper.js": "^1.16.0",
     "primeicons": "^3.0.0-rc.1",
