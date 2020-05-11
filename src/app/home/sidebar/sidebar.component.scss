@@ -1,0 +1,20 @@
+.sidebar {
+  width: 10vw;
+  background-color: var(--header-bgc);
+  color: #fff;
+  border-right: solid 1px var(--header-bgc);
+  position: absolute;
+  z-index: 1000;
+  //height: 96vh;
+  top: 6vh;
+  left: 0;
+  height: 94%;
+  //box-shadow: 5px 0 10px -5px #E5E5E5;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  -moz-transition: left 0.2s;
+  -o-transition: left 0.2s;
+  -webkit-transition: left 0.2s;
+  transition: left 0.2s;
+}

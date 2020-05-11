@@ -10,10 +10,12 @@ import {AuthInterceptor} from './common/services/auth.interceptor';
 import {HashLocationStrategy, LocationStrategy} from '@angular/common';
 import {LoadingModule} from './common/components/loading/loading.module';
 import {LoginModule} from './login/login.module';
+import {ErrorComponent} from './error/error.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    ErrorComponent
   ],
   imports: [
     BrowserModule,
