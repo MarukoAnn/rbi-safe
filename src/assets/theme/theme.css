@@ -4,4 +4,9 @@
   /*  头部背景颜色*/
   --header-bgc: '';
   --header-title-bgc: '';
+  /* 内容背景颜色 */
+  --body-bgc: '';
+ /* sidebar 颜色*/
+  --firbar-bgc: '';/* 一级导航的背景 颜色*/
+  --secbar-bgc: '';/* 二级导航的背景 颜色*/
 }

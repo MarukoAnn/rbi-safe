@@ -12,6 +12,7 @@
   "private": true,
   "dependencies": {
     "@angular/animations": "~8.2.14",
+    "@angular/cdk": "^8.2.3",
     "@angular/common": "~8.2.14",
     "@angular/compiler": "~8.2.14",
     "@angular/core": "^8.2.14",
@@ -21,11 +22,9 @@
     "@angular/router": "~8.2.14",
     "@ngrx/store": "^9.1.2",
     "font-awesome": "^4.7.0",
-    "jquery": "^1.9.1",
     "node-sass": "^4.14.1",
-    "popper.js": "^1.16.0",
     "primeicons": "^3.0.0-rc.1",
-    "primeng": "^9.0.6",
+    "primeng": "^7.1.0",
     "rxjs": "^6.5.3",
     "tslib": "^1.10.0",
     "zone.js": "~0.9.1"

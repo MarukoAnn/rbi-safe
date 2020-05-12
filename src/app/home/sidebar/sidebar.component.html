@@ -1,3 +1,22 @@
 <div class="sidebar">
-
+   <div class="first-bar" [ngStyle]="{width: firWidth + 'vw'}">
+      <ul *ngFor="let item of fistItem">
+        <li (click)="firItemClick(item)" [ngStyle]="{background:item.bgc}">
+          <i [ngClass]="'iconfont ' + item.icon.class" [ngStyle]="{fontSize: item.icon.fontsize, color: item.icon.color}"></i>
+          <div *ngIf="firWidth !== 3">
+            <span style="font-size: 14px">{{item.label}}</span>
+            <i *ngIf=" item.lefticon!==''" [ngClass]="'fa ' + item.lefticon" ></i>
+          </div>
+        </li>
+      </ul>
+   </div>
+  <div class="sec-bar" *ngIf="secItem.length !== 0">
+    <ul *ngFor="let item of secItem" >
+      <li (click)="secItemClick(item)" *ngIf="item.isHas">
+        <div class="sec-item" [ngStyle]="{background: item.item.bgc}">
+          <span [ngStyle]="{color: item.item.ftcolor}">{{item.item.label}}</span>
+        </div>
+      </li>
+    </ul>
+  </div>
 </div>

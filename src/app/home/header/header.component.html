@@ -1,6 +1,30 @@
 <div class="header">
-  <div class="header-title" >
-    <div>安全生产信息化系统</div>
+  <div class="header-title" (click)="logoClick()" [ngStyle]="{width: logoWidth + 'vw'}">
+    <div *ngIf="logoWidth !== 3">安全生产信息化系统</div>
+    <i class="iconfont iconzu381" *ngIf="logoWidth === 3"></i>
   </div>
-
+  <div class="header-right">
+    <!-- 搜索框-->
+    <div  class="search_input">
+      <div class="ui-inputgroup">
+        <input type="text" pInputText  />
+      </div>
+      <i class="fa fa-search"></i>
+    </div>
+    <i class="iconfont iconOutline setting"></i>
+    <div class="header-notice">
+      <i class="iconfont iconNotificationIcon"></i>
+      <span></span>
+    </div>
+    <!-- 线-->
+    <div class="header_line">
+      <span></span>
+    </div>
+    <!-- 用户   -->
+    <div class="header-userinfo">
+      <span>王建国</span>
+      <i class="fa fa-angle-down"></i>
+      <img src="../../../assets/image/ic_header.jpeg" alt="">
+    </div>
+  </div>
 </div>

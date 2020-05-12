@@ -1,11 +1,7 @@
 .sidebar {
-  width: 10vw;
-  background-color: var(--header-bgc);
   color: #fff;
-  border-right: solid 1px var(--header-bgc);
   position: absolute;
   z-index: 1000;
-  //height: 96vh;
   top: 6vh;
   left: 0;
   height: 94%;
@@ -17,4 +13,58 @@
   -o-transition: left 0.2s;
   -webkit-transition: left 0.2s;
   transition: left 0.2s;
+  display: flex;
+  .first-bar {
+    width: 10vw;
+    height: 100%;
+    background-color: var(--header-bgc);
+    border-right: solid 1px var(--header-bgc);
+    li {
+      padding:20px 0 20px 14px;
+      list-style: none;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      i {
+        //font-size: 16px;
+        flex: 2;
+      }
+      div {
+        flex: 8;
+        span{
+          width: 6vw;
+          display: inline-block;
+          text-align: center;
+        }
+        i {
+          float: right;
+          margin-right: 10px;
+          margin-top: 5px;
+          color: #fff
+        }
+      }
+    }
+  }
+  .sec-bar {
+    width: 8vw;
+    height: 100%;
+    background: #fff;
+    padding-top: 64px;
+    text-align: center;
+    li {
+      list-style: none;
+      padding: 10px 0 10px 14px;
+      list-style: none;
+      .sec-item {
+        padding: 10px 7px;
+        border-top-left-radius: 20px;
+        border-bottom-left-radius: 20px;
+        span {
+          font-size: 14px;
+          font-weight: bold;
+          font-family: 微软雅黑;
+        }
+      }
+    }
+  }
 }
