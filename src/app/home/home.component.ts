@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
 import {PublicMethodService} from '../common/public/public-method.service';
 import {Route, Router} from '@angular/router';
+import {SidebarComponent} from './sidebar/sidebar.component';
 
 @Component({
   selector: 'app-home',
@@ -9,11 +10,14 @@ import {Route, Router} from '@angular/router';
 })
 export class HomeComponent implements OnInit {
 
+  // @ts-ignore
+  @ViewChild('sidebarComponent') child: SidebarComponent;
   public barWith: any;
   public bodyMarginLeft = 10;
+  public isBar: string;
   constructor(
     private toolSrv: PublicMethodService,
-    private router: Router
+    private router: Router,
   ) { }
 
   ngOnInit() {
@@ -31,5 +35,12 @@ export class HomeComponent implements OnInit {
   }
   public setBodyMarginLeft(e): void {
       this.bodyMarginLeft = e;
+  }
+  public  getSetBarStatus(e): void {
+    console.log('进入home');
+    this.isBar = e;
+    console.log(this.isBar);
+    this.child.isSetBar = e;
+    this.child.changeBar();
   }
 }

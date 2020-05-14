@@ -1,0 +1,31 @@
+.demand-record {
+  .demand-record-title{
+    height: 6vh;
+    line-height: 6vh;
+    text-align: center;
+    //background: #ee9900;
+    span {
+      font-size: 20px;
+      color: #9A9DA2;
+    }
+  }
+  .demand-record-search{
+    position: relative;
+  }
+  .demand-record-table{
+    margin-top: 2vh;
+  }
+
+  ::ng-deep .ui-widget {
+    border-radius: 20px;
+    color: #8D8E96;
+    font-size: 14px;
+    height: 3vh;
+    height: 32px;
+    border: 1px solid #F0F0F0;
+    background: #F8F8F8;
+  }
+  ::ng-deep .ui-inputtext {
+    margin-right: 2rem;
+  }
+}

@@ -1,4 +1,5 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {LocalStorageService} from '../../common/services/local-storage.service';
 
 @Component({
   selector: 'app-header',
@@ -8,8 +9,13 @@ import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 export class HeaderComponent implements OnInit {
   @Output()
   private outer = new EventEmitter();
+  @Output()
+  private outEvent = new EventEmitter();
   public logoWidth = 10;
-  constructor() { }
+  public showNotice = false;
+  constructor(
+    private localSrv: LocalStorageService
+  ) { }
 
   ngOnInit() {
   }
@@ -21,5 +27,12 @@ export class HeaderComponent implements OnInit {
       this.logoWidth = 3;
     }
     this.outer.emit(this.logoWidth);
+  }
+  public  showNoticeClick(): void {
+      this.showNotice = !this.showNotice;
+  }
+  public setClick(): void {
+    this.outEvent.emit('true');
+    this.localSrv.set('isSetBar', 'true');
   }
 }

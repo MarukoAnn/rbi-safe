@@ -1,0 +1,20 @@
+<div class="demand-review">
+   <div class="demand-review-title">
+     <span>特种人员待取证/复审名单</span>
+     <button pButton type="button" label="导出" class="ui-button-rounded" icon="pi pi-external-link"></button>
+   </div>
+   <div class="demand-review-search">
+     <div>
+       <div class="ui-inputgroup">
+         <input type="text" pInputText  placeholder="搜索"/>
+       </div>
+       <i class="fa fa-search" style="position: absolute;margin-top: -2.5vh;margin-left: 7.5vw;color: #ABABAB;"></i>
+     </div>
+     <div class="review-btn">
+       <button pButton type="button" label="批量审核" class="ui-button-rounded"></button>
+     </div>
+  </div>
+  <div class="demand-review-table">
+    <app-check-table-btn [select]="reviewSelect"   (selectData)="selectData($event)" [option]="optionTable" (detail)="DetailClick($event)"></app-check-table-btn>
+  </div>
+</div>

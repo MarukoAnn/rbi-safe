@@ -1,0 +1,64 @@
+.check-table-btn {
+  .check-table-btn-detail {
+    width: 5vw;
+    text-align: center;
+    border-radius: 20px;
+    height: 3vh;
+    outline: none;
+    line-height: 2.3vh;
+    color: #fff;
+    border: 0;
+    background: var(--table-detail);
+    cursor:pointer;
+  }
+  .check-table-btn-edit {
+    width: 5vw;
+    text-align: center;
+    border-radius: 20px;
+    height: 3.4vh;
+    //line-height: 2.3vh;
+    outline: none;
+    color: #fff;
+    border: 0;
+    background: var(--table-detail);
+    cursor:pointer;
+  }
+  //.check-table-btn-detail:hover{
+  //  background: #50588E;
+  //}
+  ::ng-deep .ui-table-scrollable-body::-webkit-scrollbar {
+    display: inline;
+    //position: absolute;
+  }
+  //::ng-deep .ui-table .ui-table-scrollable-body-table{
+  //  padding-right: 10vw;
+  //  //background: #3A7ADF;
+  //}
+  ::ng-deep .ui-table .ui-table-thead>tr >th{
+   border: 0;
+
+  }
+  ::ng-deep .ui-table .ui-table-tbody>tr >td{
+    border-bottom: 1px solid #EDEDED;
+    border-top: 0;
+    border-left: 0;
+    border-right: 0;
+  }
+  //隐藏滚动条
+  ::ng-deep .custombar .ui-scrollpanel-bar {
+    background-color: rgba(0, 0, 0, 0);
+    transition: background-color .3s;
+  }
+  ::ng-deep .custombar .ui-scrollpanel-content{
+    padding-right: 0;
+  }
+  ::ng-deep .ui-widget{
+    border: 0;
+    border-radius: 0;
+    background: #fff;
+  }
+  ::ng-deep .ui-button-text{
+    padding-bottom: 12px;
+  }
+}
+

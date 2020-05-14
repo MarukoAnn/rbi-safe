@@ -1,0 +1,13 @@
+<div class="st-demand">
+   <div class="tabMenu">
+      <div class="tab-item" *ngFor="let item of tabitem">
+        <a class="item-content" [routerLink]="item.link" (click)="tabItemClick(item)">
+          <span [ngStyle]="{color: item.item.ftcolor}">{{item.item.label}}</span>
+          <span  [ngStyle]="{background: item.item.bgc}" class="line"></span>
+        </a>
+      </div>
+   </div>
+  <div class="st-demand-body">
+    <router-outlet></router-outlet>
+  </div>
+</div>

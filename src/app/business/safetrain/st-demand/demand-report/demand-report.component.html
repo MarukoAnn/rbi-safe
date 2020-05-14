@@ -1,0 +1,21 @@
+<div class="demand-report">
+  <div class="demand-content">
+    <div class="item" *ngFor="let item of inputItem">
+      <div class="ui-g-12">
+        <div class="ui-g-5" style="text-align: right;line-height: 4vh">
+          {{item.label}}
+        </div>
+        <div class="ui-g-6" style="text-align: left;" *ngIf="item.type !== 'input'">
+          <p-dropdown  dropdownIcon="pi pi-caret-down" [options]="item.option" [(ngModel)]="item.value"></p-dropdown>
+        </div>
+        <div class="ui-g-6" style="text-align: left" *ngIf="item.type === 'input'">
+          <input type="text" pInputText />
+        </div>
+      </div>
+    </div>
+    <div class="demand-report-btn">
+      <button pButton type="button" label="提交" class="ui-button-rounded"></button>
+    </div>
+  </div>
+
+</div>

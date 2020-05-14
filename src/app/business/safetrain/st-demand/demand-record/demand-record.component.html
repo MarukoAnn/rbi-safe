@@ -1,0 +1,14 @@
+<div class="demand-record">
+    <div class="demand-record-title">
+       <span>历史教育需求记录</span>
+    </div>
+    <div class="demand-record-search">
+      <div class="ui-inputgroup">
+        <input type="text" pInputText  placeholder="搜索"/>
+      </div>
+      <i class="fa fa-search" style="position: absolute;margin-top: -2.5vh;margin-left: 7.5vw;color: #ABABAB;"></i>
+    </div>
+    <div class="demand-record-table">
+      <app-bf-table-btn [select]="recordSelect"  [option]="optionTable" (detail)="DetailClick($event)"></app-bf-table-btn>
+    </div>
+</div>

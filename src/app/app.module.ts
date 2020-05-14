@@ -11,6 +11,7 @@ import {HashLocationStrategy, LocationStrategy} from '@angular/common';
 import {LoadingModule} from './common/components/loading/loading.module';
 import {LoginModule} from './login/login.module';
 import {ErrorComponent} from './error/error.component';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import {ErrorComponent} from './error/error.component';
     AppRoutingModule,
     LoadingModule,
     LoginModule,
+    BrowserAnimationsModule,
     // 加入状态管理器
     StoreModule.forRoot({loadhidden: counterReducer})
   ],

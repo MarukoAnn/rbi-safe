@@ -1,11 +1,11 @@
 <div class="home">
- <app-header (outer)="SideBarWidth($event)"></app-header>
-  <app-sidebar [firWidth]="barWith" (outWith)="setBodyMarginLeft($event)"></app-sidebar>
+ <app-header (outer)="SideBarWidth($event)" (outEvent)="getSetBarStatus($event)"></app-header>
+  <app-sidebar [firWidth]="barWith" (outWith)="setBodyMarginLeft($event)" #sidebarComponent></app-sidebar>
   <div class="home-main" [ngStyle]="{marginLeft: bodyMarginLeft + 'vw'}">
     <router-outlet></router-outlet>
     <!--</div>-->
   </div>
-  <div style="position: absolute;left: 40vw;top: 30vh">
-    <app-notice></app-notice>
-  </div>
+<!--  <div style="position: absolute;left: 40vw;top: 20vh">-->
+<!--    <app-notice></app-notice>-->
+<!--  </div>-->
 </div>

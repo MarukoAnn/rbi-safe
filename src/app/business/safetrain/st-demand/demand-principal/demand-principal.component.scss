@@ -1,0 +1,52 @@
+.demand-principal {
+  .demand-principal-title {
+    height: 6vh;
+    line-height: 6vh;
+    text-align: center;
+    span {
+      font-size: 20px;
+      color: #9A9DA2;
+    }
+    button{
+      margin-left: 1vw;
+      //height: 32px;
+      width: 5vw;
+      background: #66A0FF;
+      border: 0;
+    }
+  }
+  .demand-principal-search{
+    //background: #ee9900;
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    .review-btn {
+      button {
+        width: 6vw;
+        //height: 40px;
+        background: #3B86FF;
+        border-radius: 20px;
+        margin-right: 1vw;
+      }
+    }
+  }
+  .demand-principal-table{
+    margin-top: 2vh;
+  }
+  ::ng-deep .ui-inputgroup .ui-widget {
+    border-radius: 20px;
+    color: #8D8E96;
+    font-size: 14px;
+    height: 32px;
+    border: 1px solid #F0F0F0;
+    background: #F8F8F8;
+  }
+  ::ng-deep .pi {
+    font-size: 0.8rem;
+  }
+  ::ng-deep .ui-button-icon-left{
+    margin-left: 0.5vw;
+    top: 51%;
+  }
+
+}

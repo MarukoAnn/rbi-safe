@@ -1,0 +1,50 @@
+<div class="check-table-btn" *ngIf="option">
+  <!--有按钮的-->
+  <div *ngIf="option.type === 1">
+    <p-table [columns]="option.header.data" [value]="option.Content.data"  [scrollable]="true"   scrollHeight="50vh"  [style]="{'width':  option?.width}"  [(selection)]="select"  (onRowSelect)="selectClick($event)"  (onRowUnselect)="noSelectClick($event)">
+      <ng-template pTemplate="header" let-columns>
+        <tr>
+          <th *ngFor="let col of columns"  [ngStyle]="option.header.style">
+            {{col.header}}
+          </th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-rowData let-columns="columns" let-rowIndex="rowIndex">
+        <!--普通列表-->
+        <tr [pSelectableRow]="rowData" [ngStyle]="option.Content.styleone">
+          <td  *ngFor="let col of columns?.slice(0, columns?.length-1)" >
+            <span style="word-wrap:break-word">{{rowData[col.field]}}</span>
+          </td>
+          <td >
+            <button class="check-table-btn-detail" (click)="DetailClick(rowData)" *ngFor="let item of option.tableList" [ngStyle]="{'background': item.color}">{{item.label}}</button>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+  <!--有按钮的-->
+  <div *ngIf="option.type === 2">
+    <p-table [columns]="option.header.data" [value]="option.Content.data"  [scrollable]="true"   scrollHeight="50vh"  [style]="{'width':  option?.width}"  [(selection)]="select"  (onRowSelect)="selectClick($event)"  (onRowUnselect)="noSelectClick($event)">
+      <ng-template pTemplate="header" let-columns>
+        <tr>
+          <th *ngFor="let col of columns"  [ngStyle]="option.header.style">
+            {{col.header}}
+          </th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-rowData let-columns="columns" let-rowIndex="rowIndex">
+        <!--普通列表-->
+        <tr [pSelectableRow]="rowData" [ngStyle]="option.Content.styleone">
+          <td  *ngFor="let col of columns?.slice(0, columns?.length-1)" >
+            <span style="word-wrap:break-word">{{rowData[col.field]}}</span>
+          </td>
+          <td >
+<!--            <button  [ngStyle]="{'background': item.color}">{{item.label}}</button>-->
+            <button class="check-table-btn-edit" pButton type="button" (click)="DetailClick(rowData)" *ngFor="let item of option.tableList" [ngStyle]="{'background': item.color}" [label]="item.label" icon="pi pi-pencil"></button>
+<!--            <button class="check-table-btn-detail" (click)="DetailClick(rowData)" *ngFor="let item of option.tableList" >{{item.label}}</button>-->
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</div>

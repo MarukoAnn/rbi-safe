@@ -11,13 +11,13 @@
       </div>
       <i class="fa fa-search"></i>
     </div>
-    <i class="iconfont iconOutline setting"></i>
-    <div class="header-notice">
+    <i class="iconfont iconOutline setting" (click)="setClick()"></i>
+    <div class="header-notice" (click)="showNoticeClick()" (mouseover)="showNotice = true;">
       <i class="iconfont iconNotificationIcon"></i>
       <span></span>
     </div>
     <!-- 线-->
-    <div class="header_line">
+    <div class="header_line" >
       <span></span>
     </div>
     <!-- 用户   -->
@@ -26,5 +26,10 @@
       <i class="fa fa-angle-down"></i>
       <img src="../../../assets/image/ic_header.jpeg" alt="">
     </div>
+  </div>
+
+  <div class="notice-dialog" *ngIf="showNotice">
+    <div class="notice-badge"></div>
+    <app-notice ></app-notice>
   </div>
 </div>

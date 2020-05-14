@@ -27,9 +27,11 @@ $i_font: 28px; // 全局i标签大小
   display: flex;
   .left-img{
     flex: 6;
+    background: #FFFFFF;
+    //padding-bottom: 2px;
     img {
       width: 100%;
-      height: 100%;
+      height: 99%;
     }
   }
   .right {
@@ -52,7 +54,7 @@ $i_font: 28px; // 全局i标签大小
           letter-spacing: 0.5rem;
           font-family: "微软雅黑 Light";
           font-weight: bold;
-          font-size: 36px;
+          font-size: 2rem;
           margin-top: 0.5vh;
         }
         .form-small-title {
