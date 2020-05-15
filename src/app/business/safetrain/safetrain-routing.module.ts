@@ -9,7 +9,7 @@ import {SafeTrainComponent} from './safe-train/safe-train.component';
 
 const routes: Routes = [
   {path: '', component: SafeTrainComponent, children: [
-      {path: 'institu', component: StInstitutionComponent},
+      {path: 'institu', component: StInstitutionComponent, data: {preload: true}},
       {path: 'demand', loadChildren: () => import('./st-demand/st-demand.module').then(m => m.StDemandModule)},
       {path: 'plain', component: StPlainComponent},
       {path: 'contentset', component: StContentSetingComponent},

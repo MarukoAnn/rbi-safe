@@ -29,8 +29,8 @@ export class SidebarComponent implements OnInit {
       lefticon: 'fa-angle-down',
       link: '/home/strain/institu',
       children: [
-        {item:{label: '教育培训制度', bgc: '#D1E0F7', ftcolor: '#4F88DE'}, link: '/home/strain/institu', isHas: true},
-        {item: {label: '教育培训需求', bgc: '#fff', ftcolor: '#8E8E8E'}, link: '/home/strain/demand/report', isHas: true},
+        {item: {label: '教育培训制度', bgc: '#D1E0F7', ftcolor: '#4F88DE'}, link: '/home/strain/institu', isHas: true},
+        {item: {label: '教育培训需求', bgc: '#fff', ftcolor: '#8E8E8E'}, link: '/home/strain/demand', isHas: true},
         {item: {label: '教育培训计划',  bgc: '#fff', ftcolor: '#8E8E8E'}, link: '/home/strain/plain', isHas: true},
         {item: {label: '培训内容库设置', bgc: '#fff', ftcolor: '#8E8E8E' }, link: '/home/strain/contentset', isHas: true},
         {item: {label: '档案培训管理', bgc: '#fff', ftcolor: '#8E8E8E' },  link: '', isHas: true},
@@ -44,7 +44,7 @@ export class SidebarComponent implements OnInit {
       bgc: '#226AD5',
       label: '安全风险管控',
       lefticon: 'fa-angle-down',
-      link: '/home/strain/institu1',
+      link: '/home/strain1/institu1',
       children: [
         {item: {label: '风险分级管控现状', bgc: '#D1E0F7', ftcolor: '#4F88DE'}, link: '', isHas: true},
         {item: {label: '风险分级管控制度', bgc: '#fff', ftcolor: '#8E8E8E'}, link: '', isHas: true},
@@ -57,7 +57,7 @@ export class SidebarComponent implements OnInit {
       bgc: '#226AD5',
       label: '重大危险源管理',
       lefticon: 'fa-angle-down',
-      link: '/home/strain/institu2',
+      link: '/home/strain2/institu2',
       children: [
         {item: {label: '重大危险源现状分析', bgc: '#D1E0F7', ftcolor: '#4F88DE'}, link: '', isHas: true},
         {item: {label: '重大危险源管理制度', bgc: '#fff', ftcolor: '#8E8E8E'}, link: '', isHas: true},
@@ -66,7 +66,7 @@ export class SidebarComponent implements OnInit {
       ]
     },
     {
-      icon: {class: 'iconzu69', fontsize: '14px', color: '#fff'}, bgc: '#226AD5', label: '隐患排查治理', link: '/home/strain/institu6', lefticon: 'fa-angle-down', children: [
+      icon: {class: 'iconzu69', fontsize: '14px', color: '#fff'}, bgc: '#226AD5', label: '隐患排查治理', link: '/home/strain3/institu6', lefticon: 'fa-angle-down', children: [
         {item: {label: '隐患排查治理状况', bgc: '#D1E0F7', ftcolor: '#4F88DE'}, link: '', isHas: true},
         {item: {label: '隐患排查治理制度', bgc: '#fff', ftcolor: '#8E8E8E'}, link: '', isHas: true},
         {item: {label: '隐患排查', bgc: '#fff', ftcolor: '#8E8E8E'}, link: '', isHas: true},
@@ -75,7 +75,7 @@ export class SidebarComponent implements OnInit {
       ]
     },
     {
-      icon: {class: 'iconzu106', fontsize: '16px', color: '#fff'}, bgc: '#226AD5', label: '职业健康管理', link: '/home/strain/institu7', lefticon: 'fa-angle-down', children: [
+      icon: {class: 'iconzu106', fontsize: '16px', color: '#fff'}, bgc: '#226AD5', label: '职业健康管理', link: '/home/strain2/institu7', lefticon: 'fa-angle-down', children: [
         {item: {label: '职业健康规章制度', bgc: '#D1E0F7', ftcolor: '#4F88DE'}, link: '', isHas: true},
         {item: {label: '职业健康台账管理', bgc: '#fff', ftcolor: '#8E8E8E'}, link: '', isHas: true},
         {item: {label: '职业病危害项目申报', bgc: '#fff', ftcolor: '#8E8E8E'}, link: '', isHas: true},
@@ -88,7 +88,7 @@ export class SidebarComponent implements OnInit {
       bgc: '#226AD5',
       label: '一岗双责管理',
       lefticon: 'fa-angle-down',
-       link: '/home/strain/institu3',
+       link: '/home/strain1/institu3',
       children: [
         {item: {label: '一岗双责管理制度', bgc: '#D1E0F7', ftcolor: '#4F88DE'}, link: '', isHas: true},
         {item: {label: '一岗双责责任清单制定', bgc: '#fff', ftcolor: '#8E8E8E'}, link: '', isHas: true},
@@ -101,14 +101,14 @@ export class SidebarComponent implements OnInit {
       bgc: '#226AD5',
       label: '制度管理',
       lefticon: 'fa-angle-down',
-      link: '/home/strain/institu4',
+      link: '/home/strain2/institu4',
       children: [
         {item: {label: '企业规章制度', bgc: '#D1E0F7', ftcolor: '#4F88DE'}, link: '', isHas: true},
         {item: {label: '企业规章制度管理', bgc: '#fff', ftcolor: '#8E8E8E'}, link: '', isHas: true},
       ]
     },
     {
-      icon: {class: 'iconlujing331', fontsize: '16px', color: '#fff'}, bgc: '#226AD5', label: '综合信息', lefticon: 'fa-angle-down', link: '/home/strain/institu5', children: [
+      icon: {class: 'iconlujing331', fontsize: '16px', color: '#fff'}, bgc: '#226AD5', label: '综合信息', lefticon: 'fa-angle-down', link: '/home/strain2/institu5', children: [
         {item: {label: '信息公告栏', bgc: '#D1E0F7', ftcolor: '#4F88DE'}, link: '', isHas: true},
         {item: {label: '生产调度信息展示', bgc: '#fff', ftcolor: '#8E8E8E'}, link: '', isHas: true},
         {item: {label: '公共信息发布', bgc: '#fff', ftcolor: '#8E8E8E'}, link: '', isHas: true},
@@ -168,6 +168,41 @@ export class SidebarComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.fistItem.forEach(val => {
+       if (this.router.url.lastIndexOf('./') === 5) {
+         if (val.link === this.router.url) {
+           // console.log(val.link.slice(0,  val.link.lastIndexOf('/')));
+           val.bgc = '#4E88DE';
+           val.icon.color = '#FCCF4F';
+         } else {
+           val.icon.color = '#fff';
+           val.bgc = '#226AD5';
+         }
+       } else {
+         if (val.link.slice(0,   val.link.lastIndexOf('/')) === this.router.url.slice(0 , this.router.url.lastIndexOf('/'))) {
+           // console.log(val.link.slice(0,  val.link.lastIndexOf('/')));
+           val.bgc = '#4E88DE';
+           val.icon.color = '#FCCF4F';
+           this.secItem = val.children;
+           this.setBodyMarginLeft(val.label);
+           this.secItem.forEach(res => {
+             if(res.link.length > 0 ) {
+               if (res.link.slice(res.link.lastIndexOf('/'), res.link.length) === this.router.url.slice(this.router.url.lastIndexOf('/'), this.router.url.length)) {
+                 res.item.bgc = '#D1E0F7';
+                 res.item.ftcolor = '#4F88DE';
+               } else {
+                 res.item.bgc = '#fff';
+                 res.item.ftcolor = '#8E8E8E';
+               }
+             }
+           });
+           // val.children.forEach(v)
+         } else {
+           val.icon.color = '#fff';
+           val.bgc = '#226AD5';
+         }
+       }
+    });
     this.isSetBar = this.localSrv.get('isSetBar');
     if (this.isSetBar !== 'true') {
       this.barItem = this.fistItem;

@@ -8,11 +8,12 @@ import { Component, OnInit } from '@angular/core';
 export class StDemandComponent implements OnInit {
 
   public tabitem = [
-    {item: {label: '日常需求填报', ftcolor: '#4F88DE', bgc: '#4F88DE'}, link: 'report'},
-    {item: {label: '特种人员取证/复审培训', ftcolor: '#B3B3B3', bgc: '#EDEDED'}, link: 'review'},
-    {item: {label: '主要负责人/安全生产管理员', ftcolor: '#B3B3B3', bgc: '#EDEDED'}, link: 'principal'},
-    {item: {label: '历史教育需求记录', ftcolor: '#B3B3B3', bgc: '#EDEDED'},  link: 'record'},
+    {item: {label: '日常需求填报', ftcolor: '#4F88DE', bgc: '#4F88DE'}, simbol: 'report'},
+    {item: {label: '特种人员取证/复审培训', ftcolor: '#B3B3B3', bgc: '#EDEDED'}, simbol: 'review'},
+    {item: {label: '主要负责人/安全生产管理员', ftcolor: '#B3B3B3', bgc: '#EDEDED'}, simbol: 'principal'},
+    {item: {label: '历史教育需求记录', ftcolor: '#B3B3B3', bgc: '#EDEDED'},  simbol: 'record'},
   ];
+  public simbol = 'report';
   constructor() { }
 
   ngOnInit() {
@@ -25,5 +26,6 @@ export class StDemandComponent implements OnInit {
       });
       item.item.ftcolor = '#4F88DE';
       item.item.bgc = '#4F88DE';
+      this.simbol = item.simbol;
   }
 }
