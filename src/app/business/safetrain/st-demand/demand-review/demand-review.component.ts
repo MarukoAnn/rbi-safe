@@ -12,6 +12,10 @@ export class DemandReviewComponent implements OnInit {
   public reviewSelect: any;
   public optionTable: any;
   public themeSub: Subscription;
+  public pageOption = {
+    row: 10,
+    totalPage: 50
+  };
   public data = [
     {id: 1, type: '日常培训', content: '厂规', unit: '矿业公司', subtime: '2020.5.12', time: '2020.5.12' },
     {id: 2, type: '安全生产管理', content: '复审', unit: '安全环保局', subtime: '2020.5.12', time: '2020.5.12' },

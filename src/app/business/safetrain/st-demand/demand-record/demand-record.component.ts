@@ -11,6 +11,10 @@ export class DemandRecordComponent implements OnInit {
 
   public recordSelect: any;
   public optionTable: any;
+  public pageOption = {
+    row: 10,
+    totalPage: 50
+  };
   public themeSub: Subscription;
   public data = [
     {id: 1, type: '日常培训', content: '厂规', unit: '矿业公司', subtime: '2020.5.12', time: '2020.5.12' },
@@ -55,6 +59,7 @@ export class DemandRecordComponent implements OnInit {
   public  setTableOption(data1): void {
     this.optionTable = {
       width: '100%',
+      height: '50vh',
       header: {
         data:  [
           {field: 'id', header: '序号'},

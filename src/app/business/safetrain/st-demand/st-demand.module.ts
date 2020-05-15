@@ -14,6 +14,7 @@ import {ButtonModule} from 'primeng/button';
 import {BfTableBtnComponent} from '../../../common/components/basic-table/bf-table-btn/bf-table-btn.component';
 import {TableModule} from 'primeng/table';
 import {CheckTableBtnComponent} from '../../../common/components/basic-table/check-table-btn/check-table-btn.component';
+import {PaginationModule} from '../../../common/components/pagination/pagination.module';
 
 
 @NgModule({
@@ -36,7 +37,8 @@ import {CheckTableBtnComponent} from '../../../common/components/basic-table/che
     InputTextModule,
     ButtonModule,
     FormsModule,
-    TableModule
+    TableModule,
+    PaginationModule
   ]
 })
 export class StDemandModule { }

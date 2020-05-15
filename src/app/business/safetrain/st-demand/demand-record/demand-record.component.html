@@ -11,4 +11,7 @@
     <div class="demand-record-table">
       <app-bf-table-btn [select]="recordSelect"  [option]="optionTable" (detail)="DetailClick($event)"></app-bf-table-btn>
     </div>
+    <div class="demand-record-pagination">
+      <app-pagination [option]="pageOption"></app-pagination>
+    </div>
 </div>

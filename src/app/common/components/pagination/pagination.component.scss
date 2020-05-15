@@ -1,0 +1,17 @@
+.paginator {
+  ::ng-deep .ui-paginator{
+    background: #FFFFFF;
+    border: 0;
+    color: #DFE0E4;
+  }
+  ::ng-deep .ui-paginator .ui-paginator-pages .ui-paginator-page.ui-state-active{
+    background: #3B86FF;
+    border-radius: 6px;
+  }
+  ::ng-deep .ui-paginator-pages .ui-paginator-page{
+    color: #AAABB0;
+  }
+  ::ng-deep .ui-paginator .ui-paginator-icon{
+    color: #AAABB0;
+  }
+}

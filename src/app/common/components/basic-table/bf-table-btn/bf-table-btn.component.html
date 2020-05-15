@@ -1,7 +1,7 @@
 <div class="check-table-btn" *ngIf="option">
   <!--有按钮的-->
   <div *ngIf="option.type === 1">
-    <p-table [columns]="option.header.data" [value]="option.Content.data"  [scrollable]="true"   scrollHeight="50vh"  [style]="{'width':  option?.width}"  [(selection)]="select"  (onRowSelect)="selectClick($event)"  (onRowUnselect)="noSelectClick($event)">
+    <p-table [columns]="option.header.data" [value]="option.Content.data"  [scrollable]="true"   [scrollHeight]="option.height"  [style]="{'width':  option?.width}"  [(selection)]="select"  (onRowSelect)="selectClick($event)"  (onRowUnselect)="noSelectClick($event)">
       <ng-template pTemplate="header" let-columns>
         <tr>
           <th *ngFor="let col of columns"  [ngStyle]="option.header.style">
@@ -24,7 +24,7 @@
   </div>
   <!--有按钮的-->
   <div *ngIf="option.type === 2">
-    <p-table [columns]="option.header.data" [value]="option.Content.data"  [scrollable]="true"   scrollHeight="50vh"  [style]="{'width':  option?.width}"  [(selection)]="select"  (onRowSelect)="selectClick($event)"  (onRowUnselect)="noSelectClick($event)">
+    <p-table [columns]="option.header.data" [value]="option.Content.data"  [scrollable]="true"  [scrollHeight]="option.height"  [style]="{'width':  option?.width}"  [(selection)]="select"  (onRowSelect)="selectClick($event)"  (onRowUnselect)="noSelectClick($event)">
       <ng-template pTemplate="header" let-columns>
         <tr>
           <th *ngFor="let col of columns"  [ngStyle]="option.header.style">

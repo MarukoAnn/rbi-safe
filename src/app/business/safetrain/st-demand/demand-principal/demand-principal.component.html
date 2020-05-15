@@ -17,4 +17,7 @@
   <div class="demand-principal-table">
     <app-check-table-btn [select]="principalSelect"   (selectData)="selectData($event)" [option]="optionTable" (detail)="DetailClick($event)"></app-check-table-btn>
   </div>
+  <div class="demand-principal-pagination">
+    <app-pagination [option]="pageOption"></app-pagination>
+  </div>
 </div>

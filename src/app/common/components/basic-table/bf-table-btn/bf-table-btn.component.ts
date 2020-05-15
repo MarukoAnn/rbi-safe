@@ -11,6 +11,7 @@ export class BfTableBtnComponent implements OnInit, OnChanges {
   @Input()
   public option: {
     width: any;
+    height: any;
     header: {
       data: any;
       style: any;

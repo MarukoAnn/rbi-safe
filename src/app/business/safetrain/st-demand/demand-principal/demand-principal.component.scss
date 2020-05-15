@@ -33,6 +33,11 @@
   .demand-principal-table{
     margin-top: 2vh;
   }
+  .demand-principal-pagination {
+    position: absolute;
+    bottom: 8vh;
+    right: 4vw;
+  }
   ::ng-deep .ui-inputgroup .ui-widget {
     border-radius: 20px;
     color: #8D8E96;
@@ -41,10 +46,10 @@
     border: 1px solid #F0F0F0;
     background: #F8F8F8;
   }
-  ::ng-deep .pi {
+  ::ng-deep .ui-button .pi {
     font-size: 0.8rem;
   }
-  ::ng-deep .ui-button-icon-left{
+  ::ng-deep .ui-button .ui-button-icon-left{
     margin-left: 0.5vw;
     top: 51%;
   }

@@ -11,6 +11,7 @@ import {InputTextModule} from 'primeng/inputtext';
 import {ButtonModule} from 'primeng/button';
 import {ScrollPanelModule} from 'primeng/primeng';
 import {StDemandModule} from './st-demand/st-demand.module';
+import {PaginationModule} from '../../common/components/pagination/pagination.module';
 
 
 @NgModule({
@@ -26,7 +27,9 @@ import {StDemandModule} from './st-demand/st-demand.module';
     InputTextModule,
     ButtonModule,
     ScrollPanelModule,
-    StDemandModule
+    StDemandModule,
+    PaginationModule
+
   ]
 })
 export class SafetrainModule { }

@@ -17,4 +17,7 @@
   <div class="demand-review-table">
     <app-check-table-btn [select]="reviewSelect"   (selectData)="selectData($event)" [option]="optionTable" (detail)="DetailClick($event)"></app-check-table-btn>
   </div>
+  <div class="demand-review-pagination">
+    <app-pagination [option]="pageOption"></app-pagination>
+  </div>
 </div>

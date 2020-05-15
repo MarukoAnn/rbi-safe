@@ -11,18 +11,29 @@ export class StPlainComponent implements OnInit {
 
   public plainSelect: any;
   public optionTable: any;
+  public optionTable1: any;
+  public pageOption = {
+    row: 10,
+    totalPage: 50
+  };
   public data = [
     {id: 1, type: '日常培训', content: '厂规', unit: '矿业公司', subtime: '2020.5.12', time: '2020.5.12' },
     {id: 1, type: '日常培训', content: '厂规', unit: '矿业公司', subtime: '2020.5.12', time: '2020.5.12' },
-    // {id: 1, type: '日常培训', content: '厂规', unit: '矿业公司', subtime: '2020.5.12', time: '2020.5.12' },
     {id: 1, type: '日常培训', content: '厂规', unit: '矿业公司', subtime: '2020.5.12', time: '2020.5.12' },
+    {id: 1, type: '日常培训', content: '厂规', unit: '矿业公司', subtime: '2020.5.12', time: '2020.5.12' },
+    {id: 1, type: '日常培训', content: '厂规', unit: '矿业公司', subtime: '2020.5.12', time: '2020.5.12' },
+    {id: 1, type: '日常培训', content: '厂规', unit: '矿业公司', subtime: '2020.5.12', time: '2020.5.12' },
+    {id: 1, type: '日常培训', content: '厂规', unit: '矿业公司', subtime: '2020.5.12', time: '2020.5.12' },
+    {id: 1, type: '日常培训', content: '厂规', unit: '矿业公司', subtime: '2020.5.12', time: '2020.5.12' },
+    // {id: 1, type: '日常培训', content: '厂规', unit: '矿业公司', subtime: '2020.5.12', time: '2020.5.12' },
+    // {id: 1, type: '日常培训', content: '厂规', unit: '矿业公司', subtime: '2020.5.12', time: '2020.5.12' },
 
   ];
   public table = {
     tableheader: {background: '#F5F6FA', color: '#C3C3C5'},
     tableContent: [
       {background: '#FFFFFF', color: '#9899A0'}],
-    detailBtn: '#FFC06A'
+    detailBtn: ['#FFC06A', '#3B86FF']
   };
   public themeSub: Subscription;
   constructor(
@@ -34,6 +45,7 @@ export class StPlainComponent implements OnInit {
         this.table.tableContent = value.table.content;
         this.table.detailBtn = value.table.detailBtn;
         this.setTableOption(this.data);
+        this.setTableOption2(this.data);
       }
     );
   }
@@ -63,12 +75,12 @@ export class StPlainComponent implements OnInit {
         styleone: {background: this.table.tableContent[0].background, color: this.table.tableContent[0].color, textAlign: 'center', height: '3vw'},
       },
       type: 2,
-      tableList:  [{label: '编辑', color: this.table.detailBtn}]
+      tableList:  [{label: '编辑', color: this.table.detailBtn[0]}]
     };
   }
   // set table data （设置列表数据）
   public  setTableOption2(data1): void {
-    this.optionTable = {
+    this.optionTable1 = {
       width: '100%',
       header: {
         data:  [
@@ -87,7 +99,7 @@ export class StPlainComponent implements OnInit {
         styleone: {background: this.table.tableContent[0].background, color: this.table.tableContent[0].color, textAlign: 'center', height: '3vw'},
       },
       type: 1,
-      tableList:  [{label: '编辑', color: this.table.detailBtn}]
+      tableList:  [{label: '编辑', color: this.table.detailBtn[1]}]
     };
   }
   public DetailClick(e): void {
