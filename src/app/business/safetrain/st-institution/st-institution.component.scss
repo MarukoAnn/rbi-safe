@@ -30,6 +30,7 @@
     .institution-list {
       box-shadow: 0 0 8px #DEDEDE;
       border-radius: 10px;
+      z-index: -1;
       //border: 2px solid #F7F7F7;
       .institution-item {
         height: 12vh;

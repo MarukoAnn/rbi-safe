@@ -23,17 +23,10 @@
     background: var(--table-detail);
     cursor:pointer;
   }
-  //.check-table-btn-detail:hover{
-  //  background: #50588E;
-  //}
   ::ng-deep .ui-table-scrollable-body::-webkit-scrollbar {
     display: inline;
     //position: absolute;
   }
-  //::ng-deep .ui-table .ui-table-scrollable-body-table{
-  //  padding-right: 10vw;
-  //  //background: #3A7ADF;
-  //}
   ::ng-deep .ui-table .ui-table-thead>tr >th{
    border: 0;
 
