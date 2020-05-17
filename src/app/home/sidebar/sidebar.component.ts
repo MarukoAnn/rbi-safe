@@ -125,36 +125,44 @@ export class SidebarComponent implements OnInit {
       link: '/home/main'
     },
     {
-      icon: {class: 'iconicon_home', fontsize: '16px', color: '#fff'},
+      icon: {class: '', fontsize: '16px', color: '#fff'},
       bgc: '#226AD5',
       label: '用户管理',
       lefticon: '',
       children: [],
-      link: '/home/main1'
+      link: '/home/seting/user'
     },
     {
-      icon: {class: 'iconicon_home', fontsize: '16px',  color: '#fff'},
+      icon: {class: '', fontsize: '16px',  color: '#fff'},
       bgc: '#226AD5',
       label: '权限管理',
       lefticon: '',
       children: [],
-      link: '/home/main2'
+      link: '/home/seting/limit'
     },
     {
-      icon: {class: 'iconicon_home', fontsize: '16px', color: '#fff'},
+      icon: {class: '', fontsize: '16px', color: '#fff'},
       bgc: '#226AD5',
       label: '角色管理',
       lefticon: '',
       children: [],
-      link: '/home/main3'
+      link: '/home/seting/role'
     },
     {
-      icon: {class: 'iconicon_home', fontsize: '16px',  color: '#fff'},
+      icon: {class: '', fontsize: '16px',  color: '#fff'},
       bgc: '#226AD5',
       label: '公司管理',
       lefticon: '',
       children: [],
-      link: '/home/main4'
+      link: '/home/seting/orgazition'
+    },
+    {
+      icon: {class: '', fontsize: '16px',  color: '#fff'},
+      bgc: '#226AD5',
+      label: '公司人员管理',
+      lefticon: '',
+      children: [],
+      link: '/home/seting/personnel'
     },
   ];
   public isSetBar: any;
@@ -168,55 +176,23 @@ export class SidebarComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.fistItem.forEach(val => {
-       if (this.router.url.lastIndexOf('./') === 5) {
-         if (val.link === this.router.url) {
-           // console.log(val.link.slice(0,  val.link.lastIndexOf('/')));
-           val.bgc = '#4E88DE';
-           val.icon.color = '#FCCF4F';
-         } else {
-           val.icon.color = '#fff';
-           val.bgc = '#226AD5';
-         }
-       } else {
-         if (val.link.slice(0,   val.link.lastIndexOf('/')) === this.router.url.slice(0 , this.router.url.lastIndexOf('/'))) {
-           // console.log(val.link.slice(0,  val.link.lastIndexOf('/')));
-           val.bgc = '#4E88DE';
-           val.icon.color = '#FCCF4F';
-           this.secItem = val.children;
-           this.setBodyMarginLeft(val.label);
-           this.secItem.forEach(res => {
-             if(res.link.length > 0 ) {
-               if (res.link.slice(res.link.lastIndexOf('/'), res.link.length) === this.router.url.slice(this.router.url.lastIndexOf('/'), this.router.url.length)) {
-                 res.item.bgc = '#D1E0F7';
-                 res.item.ftcolor = '#4F88DE';
-               } else {
-                 res.item.bgc = '#fff';
-                 res.item.ftcolor = '#8E8E8E';
-               }
-             }
-           });
-           // val.children.forEach(v)
-         } else {
-           val.icon.color = '#fff';
-           val.bgc = '#226AD5';
-         }
-       }
-    });
     this.isSetBar = this.localSrv.get('isSetBar');
     if (this.isSetBar !== 'true') {
       this.barItem = this.fistItem;
     } else {
       this.barItem = this.setItem;
     }
+    this.keetRouterStatus();
   }
   // 一级导航点击事件
   public firItemClick(item): void {
-    this.fistItem.forEach(val => {
+    this.barItem.forEach(val => {
       val.icon.color = '#fff';
       val.bgc = '#226AD5';
       if (val.label !== '首页') {
-        val.lefticon = 'fa-angle-down';
+        if ( this.barItem === this.fistItem) {
+          val.lefticon = 'fa-angle-down';
+        }
       } else {
         val.lefticon = '';
       }
@@ -224,25 +200,48 @@ export class SidebarComponent implements OnInit {
     item.icon.color = '#FCCF4F';
     item.bgc = '#4E88DE';
     if (item.label !== '首页') {
-      item.lefticon = 'fa-angle-right';
+      if ( this.barItem === this.fistItem) {
+        item.lefticon = 'fa-angle-right';
+      }
     }
     if (this.isSetBar !== 'true') {
-      this.setBodyMarginLeft(item.label);
+      this.setBodyMarginLeft(item.children);
       this.secItem = item.children;
     } else {
       if (item.label === '首页') {
         this.isSetBar = 'false';
-        this.fistItem[0].bgc = '#4E88DE';
-        this.fistItem[0].icon.color = '#FCCF4F';
+        // this.fistItem[0].bgc = '#4E88DE';
+        // this.fistItem[0].icon.color = '#FCCF4F';
+        this.fistItem.forEach((value, index) => {
+          if (index !== 0) {
+            value.icon.color = '#fff';
+            value.bgc = '#226AD5';
+            value.lefticon = 'fa-angle-down';
+            value.children.forEach((val, flog) => {
+              if (flog !== 0) {
+                val.item.bgc = '#fff';
+                val.item.ftcolor = '#8E8E8E';
+              } else {
+                val.item.bgc = '#D1E0F7';
+                val.item.ftcolor = '#4F88DE';
+              }
+            });
+          } else {
+            value.icon.color = '#FCCF4F';
+            value.bgc = '#4E88DE';
+
+          }
+        });
         this.barItem = this.fistItem;
+        // this.keetRouterStatus();
         this.localSrv.set('isSetBar', 'false');
       }
     }
   }
 
   // 设置中间内容离左边
-  public setBodyMarginLeft(label): void {
-    if (label === '首页') {
+  public setBodyMarginLeft(item): void {
+    if (item.length === 0) {
       if (this.firWidth === 3) {
         this.outWith.emit(3);
       } else {
@@ -267,14 +266,79 @@ export class SidebarComponent implements OnInit {
       item.item.ftcolor = '#4F88DE';
   }
 
-  // 路由切换
-  public  routerLinkClick(item): void {
-      // console.log(item.link);
-      this.router.navigate([item.link]);
-  }
+  // // 路由切换
+  // public  routerLinkClick(item): void {
+  //     // console.log(item.link);
+  //     this.router.navigate([item.link]);
+  // }
 
   public  changeBar(): void {
       this.barItem = this.setItem;
       this.secItem = [];
+      this.setBodyMarginLeft(this.secItem );
+      this.router.navigate(['/home/main']);
+  }
+
+  public  keetRouterStatus(): void {
+    if (this.barItem === this.fistItem) {
+      this.barItem.forEach(val => {
+        if (this.router.url.lastIndexOf('/') === 5) {
+          if (val.link === this.router.url) {
+            // console.log(val.link.slice(0,  val.link.lastIndexOf('/')));
+            val.bgc = '#4E88DE';
+            val.icon.color = '#FCCF4F';
+          } else {
+            val.icon.color = '#fff';
+            val.bgc = '#226AD5';
+          }
+        } else {
+          if (val.link.slice(0,   val.link.lastIndexOf('/')) === this.router.url.slice(0 , this.router.url.lastIndexOf('/'))) {
+            // console.log(val.link.slice(0,  val.link.lastIndexOf('/')));
+            val.bgc = '#4E88DE';
+            val.icon.color = '#FCCF4F';
+            this.secItem = val.children;
+            this.setBodyMarginLeft(val.children);
+            this.secItem.forEach(res => {
+              if (res.link.length > 0 ) {
+                if (res.link.slice(res.link.lastIndexOf('/'), res.link.length) === this.router.url.slice(this.router.url.lastIndexOf('/'), this.router.url.length)) {
+                  res.item.bgc = '#D1E0F7';
+                  res.item.ftcolor = '#4F88DE';
+                } else {
+                  res.item.bgc = '#fff';
+                  res.item.ftcolor = '#8E8E8E';
+                }
+              }
+            });
+            // val.children.forEach(v)
+          } else {
+            val.icon.color = '#fff';
+            val.bgc = '#226AD5';
+          }
+        }
+      });
+    } else {
+      this.barItem.forEach(val => {
+        if (this.router.url.lastIndexOf('/') === 5) {
+          if (val.link === this.router.url) {
+            // console.log(val.link.slice(0,  val.link.lastIndexOf('/')));
+            val.bgc = '#4E88DE';
+            val.icon.color = '#FCCF4F';
+          } else {
+            val.icon.color = '#fff';
+            val.bgc = '#226AD5';
+          }
+        } else {
+          if (val.link.slice(val.link.lastIndexOf('/'), val.link.length) === this.router.url.slice( this.router.url.lastIndexOf('/'), this.router.url.length)) {
+            val.bgc = '#4E88DE';
+            val.icon.color = '#FCCF4F';
+            this.secItem = val.children;
+            this.setBodyMarginLeft(val.children);
+          } else {
+            val.icon.color = '#fff';
+            val.bgc = '#226AD5';
+          }
+        }
+      });
+    }
   }
 }

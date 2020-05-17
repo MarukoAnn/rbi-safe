@@ -99,7 +99,7 @@ export class StPlainComponent implements OnInit {
         styleone: {background: this.table.tableContent[0].background, color: this.table.tableContent[0].color, textAlign: 'center', height: '3vw'},
       },
       type: 1,
-      tableList:  [{label: '编辑', color: this.table.detailBtn[1]}]
+      tableList:  [{label: '详情', color: this.table.detailBtn[1]}]
     };
   }
   public DetailClick(e): void {

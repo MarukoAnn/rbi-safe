@@ -11,10 +11,9 @@ import {DropdownModule} from 'primeng/dropdown';
 import {InputTextModule} from 'primeng/inputtext';
 import {FormsModule} from '@angular/forms';
 import {ButtonModule} from 'primeng/button';
-import {BfTableBtnComponent} from '../../../common/components/basic-table/bf-table-btn/bf-table-btn.component';
 import {TableModule} from 'primeng/table';
-import {CheckTableBtnComponent} from '../../../common/components/basic-table/check-table-btn/check-table-btn.component';
 import {PaginationModule} from '../../../common/components/pagination/pagination.module';
+import {BasicTableModule} from '../../../common/components/basic-table/basic-table.module';
 
 
 @NgModule({
@@ -24,11 +23,6 @@ import {PaginationModule} from '../../../common/components/pagination/pagination
     DemandReviewComponent,
     DemandPrincipalComponent,
     DemandRecordComponent,
-    BfTableBtnComponent,
-    CheckTableBtnComponent
-  ],
-  exports: [
-    BfTableBtnComponent
   ],
   imports: [
     CommonModule,
@@ -37,8 +31,8 @@ import {PaginationModule} from '../../../common/components/pagination/pagination
     InputTextModule,
     ButtonModule,
     FormsModule,
-    TableModule,
-    PaginationModule
+    PaginationModule,
+    BasicTableModule
   ]
 })
 export class StDemandModule { }

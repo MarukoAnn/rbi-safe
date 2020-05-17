@@ -10,8 +10,8 @@ import { SafeTrainComponent } from './safe-train/safe-train.component';
 import {InputTextModule} from 'primeng/inputtext';
 import {ButtonModule} from 'primeng/button';
 import {ScrollPanelModule} from 'primeng/primeng';
-import {StDemandModule} from './st-demand/st-demand.module';
 import {PaginationModule} from '../../common/components/pagination/pagination.module';
+import {BasicTableModule} from '../../common/components/basic-table/basic-table.module';
 
 
 @NgModule({
@@ -27,9 +27,8 @@ import {PaginationModule} from '../../common/components/pagination/pagination.mo
     InputTextModule,
     ButtonModule,
     ScrollPanelModule,
-    StDemandModule,
-    PaginationModule
-
+    PaginationModule,
+    BasicTableModule
   ]
 })
 export class SafetrainModule { }

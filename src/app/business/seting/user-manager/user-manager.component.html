@@ -1,0 +1,15 @@
+<div class="user">
+  <div class="tabMenu">
+    <div class="tab-item" *ngFor="let item of tabitem">
+      <a class="item-content" (click)="tabItemClick(item)">
+        <span [ngStyle]="{color: item.item.ftcolor}">{{item.item.label}}</span>
+        <span  [ngStyle]="{background: item.item.bgc}" class="line"></span>
+      </a>
+    </div>
+  </div>
+  <div class="user-body">
+    <!--    <router-outlet></router-outlet>-->
+    <app-personnel-account *ngIf="simbol === 'personnel'"></app-personnel-account>
+    <app-admin-account *ngIf="simbol === 'admin'"></app-admin-account>
+  </div>
+</div>

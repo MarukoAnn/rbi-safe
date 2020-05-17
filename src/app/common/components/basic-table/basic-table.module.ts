@@ -13,12 +13,12 @@ import {ButtonModule} from 'primeng/button';
   imports: [
     CommonModule,
     ScrollPanelModule,
-    TableModule
+    TableModule,
+    ButtonModule
   ],
   exports: [
     BfTableBtnComponent,
     CheckTableBtnComponent,
-    ButtonModule,
-  ]
+  ],
 })
 export class BasicTableModule { }

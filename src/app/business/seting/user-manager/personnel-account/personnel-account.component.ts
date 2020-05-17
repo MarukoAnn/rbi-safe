@@ -1,17 +1,35 @@
 import { Component, OnInit } from '@angular/core';
-import {Subscription} from 'rxjs';
 import {ThemeService} from '../../../../common/public/theme.service';
+import {Subscription} from 'rxjs';
 
 @Component({
-  selector: 'app-demand-review',
-  templateUrl: './demand-review.component.html',
-  styleUrls: ['./demand-review.component.scss']
+  selector: 'app-personnel-account',
+  templateUrl: './personnel-account.component.html',
+  styleUrls: ['./personnel-account.component.scss']
 })
-export class DemandReviewComponent implements OnInit {
+export class PersonnelAccountComponent implements OnInit {
 
-  public reviewSelect: any;
   public optionTable: any;
+  public personnelSelect: any;
+  public table = {
+    tableheader: {background: '#F5F6FA', color: '#C3C3C5'},
+    tableContent: [
+      {background: '#FFFFFF', color: '#9899A0'}],
+    detailBtn: '#3B86FF'
+  };
   public themeSub: Subscription;
+  constructor(
+    private themeSrv: ThemeService
+  ) {
+    this.themeSub =  this.themeSrv.changeEmitted$.subscribe(
+      value => {
+        this.table.tableheader = value.table.header;
+        this.table.tableContent = value.table.content;
+        this.table.detailBtn = value.table.detailBtn;
+        this.setTableOption(this.data);
+      }
+    );
+  }
   public pageOption = {
     row: 10,
     totalPage: 50
@@ -29,27 +47,16 @@ export class DemandReviewComponent implements OnInit {
     {id: 3, type: '特种人员培训', content: '复审', unit: '安全环保局', subtime: '2020.5.12', time: '2020.5.12' },
     {id: 3, type: '特种人员培训', content: '复审', unit: '安全环保局', subtime: '2020.5.12', time: '2020.5.12' },
   ];
-  public table = {
-    tableheader: {background: '#F5F6FA', color: '#C3C3C5'},
-    tableContent: [
-      {background: '#FFFFFF', color: '#9899A0'}],
-    detailBtn: ['#3B86FF']
-  };
-  constructor(
-    private themeSrv: ThemeService
-  ) {
-    this.themeSub =  this.themeSrv.changeEmitted$.subscribe(
-      value => {
-        this.table.tableheader = value.table.header;
-        this.table.tableContent = value.table.content;
-        this.table.detailBtn = value.table.detailBtn;
-        this.setTableOption(this.data);
-      }
-    );
-  }
 
   ngOnInit() {
     this.setTableOption(this.data);
+  }
+
+  public  selectData(e): void {
+      this.personnelSelect = e;
+  }
+  public  DetailClick(e): void {
+      console.log(e);
   }
   // set table data （设置列表数据）
   public  setTableOption(data1): void {
@@ -72,13 +79,7 @@ export class DemandReviewComponent implements OnInit {
         styleone: {background: this.table.tableContent[0].background, color: this.table.tableContent[0].color, textAlign: 'center', height: '3vw'},
       },
       type: 2,
-      tableList:  [{label: '完成审核', color: this.table.detailBtn[0]}]
+      tableList:  [{label: '完成审核', color: this.table.detailBtn}]
     };
-  }
-  public selectData(e): void {
-      this.reviewSelect = e;
-  }
-  public  DetailClick(e): void {
-      console.log(e);
   }
 }
