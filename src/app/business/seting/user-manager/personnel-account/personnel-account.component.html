@@ -1,10 +1,10 @@
 <div class="personnel-account">
    <div class="personnel-account-header">
      <div class="personnel-account-search">
-       <div class="ui-inputgroup">
+       <div class="ui-inputgroup" >
          <input type="text" pInputText  placeholder="搜索"/>
+         <button pButton type="button" icon="pi pi-search" class="ui-button-warn" (click)="searchDataClick()"></button>
        </div>
-       <i class="fa fa-search" style="position: absolute;margin-top: -2.5vh;margin-left: 7.5vw;color: #ABABAB;"></i>
      </div>
      <div class="personnel-account-button">
        <button pButton type="button" label="添加人员" class="ui-button-rounded"></button>
@@ -15,6 +15,6 @@
      <app-check-table-btn [select]="personnelSelect"   (selectData)="selectData($event)" [option]="optionTable" (detail)="DetailClick($event)"></app-check-table-btn>
    </div>
   <div class="personnel-account-pagination">
-    <app-pagination [option]="pageOption"></app-pagination>
+    <app-pagination [option]="pageOption" (clickEvent)="clickEvent($event)"></app-pagination>
   </div>
 </div>

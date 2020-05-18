@@ -11,9 +11,15 @@ import {LimitsManagerComponent} from './limits-manager/limits-manager.component'
 import { PersonnelAccountComponent } from './user-manager/personnel-account/personnel-account.component';
 import { AdminAccountComponent } from './user-manager/admin-account/admin-account.component';
 import {PaginationModule} from '../../common/components/pagination/pagination.module';
-import {InputTextModule} from 'primeng/inputtext';
+import {InputTextModule, } from 'primeng/inputtext';
 import {ButtonModule} from 'primeng/button';
 import {BasicTableModule} from '../../common/components/basic-table/basic-table.module';
+import {DropdownModule} from 'primeng/dropdown';
+import {FormsModule} from '@angular/forms';
+import {ToastModule} from 'primeng/toast';
+import {MessageService} from 'primeng/api';
+import {ConfirmDialogModule} from 'primeng/confirmdialog';
+import {BasicDialogModule} from '../../common/components/basic-dialog/basic-dialog.module';
 
 @NgModule({
   declarations: [
@@ -32,7 +38,13 @@ import {BasicTableModule} from '../../common/components/basic-table/basic-table.
     PaginationModule,
     InputTextModule,
     ButtonModule,
-    BasicTableModule
-  ]
+    BasicTableModule,
+    DropdownModule,
+    FormsModule,
+    ToastModule,
+    ConfirmDialogModule,
+    BasicDialogModule
+  ],
+  providers: []
 })
 export class SetingModule { }

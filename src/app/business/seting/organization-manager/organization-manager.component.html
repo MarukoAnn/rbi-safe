@@ -1,1 +1,25 @@
-<p>organization-manager works!</p>
+<div class="organization-manager">
+  <div class="organization-manager-title">
+     <span>
+       组织管理
+     </span>
+  </div>
+  <div class="organization-manager-header">
+    <div class="organization-manager-search">
+      <div class="ui-inputgroup" >
+        <input type="text" pInputText  placeholder="搜索"/>
+        <button pButton type="button" icon="pi pi-search" class="ui-button-warn" (click)="searchDataClick()"></button>
+      </div>
+    </div>
+    <div class="organization-manager-button">
+      <button pButton type="button" label="添加组织" class="ui-button-rounded"></button>
+      <button pButton type="button" label="批量删除" class="ui-button-rounded"></button>
+    </div>
+  </div>
+  <div class="organization-manager-table">
+    <app-check-table-btn [select]="orgazitionSelect"   (selectData)="selectData($event)" [option]="optionTable" (detail)="DetailClick($event)"></app-check-table-btn>
+  </div>
+  <div class="organization-manager-pagination">
+    <app-pagination [option]="pageOption" (clickEvent)="clickEvent($event)"></app-pagination>
+  </div>
+</div>

@@ -125,7 +125,7 @@ export class SidebarComponent implements OnInit {
       link: '/home/main'
     },
     {
-      icon: {class: '', fontsize: '16px', color: '#fff'},
+      icon: {class: 'iconoutline-account_circle-24px', fontsize: '20px', color: '#fff'},
       bgc: '#226AD5',
       label: '用户管理',
       lefticon: '',
@@ -133,7 +133,7 @@ export class SidebarComponent implements OnInit {
       link: '/home/seting/user'
     },
     {
-      icon: {class: '', fontsize: '16px',  color: '#fff'},
+      icon: {class: 'iconoutline-https-24px', fontsize: '20px',  color: '#fff'},
       bgc: '#226AD5',
       label: '权限管理',
       lefticon: '',
@@ -141,7 +141,7 @@ export class SidebarComponent implements OnInit {
       link: '/home/seting/limit'
     },
     {
-      icon: {class: '', fontsize: '16px', color: '#fff'},
+      icon: {class: 'iconoutline-supervised_user_circle-24px', fontsize: '20px', color: '#fff'},
       bgc: '#226AD5',
       label: '角色管理',
       lefticon: '',
@@ -151,13 +151,13 @@ export class SidebarComponent implements OnInit {
     {
       icon: {class: '', fontsize: '16px',  color: '#fff'},
       bgc: '#226AD5',
-      label: '公司管理',
+      label: '组织管理',
       lefticon: '',
       children: [],
       link: '/home/seting/orgazition'
     },
     {
-      icon: {class: '', fontsize: '16px',  color: '#fff'},
+      icon: {class: 'iconoutline-contacts-24px', fontsize: '18px',  color: '#fff'},
       bgc: '#226AD5',
       label: '公司人员管理',
       lefticon: '',

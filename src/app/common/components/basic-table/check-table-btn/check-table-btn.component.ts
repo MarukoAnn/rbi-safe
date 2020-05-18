@@ -24,7 +24,7 @@ export class CheckTableBtnComponent implements OnInit, OnChanges {
     tableList?: TableeBtn[];
   };
   @Output()
-  public detail = new EventEmitter<number>();
+  public detail = new EventEmitter<any>();
   @Output()
   public selectData =  new EventEmitter<number>();
   @Input()
@@ -35,9 +35,9 @@ export class CheckTableBtnComponent implements OnInit, OnChanges {
   }
   ngOnChanges(changes: SimpleChanges): void {
   }
-  public  DetailClick(e): void {
+  public  DetailClick(e, value): void {
     // console.log(e);
-    this.detail.emit(e);
+    this.detail.emit({label: value, data: e});
   }
   // select Data
   public  selectClick(e): void {

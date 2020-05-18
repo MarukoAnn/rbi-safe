@@ -6,6 +6,55 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "14769287",
+      "name": "outline-supervised_user_circle-24px",
+      "font_class": "outline-supervised_user_circle-24px",
+      "unicode": "e611",
+      "unicode_decimal": 58897
+    },
+    {
+      "icon_id": "14769288",
+      "name": "outline-account_circle-24px",
+      "font_class": "outline-account_circle-24px",
+      "unicode": "e612",
+      "unicode_decimal": 58898
+    },
+    {
+      "icon_id": "14769289",
+      "name": "outline-https-24px",
+      "font_class": "outline-https-24px",
+      "unicode": "e613",
+      "unicode_decimal": 58899
+    },
+    {
+      "icon_id": "14769290",
+      "name": "outline-contacts-24px",
+      "font_class": "outline-contacts-24px",
+      "unicode": "e614",
+      "unicode_decimal": 58900
+    },
+    {
+      "icon_id": "14755198",
+      "name": "baseline-open_in_new-24px",
+      "font_class": "baseline-open_in_new-24px",
+      "unicode": "e610",
+      "unicode_decimal": 58896
+    },
+    {
+      "icon_id": "14752785",
+      "name": "shanchutishi",
+      "font_class": "Icon",
+      "unicode": "e60f",
+      "unicode_decimal": 58895
+    },
+    {
+      "icon_id": "14670287",
+      "name": "组 388",
+      "font_class": "zu388",
+      "unicode": "e60c",
+      "unicode_decimal": 58892
+    },
+    {
       "icon_id": "14663183",
       "name": "组 381",
       "font_class": "zu381",

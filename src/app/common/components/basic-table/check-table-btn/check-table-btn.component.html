@@ -22,7 +22,7 @@
             <span style="word-wrap:break-word">{{rowData[col.field]}}</span>
           </td>
           <td >
-            <button class="check-table-btn-detail" (click)="DetailClick(rowData)" *ngFor="let item of option.tableList" [ngStyle]="{'background': item.color}">{{item.label}}</button>
+            <button class="check-table-btn-detail" (click)="DetailClick(rowData, item.label)" *ngFor="let item of option.tableList" [ngStyle]="{'background': item.color}">{{item.label}}</button>
           </td>
         </tr>
       </ng-template>

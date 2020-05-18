@@ -1,1 +1,30 @@
-<p>personnel-manager works!</p>
+<div class="personnel-manager">
+  <div class="personnel-manager-title">
+     <span>
+       公司人员信息管理
+     </span>
+  </div>
+  <div class="personnel-manager-header">
+    <div class="personnel-manager-search">
+      <p-dropdown [options]="searchTypeOption" [(ngModel)]="selectType" dropdownIcon="pi pi-caret-down" ></p-dropdown>
+      <div class="ui-inputgroup" >
+        <input type="text" pInputText  placeholder="搜索"  [(ngModel)]="needSearchData"/>
+        <button pButton type="button" icon="pi pi-search" class="ui-button-warn" (click)="searchDataClick()"></button>
+      </div>
+    </div>
+    <div class="personnel-manager-button">
+      <button pButton type="button" label="添加人员" class="ui-button-rounded"></button>
+      <button pButton type="button" label="文件导入" class="ui-button-rounded" icon="iconfont iconbaseline-open_in_new-24px" (click)="showUploadFile()"></button>
+      <button pButton type="button" label="批量删除" class="ui-button-rounded" (click)="selectPersonnelDataToDel()"></button>
+    </div>
+  </div>
+  <div class="personnel-manager-table">
+    <app-check-table-btn [select]="personnelSelect"   (selectData)="selectData($event)" [option]="optionTable" (detail)="DetailClick($event)"></app-check-table-btn>
+  </div>
+  <div class="personnel-manager-pagination">
+    <app-pagination [option]="pageOption" (clickEvent)="clickEvent($event)"></app-pagination>
+  </div>
+  <p-toast position="top-center" key="toast"></p-toast>
+  <p-confirmDialog header="Confirmation" acceptLabel="确认" rejectLabel="取消" acceptIcon="" rejectIcon=""></p-confirmDialog>
+  <app-file-pop [UploadFileOption]="UploadFileOption" (event)="uploadPersoonelFile($event)"></app-file-pop>
+</div>
