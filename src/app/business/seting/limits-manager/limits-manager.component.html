@@ -1,0 +1,25 @@
+<div class="limits-manager">
+  <div class="limits-manager-title">
+     <span>
+       权限管理
+     </span>
+  </div>
+  <div class="limits-manager-header">
+    <div class="limits-manager-search">
+      <div class="ui-inputgroup" >
+        <input type="text" pInputText  placeholder="搜索"/>
+        <button pButton type="button" icon="pi pi-search" class="ui-button-warn" (click)="searchDataClick()"></button>
+      </div>
+    </div>
+    <div class="limits-manager-button">
+      <button pButton type="button" label="添加权限" class="ui-button-rounded"></button>
+      <button pButton type="button" label="批量删除" class="ui-button-rounded"></button>
+    </div>
+  </div>
+  <div class="limits-manager-table">
+    <app-check-table-btn [select]="limitSelect"   (selectData)="selectData($event)" [option]="optionTable" (detail)="DetailClick($event)"></app-check-table-btn>
+  </div>
+  <div class="limits-manager-pagination">
+    <app-pagination [option]="pageOption" (clickEvent)="clickEvent($event)"></app-pagination>
+  </div>
+</div>

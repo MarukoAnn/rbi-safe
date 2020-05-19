@@ -1,8 +1,8 @@
 <div class="home">
- <app-header (outer)="SideBarWidth($event)" (outEvent)="getSetBarStatus($event)"></app-header>
-  <app-sidebar [firWidth]="barWith" (outWith)="setBodyMarginLeft($event)" #sidebarComponent></app-sidebar>
-  <div class="home-main" [ngStyle]="{marginLeft: bodyMarginLeft + 'vw'}">
-    <router-outlet></router-outlet>
+ <app-header (outer)="SideBarWidth($event)" (outEvent)="getSetBarStatus($event)"  #headerComponent></app-header>
+  <app-sidebar [firWidth]="barWith" (outWith)="setBodyMarginLeft($event)" #sidebarComponent (click)="show()"></app-sidebar>
+  <div class="home-main" [ngStyle]="{marginLeft: bodyMarginLeft + 'vw'}" (click)="show()">
+    <router-outlet ></router-outlet>
     <!--</div>-->
   </div>
 <!--  <div style="position: absolute;left: 40vw;top: 20vh">-->

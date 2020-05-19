@@ -1,0 +1,328 @@
+<div class="personnel-manager">
+  <div class="personnel-manager-title">
+     <span>
+       公司人员信息管理
+     </span>
+  </div>
+  <div class="personnel-manager-header">
+    <div class="personnel-manager-search">
+      <input type="text" pInputText  placeholder="请选择组织"  [(ngModel)]="orgazitionName" (click)="showOrgazationTree()"/>
+      <p-dropdown [options]="searchTypeOption" [(ngModel)]="selectType" dropdownIcon="pi pi-caret-down" ></p-dropdown>
+      <div class="ui-inputgroup" >
+        <input type="text" pInputText  placeholder="搜索"  [(ngModel)]="needSearchData"/>
+        <button pButton type="button" icon="pi pi-search" class="ui-button-warn" (click)="searchDataClick()"></button>
+      </div>
+    </div>
+    <div class="personnel-manager-button">
+      <button pButton type="button" label="添加人员" class="ui-button-rounded" (click)="addPersonnelClick()"></button>
+      <button pButton type="button" label="文件导入" class="ui-button-rounded" icon="iconfont iconbaseline-open_in_new-24px" (click)="showUploadFile()"></button>
+      <button pButton type="button" label="批量删除" class="ui-button-rounded" (click)="selectPersonnelDataToDel()"></button>
+    </div>
+  </div>
+  <div class="personnel-manager-table">
+    <app-check-table-btn [select]="personnelSelect"   (selectData)="selectData($event)" [option]="optionTable" (detail)="DetailClick($event)"></app-check-table-btn>
+  </div>
+  <div class="personnel-manager-pagination">
+    <app-pagination [option]="pageOption" (clickEvent)="clickEvent($event)"></app-pagination>
+  </div>
+  <p-toast position="top-center" key="toast"></p-toast>
+  <p-confirmDialog header="Confirmation" acceptLabel="取消" rejectLabel="确认选择" acceptIcon="" rejectIcon=""></p-confirmDialog>
+  <app-file-pop [UploadFileOption]="UploadFileOption" (event)="uploadPersoonelFile($event)"></app-file-pop>
+  <p-dialog header="信息添加" [(visible)]="showAddPersionDialog" [style]="{width: '800px'}">
+    <form [formGroup]="addPersonnel">
+      <div class="ui-g ui-md ui-fiuld">
+        <div class="ui-g-6 ui-md-6" style="line-height: 3vh">
+          <div class="ui-g-4 ui-md-4 right">
+            <span style="color: #FF8A9A">*</span>组织：
+          </div>
+          <div class="ui-g-8 ui-md-8 dialog-input">
+            <input pInputText type="text" formControlName="organizationName" placeholder="请选择组织" (click)="showOrgazationTree()"/>
+          </div>
+        </div>
+        <div class="ui-g-6 ui-md-6" style="line-height: 3vh">
+          <div class="ui-g-4 ui-md-4 right">
+            <span style="color: #FF8A9A">*</span>员工号：
+          </div>
+          <div class="ui-g-8 ui-md-8 dialog-input">
+            <input pInputText type="text" formControlName="employeeNumber" placeholder="请输入员工号"/>
+          </div>
+        </div>
+        <div class="ui-g-6 ui-md-6" style="line-height: 3vh;">
+          <div class="ui-g-4 ui-md-4 right">
+            <span style="color: #FF8A9A">*</span>姓名：
+          </div>
+          <div class="ui-g-8 ui-md-8 dialog-input">
+            <input pInputText type="text" formControlName="name" placeholder="请输入员工姓名"/>
+          </div>
+        </div>
+        <div class="ui-g-6 ui-md-6" style="line-height: 3vh">
+          <div class="ui-g-4 ui-md-4 right">
+            <span style="color: #FF8A9A">*</span>性别：
+          </div>
+          <div class="ui-g-8 ui-md-8 dialog-input">
+            <p-radioButton name="groupname" value="男" label="男"  formControlName="gender" [ngStyle]="{marginRight: '2vw'}"></p-radioButton>
+            <p-radioButton name="groupname" value="女" label="女" formControlName="gender"></p-radioButton>
+          </div>
+        </div>
+        <div class="ui-g-6 ui-md-6" style="line-height: 3vh;">
+          <div class="ui-g-4 ui-md-4 right">
+            <span style="color: #FF8A9A">*</span>名族：
+          </div>
+          <div class="ui-g-8 ui-md-8 dialog-input">
+            <input pInputText type="text" formControlName="nation" placeholder="请输入名族"/>
+          </div>
+        </div>
+        <div class="ui-g-6 ui-md-6" style="line-height: 3vh;">
+          <div class="ui-g-4 ui-md-4 right">
+            <span style="color: #FF8A9A">*</span>婚姻状况：
+          </div>
+          <div class="ui-g-8 ui-md-8 dialog-input">
+            <input pInputText type="text" formControlName="maritalStatus" placeholder="请输入婚姻状况"/>
+          </div>
+        </div>
+        <div class="ui-g-6 ui-md-6" style="line-height: 3vh;">
+          <div class="ui-g-4 ui-md-4 right">
+            身份证号：
+          </div>
+          <div class="ui-g-8 ui-md-8 dialog-input">
+            <input pInputText type="text" formControlName="idCardNo" placeholder="请输入身份证号"/>
+          </div>
+        </div>
+        <div class="ui-g-6 ui-md-6" style="line-height: 3vh;">
+          <div class="ui-g-4 ui-md-4 right">
+            出生日期：
+          </div>
+          <div class="ui-g-8 ui-md-8 dialog-input">
+            <p-calendar formControlName="dateOfBirth" [style]="{width: '100%'}" placeholder="请选择出生日期..." [monthNavigator]="true" [yearNavigator]="true" dateFormat="yy-mm-dd"  yearRange="1990:2200" [locale]="esDate"></p-calendar>
+          </div>
+        </div>
+        <div class="ui-g-6 ui-md-6" style="line-height: 3vh;">
+          <div class="ui-g-4 ui-md-4 right">
+            文化程度：
+          </div>
+          <div class="ui-g-8 ui-md-8 dialog-input">
+            <input pInputText type="text" formControlName="degreeOfEducation" placeholder="请输入文化程度"/>
+          </div>
+        </div>
+        <div class="ui-g-6 ui-md-6" style="line-height: 3vh;">
+          <div class="ui-g-4 ui-md-4 right">
+            所在岗位：
+          </div>
+          <div class="ui-g-8 ui-md-8 dialog-input">
+            <input pInputText type="text" formControlName="position" placeholder="请输入所在岗位"/>
+          </div>
+        </div>
+        <div class="ui-g-6 ui-md-6" style="line-height: 3vh;">
+          <div class="ui-g-4 ui-md-4 right">
+            岗位信息：
+          </div>
+          <div class="ui-g-8 ui-md-8 dialog-input">
+            <input pInputText type="text" formControlName="jobNature" placeholder="请输入岗位信息"/>
+          </div>
+        </div>
+        <div class="ui-g-6 ui-md-6" style="line-height: 3vh;">
+          <div class="ui-g-4 ui-md-4 right">
+            工种：
+          </div>
+          <div class="ui-g-8 ui-md-8 dialog-input">
+            <input pInputText type="text" formControlName="workType" placeholder="请输入工种"/>
+          </div>
+        </div>
+        <div class="ui-g-6 ui-md-6" style="line-height: 3vh;">
+          <div class="ui-g-4 ui-md-4 right">
+            入厂时间：
+          </div>
+          <div class="ui-g-8 ui-md-8 dialog-input">
+            <p-calendar formControlName="entryTime" [style]="{width: '100%'}" placeholder="请选择入厂时间..." [monthNavigator]="true" [yearNavigator]="true" dateFormat="yy-mm-dd"  yearRange="1990:2200" [locale]="esDate"></p-calendar>
+          </div>
+        </div>
+        <div class="ui-g-6 ui-md-6" style="line-height: 3vh;">
+          <div class="ui-g-4 ui-md-4 right">
+            备注：
+          </div>
+          <div class="ui-g-8 ui-md-8 dialog-input">
+            <textarea [rows]="3" [cols]="30" pInputTextarea autoResize="autoResize" formControlName="remarks"></textarea>
+          </div>
+        </div>
+      </div>
+    </form>
+    <p-footer>
+      <button class="dialog-btn" (click)="showAddPersionDialog = false;resetAllData()">取消</button>
+      <button class="dialog-btn" (click)="addPersonnelInfoClick()">确认选择</button>
+    </p-footer>
+  </p-dialog>
+  <p-dialog header="信息编辑" [(visible)]="showEditPersionDialog" [style]="{width: '800px'}">
+    <form [formGroup]="addPersonnel">
+      <div class="ui-g ui-md ui-fiuld">
+        <div class="ui-g-6 ui-md-6" style="line-height: 3vh">
+          <div class="ui-g-4 ui-md-4 right">
+            <span style="color: #FF8A9A">*</span>公司人员ID：
+          </div>
+          <div class="ui-g-8 ui-md-8 dialog-input">
+            <input pInputText type="text" formControlName="id" placeholder="请选择公司人员ID"/>
+          </div>
+        </div>
+        <div class="ui-g-6 ui-md-6" style="line-height: 3vh">
+          <div class="ui-g-4 ui-md-4 right">
+            <span style="color: #FF8A9A">*</span>组织：
+          </div>
+          <div class="ui-g-8 ui-md-8 dialog-input">
+            <input pInputText type="text" formControlName="organizationName" placeholder="请选择组织" (click)="showOrgazationTree()"/>
+          </div>
+        </div>
+        <div class="ui-g-6 ui-md-6" style="line-height: 3vh">
+          <div class="ui-g-4 ui-md-4 right">
+            <span style="color: #FF8A9A">*</span>单位：
+          </div>
+          <div class="ui-g-8 ui-md-8 dialog-input">
+            <input pInputText type="text" formControlName="companyName" placeholder="请选择单位"  />
+          </div>
+        </div>
+        <div class="ui-g-6 ui-md-6" style="line-height: 3vh">
+          <div class="ui-g-4 ui-md-4 right">
+            <span style="color: #FF8A9A">*</span>厂(矿)：
+          </div>
+          <div class="ui-g-8 ui-md-8 dialog-input">
+            <input pInputText type="text" formControlName="factoryName" placeholder="请选择厂(矿)" />
+          </div>
+        </div>
+        <div class="ui-g-6 ui-md-6" style="line-height: 3vh">
+          <div class="ui-g-4 ui-md-4 right">
+            <span style="color: #FF8A9A">*</span>车间：
+          </div>
+          <div class="ui-g-8 ui-md-8 dialog-input">
+            <input pInputText type="text" formControlName="workshopName" placeholder="请选择车间"/>
+          </div>
+        </div>
+        <div class="ui-g-6 ui-md-6" style="line-height: 3vh">
+          <div class="ui-g-4 ui-md-4 right">
+            <span style="color: #FF8A9A">*</span>班组：
+          </div>
+          <div class="ui-g-8 ui-md-8 dialog-input">
+            <input pInputText type="text" formControlName="workshopName" placeholder="请选择班组" />
+          </div>
+        </div>
+        <div class="ui-g-6 ui-md-6" style="line-height: 3vh;">
+          <div class="ui-g-4 ui-md-4 right">
+            <span style="color: #FF8A9A">*</span>姓名：
+          </div>
+          <div class="ui-g-8 ui-md-8 dialog-input">
+            <input pInputText type="text" formControlName="name" placeholder="请输入员工姓名"/>
+          </div>
+        </div>
+        <div class="ui-g-6 ui-md-6" style="line-height: 3vh">
+          <div class="ui-g-4 ui-md-4 right">
+            <span style="color: #FF8A9A">*</span>性别：
+          </div>
+          <div class="ui-g-8 ui-md-8 dialog-input">
+            <p-radioButton name="groupname" value="男" label="男"  formControlName="gender" [ngStyle]="{marginRight: '2vw'}"></p-radioButton>
+            <p-radioButton name="groupname" value="女" label="女" formControlName="gender"></p-radioButton>
+          </div>
+        </div>
+        <div class="ui-g-6 ui-md-6" style="line-height: 3vh;">
+          <div class="ui-g-4 ui-md-4 right">
+            <span style="color: #FF8A9A">*</span>名族：
+          </div>
+          <div class="ui-g-8 ui-md-8 dialog-input">
+            <input pInputText type="text" formControlName="nation" placeholder="请输入名族"/>
+          </div>
+        </div>
+        <div class="ui-g-6 ui-md-6" style="line-height: 3vh;">
+          <div class="ui-g-4 ui-md-4 right">
+            <span style="color: #FF8A9A">*</span>婚姻状况：
+          </div>
+          <div class="ui-g-8 ui-md-8 dialog-input">
+            <input pInputText type="text" formControlName="maritalStatus" placeholder="请输入婚姻状况"/>
+          </div>
+        </div>
+        <div class="ui-g-6 ui-md-6" style="line-height: 3vh;">
+          <div class="ui-g-4 ui-md-4 right">
+            身份证号：
+          </div>
+          <div class="ui-g-8 ui-md-8 dialog-input">
+            <input pInputText type="text" formControlName="idCardNo" placeholder="请输入身份证号"/>
+          </div>
+        </div>
+        <div class="ui-g-6 ui-md-6" style="line-height: 3vh;">
+          <div class="ui-g-4 ui-md-4 right">
+            出生日期：
+          </div>
+          <div class="ui-g-8 ui-md-8 dialog-input">
+            <p-calendar formControlName="dateOfBirth" [style]="{width: '100%'}" placeholder="请选择出生日期..." [monthNavigator]="true" [yearNavigator]="true" dateFormat="yy-mm-dd"  yearRange="1990:2200" [locale]="esDate"></p-calendar>
+          </div>
+        </div>
+        <div class="ui-g-6 ui-md-6" style="line-height: 3vh;">
+          <div class="ui-g-4 ui-md-4 right">
+            文化程度：
+          </div>
+          <div class="ui-g-8 ui-md-8 dialog-input">
+            <input pInputText type="text" formControlName="degreeOfEducation" placeholder="请输入文化程度"/>
+          </div>
+        </div>
+        <div class="ui-g-6 ui-md-6" style="line-height: 3vh;">
+          <div class="ui-g-4 ui-md-4 right">
+            所在岗位：
+          </div>
+          <div class="ui-g-8 ui-md-8 dialog-input">
+            <input pInputText type="text" formControlName="position" placeholder="请输入所在岗位"/>
+          </div>
+        </div>
+        <div class="ui-g-6 ui-md-6" style="line-height: 3vh;">
+          <div class="ui-g-4 ui-md-4 right">
+            岗位信息：
+          </div>
+          <div class="ui-g-8 ui-md-8 dialog-input">
+            <input pInputText type="text" formControlName="jobNature" placeholder="请输入岗位信息"/>
+          </div>
+        </div>
+        <div class="ui-g-6 ui-md-6" style="line-height: 3vh;">
+          <div class="ui-g-4 ui-md-4 right">
+            工种：
+          </div>
+          <div class="ui-g-8 ui-md-8 dialog-input">
+            <input pInputText type="text" formControlName="workType" placeholder="请输入工种"/>
+          </div>
+        </div>
+        <div class="ui-g-6 ui-md-6" style="line-height: 3vh;">
+          <div class="ui-g-4 ui-md-4 right">
+            入厂时间：
+          </div>
+          <div class="ui-g-8 ui-md-8 dialog-input">
+            <p-calendar formControlName="entryTime" [style]="{width: '100%'}" placeholder="请选择入厂时间..." [monthNavigator]="true" [yearNavigator]="true" dateFormat="yy-mm-dd"  yearRange="1990:2200" [locale]="esDate"></p-calendar>
+          </div>
+        </div>
+        <div class="ui-g-6 ui-md-6" style="line-height: 3vh;">
+          <div class="ui-g-4 ui-md-4 right">
+            备注：
+          </div>
+          <div class="ui-g-8 ui-md-8 dialog-input">
+            <textarea [rows]="3" [cols]="30" pInputTextarea autoResize="autoResize" formControlName="remarks"></textarea>
+          </div>
+        </div>
+      </div>
+    </form>
+    <p-footer>
+      <button class="dialog-btn" (click)="showEditPersionDialog = false;resetAllData()">取消</button>
+      <button class="dialog-btn" (click)="updatePersonnelInfoClick()">确认选择</button>
+    </p-footer>
+  </p-dialog>
+  <!--组织树结构-->
+  <p-dialog [(visible)]="treeDialog" [responsive]="true" showEffect="fade" [modal]= false [maximizable]="false" [baseZIndex]="10000" [modal]="true" [width]="350" [height]="400">
+    <div class="ui-g ui-fluid">
+      <div class="ui-g-12">
+        <p-scrollPanel [style]="{width: '100%', height: '250px'}">
+          <p-tree
+            [value]="dataTrees"
+            [(selection)]="dataTree"
+            selectionMode="single">
+          </p-tree>
+        </p-scrollPanel>
+      </div>
+    </div>
+    <p-footer>
+      <button  style="width: 4vw;padding: 4px 0"  (click)="treeDialog = false">取消</button>
+      <button  style="width: 6vw;border: 0;color: #fff;padding: 4px 0"   (click)="dataTreeSureClick()" >确认选择</button>
+    </p-footer>
+  </p-dialog>
+  <app-upload-file-record [uploadRecordOption]="uploadRecordOption"></app-upload-file-record>
+</div>

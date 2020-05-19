@@ -13,6 +13,11 @@ const routes: Routes = [
       path: 'strain',
       loadChildren: () => import('../business/safetrain/safetrain.module').then(m => m.SafetrainModule),
       data: {preload: true}
+    },
+    {
+      path: 'seting',
+      loadChildren: () => import('../business/seting/seting.module').then(m => m.SetingModule),
+      data: {preload: true}
     }
   ]}
 ];

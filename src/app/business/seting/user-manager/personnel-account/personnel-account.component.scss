@@ -1,0 +1,48 @@
+.personnel-account{
+  .personnel-account-header{
+    height: 6vh;
+    //background: #45b29d;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .personnel-account-search{
+      position: relative;
+    }
+    .personnel-account-button {
+      button{
+        width: 6vw;
+        margin-right: 1vw;
+      }
+      button:last-child{
+        background: #FF8A9A;
+        border: 1px solid #FF8A9A;
+      }
+    }
+
+  }
+  .personnel-account-table{
+    margin-top: 2vh;
+  }
+  .personnel-account-pagination{
+    position: absolute;
+    bottom: 8vh;
+    right: 4vw;
+  }
+  ::ng-deep .ui-inputgroup .ui-widget {
+    color: #8D8E96;
+    font-size: 14px;
+    //height: 3vh;
+    height: 32px;
+    border: 1px solid #F0F0F0;
+    //border-right: 0;
+    border-left: 0;
+    background: #F8F8F8;
+  }
+  ::ng-deep .ui-inputgroup input{
+    border-radius: 20px 0 0 20px;
+    outline: none;
+  }
+  ::ng-deep .ui-inputgroup button{
+    border-radius:  0 20px 20px 0;
+  }
+}

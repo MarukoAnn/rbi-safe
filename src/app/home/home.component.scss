@@ -6,3 +6,10 @@
     z-index: 0;
   }
 }
+@media screen and (max-width: 1200px){
+  .home{
+    .home-main{
+      margin-left: 5vw !important;
+    }
+  }
+}

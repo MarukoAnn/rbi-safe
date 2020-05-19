@@ -3,7 +3,9 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  url_safe: 'http://120.77.171.73:8090/security-platform'
+  // url_safe: 'http://192.168.28.103:8090/security-platform'
 };
 
 /*

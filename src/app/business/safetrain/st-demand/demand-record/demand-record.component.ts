@@ -33,7 +33,7 @@ export class DemandRecordComponent implements OnInit {
     tableheader: {background: '#F5F6FA', color: '#C3C3C5'},
     tableContent: [
       {background: '#FFFFFF', color: '#9899A0'}],
-    detailBtn: '#3B86FF'
+    detailBtn: ['#3B86FF']
   };
   constructor(
     private themeSrv: ThemeService
@@ -77,7 +77,7 @@ export class DemandRecordComponent implements OnInit {
         styleone: {background: this.table.tableContent[0].background, color: this.table.tableContent[0].color, textAlign: 'center', height: '3vw'},
       },
       type: 1,
-      tableList:  [{label: '详情', color: this.table.detailBtn}]
+      tableList:  [{label: '详情', color: this.table.detailBtn[0]}]
     };
   }
 }

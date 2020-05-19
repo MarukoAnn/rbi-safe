@@ -7,6 +7,7 @@ import {LocalStorageService} from '../../common/services/local-storage.service';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
+  public data: any;
   @Output()
   private outer = new EventEmitter();
   @Output()

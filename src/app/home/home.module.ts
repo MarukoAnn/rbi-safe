@@ -7,15 +7,17 @@ import { HomeComponent } from './home.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import {InputTextModule} from 'primeng/inputtext';
 import {NoticeModule} from '../common/components/notice/notice.module';
+import {FormsModule} from '@angular/forms';
 
 
 @NgModule({
   declarations: [HeaderComponent, HomeComponent, SidebarComponent],
-  imports: [
-    CommonModule,
-    HomeRoutingModule,
-    InputTextModule,
-    NoticeModule
-  ]
+    imports: [
+        CommonModule,
+        HomeRoutingModule,
+        InputTextModule,
+        NoticeModule,
+        FormsModule
+    ]
 })
 export class HomeModule { }

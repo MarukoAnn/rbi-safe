@@ -33,7 +33,7 @@ export class DemandReviewComponent implements OnInit {
     tableheader: {background: '#F5F6FA', color: '#C3C3C5'},
     tableContent: [
       {background: '#FFFFFF', color: '#9899A0'}],
-    detailBtn: '#3B86FF'
+    detailBtn: ['#3B86FF']
   };
   constructor(
     private themeSrv: ThemeService
@@ -72,7 +72,7 @@ export class DemandReviewComponent implements OnInit {
         styleone: {background: this.table.tableContent[0].background, color: this.table.tableContent[0].color, textAlign: 'center', height: '3vw'},
       },
       type: 2,
-      tableList:  [{label: '完成审核', color: this.table.detailBtn}]
+      tableList:  [{label: '完成审核', color: this.table.detailBtn[0]}]
     };
   }
   public selectData(e): void {

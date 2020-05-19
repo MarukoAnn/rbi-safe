@@ -1,4 +1,4 @@
-<div class="header">
+<div class="header" >
   <div class="header-title" (click)="logoClick()" [ngStyle]="{width: logoWidth + 'vw'}">
     <div *ngIf="logoWidth !== 3">安全生产信息化系统</div>
     <i class="iconfont iconzu381" *ngIf="logoWidth === 3"></i>
@@ -12,7 +12,7 @@
       <i class="fa fa-search"></i>
     </div>
     <i class="iconfont iconOutline setting" (click)="setClick()"></i>
-    <div class="header-notice" (click)="showNoticeClick()" (mouseover)="showNotice = true;">
+    <div class="header-notice" (click)="showNoticeClick()">
       <i class="iconfont iconNotificationIcon"></i>
       <span ></span>
     </div>

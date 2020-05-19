@@ -11,4 +11,7 @@ export class GlobalService {
     private http: HttpClient
   ) { }
 
+  public  getOrgazitionTreeData(pamars): Observable<any> {
+    return this.http.post(environment.url_safe + `/getOrganizationTree`, pamars);
+  }
 }
