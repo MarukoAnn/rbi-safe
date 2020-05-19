@@ -36,7 +36,7 @@
         <!--普通列表-->
         <tr [pSelectableRow]="rowData" [ngStyle]="option.Content.styleone">
           <td  *ngFor="let col of columns?.slice(0, columns?.length-1)" >
-            <span style="word-wrap:break-word">{{rowData[col.field]}}</span>
+            <span style="word-wrap: break-word">{{rowData[col.field]}}</span>
           </td>
           <td >
             <button class="check-table-btn-edit" pButton type="button" (click)="DetailClick(rowData)" *ngFor="let item of option.tableList" [ngStyle]="{'background': item.color}" [label]="item.label" icon="pi pi-pencil"></button>

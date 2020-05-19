@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {CommonModule, DatePipe} from '@angular/common';
 
 import { SetingRoutingModule } from './seting-routing.module';
 import { UserManagerComponent } from './user-manager/user-manager.component';
@@ -15,11 +15,13 @@ import {InputTextModule, } from 'primeng/inputtext';
 import {ButtonModule} from 'primeng/button';
 import {BasicTableModule} from '../../common/components/basic-table/basic-table.module';
 import {DropdownModule} from 'primeng/dropdown';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {ToastModule} from 'primeng/toast';
 import {MessageService} from 'primeng/api';
 import {ConfirmDialogModule} from 'primeng/confirmdialog';
 import {BasicDialogModule} from '../../common/components/basic-dialog/basic-dialog.module';
+import {DialogModule} from 'primeng/dialog';
+import {CalendarModule, FileUploadModule, InputTextareaModule, RadioButtonModule, ScrollPanelModule, TreeModule} from 'primeng/primeng';
 
 @NgModule({
   declarations: [
@@ -43,8 +45,16 @@ import {BasicDialogModule} from '../../common/components/basic-dialog/basic-dial
     FormsModule,
     ToastModule,
     ConfirmDialogModule,
-    BasicDialogModule
+    BasicDialogModule,
+    DialogModule,
+    ReactiveFormsModule,
+    RadioButtonModule,
+    CalendarModule,
+    InputTextareaModule,
+    TreeModule,
+    ScrollPanelModule,
+    FileUploadModule
   ],
-  providers: []
+  providers: [DatePipe]
 })
 export class SetingModule { }

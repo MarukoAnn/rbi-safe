@@ -5,11 +5,12 @@ import {BfTableBtnComponent} from './bf-table-btn/bf-table-btn.component';
 import {TableModule} from 'primeng/table';
 import { CheckTableBtnComponent } from './check-table-btn/check-table-btn.component';
 import {ButtonModule} from 'primeng/button';
+import {BfTableComponent} from './bf-table/bf-table.component';
 
 
 
 @NgModule({
-  declarations: [BfTableBtnComponent, CheckTableBtnComponent],
+  declarations: [BfTableBtnComponent, CheckTableBtnComponent, BfTableComponent],
   imports: [
     CommonModule,
     ScrollPanelModule,
@@ -19,6 +20,7 @@ import {ButtonModule} from 'primeng/button';
   exports: [
     BfTableBtnComponent,
     CheckTableBtnComponent,
+    BfTableComponent
   ],
 })
 export class BasicTableModule { }

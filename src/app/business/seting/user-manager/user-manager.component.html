@@ -1,15 +1,25 @@
-<div class="user">
-  <div class="tabMenu">
-    <div class="tab-item" *ngFor="let item of tabitem">
-      <a class="item-content" (click)="tabItemClick(item)">
-        <span [ngStyle]="{color: item.item.ftcolor}">{{item.item.label}}</span>
-        <span  [ngStyle]="{background: item.item.bgc}" class="line"></span>
-      </a>
+<div class="user-manager">
+  <div class="user-manager-title">
+     <span>
+       用户管理
+     </span>
+  </div>
+  <div class="user-manager-header">
+    <div class="user-manager-search">
+      <div class="ui-inputgroup" >
+        <input type="text" pInputText  placeholder="搜索"/>
+        <button pButton type="button" icon="pi pi-search" class="ui-button-warn" (click)="searchDataClick()"></button>
+      </div>
+    </div>
+    <div class="user-manager-button">
+      <button pButton type="button" label="添加组织" class="ui-button-rounded"></button>
+      <button pButton type="button" label="批量删除" class="ui-button-rounded"></button>
     </div>
   </div>
-  <div class="user-body">
-    <!--    <router-outlet></router-outlet>-->
-    <app-personnel-account *ngIf="simbol === 'personnel'"></app-personnel-account>
-    <app-admin-account *ngIf="simbol === 'admin'"></app-admin-account>
+  <div class="user-manager-table">
+    <app-check-table-btn [select]="userSelect"   (selectData)="selectData($event)" [option]="optionTable" (detail)="DetailClick($event)"></app-check-table-btn>
+  </div>
+  <div class="user-manager-pagination">
+    <app-pagination [option]="pageOption" (clickEvent)="clickEvent($event)"></app-pagination>
   </div>
 </div>

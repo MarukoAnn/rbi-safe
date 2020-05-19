@@ -3,18 +3,23 @@ import { CommonModule } from '@angular/common';
 import { FilePopComponent } from './file-pop/file-pop.component';
 import {FileUploadModule} from 'primeng/fileupload';
 import {DialogModule} from 'primeng/dialog';
+import {UploadFileRecordComponent} from './upload-file-record/upload-file-record.component';
+import {BasicTableModule} from '../basic-table/basic-table.module';
+
 
 
 
 @NgModule({
-  declarations: [FilePopComponent],
+  declarations: [FilePopComponent, UploadFileRecordComponent],
   exports: [
-    FilePopComponent
+    FilePopComponent,
+    UploadFileRecordComponent
   ],
   imports: [
     CommonModule,
     FileUploadModule,
     DialogModule,
-  ]
+    BasicTableModule
+  ],
 })
 export class BasicDialogModule { }

@@ -28,23 +28,29 @@ export class AuthInterceptor implements HttpInterceptor {
   public debug_http(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     // 修改请求状态
     this.store.dispatch({type: 'false'});
-    // if (req.url === environment.loginUrl + '/login') {
-    //   this.clonedRequest = req.clone({
-    //     url: req.url,
-    //     headers: req.headers
-    //     .set('Content-type', 'application/json; charset=UTF-8')
-    //     // .set('Content-type', 'application/x-www-form-urlencoded')
-    // });
-    // } else {
-    //
-    // }
-    this.clonedRequest = req.clone({
-      url: req.url,
-      headers: req.headers
-        .set('Content-type', 'application/json; charset=UTF-8')
+    if (req.url === environment.url_safe + '/login') {
+        this.clonedRequest = req.clone({
+          url: req.url,
+          headers: req.headers
+          .set('Content-type', 'application/json; charset=UTF-8')
+          // .set('Content-type', 'application/x-www-form-urlencoded')
+      });
+    } else if (req.url === environment.url_safe + '/company_personnel/excel_import') {
+      this.clonedRequest = req.clone({
+        url: req.url,
+        headers: req.headers
+          .set('accessToken', this.localSessionStorage.get('token'))
+      });
+    } else {
+      this.clonedRequest = req.clone({
+        url: req.url,
+        headers: req.headers
+          .set('Content-type', 'application/json; charset=UTF-8')
         // .set('Content-type', 'application/x-www-form-urlencoded')
-        // .set('appkey', this.localSessionStorage.get('appkey'))
-    });
+        .set('accessToken', this.localSessionStorage.get('token'))
+      });
+    }
+
     return next.handle(this.clonedRequest).pipe(
       timeout(DEFAULTTIMEOUT),
       tap((event: any) => {

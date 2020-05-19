@@ -6,12 +6,12 @@ import {environment} from '../../../environments/environment';
 @Injectable({
   providedIn: 'root'
 })
-export class GlobalService {
+export class LoginService {
+
   constructor(
     private http: HttpClient
   ) { }
-
-  public  getOrgazitionTreeData(pamars): Observable<any> {
-    return this.http.post(environment.url_safe + `/getOrganizationTree`, pamars);
+  public login(pamars): Observable<any> {
+      return this.http.post(environment.url_safe + `/login`, pamars);
   }
 }
