@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import {Subscription} from 'rxjs';
 import {ThemeService} from '../../../common/public/theme.service';
+import {SetingService} from '../../../common/services/seting.service';
+import {PublicMethodService} from '../../../common/public/public-method.service';
+import {FormBuilder} from '@angular/forms';
+import {DatePipe} from '@angular/common';
+import {GlobalService} from '../../../common/services/global.service';
 
 @Component({
   selector: 'app-user-manager',
@@ -17,39 +22,31 @@ export class UserManagerComponent implements OnInit {
       {background: '#FFFFFF', color: '#9899A0'}],
     detailBtn: ['#3B86FF', '#FF8A9A']
   };
+  public pageOption: any;
   public themeSub: Subscription;
   constructor(
-    private themeSrv: ThemeService
+      private themeSrv: ThemeService,
+      private setSrv: SetingService,
+      private toolSrv: PublicMethodService,
+      private fb: FormBuilder,
+      private dataPipe: DatePipe,
+      private globalSrv: GlobalService
   ) {
     this.themeSub =  this.themeSrv.changeEmitted$.subscribe(
       value => {
         this.table.tableheader = value.table.header;
         this.table.tableContent = value.table.content;
         this.table.detailBtn = value.table.detailBtn;
-        this.setTableOption(this.data);
+        // this.setTableOption( );
       }
     );
   }
-  public pageOption = {
-    row: 10,
-    totalPage: 50
-  };
-  public data = [
-    {id: 1, type: '日常培训', content: '厂规', unit: '矿业公司', subtime: '2020.5.12', time: '2020.5.12', name: '张三', idnumber: '18230823823749234234'},
-    {id: 2, type: '安全生产管理', content: '复审', unit: '安全环保局', subtime: '2020.5.12', time: '2020.5.12' , name: '李四', idnumber: '18230823823749234234'},
-    {id: 3, type: '特种人员培训', content: '复审', unit: '安全环保局', subtime: '2020.5.12', time: '2020.5.12' ,  name: '张三', idnumber: '18230823823749234234'},
-    {id: 3, type: '特种人员培训', content: '复审', unit: '安全环保局', subtime: '2020.5.12', time: '2020.5.12' ,  name: '张三', idnumber: '18230823823749234234'},
-    {id: 3, type: '特种人员培训', content: '复审', unit: '安全环保局', subtime: '2020.5.12', time: '2020.5.12' ,  name: '张三', idnumber: '18230823823749234234'},
-    {id: 3, type: '特种人员培训', content: '复审', unit: '安全环保局', subtime: '2020.5.12', time: '2020.5.12' ,  name: '张三', idnumber: '18230823823749234234'},
-    {id: 3, type: '特种人员培训', content: '复审', unit: '安全环保局', subtime: '2020.5.12', time: '2020.5.12' ,  name: '张三', idnumber: '18230823823749234234'},
-    {id: 3, type: '特种人员培训', content: '复审', unit: '安全环保局', subtime: '2020.5.12', time: '2020.5.12' ,  name: '张三', idnumber: '18230823823749234234'},
-    {id: 3, type: '特种人员培训', content: '复审', unit: '安全环保局', subtime: '2020.5.12', time: '2020.5.12' ,  name: '张三', idnumber: '18230823823749234234'},
-    {id: 3, type: '特种人员培训', content: '复审', unit: '安全环保局', subtime: '2020.5.12', time: '2020.5.12' ,  name: '张三', idnumber: '18230823823749234234'},
-    {id: 3, type: '特种人员培训', content: '复审', unit: '安全环保局', subtime: '2020.5.12', time: '2020.5.12' ,  name: '张三', idnumber: '18230823823749234234'},
-  ];
 
   ngOnInit() {
-    this.setTableOption(this.data);
+    // this.setTableOption(this.data);
+  }
+  public  initUserInfo(): void {
+    this.setSrv.getUserInfoPageData({})
   }
 
   public  selectData(e): void {
@@ -88,7 +85,6 @@ export class UserManagerComponent implements OnInit {
   public  searchDataClick(): void {
     console.log(123);
   }
-
   // Paging event (分页事件)
   public  clickEvent(e): void {
     console.log(e);

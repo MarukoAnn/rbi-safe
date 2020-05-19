@@ -36,4 +36,25 @@ export class SetingService {
   public  imoprtPersonnelInfoFile(pamars): Observable<any> {
     return this.http.post(environment.url_safe + `/company_personnel/excel_import`, pamars);
   }
+
+  /**
+   * 用户模块
+   * @param pamars
+   */
+  // 分页查询用户信息
+  public  getUserInfoPageData(pamars): Observable<any> {
+    return this.http.post(environment.url_safe + `/pageQueryUserInfo`, pamars);
+  }
+  // 删除用户信息
+  public  delUserInfo(pamars): Observable<any> {
+    return this.http.post(environment.url_safe + `/deleteUser`, pamars);
+  }
+  // 删除用户信息
+  public  updateUserInfo(pamars): Observable<any> {
+    return this.http.post(environment.url_safe + `/updateUser`, pamars);
+  }
+  // 删除用户信息
+  public  addUserInfo(pamars): Observable<any> {
+    return this.http.post(environment.url_safe + `/insertUser`, pamars);
+  }
 }
