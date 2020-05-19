@@ -21,7 +21,15 @@ import {MessageService} from 'primeng/api';
 import {ConfirmDialogModule} from 'primeng/confirmdialog';
 import {BasicDialogModule} from '../../common/components/basic-dialog/basic-dialog.module';
 import {DialogModule} from 'primeng/dialog';
-import {CalendarModule, FileUploadModule, InputTextareaModule, RadioButtonModule, ScrollPanelModule, TreeModule} from 'primeng/primeng';
+import {
+  CalendarModule,
+  FileUploadModule,
+  InputTextareaModule, MessageModule,
+  MessagesModule,
+  RadioButtonModule,
+  ScrollPanelModule,
+  TreeModule
+} from 'primeng/primeng';
 
 @NgModule({
   declarations: [
@@ -53,7 +61,9 @@ import {CalendarModule, FileUploadModule, InputTextareaModule, RadioButtonModule
     InputTextareaModule,
     TreeModule,
     ScrollPanelModule,
-    FileUploadModule
+    FileUploadModule,
+    MessagesModule,
+    MessageModule
   ],
   providers: [DatePipe]
 })
