@@ -220,7 +220,9 @@ export class PersonnelManagerComponent implements OnInit {
   }
   // Paging event (分页事件)
   public  clickEvent(e): void {
-    console.log(e);
+    this.searchData.pageNo = e.page + 1;
+    this.initPersonnelData();
+    // console.log(e);
   }
   // 删除信息
   public  selectPersonnelDataToDel(): void {

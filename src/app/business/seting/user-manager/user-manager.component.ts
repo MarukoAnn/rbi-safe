@@ -140,6 +140,8 @@ export class UserManagerComponent implements OnInit {
   // Paging event (分页事件)
   public  clickEvent(e): void {
     console.log(e);
+    this.pageNo = e.page + 1;
+    this.initUserInfo();
   }
   // 重置数据
  public  resetAllData(): void {
