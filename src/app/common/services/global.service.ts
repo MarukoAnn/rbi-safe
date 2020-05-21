@@ -9,11 +9,16 @@ export class GlobalService {
   constructor(
     private http: HttpClient
   ) { }
-
+  // 获取组织树
   public  getOrgazitionTreeData(params?: {}): Observable<any> {
     return this.http.post(`/getOrganizationTree`, params);
   }
+  // 获取角色列表
   public  getRolesInfo(pamars): Observable<any> {
-      return this.http.post(`/getRole`, pamars);
+    return this.http.post(`/getRole`, pamars);
+  }
+  // 获取权限树
+  public  getLimitTreeData(): Observable<any> {
+    return this.http.post(`/getSystemMenuPermissonTree`, {});
   }
 }

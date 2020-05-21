@@ -190,7 +190,13 @@ export class LimitsManagerComponent implements OnInit {
     const oneChild = [];
     for (let i = 0; i < data.length; i++) {
       const childnode = new TreeNode();
-     // if (datap[])
+     if (data[i].hasOwnProperty('permissionTreeInfoList')){
+       childnode.label = data[i].systemName;
+       childnode.value = data[i].id;
+     }else if (data.hasOwnProperty('sysPermissionList')) {
+       childnode.label = data[i].permissionName;
+       childnode.label = data[i].id;
+     }
       childnode.selectable = true;
       if (data[i].chiled != null && data[i].chiled.length !== 0 ) {
         childnode.children = this.initializeTree(data[i].chiled);
