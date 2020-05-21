@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Subscription} from 'rxjs';
 import {ThemeService} from '../../../common/public/theme.service';
 import {SetingService} from '../../../common/services/seting.service';
+import {Role} from '../../../common/public/Api';
 
 @Component({
   selector: 'app-roles-manager',
@@ -18,6 +19,17 @@ export class RolesManagerComponent implements OnInit {
     detailBtn: ['#3B86FF', '#FF8A9A']
   };
   public themeSub: Subscription;
+  public roleTableHeader: any[] = [
+    { field: 'roleName', header: '角色名称' },
+    { field: 'whetherSee', header: '是否可见下级' },
+    { field: 'enabled', header: '是否启用'},
+  ];
+  public roleTableData: Role[] = [];
+  public roleSelectedData: Role = {};
+  public rolePageOption = {
+    pageSize: 10,
+    totalRecord: 50
+  };
   constructor(
     private themeSrv: ThemeService,
     private setSrv: SetingService
@@ -27,32 +39,16 @@ export class RolesManagerComponent implements OnInit {
         this.table.tableheader = value.table.header;
         this.table.tableContent = value.table.content;
         this.table.detailBtn = value.table.detailBtn;
-        this.setTableOption(this.data);
       }
     );
   }
-  public pageOption = {
-    pageSize: 10,
-    totalRecord: 50
-  };
-  public data = [
-    {id: 1, type: '日常培训', content: '厂规', unit: '矿业公司', subtime: '2020.5.12', time: '2020.5.12', name: '张三', idnumber: '18230823823749234234'},
-    {id: 2, type: '安全生产管理', content: '复审', unit: '安全环保局', subtime: '2020.5.12', time: '2020.5.12' , name: '李四', idnumber: '18230823823749234234'},
-    {id: 3, type: '特种人员培训', content: '复审', unit: '安全环保局', subtime: '2020.5.12', time: '2020.5.12' ,  name: '张三', idnumber: '18230823823749234234'},
-    {id: 3, type: '特种人员培训', content: '复审', unit: '安全环保局', subtime: '2020.5.12', time: '2020.5.12' ,  name: '张三', idnumber: '18230823823749234234'},
-    {id: 3, type: '特种人员培训', content: '复审', unit: '安全环保局', subtime: '2020.5.12', time: '2020.5.12' ,  name: '张三', idnumber: '18230823823749234234'},
-    {id: 3, type: '特种人员培训', content: '复审', unit: '安全环保局', subtime: '2020.5.12', time: '2020.5.12' ,  name: '张三', idnumber: '18230823823749234234'},
-    {id: 3, type: '特种人员培训', content: '复审', unit: '安全环保局', subtime: '2020.5.12', time: '2020.5.12' ,  name: '张三', idnumber: '18230823823749234234'},
-    {id: 3, type: '特种人员培训', content: '复审', unit: '安全环保局', subtime: '2020.5.12', time: '2020.5.12' ,  name: '张三', idnumber: '18230823823749234234'},
-    {id: 3, type: '特种人员培训', content: '复审', unit: '安全环保局', subtime: '2020.5.12', time: '2020.5.12' ,  name: '张三', idnumber: '18230823823749234234'},
-    {id: 3, type: '特种人员培训', content: '复审', unit: '安全环保局', subtime: '2020.5.12', time: '2020.5.12' ,  name: '张三', idnumber: '18230823823749234234'},
-    {id: 3, type: '特种人员培训', content: '复审', unit: '安全环保局', subtime: '2020.5.12', time: '2020.5.12' ,  name: '张三', idnumber: '18230823823749234234'},
-  ];
+
 
   ngOnInit() {
-    this.setTableOption(this.data);
-    this.setSrv.getRoleInfoPageData({}).subscribe((res) => {
+    this.setSrv.getRoleInfoPageData({pageNo: 1, pageSize: 100}).subscribe((res) => {
       console.log(res);
+      this.roleTableData = res.data.contents;
+      console.log(this.roleTableData);
     });
   }
 
@@ -69,13 +65,9 @@ export class RolesManagerComponent implements OnInit {
       header: {
         data:  [
           {field: 'id', header: '序号'},
-          {field: 'type', header: '账号'},
-          {field: 'content', header: '单位'},
-          {field: 'unit', header: '厂(矿)'},
-          {field: 'subtime', header: '车间'},
-          {field: 'time', header: '班组'},
-          {field: 'name', header: '姓名'},
-          {field: 'idnumber', header: '身份证'},
+          {field: 'roleName', header: '角色名称'},
+          {field: 'whetherSee', header: '下级是否可见'},
+          {field: 'enabled', header: '是否启用'},
           {field: 'operating', header: '操作'}
         ],
         style: {background: this.table.tableheader.background, color: this.table.tableheader.color, height: '6vh'}
@@ -85,16 +77,23 @@ export class RolesManagerComponent implements OnInit {
         styleone: {background: this.table.tableContent[0].background, color: this.table.tableContent[0].color, textAlign: 'center', height: '3vw'},
       },
       type: 2,
-      tableList:  [{label: '编辑', color: this.table.detailBtn[0]}, {label: '删除', color: this.table.detailBtn[1]}]
+      tableList:  [
+        {label: '编辑', color: this.table.detailBtn[0]},
+        {label: '删除', color: this.table.detailBtn[1]},
+        {label: '查看权限', color: this.table.detailBtn[2]},
+        ]
     };
   }
   // search Data (搜索事件)
   public  searchDataClick(): void {
     console.log(123);
   }
-
   // Paging event (分页事件)
   public  clickEvent(e): void {
     console.log(e);
+  }
+  // test
+  public test(data): any {
+    return JSON.stringify(data);
   }
 }

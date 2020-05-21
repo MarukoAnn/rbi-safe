@@ -25,3 +25,11 @@ export interface OraWebTree {
   level?: any;
   parentId?: any;
 }
+
+// 角色数据接口
+export interface Role {
+  id?: number;
+  roleName?: string;
+  whetherSee?: any;
+  enabled?: any;
+}

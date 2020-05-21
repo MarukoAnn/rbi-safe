@@ -17,12 +17,11 @@ import {BasicTableModule} from '../../common/components/basic-table/basic-table.
 import {DropdownModule} from 'primeng/dropdown';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {ToastModule} from 'primeng/toast';
-import {MessageService} from 'primeng/api';
 import {ConfirmDialogModule} from 'primeng/confirmdialog';
 import {BasicDialogModule} from '../../common/components/basic-dialog/basic-dialog.module';
 import {DialogModule} from 'primeng/dialog';
 import {CalendarModule, FileUploadModule, InputTextareaModule, MessageModule, MessagesModule, RadioButtonModule, ScrollPanelModule, TreeModule} from 'primeng/primeng';
-
+import {TableModule} from 'primeng/table';
 @NgModule({
   declarations: [
     UserManagerComponent,
@@ -55,7 +54,8 @@ import {CalendarModule, FileUploadModule, InputTextareaModule, MessageModule, Me
     ScrollPanelModule,
     FileUploadModule,
     MessagesModule,
-    MessageModule
+    MessageModule,
+    TableModule
   ],
   providers: [DatePipe]
 })
