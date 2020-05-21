@@ -141,7 +141,7 @@ export class LimitsManagerComponent implements OnInit {
 
   // Paging event (分页事件)
   public  clickEvent(e): void {
-    this.pageNo = e.page + 1;
+    this.pageNo = e;
     this.initLimitData();
   }
 

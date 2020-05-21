@@ -15,7 +15,7 @@ export class PaginationComponent implements OnInit {
   ngOnInit() {
   }
   public  paginate(e): void {
-     this.clickEvent.emit(e);
+     this.clickEvent.emit(e.page + 1);
   }
 
 }
