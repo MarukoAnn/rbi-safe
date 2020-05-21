@@ -114,7 +114,7 @@ export class PersonnelManagerComponent implements OnInit {
   public  initPersonnelData(): void {
       this.setSrv.getPersonnelPageData(this.searchData).subscribe(val => {
         if (val.status === '1000') {
-          this.pageOption = {row: val.data.pageNo, totalRecord: val.data.totalRecord};
+          this.pageOption = {pageSize: val.data.pageSize, totalRecord: val.data.totalRecord};
           this.personnelData = val.data.contents;
           this.setTableOption(this.personnelData);
           this.toolSrv.setToast('success', '请求成功', '数据返回成功');

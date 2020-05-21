@@ -72,7 +72,7 @@ export class OrganizationManagerComponent implements OnInit {
       if (val.status === '1000') {
         this.orgazitionContent = val.data.contents;
         this.setTableOption(this.orgazitionContent);
-        this.pageOption = {row: val.data.pageNo, totalRecord: val.data.totalRecord};
+        this.pageOption = {pageSize: val.data.pageSize, totalRecord: val.data.totalRecord};
         this.toolSrv.setToast('success', '请求成功', val.message);
       }else {
          this.toolSrv.setToast('error', '请求失败', val.message);

@@ -12,7 +12,7 @@ export class DemandRecordComponent implements OnInit {
   public recordSelect: any;
   public optionTable: any;
   public pageOption = {
-    row: 10,
+    pageSize: 10,
     totalRecord: 50
   };
   public themeSub: Subscription;

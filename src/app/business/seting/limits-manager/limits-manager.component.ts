@@ -80,7 +80,7 @@ export class LimitsManagerComponent implements OnInit {
             // v.systemId  = v.systemId === 1 ? 'web端' : 'APP端';
             return v;
         });
-        this.pageOption = {totalRecord: val.data.totalRecord, row: val.data.pageNo};
+        this.pageOption = {totalRecord: val.data.totalRecord, pageSize: val.data.pageSize};
         this.setTableOption(this.limitContent);
         this.toolSrv.setToast('success', '请求成功', val.message);
       }else {
