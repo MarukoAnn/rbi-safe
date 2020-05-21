@@ -39,6 +39,7 @@ export class AuthInterceptor implements HttpInterceptor {
       this.clonedRequest = req.clone({
         url: environment.url_safe + req.url,
         headers: req.headers
+          .set('Access-Control-Allow-Origin', '*')
           .set('Content-type', 'application/json; charset=UTF-8')
           .set('accessToken', this.localSessionStorage.get('token'))
       });

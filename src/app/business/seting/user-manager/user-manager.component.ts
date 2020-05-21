@@ -67,11 +67,11 @@ export class UserManagerComponent implements OnInit {
   }
   public  initUserInfo(): void {
     this.setSrv.getUserInfoPageData({pageNo: this.pageNo, pageSize: 10}).subscribe(val => {
-      console.log(val);
       if (val.status === '1000') {
         this.userContent = val.data.contents;
         this.setTableOption(this.userContent);
         this.pageOption = {row: val.data.pageNo, totalPage: val.data.totalPage};
+        this.toolSrv.setToast('success', '请求成功', val.message);
       } else {
         this.toolSrv.setToast('error', '请求失败', val.message);
       }

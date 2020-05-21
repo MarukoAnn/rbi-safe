@@ -12,8 +12,8 @@
       </div>
     </div>
     <div class="limits-manager-button">
-      <button pButton type="button" label="添加权限" class="ui-button-rounded"></button>
-      <button pButton type="button" label="批量删除" class="ui-button-rounded"></button>
+      <button pButton type="button" label="添加权限" class="ui-button-rounded" (click)="showAddLimitClick()"></button>
+      <button pButton type="button" label="批量删除" class="ui-button-rounded" (click)="delLimitInfoClick()"></button>
     </div>
   </div>
   <div class="limits-manager-table">
@@ -22,4 +22,137 @@
   <div class="limits-manager-pagination">
     <app-pagination [option]="pageOption" (clickEvent)="clickEvent($event)"></app-pagination>
   </div>
+  <p-toast position="top-center" key="toast"></p-toast>
+  <p-confirmDialog header="Confirmation" acceptLabel="取消" rejectLabel="确认选择" acceptIcon="" rejectIcon=""></p-confirmDialog>
+  <p-dialog header="信息添加" [(visible)]="showAddLimitDialog" [style]="{width: '700px'}">
+    <form [formGroup]="addLimit">
+      <div class="ui-g ui-md ui-fiuld">
+        <div class="ui-g-12 ui-md-12">
+          <div class="ui-g-2 ui-md-2"></div>
+          <div class="ui-g-8 ui-md-8" style="line-height: 4.4vh">
+            <div class="ui-g-4 ui-md-4 right">
+              <span style="color: #FF8A9A">*</span>权限名称：
+            </div>
+            <div class="ui-g-8 ui-md-8 ">
+              <div class="ui-md-12 ui-g-12 dialog-input">
+                <input pInputText type="text" formControlName="permissionName" placeholder="请输入权限名称"/>
+              </div>
+            </div>
+          </div>
+          <div class="ui-g-12 ui-md-12">
+            <div class="ui-g-2 ui-md-2"></div>
+            <div class="ui-g-8 ui-md-8" style="line-height: 4.4vh">
+              <div class="ui-g-4 ui-md-4 right">
+                <span style="color: #FF8A9A">*</span>权限标识码：
+              </div>
+              <div class="ui-g-8 ui-md-8 ">
+                <div class="ui-md-12 ui-g-12 dialog-input">
+                  <input pInputText type="text" formControlName="operateCode" placeholder="请输入权限标识码"/>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="ui-g-12 ui-md-12">
+            <div class="ui-g-2 ui-md-2"></div>
+            <div class="ui-g-8 ui-md-8" style="line-height: 4.4vh">
+              <div class="ui-g-4 ui-md-4 right">
+                <span style="color: #FF8A9A">*</span>父级名称：
+              </div>
+              <div class="ui-g-8 ui-md-8 ">
+                <div class="ui-md-12 ui-g-12 dialog-input">
+                  <input pInputText type="text" formControlName="name" placeholder="请选择父级名称" (click)="treeDialog = true"/>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="ui-g-12 ui-md-12">
+            <div class="ui-g-2 ui-md-2"></div>
+            <div class="ui-g-8 ui-md-8" style="line-height: 4.4vh">
+              <div class="ui-g-4 ui-md-4 right">
+                <span style="color: #FF8A9A">*</span>是否启用：
+              </div>
+              <div class="ui-g-8 ui-md-8 ">
+                <div class="ui-md-12 ui-g-12 dialog-input">
+                  <p-radioButton name="groupname1" value="1" label="启用"  formControlName="enabled" [ngStyle]="{marginRight: '1vw'}"></p-radioButton>
+                  <p-radioButton name="groupname1" value="0" label="不启用" formControlName="enabled"></p-radioButton>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="ui-g-12 ui-md-12">
+            <div class="ui-g-2 ui-md-2"></div>
+            <div class="ui-g-8 ui-md-8" style="line-height: 4.4vh">
+              <div class="ui-g-4 ui-md-4 right">
+                <span style="color: #FF8A9A">*</span>权限描述：
+              </div>
+              <div class="ui-g-8 ui-md-8 ">
+                <div class="ui-md-12 ui-g-12 dialog-input">
+                  <textarea [rows]="3" [cols]="30" pInputTextarea autoResize="autoResize" formControlName="description"></textarea>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+    <p-footer>
+      <button class="dialog-btn" (click)="showAddLimitDialog = false;resetAllData()">取消</button>
+      <button class="dialog-btn" (click)="addLimitInfoClick()">确认选择</button>
+    </p-footer>
+  </p-dialog>
+<!--  <p-dialog header="信息编辑" [(visible)]="showEditOrgazationDialog" [style]="{width: '700px'}">-->
+<!--    <form [formGroup]="addOragization">-->
+<!--      <div class="ui-g ui-md ui-fiuld">-->
+<!--        <div class="ui-g-12 ui-md-12">-->
+<!--          <div class="ui-g-2 ui-md-2"></div>-->
+<!--          <div class="ui-g-8 ui-md-8" style="line-height: 4.4vh">-->
+<!--            <div class="ui-g-4 ui-md-4 right">-->
+<!--              <span style="color: #FF8A9A">*</span>组织名称：-->
+<!--            </div>-->
+<!--            <div class="ui-g-8 ui-md-8 ">-->
+<!--              <div class="ui-md-12 ui-g-12 dialog-input">-->
+<!--                <input pInputText type="text" formControlName="organizationName" placeholder="请输入组织名称"/>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--          <div class="ui-g-12 ui-md-12">-->
+<!--            <div class="ui-g-2 ui-md-2"></div>-->
+<!--            <div class="ui-g-8 ui-md-8" style="line-height: 4.4vh">-->
+<!--              <div class="ui-g-4 ui-md-4 right">-->
+<!--                <span style="color: #FF8A9A">*</span>父级组织：-->
+<!--              </div>-->
+<!--              <div class="ui-g-8 ui-md-8 ">-->
+<!--                <div class="ui-md-12 ui-g-12 dialog-input">-->
+<!--                  <input pInputText type="text" formControlName="name" placeholder="请选择父级组织" (click)="this.treeDialog = true"/>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </form>-->
+<!--    <p-footer>-->
+<!--      <button class="dialog-btn" (click)="showEditOrgazationDialog = false;resetAllData()">取消</button>-->
+<!--      <button class="dialog-btn" (click)="updateOragizationInfoClick()">确认选择</button>-->
+<!--    </p-footer>-->
+<!--  </p-dialog>-->
+
+  <!--组织树结构-->
+  <p-dialog [(visible)]="treeDialog" [responsive]="true" showEffect="fade" [modal]= false [maximizable]="false" [baseZIndex]="10000" [modal]="true" [width]="350" [height]="400">
+    <div class="ui-g ui-fluid">
+      <div class="ui-g-12">
+        <p-scrollPanel [style]="{width: '100%', height: '250px'}">
+          <p-tree
+            [value]="dataTrees"
+            [(selection)]="dataTree"
+            selectionMode="single">
+          </p-tree>
+        </p-scrollPanel>
+      </div>
+    </div>
+    <p-footer>
+      <button  style="width: 4vw;padding: 4px 0"  (click)="treeDialog = false">取消</button>
+      <button  style="width: 6vw;border: 0;color: #fff;padding: 4px 0"   (click)="dataTreeSureClick()" >确认选择</button>
+    </p-footer>
+  </p-dialog>
 </div>

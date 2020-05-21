@@ -1,7 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {environment} from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -71,15 +70,15 @@ export class SetingService {
    */
   // 分页查询组织信息
   public  getOrgazitionInfoPageData(pamars): Observable<any> {
-    return this.http.post(environment.url_safe + `/pageOrganization`, pamars);
+    return this.http.post(`/pageOrganization`, pamars);
   }
   // 添加组织
-  public  addOrgazitionInfo (pamars): Observable<any> {
-    return this.http.post(environment.url_safe + `/insertOrganization`, pamars);
+  public  addOrgazitionInfo(pamars): Observable<any> {
+    return this.http.post(`/insertOrganization`, pamars);
   }
   // 更新组织
-  public updateOrgazitionInfo (pamars): Observable<any> {
-    return this.http.post(environment.url_safe + `/updateOrganization`, pamars);
+  public updateOrgazitionInfo(pamars): Observable<any> {
+    return this.http.post(`/updateOrganization`, pamars);
   }
 
   /**
@@ -88,17 +87,17 @@ export class SetingService {
    */
   // 分页角色信息
   public  getRoleInfoPageData(pamars): Observable<any> {
-    return this.http.post(environment.url_safe + `/pageRole`, pamars);
+    return this.http.post(`/pageRole`, pamars);
   }
 
   // 添加角色信息
   public  addRoleInfo(pamars): Observable<any> {
-    return this.http.post(environment.url_safe + `/insertRole`, pamars);
+    return this.http.post(`/insertRole`, pamars);
   }
 
   // 更新角色信息
   public  updateRoleInfo(pamars): Observable<any> {
-    return this.http.post(environment.url_safe + `/updateRole`, pamars);
+    return this.http.post(`/updateRole`, pamars);
   }
 
 
@@ -108,26 +107,26 @@ export class SetingService {
    */
   // 分页权限信息
   public  getPermissionInfoPageData(pamars): Observable<any> {
-    return this.http.post(environment.url_safe + `/sysPermission/findSysPermissionByPage`, pamars);
+    return this.http.post(`/sysPermission/findSysPermissionByPage`, pamars);
   }
 
   // 添加权限信息
   public  addPermissionInfo(pamars): Observable<any> {
-    return this.http.post(environment.url_safe + `/sysPermission/insertSysPermission`, pamars);
+    return this.http.post(`/sysPermission/insertSysPermission`, pamars);
   }
 
   // 更新权限信息
   public  updatePermissionInfo(pamars): Observable<any> {
-    return this.http.post(environment.url_safe + `/sysPermission/updateSysPermission`, pamars);
+    return this.http.post(`/sysPermission/updateSysPermission`, pamars);
   }
 
   // 删除权限信息
   public  delPermissionInfo(pamars): Observable<any> {
-    return this.http.post(environment.url_safe + `/sysPermission/deleteSysPermissionById`, pamars);
+    return this.http.post(`/sysPermission/deleteSysPermissionById`, pamars);
   }
 
   // 根据id查询权限
   public  queryPermissionInfoById(pamars): Observable<any> {
-    return this.http.post(environment.url_safe + `/sysPermission/findSysPermissionById`, pamars);
+    return this.http.post(`/sysPermission/findSysPermissionById`, pamars);
   }
 }

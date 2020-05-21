@@ -1,6 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import {Subscription} from 'rxjs';
 import {ThemeService} from '../../../common/public/theme.service';
+import {SetingService} from '../../../common/services/seting.service';
+import {PublicMethodService} from '../../../common/public/public-method.service';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {DatePipe} from '@angular/common';
+import {GlobalService} from '../../../common/services/global.service';
+import {OragizationTree, TreeNode} from '../../../common/model/persion-manger.model';
 
 @Component({
   selector: 'app-organization-manager',
@@ -9,7 +15,7 @@ import {ThemeService} from '../../../common/public/theme.service';
 })
 export class OrganizationManagerComponent implements OnInit {
   public optionTable: any;
-  public orgazitionSelect: any;
+  public orgazitionSelect = [];
   public table = {
     tableheader: {background: '#F5F6FA', color: '#C3C3C5'},
     tableContent: [
@@ -19,8 +25,24 @@ export class OrganizationManagerComponent implements OnInit {
   public pageOption: any;
   public orgazitionContent: any;
   public themeSub: Subscription;
+  public pageNo = 1;
+  // 添加相关
+  public addOragization: FormGroup;
+  public showAddOrgazationDialog: boolean;
+  // 修改相关
+  public showEditOrgazationDialog: boolean;
+  // 树结构相关
+  public dataTrees: OragizationTree[];
+  public dataTree: OragizationTree = new OragizationTree();
+  public treeDialog: any;
+
   constructor(
-    private themeSrv: ThemeService
+    private themeSrv: ThemeService,
+    private setSrv: SetingService,
+    private toolSrv: PublicMethodService,
+    private fb: FormBuilder,
+    private dataPipe: DatePipe,
+    private globalSrv: GlobalService
   ) {
     this.themeSub =  this.themeSrv.changeEmitted$.subscribe(
       value => {
@@ -35,16 +57,45 @@ export class OrganizationManagerComponent implements OnInit {
   ngOnInit() {
     // this.setTableOption(this.orgazitionContent);
     this.initOrgazitonInfo();
+    this.addOragization = this.fb.group({
+      organizationName: new FormControl('',  Validators.required),
+      parentId: new FormControl('', Validators.required),
+      parentLevel: new FormControl('', Validators.required),
+      id: new FormControl('', Validators.required),
+      name: new FormControl('', Validators.required),
+    });
+    this.getOrgazationTreeInfo();
   }
 
   initOrgazitonInfo() {
-
+    this.setSrv.getOrgazitionInfoPageData({pageNo: this.pageNo, pageSize: 10}).subscribe(val => {
+      if (val.status === '1000') {
+        this.orgazitionContent = val.data.contents;
+        this.setTableOption(this.orgazitionContent);
+        this.pageOption = {row: val.data.pageNo, totoalPage: val.data.totoalPage};
+        this.toolSrv.setToast('success', '请求成功', val.message);
+      }else {
+         this.toolSrv.setToast('error', '请求失败', val.message);
+      }
+    });
   }
   public  selectData(e): void {
     this.orgazitionSelect = e;
   }
   public  DetailClick(e): void {
-    console.log(e);
+    if (e.label === '删除'){
+      this.toolSrv.setToast('error', '删除失败', '删除待开发');
+    } else{
+      const list = ['organizationName', 'parentLevel', 'parentId', 'id'];
+      list.forEach(val => {
+        const a = {};
+        a[val] = e.data[val];
+        this.addOragization.patchValue(a);
+      });
+      this.addOragization.patchValue({'name': e.data.parentName});
+      // const List
+      this.showEditOrgazationDialog = true;
+    }
   }
   // set table data （设置列表数据）
   public  setTableOption(data1): void {
@@ -53,13 +104,10 @@ export class OrganizationManagerComponent implements OnInit {
       header: {
         data:  [
           {field: 'id', header: '序号'},
-          {field: 'type', header: '账号'},
-          {field: 'content', header: '单位'},
-          {field: 'unit', header: '厂(矿)'},
-          {field: 'subtime', header: '车间'},
-          {field: 'time', header: '班组'},
-          {field: 'name', header: '姓名'},
-          {field: 'idnumber', header: '身份证'},
+          {field: 'organizationName', header: '组织名称'},
+          {field: 'level', header: '等级'},
+          {field: 'parentName', header: '父组织名称'},
+          {field: 'parentLevel', header: '父组织等级'},
           {field: 'operating', header: '操作'}
         ],
         style: {background: this.table.tableheader.background, color: this.table.tableheader.color, height: '6vh'}
@@ -80,13 +128,96 @@ export class OrganizationManagerComponent implements OnInit {
   // Paging event (分页事件)
   public  clickEvent(e): void {
     console.log(e);
+    this.pageNo = e.page + 1;
+    this.initOrgazitonInfo();
   }
-
+  public  getOrgazationTreeInfo(): void {
+    this.globalSrv.getOrgazitionTreeData({}).subscribe(value => {
+      if (value.data) {
+        this.dataTrees = this.initializeTree(value.data);
+      } else {
+        this.toolSrv.setToast('error', '操作', '组织数据获取失败');
+      }
+    });
+  }
+  // 显示添加弹窗
   public  showAddOrgazitionClick(): void {
-
+     this.showAddOrgazationDialog = true;
   }
 
+  // 删除数据
   public  delOrgazitionInfoClick(): void {
-
+     if (this.orgazitionSelect.length === 0){
+       this.toolSrv.setToast('error', '操作错误', '请选择需要删除的项');
+     }else {
+       this.toolSrv.setToast('error', '删除失败', '删除待开发');
+     }
   }
+  // 添加请求
+  public  addOragizationInfoClick(): void {
+    const data = JSON.parse(JSON.stringify(this.addOragization.value));
+    delete data.name;
+    delete data.id;
+    this.toolSrv.setConfirmation('添加', '添加该公司', () => {
+      this.setSrv.addOrgazitionInfo(data).subscribe(value => {
+        if (value.status === '1000'){
+          this.showAddOrgazationDialog = false;
+          this.initOrgazitonInfo();
+          this.resetAllData();
+          this.toolSrv.setToast('success', '添加成功', value.message);
+        }else {
+          this.toolSrv.setToast('error', '添加失败', value.message);
+        }
+      });
+     });
+  }
+  // 更新组织
+  public  updateOragizationInfoClick(): void {
+    const data = JSON.parse(JSON.stringify(this.addOragization.value));
+    delete data.name;
+    this.toolSrv.setConfirmation('修改', '修改该公司', () => {
+      this.setSrv.updateOrgazitionInfo(data).subscribe(value => {
+        if (value.status === '1000'){
+          this.showEditOrgazationDialog = false;
+          this.initOrgazitonInfo();
+          this.resetAllData();
+          this.toolSrv.setToast('success', '修改成功', value.message);
+        }else {
+          this.toolSrv.setToast('error', '修改失败', value.message);
+        }
+      });
+    });
+  }
+  // 重置数据
+  public  resetAllData(): void {
+    this.addOragization.reset();
+  }
+
+  // Tree structure initialization
+  public initializeTree(data): any {
+    const oneChild = [];
+      for (let i = 0; i < data.length; i++) {
+      const childnode = new TreeNode();
+      childnode.value = data[i].id;
+      childnode.label = data[i].organizationName;
+      childnode.level = data[i].level;
+      childnode.selectable = true;
+      if (data[i].chiled != null && data[i].chiled.length !== 0 ) {
+        childnode.children = this.initializeTree(data[i].chiled);
+      } else {
+        childnode.children = [];
+      }
+      oneChild.push(childnode);
+    }
+    return oneChild;
+  }
+  // 树结构选择
+  public  dataTreeSureClick(): void {
+     this.treeDialog = false;
+     console.log(this.dataTree);
+     this.addOragization.patchValue({parentId: this.dataTree.value});
+     this.addOragization.patchValue({parentLevel: this.dataTree.level});
+     this.addOragization.patchValue({name: this.dataTree.label});
+  }
+
 }
