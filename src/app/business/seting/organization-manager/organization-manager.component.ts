@@ -16,6 +16,8 @@ export class OrganizationManagerComponent implements OnInit {
       {background: '#FFFFFF', color: '#9899A0'}],
     detailBtn: ['#3B86FF', '#FF8A9A']
   };
+  public pageOption: any;
+  public orgazitionContent: any;
   public themeSub: Subscription;
   constructor(
     private themeSrv: ThemeService
@@ -25,32 +27,19 @@ export class OrganizationManagerComponent implements OnInit {
         this.table.tableheader = value.table.header;
         this.table.tableContent = value.table.content;
         this.table.detailBtn = value.table.detailBtn;
-        this.setTableOption(this.data);
+        this.setTableOption(this.orgazitionContent);
       }
     );
   }
-  public pageOption = {
-    row: 10,
-    totalPage: 50
-  };
-  public data = [
-    {id: 1, type: '日常培训', content: '厂规', unit: '矿业公司', subtime: '2020.5.12', time: '2020.5.12', name: '张三', idnumber: '18230823823749234234'},
-    {id: 2, type: '安全生产管理', content: '复审', unit: '安全环保局', subtime: '2020.5.12', time: '2020.5.12' , name: '李四', idnumber: '18230823823749234234'},
-    {id: 3, type: '特种人员培训', content: '复审', unit: '安全环保局', subtime: '2020.5.12', time: '2020.5.12' ,  name: '张三', idnumber: '18230823823749234234'},
-    {id: 3, type: '特种人员培训', content: '复审', unit: '安全环保局', subtime: '2020.5.12', time: '2020.5.12' ,  name: '张三', idnumber: '18230823823749234234'},
-    {id: 3, type: '特种人员培训', content: '复审', unit: '安全环保局', subtime: '2020.5.12', time: '2020.5.12' ,  name: '张三', idnumber: '18230823823749234234'},
-    {id: 3, type: '特种人员培训', content: '复审', unit: '安全环保局', subtime: '2020.5.12', time: '2020.5.12' ,  name: '张三', idnumber: '18230823823749234234'},
-    {id: 3, type: '特种人员培训', content: '复审', unit: '安全环保局', subtime: '2020.5.12', time: '2020.5.12' ,  name: '张三', idnumber: '18230823823749234234'},
-    {id: 3, type: '特种人员培训', content: '复审', unit: '安全环保局', subtime: '2020.5.12', time: '2020.5.12' ,  name: '张三', idnumber: '18230823823749234234'},
-    {id: 3, type: '特种人员培训', content: '复审', unit: '安全环保局', subtime: '2020.5.12', time: '2020.5.12' ,  name: '张三', idnumber: '18230823823749234234'},
-    {id: 3, type: '特种人员培训', content: '复审', unit: '安全环保局', subtime: '2020.5.12', time: '2020.5.12' ,  name: '张三', idnumber: '18230823823749234234'},
-    {id: 3, type: '特种人员培训', content: '复审', unit: '安全环保局', subtime: '2020.5.12', time: '2020.5.12' ,  name: '张三', idnumber: '18230823823749234234'},
-  ];
 
   ngOnInit() {
-    this.setTableOption(this.data);
+    // this.setTableOption(this.orgazitionContent);
+    this.initOrgazitonInfo();
   }
 
+  initOrgazitonInfo() {
+
+  }
   public  selectData(e): void {
     this.orgazitionSelect = e;
   }
@@ -91,5 +80,13 @@ export class OrganizationManagerComponent implements OnInit {
   // Paging event (分页事件)
   public  clickEvent(e): void {
     console.log(e);
+  }
+
+  public  showAddOrgazitionClick(): void {
+
+  }
+
+  public  delOrgazitionInfoClick(): void {
+
   }
 }
