@@ -66,7 +66,7 @@ export class SetingService {
 
   /**
    * 组织管理模块
-   * @param pamars
+   * @param pamars sdasd
    */
   // 分页查询组织信息
   public  getOrgazitionInfoPageData(pamars): Observable<any> {
@@ -83,7 +83,7 @@ export class SetingService {
 
   /**
    * 角色模块
-   * @param pamars
+   * @param pamars dasdad
    */
   // 分页角色信息
   public  getRoleInfoPageData(pamars): Observable<any> {

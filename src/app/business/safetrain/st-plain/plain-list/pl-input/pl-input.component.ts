@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {EveryCategory, OrgTree} from '../../../../../common/public/Api';
-import {Es, orgInitializeTree, dataTrees} from '../../../../../common/public/contents';
+import {Es, orgInitializeTree} from '../../../../../common/public/contents';
 import {GlobalService} from '../../../../../common/services/global.service';
 
 @Component({
@@ -30,10 +30,7 @@ export class PlInputComponent implements OnInit {
     this.es = Es;
     this.globalSrv.getOrgazitionTreeData().subscribe(
       (res) => {
-        console.log(res);
-        // this.dataTrees = orgInitializeTree(res.data,'fa fa-address-card-o');
-        this.dataTrees = dataTrees;
-        console.log(this.dataTrees);
+        this.dataTrees = orgInitializeTree(res.data);
       }
     );
   }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Subscription} from 'rxjs';
 import {ThemeService} from '../../../common/public/theme.service';
+import {SetingService} from '../../../common/services/seting.service';
 
 @Component({
   selector: 'app-roles-manager',
@@ -18,7 +19,8 @@ export class RolesManagerComponent implements OnInit {
   };
   public themeSub: Subscription;
   constructor(
-    private themeSrv: ThemeService
+    private themeSrv: ThemeService,
+    private setSrv: SetingService
   ) {
     this.themeSub =  this.themeSrv.changeEmitted$.subscribe(
       value => {
