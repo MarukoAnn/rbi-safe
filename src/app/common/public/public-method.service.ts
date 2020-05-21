@@ -72,19 +72,4 @@ export class PublicMethodService {
       }
     });
   }
-
-  public  setFormGroup(data): any {
-    const group: any = {};
-    data.forEach( val => {
-      if (val.disabled) {
-        group[val.key] = new FormControl({value: val.value || '', disabled: true});
-      } else {
-        group[val.key] = new FormControl({value: val.value || '', disabled: false});
-      }
-      if (val.required) {
-        group[val.key].validator = Validators.required;
-      }
-    });
-    return new FormGroup(group);
-  }
 }

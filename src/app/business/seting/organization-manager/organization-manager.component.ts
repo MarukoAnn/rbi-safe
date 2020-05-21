@@ -6,7 +6,7 @@ import {PublicMethodService} from '../../../common/public/public-method.service'
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {DatePipe} from '@angular/common';
 import {GlobalService} from '../../../common/services/global.service';
-import {OragizationTree, TreeNode} from '../../../common/model/persion-manger.model';
+import {OragizationTree, TreeNode} from '../../../common/public/Api';
 
 @Component({
   selector: 'app-organization-manager',
@@ -33,7 +33,7 @@ export class OrganizationManagerComponent implements OnInit {
   public showEditOrgazationDialog: boolean;
   // 树结构相关
   public dataTrees: OragizationTree[];
-  public dataTree: OragizationTree = new OragizationTree();
+  public dataTree: OragizationTree;
   public treeDialog: any;
 
   constructor(
@@ -205,7 +205,7 @@ export class OrganizationManagerComponent implements OnInit {
   public initializeTree(data): any {
     const oneChild = [];
       for (let i = 0; i < data.length; i++) {
-      const childnode = new TreeNode();
+      const childnode: TreeNode = {};
       childnode.value = data[i].id;
       childnode.label = data[i].organizationName;
       childnode.level = data[i].level;

@@ -100,12 +100,9 @@ export class SidebarComponent implements OnInit {
       icon: {class: 'iconlujing2313', fontsize: '16px', color: '#fff'},
       bgc: '#226AD5',
       label: '制度管理',
-      lefticon: 'fa-angle-down',
-      link: '/home/strain2/institu4',
-      children: [
-        {item: {label: '企业规章制度', bgc: '#D1E0F7', ftcolor: '#4F88DE'}, link: '', isHas: true},
-        {item: {label: '企业规章制度管理', bgc: '#fff', ftcolor: '#8E8E8E'}, link: '', isHas: true},
-      ]
+      lefticon: '',
+      link: '/home/system/symanger',
+      children: []
     },
     {
       icon: {class: 'iconlujing331', fontsize: '16px', color: '#fff'}, bgc: '#226AD5', label: '综合信息', lefticon: 'fa-angle-down', link: '/home/strain2/institu5', children: [
@@ -189,7 +186,7 @@ export class SidebarComponent implements OnInit {
     this.barItem.forEach(val => {
       val.icon.color = '#fff';
       val.bgc = '#226AD5';
-      if (val.label !== '首页') {
+      if (val.children.length !== 0) {
         if ( this.barItem === this.fistItem) {
           val.lefticon = 'fa-angle-down';
         }
@@ -199,7 +196,7 @@ export class SidebarComponent implements OnInit {
     });
     item.icon.color = '#FCCF4F';
     item.bgc = '#4E88DE';
-    if (item.label !== '首页') {
+    if (item.children.length !== 0) {
       if ( this.barItem === this.fistItem) {
         item.lefticon = 'fa-angle-right';
       }
@@ -216,7 +213,9 @@ export class SidebarComponent implements OnInit {
           if (index !== 0) {
             value.icon.color = '#fff';
             value.bgc = '#226AD5';
-            value.lefticon = 'fa-angle-down';
+            if (value.children.length !== 0){
+              value.lefticon = 'fa-angle-down';
+            }
             value.children.forEach((val, flog) => {
               if (flog !== 0) {
                 val.item.bgc = '#fff';

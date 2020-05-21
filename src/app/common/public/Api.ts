@@ -25,3 +25,34 @@ export interface OraWebTree {
   level?: any;
   parentId?: any;
 }
+
+// 分页组件参数接口
+export interface PageOption {
+  pageSize?: any;
+  totalRecord?: any;
+}
+// 组织结构树
+export interface OragizationTree {
+  code?: any;
+  name?: any;
+  id?: any;
+  label?: any;
+  level?: any;
+  value?: any;
+  parent?: any;
+}
+// 树节点
+export interface TreeNode {
+  id?: any;
+  value?: any;
+  label?: any;
+  level?: any;
+  router?: any;
+  parentCode?: any;
+  check?: any;
+  color?: any;
+  idt?: any;
+  udt?: any;
+  selectable?: any;
+  children?: TreeNode[];
+}

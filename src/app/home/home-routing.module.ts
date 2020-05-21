@@ -18,6 +18,11 @@ const routes: Routes = [
       path: 'seting',
       loadChildren: () => import('../business/seting/seting.module').then(m => m.SetingModule),
       data: {preload: true}
+    },
+    {
+      path: 'system',
+      loadChildren: () => import('../business/system/system.module').then(m => m.SystemModule),
+      data: {preload: true}
     }
   ]}
 ];

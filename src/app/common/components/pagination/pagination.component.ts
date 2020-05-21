@@ -1,4 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {PageOption} from '../../public/Api';
 
 @Component({
   selector: 'app-pagination',
@@ -7,7 +8,7 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 })
 export class PaginationComponent implements OnInit {
   @Input()
-  public option: any;
+  public option: PageOption;
   @Output()
   clickEvent = new EventEmitter();
   constructor() { }

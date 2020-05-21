@@ -5,9 +5,9 @@ import {SetingService} from '../../../common/services/seting.service';
 import {PublicMethodService} from '../../../common/public/public-method.service';
 import {FileOption} from '../../../common/components/basic-dialog/dialog.model';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {AddPersion, OragizationTree, TreeNode} from '../../../common/model/persion-manger.model';
 import {DatePipe} from '@angular/common';
 import {GlobalService} from '../../../common/services/global.service';
+import {OragizationTree, TreeNode} from '../../../common/public/Api';
 
 @Component({
   selector: 'app-personnel-manager',
@@ -45,7 +45,7 @@ export class PersonnelManagerComponent implements OnInit {
   public orgazitionName: any;
   // public showOrgazationTree;
   public dataTrees: OragizationTree[];
-  public dataTree: OragizationTree = new OragizationTree();
+  public dataTree: OragizationTree;
   public treeFlag = 'search';
   public treeDialog: any;
   // 删除相关
@@ -367,7 +367,7 @@ export class PersonnelManagerComponent implements OnInit {
   public initializeTree(data): any {
     const oneChild = [];
     for (let i = 0; i < data.length; i++) {
-      const childnode = new TreeNode();
+      const childnode: TreeNode = {};
       childnode.value = data[i].id;
       childnode.label = data[i].organizationName;
       // childnode.level = data[i].level;

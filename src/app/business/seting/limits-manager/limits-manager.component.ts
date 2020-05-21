@@ -6,7 +6,8 @@ import {PublicMethodService} from '../../../common/public/public-method.service'
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {DatePipe} from '@angular/common';
 import {GlobalService} from '../../../common/services/global.service';
-import {OragizationTree, TreeNode} from '../../../common/model/persion-manger.model';
+import {OragizationTree, TreeNode} from '../../../common/public/Api';
+// import {OragizationTree, TreeNode} from '../../../common/model/persion-manger.model';
 
 @Component({
   selector: 'app-limits-manager',
@@ -39,7 +40,7 @@ export class LimitsManagerComponent implements OnInit {
 
   // 权限树相关
   public dataTrees: OragizationTree[];
-  public dataTree: OragizationTree = new OragizationTree();
+  public dataTree: OragizationTree;
   public treeDialog: boolean;
   constructor(
     private themeSrv: ThemeService,
@@ -81,10 +82,10 @@ export class LimitsManagerComponent implements OnInit {
       if (val.status === '1000'){
         this.limitContent = val.data.contents.map(v => {
             v.enabled  = v.enabled === 1 ? '启用' : '未启用';
-            // v.systemId  = v.systemId === 1 ? 'web端' : 'APP端';
             return v;
         });
         this.pageOption = {totalRecord: val.data.totalRecord, pageSize: val.data.pageSize};
+        // this.pageOption = {pageSize: ''};
         this.setTableOption(this.limitContent);
         this.toolSrv.setToast('success', '请求成功', val.message);
       }else {
@@ -126,7 +127,7 @@ export class LimitsManagerComponent implements OnInit {
           {field: 'operateCode', header: '权限编号'},
           {field: 'parentId', header: '父级id'},
           {field: 'enabled', header: '是否启用'},
-          {field: 'systemId', header: '系统名称'},
+          {field: 'systemName', header: '系统名称'},
           {field: 'operating', header: '操作'}
         ],
         style: {background: this.table.tableheader.background, color: this.table.tableheader.color, height: '6vh'}
@@ -220,6 +221,7 @@ export class LimitsManagerComponent implements OnInit {
      }
   }
   public  UpdateLimitInfoClick(): void {
+    console.log(this.addLimit.value);
     if (this.addLimit.valid){
       const data = JSON.parse(JSON.stringify(this.addLimit.value));
       delete data.name;
@@ -257,7 +259,7 @@ export class LimitsManagerComponent implements OnInit {
   public initializeTree(data): any {
     const oneChild = [];
     for (let i = 0; i < data.length; i++) {
-      const childnode = new TreeNode();
+      const childnode: TreeNode = {};
      if (data[i].hasOwnProperty('permissionTreeInfoList')){
        childnode.label = data[i].systemName;
        childnode.value = data[i].id;

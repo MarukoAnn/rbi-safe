@@ -1,0 +1,63 @@
+<div class="roles-manager">
+  <div class="roles-manager-title">
+     <span>
+       制度管理
+     </span>
+  </div>
+  <div class="roles-manager-header">
+    <div class="roles-manager-search">
+      <div class="ui-inputgroup" >
+        <input type="text" pInputText  placeholder="搜索"/>
+        <button pButton type="button" icon="pi pi-search" class="ui-button-warn" (click)="searchDataClick()"></button>
+      </div>
+    </div>
+    <div class="roles-manager-button">
+      <button pButton type="button" label="文件上传" class="ui-button-rounded" icon="iconfont iconbaseline-open_in_new-24px" (click)="showAddSystemDialog = true"></button>
+      <button pButton type="button" label="批量删除" class="ui-button-rounded"></button>
+    </div>
+  </div>
+  <div class="roles-manager-table">
+    <app-check-table-btn [select]="roleSelect"   (selectData)="selectData($event)" [option]="optionTable" (detail)="DetailClick($event)"></app-check-table-btn>
+  </div>
+  <div class="roles-manager-pagination">
+    <app-pagination [option]="pageOption" (clickEvent)="clickEvent($event)"></app-pagination>
+  </div>
+  <p-toast position="top-center" key="toast"></p-toast>
+  <p-confirmDialog header="Confirmation" acceptLabel="取消" rejectLabel="确认选择" acceptIcon="" rejectIcon=""></p-confirmDialog>
+  <p-dialog header="信息添加" [(visible)]="showAddSystemDialog" [style]="{width: '700px'}">
+    <form [formGroup]="addSystem">
+      <div class="ui-g ui-md ui-fiuld">
+        <div class="ui-g-12 ui-md-12">
+          <div class="ui-g-2 ui-md-2"></div>
+          <div class="ui-g-8 ui-md-8" style="line-height: 4.4vh">
+            <div class="ui-g-4 ui-md-4 right">
+              <span style="color: #FF8A9A">*</span>文件类别：
+            </div>
+            <div class="ui-g-8 ui-md-8 ">
+              <div class="ui-md-12 ui-g-12 dialog-input">
+                <input pInputText type="text" formControlName="organizationName" placeholder="请选择文件类别"/>
+              </div>
+            </div>
+          </div>
+          <div class="ui-g-12 ui-md-12">
+            <div class="ui-g-2 ui-md-2"></div>
+            <div class="ui-g-8 ui-md-8" style="line-height: 4.4vh">
+              <div class="ui-g-4 ui-md-4 right">
+                <span style="color: #FF8A9A">*</span>附件：
+              </div>
+              <div class="ui-g-8 ui-md-8 ">
+                <div class="ui-md-12 ui-g-12 dialog-input">
+                  <input pInputText type="text" formControlName="name" placeholder="请选择文件" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+    <p-footer>
+      <button class="dialog-btn" (click)="showAddSystemDialog = false;resetAllData()">取消</button>
+      <button class="dialog-btn" (click)="addSystemInfoClick()">确认选择</button>
+    </p-footer>
+  </p-dialog>
+</div>
