@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PaginationComponent } from './pagination.component';
-import {PaginatorModule} from 'primeng/primeng';
+import {PaginatorModule} from 'primeng/paginator';
 
 
 
