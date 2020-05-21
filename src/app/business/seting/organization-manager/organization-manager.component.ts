@@ -128,7 +128,7 @@ export class OrganizationManagerComponent implements OnInit {
   // Paging event (分页事件)
   public  clickEvent(e): void {
     console.log(e);
-    this.pageNo = e.page + 1;
+    this.pageNo = e;
     this.initOrgazitonInfo();
   }
   public  getOrgazationTreeInfo(): void {
@@ -177,20 +177,24 @@ export class OrganizationManagerComponent implements OnInit {
   }
   // 更新组织
   public  updateOragizationInfoClick(): void {
-    const data = JSON.parse(JSON.stringify(this.addOragization.value));
-    delete data.name;
-    this.toolSrv.setConfirmation('修改', '修改该公司', () => {
-      this.setSrv.updateOrgazitionInfo(data).subscribe(value => {
-        if (value.status === '1000'){
-          this.showEditOrgazationDialog = false;
-          this.initOrgazitonInfo();
-          this.resetAllData();
-          this.toolSrv.setToast('success', '修改成功', value.message);
-        }else {
-          this.toolSrv.setToast('error', '修改失败', value.message);
-        }
+    if (this.addOragization.valid){
+      const data = JSON.parse(JSON.stringify(this.addOragization.value));
+      delete data.name;
+      this.toolSrv.setConfirmation('修改', '修改该公司', () => {
+        this.setSrv.updateOrgazitionInfo(data).subscribe(value => {
+          if (value.status === '1000'){
+            this.showEditOrgazationDialog = false;
+            this.initOrgazitonInfo();
+            this.resetAllData();
+            this.toolSrv.setToast('success', '修改成功', value.message);
+          }else {
+            this.toolSrv.setToast('error', '修改失败', value.message);
+          }
+        });
       });
-    });
+    }else {
+      this.toolSrv.setToast('error', '添加失败', '数据未填写完整');
+    }
   }
   // 重置数据
   public  resetAllData(): void {
