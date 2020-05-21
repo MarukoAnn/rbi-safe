@@ -7,7 +7,6 @@ import { StContentSetingComponent } from './st-content-seting/st-content-seting.
 import { SafeTrainComponent } from './safe-train/safe-train.component';
 import {InputTextModule} from 'primeng/inputtext';
 import {ButtonModule} from 'primeng/button';
-import {ScrollPanelModule} from 'primeng/primeng';
 import {StDemandModule} from './st-demand/st-demand.module';
 import {PaginationModule} from '../../common/components/pagination/pagination.module';
 import { PlainEditComponent } from './st-plain/plain-edit/plain-edit.component';
@@ -21,6 +20,9 @@ import {PlInputComponent} from './st-plain/plain-list/pl-input/pl-input.componen
 import {DropdownModule} from 'primeng/dropdown';
 import {FormsModule} from '@angular/forms';
 import {CalendarModule} from 'primeng/calendar';
+import {BasicTableModule} from '../../common/components/basic-table/basic-table.module';
+import {DialogModule} from 'primeng/dialog';
+import {ScrollPanelModule, TreeModule} from 'primeng/primeng';
 @NgModule({
   declarations: [
     StInstitutionComponent,
@@ -39,6 +41,7 @@ import {CalendarModule} from 'primeng/calendar';
     SafetrainRoutingModule,
     InputTextModule,
     ButtonModule,
+    BasicTableModule,
     ScrollPanelModule,
     StDemandModule,
     PaginationModule,
@@ -47,6 +50,9 @@ import {CalendarModule} from 'primeng/calendar';
     DropdownModule,
     CalendarModule,
     FormsModule,
-  ]
+    DialogModule,
+    TreeModule,
+  ],
+  providers: []
 })
 export class SafetrainModule { }

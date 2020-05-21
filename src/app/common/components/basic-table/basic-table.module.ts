@@ -15,7 +15,7 @@ import {BfTableComponent} from './bf-table/bf-table.component';
     CommonModule,
     ScrollPanelModule,
     TableModule,
-    ButtonModule
+    ButtonModule,
   ],
   exports: [
     BfTableBtnComponent,

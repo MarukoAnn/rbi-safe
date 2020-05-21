@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
-import {HttpEvent, HttpRequest, HttpHandler, HttpInterceptor, HttpErrorResponse} from '@angular/common/http';
+import {HttpEvent, HttpRequest, HttpHandler, HttpInterceptor} from '@angular/common/http';
 import {EMPTY, Observable, of} from 'rxjs';
-import {catchError, mergeMap, tap, timeout} from 'rxjs/operators';
+import {tap, timeout} from 'rxjs/operators';
 import {Router} from '@angular/router';
 import {AppState} from '../../store/loadstatus.state';
 import {GlobalService} from './global.service';
@@ -33,21 +33,14 @@ export class AuthInterceptor implements HttpInterceptor {
           url: req.url,
           headers: req.headers
           .set('Content-type', 'application/json; charset=UTF-8')
-          // .set('Content-type', 'application/x-www-form-urlencoded')
       });
-    } else if (req.url === environment.url_safe + '/company_personnel/excel_import') {
+    }
+    else {
       this.clonedRequest = req.clone({
-        url: req.url,
-        headers: req.headers
-          .set('accessToken', this.localSessionStorage.get('token'))
-      });
-    } else {
-      this.clonedRequest = req.clone({
-        url: req.url,
+        url: environment.url_safe + req.url,
         headers: req.headers
           .set('Content-type', 'application/json; charset=UTF-8')
-        // .set('Content-type', 'application/x-www-form-urlencoded')
-        .set('accessToken', this.localSessionStorage.get('token'))
+          .set('accessToken', this.localSessionStorage.get('token'))
       });
     }
 

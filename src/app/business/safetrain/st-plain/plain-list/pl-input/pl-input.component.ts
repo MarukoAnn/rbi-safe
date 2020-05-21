@@ -1,7 +1,7 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {EveryCategory} from '../../../../../common/until/Api';
-import {Es} from '../../../../../common/until/contents';
-import {Calendar} from 'primeng/calendar';
+import {Component, OnInit} from '@angular/core';
+import {EveryCategory, OrgTree} from '../../../../../common/public/Api';
+import {Es, orgInitializeTree, dataTrees} from '../../../../../common/public/contents';
+import {GlobalService} from '../../../../../common/services/global.service';
 
 @Component({
   selector: 'app-pl-input',
@@ -12,9 +12,15 @@ export class PlInputComponent implements OnInit {
   // @ViewChild(Calendar, {static: true}) calendar: Calendar;
   public cars: EveryCategory[];
   public selectedCar1: EveryCategory;
-  public date7: Date;
+  public startDate: Date;
+  public sendDate: Date;
+  public display: boolean = false;
   public es: any;
-  constructor() { }
+  public dataTrees: OrgTree[] = [];
+  public dataTree: OrgTree = {};
+  constructor(
+    private globalSrv: GlobalService,
+  ) { }
   ngOnInit() {
     this.cars = [
       {name: '全部', value: '1', flag: 0},
@@ -22,5 +28,16 @@ export class PlInputComponent implements OnInit {
       {name: 'BMW', value: 'BMW', flag: 1},
     ];
     this.es = Es;
+    this.globalSrv.getOrgazitionTreeData().subscribe(
+      (res) => {
+        console.log(res);
+        // this.dataTrees = orgInitializeTree(res.data,'fa fa-address-card-o');
+        this.dataTrees = dataTrees;
+        console.log(this.dataTrees);
+      }
+    );
+  }
+  public showDialog() {
+    this.display = true;
   }
 }

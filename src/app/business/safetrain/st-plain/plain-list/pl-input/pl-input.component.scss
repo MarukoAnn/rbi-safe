@@ -15,4 +15,9 @@
       background-color: unset;
     }
   }
+  .orgButton{
+    /deep/ .ui-button-text{
+      padding: 0.429em;
+    }
+  }
 }
