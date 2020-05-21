@@ -13,4 +13,7 @@ export class GlobalService {
   public  getOrgazitionTreeData(params?: {}): Observable<any> {
     return this.http.post(`/getOrganizationTree`, params);
   }
+  public  getRolesInfo(pamars): Observable<any> {
+      return this.http.post(environment.url_safe + `/getRole`, pamars);
+  }
 }

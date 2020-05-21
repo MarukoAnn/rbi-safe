@@ -21,6 +21,19 @@
     align-items: center;
     .user-manager-search{
       position: relative;
+      .ui-inputgroup {
+        display: inline-block;
+        margin-left: 1vw;
+        input{
+          border-radius: 20px 0 0 20px;
+          outline: none;
+        }
+        button{
+          margin-top: 1px;
+          border-radius:  0 20px 20px 0;
+          border: 0;
+        }
+      }
     }
     .user-manager-button {
       button{
@@ -52,11 +65,67 @@
     border-left: 0;
     background: #F8F8F8;
   }
-  ::ng-deep .ui-inputgroup input{
-    border-radius: 20px 0 0 20px;
-    outline: none;
+  ::ng-deep .ui-inputgroup .ui-widget {
+    color: #8D8E96;
+    font-size: 14px;
+    //height: 3vh;
+    height: 32px;
+    border: 1px solid #F0F0F0;
+    //border-right: 0;
+    border-left: 0;
+    background: #F8F8F8;
   }
-  ::ng-deep .ui-inputgroup button{
-    border-radius:  0 20px 20px 0;
+
+  ::ng-deep  .ui-dialog .ui-dialog-titlebar{
+    text-align: center;
+    background: #F8F8F8;
+    font-size: 16px;
+    border: 0;
+    border-bottom: 1px solid #CACED5;
+  }
+  ::ng-deep .ui-dialog .ui-dialog-content{
+    border: 0;
+  }
+  ::ng-deep  .ui-dialog .ui-dialog-footer{
+    text-align: center;
+    border: 0;
+    button:first-child{
+      //padding: 4px 6px;
+      border-radius: 20px;
+      background: #fff;
+      color: #575C65;
+      border: 1px solid #575C65;
+    }
+    button:last-child{
+      //padding: 4px 6px;
+      background: #3B86FF;
+      border-radius: 20px;
+    }
+  }
+  .right {
+    text-align: right;
+    color: #4D4F5C;
+  }
+  .dialog-input {
+    line-height: 3vh;
+    text-align: left;
+    color: #4D4F5C;
+    input, ::ng-deep .ui-inputtext{
+      width: 100%;
+      border: 1px solid #D2D6DB;
+    }
+  }
+  .dialog-btn{
+    width: 6vw;
+    //text-align: center;
+    border-radius: 5px;
+    height: 4vh;
+    outline: none;
+    color: #fff;
+    border: 0;
+    margin-left: 2vw;
+  }
+  ::ng-deep .ui-dialog-content{
+    overflow: visible ;
   }
 }

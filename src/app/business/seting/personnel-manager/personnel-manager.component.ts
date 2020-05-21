@@ -218,22 +218,23 @@ export class PersonnelManagerComponent implements OnInit {
        }
      }
   }
-
   // Paging event (分页事件)
   public  clickEvent(e): void {
-    console.log(e);
+    this.searchData.pageNo = e.page + 1;
+    this.initPersonnelData();
+    // console.log(e);
   }
   // 删除信息
   public  selectPersonnelDataToDel(): void {
       if (this.personnelSelect.length === 0) {
-        this.toolSrv.setToast('操作错误', 'error', '请选择需要删除的项');
-      } else if (this.personnelSelect.length > 0) {
-        this.personnelSelect.forEach(val => {
-          this.delIds.push(val.id);
-        });
-        this.toolSrv.setConfirmation('删除', `删除${this.personnelSelect.length}`, () => {
-          this.delpersonnelData();
-        });
+      this.toolSrv.setToast('操作错误', 'error', '请选择需要删除的项');
+    } else if (this.personnelSelect.length > 0) {
+      this.personnelSelect.forEach(val => {
+        this.delIds.push(val.id);
+      });
+      this.toolSrv.setConfirmation('删除', `删除${this.personnelSelect.length}`, () => {
+        this.delpersonnelData();
+      });
     }
   }
   // 删除请求
@@ -248,7 +249,7 @@ export class PersonnelManagerComponent implements OnInit {
       });
   }
   // 重置数据
-  public resetAllData(): void{
+  public  resetAllData(): void{
     this.personnelSelect = [];
     this.delIds = [];
   }
@@ -381,7 +382,7 @@ export class PersonnelManagerComponent implements OnInit {
     return oneChild;
   }
 
-  public  dataTreeSureClick(): void {
+  public dataTreeSureClick(): void {
     console.log(this.dataTree);
     this.treeDialog = false;
     if (this.treeFlag === 'search') {
