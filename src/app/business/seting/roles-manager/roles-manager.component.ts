@@ -33,7 +33,7 @@ export class RolesManagerComponent implements OnInit {
   }
   public pageOption = {
     pageSize: 10,
-    totalPage: 50
+    totalRecord: 50
   };
   public data = [
     {id: 1, type: '日常培训', content: '厂规', unit: '矿业公司', subtime: '2020.5.12', time: '2020.5.12', name: '张三', idnumber: '18230823823749234234'},
@@ -51,6 +51,9 @@ export class RolesManagerComponent implements OnInit {
 
   ngOnInit() {
     this.setTableOption(this.data);
+    this.setSrv.getRoleInfoPageData({}).subscribe((res) => {
+      console.log(res);
+    });
   }
 
   public  selectData(e): void {
