@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { StPlainComponent } from './st-plain.component';
+import { PlReleaseComponent } from './pl-release.component';
 
-describe('StPlainComponent', () => {
-  let component: StPlainComponent;
-  let fixture: ComponentFixture<StPlainComponent>;
+describe('PlReleaseComponent', () => {
+  let component: PlReleaseComponent;
+  let fixture: ComponentFixture<PlReleaseComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ StPlainComponent ]
+      declarations: [ PlReleaseComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(StPlainComponent);
+    fixture = TestBed.createComponent(PlReleaseComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

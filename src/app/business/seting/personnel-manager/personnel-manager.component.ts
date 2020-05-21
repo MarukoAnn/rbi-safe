@@ -335,6 +335,7 @@ export class PersonnelManagerComponent implements OnInit {
      this.globalSrv.getOrgazitionTreeData({}).subscribe(value => {
        if (value.data) {
          this.dataTrees = this.initializeTree(value.data);
+         console.log(this.dataTrees);
        } else {
          this.toolSrv.setToast('error', '操作', '组织数据获取失败');
        }

@@ -20,7 +20,6 @@ export class AddPersion {
   entryTime?: any;
   remarks?: any;
 }
-
 export class OragizationTree {
   code?: any;
   name?: any;
