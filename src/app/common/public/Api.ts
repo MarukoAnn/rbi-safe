@@ -26,6 +26,14 @@ export interface OraWebTree {
   parentId?: any;
 }
 
+// 角色数据接口
+export interface Role {
+  id?: number;
+  roleName?: string;
+  whetherSee?: any;
+  enabled?: any;
+}
+
 // 分页组件参数接口
 export interface PageOption {
   pageSize?: any;

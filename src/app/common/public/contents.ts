@@ -14,7 +14,7 @@ export const Es = {
 };
 
 // p-tree树形结构初始化函数
-export function orgInitializeTree(data, icon?: string): any {
+export function orgInitializeTree(data): any {
   const oneChild = [];
   for (const item of data) {
     const childnode: OrgTree = {};
