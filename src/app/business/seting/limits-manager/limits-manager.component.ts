@@ -60,11 +60,12 @@ export class LimitsManagerComponent implements OnInit {
     this.addLimit = this.fb.group({
       permissionName: new FormControl('', Validators.required),
       operateCode: new FormControl('', Validators.required),
-      parentId: new FormControl('', Validators.required),
-      description: new FormControl(''),
       systemId: new FormControl('', Validators.required),
       enabled: new FormControl('', Validators.required),
-      name: new FormControl('', Validators.required),
+      description: new FormControl(''),
+      parentId: new FormControl(''),
+      name: new FormControl(''),
+      id: new FormControl(''),
     });
     this.initLimitData();
     this.getLimitTree();
@@ -72,14 +73,14 @@ export class LimitsManagerComponent implements OnInit {
 
   public initLimitData(): void {
     this.setSrv.getPermissionInfoPageData({pageNo: this.pageNo, pageSize: 10}).subscribe(val => {
-      // console.log(val);
+      console.log(val);
       if (val.status === '1000'){
         this.limitContent = val.data.contents.map(v => {
             v.enabled  = v.enabled === 1 ? '启用' : '未启用';
             // v.systemId  = v.systemId === 1 ? 'web端' : 'APP端';
             return v;
         });
-        this.pageOption = {totalPage: val.data.totalPage, row: val.data.pageNo};
+        this.pageOption = {totalRecord: val.data.totalRecord, pageSize: val.data.pageSize};
         this.setTableOption(this.limitContent);
         this.toolSrv.setToast('success', '请求成功', val.message);
       }else {
@@ -130,6 +131,7 @@ export class LimitsManagerComponent implements OnInit {
     this.globalSrv.getLimitTreeData().subscribe(val => {
       if (val.status === '1000'){
         console.log(val);
+        this.dataTrees = this.initializeTree(val.data);
         this.toolSrv.setToast('success', '请求成功', val.message);
       }else {
         this.toolSrv.setToast('error', '请求失败', val.message);
@@ -139,7 +141,7 @@ export class LimitsManagerComponent implements OnInit {
 
   // Paging event (分页事件)
   public  clickEvent(e): void {
-    this.pageNo = e.page;
+    this.pageNo = e.page + 1;
     this.initLimitData();
   }
 
@@ -158,7 +160,7 @@ export class LimitsManagerComponent implements OnInit {
   }
   // 删除请求
   public  delLimitInfo(data): void {
-    this.setSrv.delPersonnelInfo(data).subscribe(res => {
+    this.setSrv.delPermissionInfo(data).subscribe(res => {
       if (res.status === '1000'){
         // this
         this.initLimitData();
@@ -179,11 +181,39 @@ export class LimitsManagerComponent implements OnInit {
   }
   // 添加权限
   public  addLimitInfoClick(): void {
-
+     if (this.addLimit.valid){
+       const data = JSON.parse(JSON.stringify(this.addLimit.value));
+       delete data.name;
+       delete data.id;
+       this.toolSrv.setConfirmation('添加', '添加该权限', () => {
+         this.setSrv.addPermissionInfo(data).subscribe(val => {
+           if (val.status === '1000'){
+             this.showAddLimitDialog = false;
+             this.resetAllData();
+             this.initLimitData();
+             this.toolSrv.setToast('success', '添加成功', val.message);
+           }else {
+             this.toolSrv.setToast('error', '添加失败', val.message);
+           }
+         });
+       });
+     }else {
+       this.toolSrv.setToast('error', '添加失败', '数据未填写完整');
+     }
   }
   // 树结构选择
   public  dataTreeSureClick(): void {
-      console.log(this.dataTree);
+    // console.log(this.dataTree);
+    this.treeDialog = false;
+    this.addLimit.patchValue({name: this.dataTree.label});
+    if (this.dataTree.level === 1){
+        this.addLimit.patchValue({systemId: this.dataTree.value});
+        this.addLimit.patchValue({parentId: ''});
+
+      }else {
+        this.addLimit.patchValue({parentId: this.dataTree.value});
+        this.addLimit.patchValue({systemId: this.dataTree.id});
+      }
   }
   // Tree structure initialization
   public initializeTree(data): any {
@@ -193,14 +223,20 @@ export class LimitsManagerComponent implements OnInit {
      if (data[i].hasOwnProperty('permissionTreeInfoList')){
        childnode.label = data[i].systemName;
        childnode.value = data[i].id;
-     }else if (data.hasOwnProperty('sysPermissionList')) {
+       childnode.id = data[i].id;
+       childnode.level = 1;
+     }else {
        childnode.label = data[i].permissionName;
-       childnode.label = data[i].id;
+       childnode.value = data[i].id;
+       childnode.id = data[i].systemId;
+       childnode.level = 2;
      }
       childnode.selectable = true;
-      if (data[i].chiled != null && data[i].chiled.length !== 0 ) {
-        childnode.children = this.initializeTree(data[i].chiled);
-      } else {
+      if (data[i].permissionTreeInfoList != null && data[i].permissionTreeInfoList.length !== 0 ) {
+        childnode.children = this.initializeTree(data[i].permissionTreeInfoList);
+      } else if (data[i].sysPermissionList != null && data[i].sysPermissionList.length !== 0 ){
+        childnode.children = this.initializeTree(data[i].sysPermissionList);
+      }else {
         childnode.children = [];
       }
       oneChild.push(childnode);

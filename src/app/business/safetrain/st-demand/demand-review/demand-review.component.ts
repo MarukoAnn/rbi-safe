@@ -13,8 +13,8 @@ export class DemandReviewComponent implements OnInit {
   public optionTable: any;
   public themeSub: Subscription;
   public pageOption = {
-    row: 10,
-    totalPage: 50
+    pageSize: 10,
+    totalRecord: 50
   };
   public data = [
     {id: 1, type: '日常培训', content: '厂规', unit: '矿业公司', subtime: '2020.5.12', time: '2020.5.12' },

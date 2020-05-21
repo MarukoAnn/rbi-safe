@@ -23,7 +23,7 @@ export class AddPersion {
 export class OragizationTree {
   code?: any;
   name?: any;
-  pid?: any;
+  id?: any;
   label?: any;
   level?: any;
   value?: any;

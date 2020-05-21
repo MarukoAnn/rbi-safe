@@ -32,7 +32,7 @@ export class RolesManagerComponent implements OnInit {
     );
   }
   public pageOption = {
-    row: 10,
+    pageSize: 10,
     totalPage: 50
   };
   public data = [
