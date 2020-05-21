@@ -152,49 +152,56 @@ export class UserManagerComponent implements OnInit {
  }
  // 添加信息
  public  addUserInfoClick(): void {
-    const data = JSON.parse(JSON.stringify(this.addUser.value));
-    data.sysUserRoleList = [{roleId: data.sysUserRoleList}];
-    data.enabled = Number(data.enabled);
-    this.toolSrv.setConfirmation('添加', '添加新用户', () => {
-      this.setSrv.addUserInfo(data).subscribe(val => {
-        if (val.status === '1000') {
-          this.showAddUserDialog = false;
-          this.addUser.reset();
-          this.initUserInfo();
-          this.toolSrv.setToast('success', '请求成功', val.message);
-        } else {
-          this.toolSrv.setToast('error', '请求失败', val.message);
-        }
-      });
-    });
+   if (this.addUser.valid){
+     const data = JSON.parse(JSON.stringify(this.addUser.value));
+     data.sysUserRoleList = [{roleId: data.sysUserRoleList}];
+     data.enabled = Number(data.enabled);
+     this.toolSrv.setConfirmation('添加', '添加新用户', () => {
+       this.setSrv.addUserInfo(data).subscribe(val => {
+         if (val.status === '1000') {
+           this.showAddUserDialog = false;
+           this.addUser.reset();
+           this.initUserInfo();
+           this.toolSrv.setToast('success', '请求成功', val.message);
+         } else {
+           this.toolSrv.setToast('error', '请求失败', val.message);
+         }
+       });
+     });
+   }else {
+     this.toolSrv.setToast('error', '添加失败', '数据未填写完整');
+   }
  }
  // 更新信息
  public  updateUserInfoClick(): void {
-   const updatedata = JSON.parse(JSON.stringify(this.addUser.value));
-   // updatedata.sysUserRoleList = [{roleId: updatedata.sysUserRoleList}];
-   updatedata.enabled = Number(updatedata.enabled);
-   delete this.selectRolesList[0].roleName;
-   delete this.selectRolesList[0].operatingStaff;
-   delete this.selectRolesList[0].idt;
-   this.selectRolesList[0].roleId = updatedata.sysUserRoleList;
-   const upData = {
-     id: updatedata.id,
-     companyPersonnelId: updatedata.companyPersonnelId,
-     enabled: updatedata.enabled,
-     sysUserRoleList: this.selectRolesList
-   };
-   this.toolSrv.setConfirmation('修改', '修改此用户', () => {
-     this.setSrv.updateUserInfo(upData).subscribe(val => {
-       if (val.status === '1000') {
-         this.showEditUserDialog = false;
-         this.addUser.reset();
-         this.initUserInfo();
-         this.toolSrv.setToast('success', '请求成功', val.message);
-       } else {
-         this.toolSrv.setToast('error', '请求失败', val.message);
-       }
+   if (this.addUser.valid){
+     const updatedata = JSON.parse(JSON.stringify(this.addUser.value));
+     updatedata.enabled = Number(updatedata.enabled);
+     delete this.selectRolesList[0].roleName;
+     delete this.selectRolesList[0].operatingStaff;
+     delete this.selectRolesList[0].idt;
+     this.selectRolesList[0].roleId = updatedata.sysUserRoleList;
+     const upData = {
+       id: updatedata.id,
+       companyPersonnelId: updatedata.companyPersonnelId,
+       enabled: updatedata.enabled,
+       sysUserRoleList: this.selectRolesList
+     };
+     this.toolSrv.setConfirmation('修改', '修改此用户', () => {
+       this.setSrv.updateUserInfo(upData).subscribe(val => {
+         if (val.status === '1000') {
+           this.showEditUserDialog = false;
+           this.addUser.reset();
+           this.initUserInfo();
+           this.toolSrv.setToast('success', '请求成功', val.message);
+         } else {
+           this.toolSrv.setToast('error', '请求失败', val.message);
+         }
+       });
      });
-   });
+   }else {
+     this.toolSrv.setToast('error', '添加失败', '数据未填写完整');
+   }
  }
 
  public  delUserInfoClick(): void {

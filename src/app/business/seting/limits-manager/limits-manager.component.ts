@@ -32,6 +32,10 @@ export class LimitsManagerComponent implements OnInit {
   // 添加相关
   public addLimit: FormGroup;
   public showAddLimitDialog: boolean;
+  // 修改xiangguan
+  public showEditLimitDialog: boolean;
+  // 搜索相关
+  public searchData: any;
 
   // 权限树相关
   public dataTrees: OragizationTree[];
@@ -97,6 +101,18 @@ export class LimitsManagerComponent implements OnInit {
         this.delData.push({id: e.id});
         this.delLimitInfo(this.delData);
       });
+    }else {
+      const list = ['id', 'permissionName', 'operateCode', 'parentId', 'description', 'systemId', 'enabled'];
+      list.forEach(val => {
+        const a = {};
+        if (val === 'enabled'){
+          e.data[val] = e.data[val] === '启用' ? 1 : 0;
+        }
+        a[val] = e.data[val];
+        this.addLimit.patchValue(a);
+      });
+      this.addLimit.patchValue({name: e.data.systemName});
+      this.showEditLimitDialog = true;
     }
   }
   // set table data （设置列表数据）
@@ -125,7 +141,9 @@ export class LimitsManagerComponent implements OnInit {
   }
   // search Data (搜索事件)
   public  searchDataClick(): void {
-    console.log(123);
+    // this.setSrv.queryPermissionInfoById({id: this.searchData}).subscribe(res => {
+    //   console.log(res);
+    // });
   }
   public  getLimitTree(): void {
     this.globalSrv.getLimitTreeData().subscribe(val => {
@@ -200,6 +218,26 @@ export class LimitsManagerComponent implements OnInit {
      }else {
        this.toolSrv.setToast('error', '添加失败', '数据未填写完整');
      }
+  }
+  public  UpdateLimitInfoClick(): void {
+    if (this.addLimit.valid){
+      const data = JSON.parse(JSON.stringify(this.addLimit.value));
+      delete data.name;
+      this.toolSrv.setConfirmation('修改', '修改该权限', () => {
+        this.setSrv.updatePermissionInfo(data).subscribe(val => {
+          if (val.status === '1000'){
+            this.showEditLimitDialog = false;
+            this.resetAllData();
+            this.initLimitData();
+            this.toolSrv.setToast('success', '修改成功', val.message);
+          }else {
+            this.toolSrv.setToast('error', '修改失败', val.message);
+          }
+        });
+      });
+    }else {
+      this.toolSrv.setToast('error', '添加失败', '数据未填写完整');
+    }
   }
   // 树结构选择
   public  dataTreeSureClick(): void {
