@@ -70,7 +70,7 @@ export class UserManagerComponent implements OnInit {
       if (val.status === '1000') {
         this.userContent = val.data.contents;
         this.setTableOption(this.userContent);
-        this.pageOption = {row: val.data.pageNo, totalPage: val.data.totalPage};
+        this.pageOption = {row: val.data.pageNo, totalRecord: val.data.totalRecord};
         this.toolSrv.setToast('success', '请求成功', val.message);
       } else {
         this.toolSrv.setToast('error', '请求失败', val.message);

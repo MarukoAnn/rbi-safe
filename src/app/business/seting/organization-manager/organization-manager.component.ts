@@ -72,7 +72,7 @@ export class OrganizationManagerComponent implements OnInit {
       if (val.status === '1000') {
         this.orgazitionContent = val.data.contents;
         this.setTableOption(this.orgazitionContent);
-        this.pageOption = {row: val.data.pageNo, totoalPage: val.data.totoalPage};
+        this.pageOption = {row: val.data.pageNo, totalRecord: val.data.totalRecord};
         this.toolSrv.setToast('success', '请求成功', val.message);
       }else {
          this.toolSrv.setToast('error', '请求失败', val.message);
@@ -155,21 +155,25 @@ export class OrganizationManagerComponent implements OnInit {
   }
   // 添加请求
   public  addOragizationInfoClick(): void {
-    const data = JSON.parse(JSON.stringify(this.addOragization.value));
-    delete data.name;
-    delete data.id;
-    this.toolSrv.setConfirmation('添加', '添加该公司', () => {
-      this.setSrv.addOrgazitionInfo(data).subscribe(value => {
-        if (value.status === '1000'){
-          this.showAddOrgazationDialog = false;
-          this.initOrgazitonInfo();
-          this.resetAllData();
-          this.toolSrv.setToast('success', '添加成功', value.message);
-        }else {
-          this.toolSrv.setToast('error', '添加失败', value.message);
-        }
+    if (this.addOragization.valid){
+      const data = JSON.parse(JSON.stringify(this.addOragization.value));
+      delete data.name;
+      delete data.id;
+      this.toolSrv.setConfirmation('添加', '添加该公司', () => {
+        this.setSrv.addOrgazitionInfo(data).subscribe(value => {
+          if (value.status === '1000'){
+            this.showAddOrgazationDialog = false;
+            this.initOrgazitonInfo();
+            this.resetAllData();
+            this.toolSrv.setToast('success', '添加成功', value.message);
+          }else {
+            this.toolSrv.setToast('error', '添加失败', value.message);
+          }
+        });
       });
-     });
+    }else {
+      this.toolSrv.setToast('error', '添加失败', '数据未填写完整');
+    }
   }
   // 更新组织
   public  updateOragizationInfoClick(): void {
