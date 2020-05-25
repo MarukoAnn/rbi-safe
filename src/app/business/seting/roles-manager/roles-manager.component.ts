@@ -2,9 +2,10 @@ import {Component, OnInit} from '@angular/core';
 import {Subscription} from 'rxjs';
 import {ThemeService} from '../../../common/public/theme.service';
 import {SetingService} from '../../../common/services/seting.service';
-import {nums, Role, TreeOption} from '../../../common/public/Api';
-import {initializeTree} from '../../../common/public/contents';
+import {nums, Role} from '../../../common/public/Api';
+import {initializeTree, objectCopy} from '../../../common/public/contents';
 import {GlobalService} from '../../../common/services/global.service';
+import {PublicMethodService} from '../../../common/public/public-method.service';
 
 @Component({
   selector: 'app-roles-manager',
@@ -28,9 +29,12 @@ export class RolesManagerComponent implements OnInit {
   public rolePermissionModal: boolean = false; // 角色权限详情modal
   public roleUpdateModal: boolean = false; // 角色编辑modal
   public roleInputField: Role = {
+    id: null,
+    roleName: '',
     whetherSee: nums.one,
-    enabled: nums.one
-  }; // 角色编辑modal
+    enabled: nums.one,
+    sysRolePermissionList: []
+  }; // 角色初始化
   public roleWebPermissionTree: any; // web端权限树
   public roleAppPermissionTree: any; // app端权限树
   public roleWebPermissionSelected: any; // web端权限选择
@@ -38,7 +42,8 @@ export class RolesManagerComponent implements OnInit {
   constructor(
     private themeSrv: ThemeService,
     private setSrv: SetingService,
-    private globalSrv: GlobalService
+    private globalSrv: GlobalService,
+    private publicSrv: PublicMethodService
   ) {
     this.themeSub = this.themeSrv.changeEmitted$.subscribe(
       value => {}
@@ -56,24 +61,17 @@ export class RolesManagerComponent implements OnInit {
     ).subscribe((res) => {
       this.roleTableData = res.data.contents;
       this.rolePageOption.totalRecord = res.data.totalRecord;
-      this.rolePermissionInfo = initializeTree(
-        res.data.contents[0].rolePermissionInfoList,
-        {labelName: 'permissionName', childrenName: 'rolePermissionInfos', icon: 'fa fa-clipboard'}
-        );
     });
   }
-  // search Data (搜索事件)
-  public searchDataClick(): void {
-    console.log(123);
-  }
   // 编辑操作
-  public roleUpdateOperate(flag?: 'click'| 'save') {
+  public roleUpdateOperate(flag?: 'update'| 'save'|'del'|'permission', item?: any) {
     switch (flag) {
-      case 'click':
+      // 编辑操作初始化
+      case 'update':
         this.roleUpdateModal = true;
         this.globalSrv.getLimitTreeData().subscribe((res) => {
           this.roleWebPermissionTree = initializeTree(
-            res.data[0].permissionTreeInfoList ? res.data[0].permissionTreeInfoList : null,
+            res.data[0].permissionTreeInfoList ? res.data[0].permissionTreeInfoList : [],
             {labelName: 'permissionName', childrenName: 'sysPermissionList'}
             );
           this.roleAppPermissionTree = initializeTree(
@@ -81,16 +79,33 @@ export class RolesManagerComponent implements OnInit {
             {labelName: 'permissionName', childrenName: 'sysPermissionList'}
             );
         });
+        this.roleInputField = objectCopy(this.roleInputField, item);
+        break;
+      // 编辑保存操作
+      case 'save':
+        this.roleInputField.sysRolePermissionList = this.roleWebPermissionSelected.map((res) => res.id);
+        break;
+      // 查看权限操作
+      case 'permission':
+        this.rolePermissionModal = true;
+        this.rolePermissionInfo = initializeTree(
+          item.rolePermissionInfoList ? item.rolePermissionInfoList : [],
+          {labelName: 'permissionName', childrenName: 'rolePermissionInfos', icon: 'fa fa-clipboard'}
+        );
+        break;
+      // 删除擦走哦
+      case 'del':
+        console.log('暂时不做');
         break;
     }
-  }
-  public rolePermissionSelect(item: any) {
-    console.log(item);
-    console.log(this.roleAppPermissionSelected);
   }
   // Paging event (分页事件)
   public rolePageEvent(e): void {
     this.roleDataInit(e, this.rolePageOption.pageSize);
+  }
+  // search Data (搜索事件)
+  public searchDataClick(): void {
+    console.log(123);
   }
   // test
   public test(data): any {

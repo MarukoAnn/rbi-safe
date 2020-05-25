@@ -36,11 +36,10 @@ export interface Role {
   enabled?: nums;
   sysRolePermissionList?: Array<number>;
 }
-// 0，1的枚举
 export enum nums {
   zero = 0,
   one = 1
-}
+} // 0，1的枚举
 // 分页组件参数接口
 export interface PageOption {
   pageSize?: any;
