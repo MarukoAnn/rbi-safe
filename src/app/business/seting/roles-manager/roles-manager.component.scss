@@ -15,7 +15,6 @@
   .roles-manager-header{
     margin-top: 1vh;
     height: 6vh;
-    //background: #45b29d;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -42,21 +41,41 @@
     bottom: 8vh;
     right: 4vw;
   }
-  ::ng-deep .ui-inputgroup .ui-widget {
-    color: #8D8E96;
-    font-size: 14px;
-    //height: 3vh;
-    height: 32px;
-    border: 1px solid #F0F0F0;
-    //border-right: 0;
-    border-left: 0;
-    background: #F8F8F8;
+  .roles-manager-button{
+    ::ng-deep .ui-inputgroup .ui-widget {
+      color: #8D8E96;
+      font-size: 14px;
+      height: 32px;
+      border: 1px solid #F0F0F0;
+      border-left: 0;
+      background: #F8F8F8;
+    }
+    ::ng-deep .ui-inputgroup input{
+      border-radius: 20px 0 0 20px;
+      outline: none;
+    }
+    ::ng-deep .ui-inputgroup button{
+      border-radius:  0 20px 20px 0;
+    }
   }
-  ::ng-deep .ui-inputgroup input{
-    border-radius: 20px 0 0 20px;
-    outline: none;
-  }
-  ::ng-deep .ui-inputgroup button{
-    border-radius:  0 20px 20px 0;
+  .roles-manager-modal{
+    .label{
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      font-size: 14px;
+      padding: 0.97em;
+    }
+    .input{
+      .ui-inputtext{
+        width: 100%;
+      }
+    }
+    .radioButton{
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      height: 100%;
+    }
   }
 }

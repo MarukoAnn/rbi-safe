@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {LoginService} from '../common/services/login.service';
 import {PublicMethodService} from '../common/public/public-method.service';
@@ -13,19 +13,20 @@ export class LoginComponent implements OnInit {
 
   public username = '';
   public password = '';
+
   constructor(
     private route: Router,
     private loginSrv: LoginService,
     private toolSrv: PublicMethodService,
     private localSrv: LocalStorageService
-  ) { }
+  ) {
+  }
 
   ngOnInit() {
   }
 
-  public  loginClick(): void {
-    console.log(123);
-    if (this.username !== '' && this.password !== ''){
+  public loginClick(): void {
+    if (this.username !== '' && this.password !== '') {
       this.loginSrv.login({username: this.username, password: this.password}).subscribe(val => {
         console.log(val);
         if (val.status === '1000') {

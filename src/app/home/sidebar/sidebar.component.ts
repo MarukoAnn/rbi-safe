@@ -10,7 +10,7 @@ import {Route, Router} from '@angular/router';
 export class SidebarComponent implements OnInit {
 
   @Input()
-  private firWidth: any;
+  public firWidth: any;
   @Output()
   private outWith = new EventEmitter<any>();
   public fistItem = [

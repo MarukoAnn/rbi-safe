@@ -1,4 +1,4 @@
-import {OrgTree} from './Api';
+import {OrgTree, TreeOption} from './Api';
 
 // p-calendar语言本地化
 export const Es = {
@@ -37,6 +37,39 @@ export function orgInitializeTree(data): any {
     else {
       childnode.children = [];
       childnode.icon = 'fa fa-address-card-o';
+    }
+    oneChild.push(childnode);
+  }
+  return oneChild;
+}
+
+/**
+ * 树形结构初始化工具函数
+ * @param data 需要初始化的数据
+ * @param option 初始化配置信息
+ */
+export function initializeTree(data, option: TreeOption): any {
+  const oneChild = [];
+  for (const item of data) {
+    const childnode: any = {};
+    for (const refs in item) {
+      if (item.hasOwnProperty(refs)) {
+        if (refs === option.labelName) {
+          childnode.label = item[option.labelName];
+          continue;
+        }
+        if (refs === option.childrenName) {
+          continue;
+        }
+        childnode[refs] = item[refs];
+      }
+    }
+    if (item[option.childrenName] != null && item[option.childrenName].length !== 0) {
+      childnode.children = initializeTree(item[option.childrenName], option);
+    }
+    else {
+      childnode.children = [];
+      childnode.icon = option.icon;
     }
     oneChild.push(childnode);
   }
