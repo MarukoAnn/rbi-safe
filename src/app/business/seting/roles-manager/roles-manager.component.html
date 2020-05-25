@@ -8,19 +8,18 @@
     <div class="roles-manager-search">
       <div class="ui-inputgroup">
         <input type="text" pInputText placeholder="搜索"/>
-        <button pButton type="button" icon="pi pi-search" class="ui-button-warn" (click)="searchDataClick()"></button>
+        <button pButton type="button" icon="pi pi-search" class="ui-button-warn" (click)="roleSearchOperate()"></button>
       </div>
     </div>
     <div class="roles-manager-button">
-      <button pButton type="button" label="添加角色" class="ui-button-rounded"></button>
+      <button pButton type="button" label="添加角色" class="ui-button-rounded" (click)="roleOperate(roleOperateFlag='add')"></button>
       <button pButton type="button" label="批量删除" class="ui-button-rounded ui-button-pink ml-2"></button>
     </div>
   </div>
   <div class="roles-manager-table">
     <p-table
       [columns]="roleTableHeader" [responsive]="true"
-      [value]="roleTableData"
-      [(selection)]="roleSelectedData" dataKey="id"
+      [value]="roleTableData" dataKey="id"
     >
       <ng-template pTemplate="caption">
         角色管理
@@ -43,18 +42,18 @@
           <td>
             <button
               pButton type="button" label="编辑"
-              (click)="this.roleUpdateOperate('update',tableData)"
+              (click)="this.roleOperate(roleOperateFlag='update',tableData)"
               class="ui-button-rounded">
             </button>
             <button
               pButton type="button" label="删除"
-              (click)="this.roleUpdateOperate('del',tableData)"
+              (click)="this.roleOperate(roleOperateFlag='del',tableData)"
               class="ui-button-pink ui-button-rounded ml-2 mr-2">
             </button>
             <button
               pButton type="button" label="查看权限"
               class="ui-button-darkPrimary ui-button-rounded ml-2 mr-2"
-              (click)="roleUpdateOperate('permission', tableData)">
+              (click)="roleOperate(roleOperateFlag='permission', tableData)">
             </button>
           </td>
         </tr>
@@ -80,12 +79,12 @@
         </p-scrollPanel>
       </div>
     </p-dialog>
-    <!--角色编辑弹窗-->
+    <!--角色新增/编辑弹窗-->
     <p-dialog
       [blockScroll]="true"
       [(visible)]="roleUpdateModal" [style]="{width: '50vw'}"
     >
-      <p-header>角色编辑</p-header>
+      <p-header>{{roleOperateFlag==='update'?'角色编辑':'角色添加'}}</p-header>
       <div style="width: 100%;height: 30vh;overflow: hidden">
         <p-scrollPanel [style]="{width: '100%', height: '100%'}" styleClass="role-scroll">
           <div class="ui-g">
@@ -151,8 +150,8 @@
         </p-scrollPanel>
       </div>
       <p-footer>
-        <button pButton label="提交修改" (click)="roleUpdateOperate('save')"></button>
-        <button pButton label="取消修改" class="ui-button-pink" (click)="roleUpdateModal = false"></button>
+        <button pButton label="保存" (click)="roleOperate(roleOperateFlag='save')"></button>
+        <button pButton label="取消" class="ui-button-pink" (click)="roleUpdateModal = false"></button>
       </p-footer>
     </p-dialog>
   </div>

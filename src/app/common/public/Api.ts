@@ -34,7 +34,7 @@ export interface Role {
   roleName?: string;
   whetherSee?: nums;
   enabled?: nums;
-  sysRolePermissionList?: Array<number>;
+  sysRolePermissionList?: Array<any>;
 }
 export enum nums {
   zero = 0,
