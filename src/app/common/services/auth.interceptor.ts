@@ -8,6 +8,7 @@ import {GlobalService} from './global.service';
 import {environment} from '../../../environments/environment';
 import {LocalStorageService} from './local-storage.service';
 import {Store} from '@ngrx/store';
+import {PublicMethodService} from '../public/public-method.service';
 const DEFAULTTIMEOUT = 100000000;
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
@@ -18,6 +19,7 @@ export class AuthInterceptor implements HttpInterceptor {
     private globalService: GlobalService,
     private router: Router,
     private localSessionStorage: LocalStorageService,
+    private toolSrv: PublicMethodService,
     private store: Store<AppState>
   ) {
   }
@@ -53,6 +55,7 @@ export class AuthInterceptor implements HttpInterceptor {
         this.store.dispatch({type: 'true'});
         if (event.status === 200) {
           if (this.skipState.includes(event.body.status)) {
+            this.toolSrv.setToast('success', '请求成功', event.body.message);
             return of(event);
           } else {
             throw event;
@@ -73,17 +76,21 @@ export class AuthInterceptor implements HttpInterceptor {
           return EMPTY;
         }
         if (error.status === 200) {
+          console.log(error);
           if (error.body.status === '1002') {
             this.router.navigate(['/login']);
             return EMPTY;
+          }else{
+            this.toolSrv.setToast('error', '请求错误', error.body.message);
+            return EMPTY;
           }
-          this.router.navigate(['/error'], {
-            queryParams: {
-              msg: error.body.msg,
-              status: error.body.status,
-              btn: '请重试'
-            }
-          });
+          // this.router.navigate(['/error'], {
+          //   queryParams: {
+          //     msg: error.body.msg,
+          //     status: error.body.status,
+          //     btn: '请重试'
+          //   }
+          // });
         }
       })
     );

@@ -78,19 +78,13 @@ export class LimitsManagerComponent implements OnInit {
 
   public initLimitData(): void {
     this.setSrv.getPermissionInfoPageData({pageNo: this.pageNo, pageSize: 10}).subscribe(val => {
-      console.log(val);
-      if (val.status === '1000'){
-        this.limitContent = val.data.contents.map(v => {
-            v.enabled  = v.enabled === 1 ? '启用' : '未启用';
-            return v;
-        });
-        this.pageOption = {totalRecord: val.data.totalRecord, pageSize: val.data.pageSize};
-        // this.pageOption = {pageSize: ''};
-        this.setTableOption(this.limitContent);
-        this.toolSrv.setToast('success', '请求成功', val.message);
-      }else {
-        this.toolSrv.setToast('error', '请求失败', val.message);
-      }
+      this.limitContent = val.data.contents.map(v => {
+        v.enabled  = v.enabled === 1 ? '启用' : '未启用';
+        return v;
+      });
+      this.pageOption = {totalRecord: val.data.totalRecord, pageSize: val.data.pageSize};
+      // this.pageOption = {pageSize: ''};
+      this.setTableOption(this.limitContent);
     });
   }
   public  selectData(e): void {
@@ -148,13 +142,7 @@ export class LimitsManagerComponent implements OnInit {
   }
   public  getLimitTree(): void {
     this.globalSrv.getLimitTreeData().subscribe(val => {
-      if (val.status === '1000'){
-        console.log(val);
-        this.dataTrees = this.initializeTree(val.data);
-        this.toolSrv.setToast('success', '请求成功', val.message);
-      }else {
-        this.toolSrv.setToast('error', '请求失败', val.message);
-      }
+      this.dataTrees = this.initializeTree(val.data);
     });
   }
 
@@ -180,14 +168,8 @@ export class LimitsManagerComponent implements OnInit {
   // 删除请求
   public  delLimitInfo(data): void {
     this.setSrv.delPermissionInfo(data).subscribe(res => {
-      if (res.status === '1000'){
-        // this
-        this.initLimitData();
-        this.resetAllData();
-        this.toolSrv.setToast('success', '删除成功', res.message);
-      }else {
-        this.toolSrv.setToast('success', '删除成功', res.message);
-      }
+      this.initLimitData();
+      this.resetAllData();
     });
   }
   public  showAddLimitClick(): void {
@@ -206,14 +188,9 @@ export class LimitsManagerComponent implements OnInit {
        delete data.id;
        this.toolSrv.setConfirmation('添加', '添加该权限', () => {
          this.setSrv.addPermissionInfo(data).subscribe(val => {
-           if (val.status === '1000'){
-             this.showAddLimitDialog = false;
-             this.resetAllData();
-             this.initLimitData();
-             this.toolSrv.setToast('success', '添加成功', val.message);
-           }else {
-             this.toolSrv.setToast('error', '添加失败', val.message);
-           }
+           this.showAddLimitDialog = false;
+           this.resetAllData();
+           this.initLimitData();
          });
        });
      }else {
@@ -227,14 +204,9 @@ export class LimitsManagerComponent implements OnInit {
       delete data.name;
       this.toolSrv.setConfirmation('修改', '修改该权限', () => {
         this.setSrv.updatePermissionInfo(data).subscribe(val => {
-          if (val.status === '1000'){
-            this.showEditLimitDialog = false;
-            this.resetAllData();
-            this.initLimitData();
-            this.toolSrv.setToast('success', '修改成功', val.message);
-          }else {
-            this.toolSrv.setToast('error', '修改失败', val.message);
-          }
+          this.showEditLimitDialog = false;
+          this.resetAllData();
+          this.initLimitData();
         });
       });
     }else {

@@ -1,7 +1,9 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {Es} from '../../../../common/public/contents';
+import {Es, initializeTree, setDrapdownOptionList} from '../../../../common/public/contents';
 import {UploadImageComponent} from '../../../../common/components/upload-image/upload-image.component';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {GlobalService} from '../../../../common/services/global.service';
+import {PublicMethodService} from '../../../../common/public/public-method.service';
 
 @Component({
   selector: 'app-shoot-report',
@@ -16,16 +18,22 @@ export class ShootReportComponent implements OnInit {
     files: [],
     showUploadIcon: true
   };
+  public hidFradeOption: any[] = [];
   public isHandle = false;
   // @ts-ignore
   public imageFiles: any[] = []; // 图片列表
   // public fileList: any[] = []; // 文件列表
   public filename: any;
   public filename1: any;
+  public OrgTrees: any;
+  public OrgTree: any;
+  public treeDialog: boolean;
   // 上报
   public addReport: FormGroup;
   constructor(
     private fb: FormBuilder,
+    private globalSrv: GlobalService,
+    private toolSrv: PublicMethodService
   ) { }
   public esDate: any;
 
@@ -51,8 +59,26 @@ export class ShootReportComponent implements OnInit {
       hidTypeManage: new FormControl('', Validators.required),
     });
     // console.log(this.esDate);
+    this.initShootReportData();
   }
 
+  public  initShootReportData(): void {
+    this.getOrgTreeData();
+    this.globalSrv.getHidConfigData({data: [{settingType: 'HID_GRADE'}, {settingType: 'HID_GRAE'}]}).subscribe(val => {
+        this.hidFradeOption = setDrapdownOptionList(val.data.HID_GRADE);
+        // this.hidFradeOption = this.toolSrv.setDrapdownOptionList(val.HID_GRADE);
+      });
+  }
+  public getOrgTreeData(): void {
+      this.globalSrv.getOrgazitionTreeData({}).subscribe(value => {
+        console.log(value);
+        console.log(value.data[0].chiled);
+        this.OrgTrees = initializeTree(
+          value.data ? value.data : [],
+          {labelName: 'organizationName', childrenName: 'chiled'}
+        );
+      });
+  }
   public  selectFile(e): void {
      this.imageFiles = e;
      console.log(this.imageFiles);
@@ -75,5 +101,12 @@ export class ShootReportComponent implements OnInit {
   public  selectHandleType(e): void {
     console.log(e);
     this.isHandle = e === 1;
+  }
+
+  public dataTreeSureClick(): void {
+    console.log(this.OrgTree);
+    this.treeDialog = false;
+    this.addReport.patchValue({'organizationName': this.OrgTree.label});
+    this.addReport.patchValue({'organizationId': this.OrgTree.organizationId});
   }
 }

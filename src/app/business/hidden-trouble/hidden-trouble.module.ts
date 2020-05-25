@@ -16,7 +16,14 @@ import {InputTextModule} from 'primeng/inputtext';
 import {ButtonModule} from 'primeng/button';
 import {ToastModule} from 'primeng/toast';
 import {ConfirmDialogModule} from 'primeng/confirmdialog';
-import {CalendarModule, InputTextareaModule, RadioButtonModule, ScrollPanelModule} from 'primeng/primeng';
+import {
+  CalendarModule,
+  CheckboxModule, DialogModule,
+  InputTextareaModule,
+  MultiSelectModule,
+  RadioButtonModule,
+  ScrollPanelModule, TreeModule
+} from 'primeng/primeng';
 import {UploadImageModule} from '../../common/components/upload-image/upload-image.module';
 
 
@@ -46,7 +53,10 @@ import {UploadImageModule} from '../../common/components/upload-image/upload-ima
     InputTextareaModule,
     UploadImageModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    CheckboxModule,
+    DialogModule,
+    TreeModule
   ],
   providers: [DatePipe]
 })

@@ -1,6 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {UploadImageComponent} from '../../../../common/components/upload-image/upload-image.component';
 import {Es} from '../../../../common/public/contents';
+import {GlobalService} from '../../../../common/services/global.service';
 
 @Component({
   selector: 'app-shoot-rectify',
@@ -21,7 +22,9 @@ export class ShootRectifyComponent implements OnInit {
   // public fileList: any[] = []; // 文件列表
   public filename: any;
   public filename1: any;
-  constructor() { }
+  constructor(
+    private globalSrv: GlobalService
+  ) { }
   public esDate: any;
 
   ngOnInit() {
@@ -52,4 +55,5 @@ export class ShootRectifyComponent implements OnInit {
     console.log(e);
     this.isHandle = e === 1;
   }
+
 }
