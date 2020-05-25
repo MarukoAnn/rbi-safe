@@ -1,0 +1,18 @@
+<div class="trouble-shoot">
+  <p-scrollPanel [style]="{height: '100%'}">
+    <div class="tabMenu">
+      <div class="tab-item" *ngFor="let item of tabitem">
+        <a class="item-content" (click)="tabItemClick(item)">
+          <span [ngStyle]="{color: item.item.ftcolor}">{{item.item.label}}</span>
+          <span  [ngStyle]="{background: item.item.bgc}" class="line"></span>
+        </a>
+      </div>
+    </div>
+    <div class="trouble-shoot-body">
+      <!--    <router-outlet></router-outlet>-->
+      <app-shoot-rectify *ngIf="simbol === 'rectify'"></app-shoot-rectify>
+      <app-shoot-report *ngIf="simbol === 'report'"></app-shoot-report>
+    </div>
+  </p-scrollPanel>
+</div>
+

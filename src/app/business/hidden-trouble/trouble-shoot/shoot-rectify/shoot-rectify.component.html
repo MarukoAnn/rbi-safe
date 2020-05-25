@@ -1,0 +1,81 @@
+<div class="shoot-rectify">
+  <div class="rectify-body">
+    <div class="ui-g ui-fluid ui-md">
+      <div class="ui-g-12 ui-md-12" style="line-height: 4vh">
+        <div class="ui-g-1 ui-md-1 right">
+          <label>单位:</label>
+        </div>
+        <div class="ui-g-4 ui-md-4 dialog-input">
+          <input pInputText type="text" placeholder="请选择组织单位"/>
+        </div>
+        <div class="ui-g-1 ui-md-1"></div>
+        <div class="ui-g-1 ui-md-1 right">
+          <label>排查时间:</label>
+        </div>
+        <div class="ui-g-4 ui-md-4 dialog-input">
+          <p-calendar [style]="{width: '100%'}" placeholder="请选择排查时间" [monthNavigator]="true" [yearNavigator]="true"
+                      dateFormat="yy-mm-dd" yearRange="1990:2200" [locale]="esDate"></p-calendar>
+        </div>
+      </div>
+      <div class="ui-md-12 ui-g-12"  style="line-height: 4vh">
+        <div class="ui-g-1 ui-md-1 right">
+          <label>隐患类型:</label>
+        </div>
+        <div class="ui-g-4 ui-md-4 dialog-input left">
+          <p-dropdown dropdownIcon="pi pi-caret-down" placeholder="请选择抄送部门"></p-dropdown>
+        </div>
+        <div class="ui-g-1 ui-md-1"></div>
+        <div class="ui-g-1 ui-md-1 right">
+          <label>隐患等级:</label>
+        </div>
+        <div class="ui-g-4 ui-md-4 dialog-input left">
+          <p-dropdown dropdownIcon="pi pi-caret-down" placeholder="请选择抄送部门"></p-dropdown>
+        </div>
+      </div>
+      <div class="ui-md-12 ui-g-12">
+        <div class="ui-g-1 ui-md-1 right">
+          <label >隐患内容:</label>
+        </div>
+        <div class="ui-g-10 ui-md-10">
+          <textarea [rows]="5" [cols]="30" pInputTextarea autoResize="autoResize" style="border: 1px solid #D2D6DB"></textarea>
+        </div>
+      </div>
+      <div class="ui-g-12 ui-md-12"  style="line-height: 4vh">
+        <div class="ui-g-1 ui-md-1 right">
+          <label>整改单位:</label>
+        </div>
+        <div class="ui-g-4 ui-md-4 dialog-input">
+          <p-dropdown dropdownIcon="pi pi-caret-down" placeholder="请选择整改单位"></p-dropdown>
+        </div>
+        <div class="ui-g-1 ui-md-1"></div>
+        <div class="ui-g-1 ui-md-1 right">
+          <label>整改完成时间:</label>
+        </div>
+        <div class="ui-g-4 ui-md-4 dialog-input">
+          <p-calendar [style]="{width: '100%'}" placeholder="请选择排查时间" [monthNavigator]="true" [yearNavigator]="true"
+                      dateFormat="yy-mm-dd" yearRange="1990:2200" [locale]="esDate"></p-calendar>
+        </div>
+      </div>
+      <div class="ui-md-12 ui-g-12">
+        <div class="ui-g-1 ui-md-1 right">
+          <label >整改意见:</label>
+        </div>
+        <div class="ui-g-10 ui-md-10">
+          <textarea [rows]="5" [cols]="30" pInputTextarea autoResize="autoResize" style="border: 1px solid #D2D6DB"></textarea>
+        </div>
+      </div>
+      <div class="ui-md-12 ui-g-12">
+        <div class="ui-g-1 ui-md-1 right">
+          <label >隐患现场情况:</label>
+        </div>
+        <div class="ui-g-10 ui-md-10">
+          <app-upload-image (selectFile)="selectFile($event)" #upimg [ImageOption]="this.ImageOption"></app-upload-image>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="rectify-fotter">
+    <button pButton type="button" label="下发整改" class="ui-button-rounded" (click)="submitClcik()"></button>
+    <button pButton type="button" label="批量下发整改" class="ui-button-rounded"></button>
+  </div>
+</div>

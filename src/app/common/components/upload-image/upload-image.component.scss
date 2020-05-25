@@ -1,0 +1,35 @@
+.upload-image{
+  .img-upload{
+    display: flex;
+    flex-direction: column;
+    height: 80px;
+    border: 2px dashed #5194FF;
+    width: 80px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    background: #F3F8FF;
+    position: relative;
+    i{
+      color: #C7DDFF;
+      font-size: 30px;
+      margin-bottom: 10px
+    }
+    span{
+      color: #578EDF;
+      font-size: 12px
+    }
+    input{
+      height: 80px;
+      width: 80px;
+      position: absolute;
+      opacity: 0;
+    }
+  }
+  .show-image {
+    width: 80px;
+    height: 80px;
+    border-radius: 10px;
+    border: 1px solid #aaa;
+  }
+}

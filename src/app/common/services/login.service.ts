@@ -12,6 +12,6 @@ export class LoginService {
     private http: HttpClient
   ) { }
   public login(pamars): Observable<any> {
-      return this.http.post(environment.url_safe + `/login`, pamars);
+      return this.http.post(`/login`, pamars);
   }
 }

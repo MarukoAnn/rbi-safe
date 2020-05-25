@@ -28,21 +28,31 @@ export class AuthInterceptor implements HttpInterceptor {
   public debug_http(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     // 修改请求状态
     this.store.dispatch({type: 'false'});
-    if (req.url === environment.url_safe + '/login') {
+    if (req.url ===  '/login') {
         this.clonedRequest = req.clone({
-          url: req.url,
+          url: environment.url_safe + req.url,
           headers: req.headers
           .set('Content-type', 'application/json; charset=UTF-8')
       });
     }
     else {
-      this.clonedRequest = req.clone({
-        url: environment.url_safe + req.url,
-        headers: req.headers
-          .set('Access-Control-Allow-Origin', '*')
-          .set('Content-type', 'application/json; charset=UTF-8')
-          .set('accessToken', this.localSessionStorage.get('token'))
-      });
+      if (this.uploadFile(req.url)){
+        this.clonedRequest = req.clone({
+          url: environment.url_safe + req.url,
+          headers: req.headers
+            .set('Access-Control-Allow-Origin', '*')
+            // .set('Content-type', 'application/json; charset=UTF-8')
+            .set('accessToken', this.localSessionStorage.get('token'))
+        });
+      }else {
+        this.clonedRequest = req.clone({
+          url: environment.url_safe + req.url,
+          headers: req.headers
+            .set('Access-Control-Allow-Origin', '*')
+            .set('Content-type', 'application/json; charset=UTF-8')
+            .set('accessToken', this.localSessionStorage.get('token'))
+        });
+      }
     }
 
     return next.handle(this.clonedRequest).pipe(
@@ -69,23 +79,32 @@ export class AuthInterceptor implements HttpInterceptor {
    public prod_http(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
      // 修改请求状态
      this.store.dispatch({type: 'false'});
-     // if (req.url === environment.loginUrl + '/login') {
-     //   this.clonedRequest = req.clone({
-     //     url: req.url,
-     //     headers: req.headers
-     //       .set('Content-type', 'application/json; charset=UTF-8')
-     //     // .set('Content-type', 'application/x-www-form-urlencoded')
-     //   });
-     // }  else {
-     //
-     // }
-     this.clonedRequest = req.clone({
-       url: req.url,
-       headers: req.headers
-         .set('Content-type', 'application/json; charset=UTF-8')
-         // .set('Content-type', 'application/x-www-form-urlencoded')
-         // .set('appkey', this.localSessionStorage.get('appkey'))
-     });
+     if (req.url ===  '/login') {
+       this.clonedRequest = req.clone({
+         url: environment.url_safe + req.url,
+         headers: req.headers
+           .set('Content-type', 'application/json; charset=UTF-8')
+       });
+     }
+     else {
+       if (this.uploadFile(req.url)){
+         this.clonedRequest = req.clone({
+           url: environment.url_safe + req.url,
+           headers: req.headers
+             .set('Access-Control-Allow-Origin', '*')
+             // .set('Content-type', 'application/json; charset=UTF-8')
+             .set('accessToken', this.localSessionStorage.get('token'))
+         });
+       }else {
+         this.clonedRequest = req.clone({
+           url: environment.url_safe + req.url,
+           headers: req.headers
+             .set('Access-Control-Allow-Origin', '*')
+             .set('Content-type', 'application/json; charset=UTF-8')
+             .set('accessToken', this.localSessionStorage.get('token'))
+         });
+       }
+     }
      return next.handle(this.clonedRequest).pipe(
        timeout(DEFAULTTIMEOUT),
        tap((event: any) => {
@@ -126,5 +145,10 @@ export class AuthInterceptor implements HttpInterceptor {
            }
          })
      );
+  }
+
+  public uploadFile(url): any{
+    const urlList = ['/company_personnel/excel_import', '/uploadSystemDocuments'];
+    return urlList.includes(url);
   }
 }

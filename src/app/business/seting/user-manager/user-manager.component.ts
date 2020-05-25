@@ -169,7 +169,7 @@ export class UserManagerComponent implements OnInit {
        });
      });
    }else {
-     this.toolSrv.setToast('error', '添加失败', '数据未填写完整');
+     this.toolSrv.setToast('error', '操作失败', '数据未填写完整');
    }
  }
  // 更新信息
@@ -200,7 +200,7 @@ export class UserManagerComponent implements OnInit {
        });
      });
    }else {
-     this.toolSrv.setToast('error', '添加失败', '数据未填写完整');
+     this.toolSrv.setToast('error', '操作失败', '数据未填写完整');
    }
  }
 

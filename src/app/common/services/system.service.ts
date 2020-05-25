@@ -27,4 +27,9 @@ export class SystemService {
   public  getSystemFileTypeList(pamars): Observable<any> {
     return this.http.post(`/getSystemTypeBox`, pamars);
   }
+
+  // 删除制度文件
+  public  delSystemFile(pamars): Observable<any> {
+    return this.http.post(`/deleteSystemFile`, pamars);
+  }
 }

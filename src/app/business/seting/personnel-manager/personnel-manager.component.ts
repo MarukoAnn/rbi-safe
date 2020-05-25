@@ -323,7 +323,7 @@ export class PersonnelManagerComponent implements OnInit {
         });
       });
     } else {
-      this.toolSrv.setToast('error', '操作', '数据未填写完整');
+      this.toolSrv.setToast('error', '操作错误', '数据未填写完整');
     }
   }
   // 显示树结构
@@ -359,7 +359,7 @@ export class PersonnelManagerComponent implements OnInit {
         });
       });
     } else {
-      this.toolSrv.setToast('error', '操作', '数据未填写完整');
+      this.toolSrv.setToast('error', '操作错误', '数据未填写完整');
     }
   }
 

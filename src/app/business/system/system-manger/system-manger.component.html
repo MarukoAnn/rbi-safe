@@ -13,7 +13,7 @@
     </div>
     <div class="roles-manager-button">
       <button pButton type="button" label="文件上传" class="ui-button-rounded" icon="iconfont iconbaseline-open_in_new-24px" (click)="showAddSystemDialog = true"></button>
-      <button pButton type="button" label="批量删除" class="ui-button-rounded"></button>
+<!--      <button pButton type="button" label="批量删除" class="ui-button-rounded"></button>-->
     </div>
   </div>
   <div class="roles-manager-table">
@@ -29,13 +29,13 @@
       <div class="ui-g ui-md ui-fiuld">
         <div class="ui-g-12 ui-md-12">
           <div class="ui-g-2 ui-md-2"></div>
-          <div class="ui-g-8 ui-md-8" style="line-height: 4.4vh">
+          <div class="ui-g-8 ui-md-8" style="line-height: 5.6vh">
             <div class="ui-g-4 ui-md-4 right">
               <span style="color: #FF8A9A">*</span>文件类别：
             </div>
-            <div class="ui-g-8 ui-md-8 ">
+            <div class="ui-g-8 ui-md-8" style="line-height: 4vh">
               <div class="ui-md-12 ui-g-12 dialog-input">
-                <input pInputText type="text" formControlName="organizationName" placeholder="请选择文件类别"/>
+                <p-dropdown [options]="fileType" formControlName="systemCategoryId" dropdownIcon="pi pi-caret-down" placeholder="请选择文件类别"></p-dropdown>
               </div>
             </div>
           </div>
@@ -47,7 +47,8 @@
               </div>
               <div class="ui-g-8 ui-md-8 ">
                 <div class="ui-md-12 ui-g-12 dialog-input">
-                  <input pInputText type="text" formControlName="name" placeholder="请选择文件" />
+                  <p-fileUpload multiple="multiple" [auto]="true" (onSelect)="selectFile($event)" [files]="files"></p-fileUpload>
+<!--                  <input pInputText type="text" formControlName="name" placeholder="请选择文件" />-->
                 </div>
               </div>
             </div>

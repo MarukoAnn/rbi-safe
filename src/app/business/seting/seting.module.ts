@@ -55,7 +55,7 @@ import {TableModule} from 'primeng/table';
     FileUploadModule,
     MessagesModule,
     MessageModule,
-    TableModule
+    TableModule,
   ],
   providers: [DatePipe]
 })

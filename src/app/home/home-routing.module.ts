@@ -23,6 +23,11 @@ const routes: Routes = [
       path: 'system',
       loadChildren: () => import('../business/system/system.module').then(m => m.SystemModule),
       data: {preload: true}
+    },
+    {
+      path: 'trouble',
+      loadChildren: () => import('../business/hidden-trouble/hidden-trouble.module').then(m => m.HiddenTroubleModule),
+      data: {preload: true}
     }
   ]}
 ];

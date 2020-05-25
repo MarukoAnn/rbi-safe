@@ -1,0 +1,154 @@
+<div class="shoot-report">
+    <div class="report-body">
+      <div class="ui-g ui-fluid ui-md">
+        <div class="ui-g-12 ui-md-12" style="line-height: 4vh">
+          <div class="ui-g-1 ui-md-1 right">
+            <label>单位:</label>
+          </div>
+          <div class="ui-g-4 ui-md-4 dialog-input">
+            <input pInputText type="text" placeholder="请选择组织单位"/>
+          </div>
+          <div class="ui-g-1 ui-md-1"></div>
+          <div class="ui-g-1 ui-md-1 right">
+            <label>抄送部门:</label>
+          </div>
+          <div class="ui-g-4 ui-md-4 dialog-input left">
+            <p-dropdown dropdownIcon="pi pi-caret-down" placeholder="请选择抄送部门"></p-dropdown>
+          </div>
+        </div>
+        <div class="ui-g-12 ui-md-12"  style="line-height: 4vh">
+          <div class="ui-g-1 ui-md-1 right">
+            <label>排查时间:</label>
+          </div>
+          <div class="ui-g-4 ui-md-4 dialog-input">
+            <p-calendar [style]="{width: '100%'}" placeholder="请选择排查时间" [monthNavigator]="true" [yearNavigator]="true"
+                        dateFormat="yy-mm-dd" yearRange="1990:2200" [locale]="esDate"></p-calendar>
+          </div>
+          <div class="ui-g-1 ui-md-1"></div>
+          <div class="ui-g-1 ui-md-1 right">
+            <label>整改负责人:</label>
+          </div>
+          <div class="ui-g-4 ui-md-4 dialog-input">
+            <input pInputText type="text" placeholder="请输入整改负责人"/>
+          </div>
+        </div>
+        <div class="ui-g-12 ui-md-12" style="line-height: 3vh">
+          <div class="ui-g-1 ui-md-1 right">
+            <label>整改方案:</label>
+          </div>
+          <div class="ui-g-2 ui-md-2 dialog-input">
+            <p-radioButton name="groupname1" value="1" label="有"  [ngStyle]="{paddingRight: '2vw'}"></p-radioButton>
+            <p-radioButton name="groupname1" value="0" label="无" ></p-radioButton>
+          </div>
+          <div class="ui-g-1 ui-md-1 right">
+            <label>控制措施:</label>
+          </div>
+          <div class="ui-g-2 ui-md-2 dialog-input">
+            <p-radioButton name="groupname1" value="1" label="有"  [ngStyle]="{paddingRight: '4vw'}"></p-radioButton>
+            <p-radioButton name="groupname1" value="0" label="无" ></p-radioButton>
+          </div>
+        </div>
+        <div class="ui-md-12 ui-g-12"  style="line-height: 4vh">
+          <div class="ui-g-1 ui-md-1 right">
+            <label>隐患类型:</label>
+          </div>
+          <div class="ui-g-4 ui-md-4 dialog-input left">
+            <p-dropdown dropdownIcon="pi pi-caret-down" placeholder="请选择抄送部门"></p-dropdown>
+          </div>
+          <div class="ui-g-1 ui-md-1"></div>
+          <div class="ui-g-1 ui-md-1 right">
+            <label>隐患等级:</label>
+          </div>
+          <div class="ui-g-4 ui-md-4 dialog-input left">
+            <p-dropdown dropdownIcon="pi pi-caret-down" placeholder="请选择抄送部门"></p-dropdown>
+          </div>
+        </div>
+        <div class="ui-md-12 ui-g-12">
+          <div class="ui-g-1 ui-md-1 right">
+            <label >隐患内容:</label>
+          </div>
+          <div class="ui-g-10 ui-md-10">
+            <textarea [rows]="5" [cols]="30" pInputTextarea autoResize="autoResize" style="border: 1px solid #D2D6DB"></textarea>
+          </div>
+        </div>
+        <div class="ui-md-12 ui-g-12">
+          <div class="ui-g-1 ui-md-1 right">
+            <label >隐患现场情况:</label>
+          </div>
+          <div class="ui-g-10 ui-md-10">
+            <app-upload-image (selectFile)="selectFile($event)" #upimg [ImageOption]="this.ImageOption"></app-upload-image>
+          </div>
+        </div>
+        <div style="width: 100%;height: 2px; background: #F6F6F9"></div>
+        <div class="ui-g-12 ui-md-12" style="line-height: 3vh">
+          <div class="ui-g-1 ui-md-1 right">
+            <label>是否处理:</label>
+          </div>
+          <div class="ui-g-2 ui-md-2 dialog-input" >
+            <p-radioButton name="groupname1" value="1" label="是"  [ngStyle]="{paddingRight: '2vw'}" (onClick)="selectHandleType(1)"></p-radioButton>
+            <p-radioButton name="groupname1" value="0" label="否" (onClick)="selectHandleType(0)"></p-radioButton>
+          </div>
+        </div>
+        <div class="ui-g-12 ui-md-12"  style="line-height: 4vh" *ngIf="isHandle">
+          <div class="ui-g-1 ui-md-1 right">
+            <label>治理资金:</label>
+          </div>
+          <div class="ui-g-4 ui-md-4 dialog-input">
+            <input pInputText type="text" placeholder="请输入治理资金(万元)"/>
+          </div>
+        </div>
+        <div class="ui-g-12 ui-md-12"  style="line-height: 4vh" *ngIf="isHandle">
+          <div class="ui-g-1 ui-md-1 right">
+            <label>完成时间:</label>
+          </div>
+          <div class="ui-g-4 ui-md-4 dialog-input">
+            <p-calendar [style]="{width: '100%'}" placeholder="请选择完成时间" [monthNavigator]="true" [yearNavigator]="true"
+                        dateFormat="yy-mm-dd" yearRange="1990:2200" [locale]="esDate"></p-calendar>
+          </div>
+        </div>
+        <div class="ui-md-12 ui-g-12" *ngIf="isHandle">
+          <div class="ui-g-1 ui-md-1 right">
+            <label >完成情况:</label>
+          </div>
+          <div class="ui-g-10 ui-md-10">
+            <textarea [rows]="5" [cols]="30" pInputTextarea autoResize="autoResize" style="border: 1px solid #D2D6DB"></textarea>
+          </div>
+        </div>
+        <div class="ui-md-12 ui-g-12" style="line-height: 3vh" *ngIf="isHandle">
+          <div class="ui-g-1 ui-md-1 right">
+            <label >整改方案:</label>
+          </div>
+          <div class="ui-g-4 ui-md-4 dialog-input">
+            <div class="ui-inputgroup" style="position: relative">
+              <input type="text" pInputText placeholder="Keyword" [(ngModel)]="filename">
+              <button pButton type="button" icon="pi pi-folder" class="ui-button-warn" style="background: #F8F8F8;border: 1px solid #E0E3E7;border-left: 0;color: #E0E3E7"></button>
+              <input type="file" style="position: absolute;width: 35px;right: 0;height: 34px;opacity: 0" (change)="SelectFile($event, 'filename')">
+            </div>
+          </div>
+          <div class="ui-g-1 ui-md-1"></div>
+          <div class="ui-g-1 ui-md-1 right">
+            <label >验收报告:</label>
+          </div>
+          <div class="ui-g-4 ui-md-4 dialog-input">
+            <div class="ui-inputgroup" style="position: relative">
+              <input type="text" pInputText placeholder="Keyword" [(ngModel)]="filename1">
+              <button pButton type="button" icon="pi pi-folder" class="ui-button-warn" style="background: #F8F8F8;border: 1px solid #E0E3E7;border-left: 0;color: #E0E3E7"></button>
+              <input type="file" style="position: absolute;width: 35px;right: 0;height: 34px;opacity: 0" (change)="SelectFile($event, 'filename1')">
+            </div>
+          </div>
+        </div>
+        <div class="ui-md-12 ui-g-12" *ngIf="isHandle">
+          <div class="ui-g-1 ui-md-1 right">
+            <label >排查后隐患现场情况:</label>
+          </div>
+          <div class="ui-g-10 ui-md-10">
+            <app-upload-image (selectFile)="selectFile($event)" #upimg></app-upload-image>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="report-fotter">
+      <button pButton type="button" label="提交" class="ui-button-rounded" (click)="submitClcik()"></button>
+      <button pButton type="button" label="批量上传" class="ui-button-rounded"></button>
+    </div>
+</div>
