@@ -69,14 +69,9 @@ export class OrganizationManagerComponent implements OnInit {
 
   initOrgazitonInfo() {
     this.setSrv.getOrgazitionInfoPageData({pageNo: this.pageNo, pageSize: 10}).subscribe(val => {
-      if (val.status === '1000') {
-        this.orgazitionContent = val.data.contents;
-        this.setTableOption(this.orgazitionContent);
-        this.pageOption = {pageSize: val.data.pageSize, totalRecord: val.data.totalRecord};
-        this.toolSrv.setToast('success', '请求成功', val.message);
-      }else {
-         this.toolSrv.setToast('error', '请求失败', val.message);
-      }
+      this.orgazitionContent = val.data.contents;
+      this.setTableOption(this.orgazitionContent);
+      this.pageOption = {pageSize: val.data.pageSize, totalRecord: val.data.totalRecord};
     });
   }
   public  selectData(e): void {
@@ -161,14 +156,9 @@ export class OrganizationManagerComponent implements OnInit {
       delete data.id;
       this.toolSrv.setConfirmation('添加', '添加该公司', () => {
         this.setSrv.addOrgazitionInfo(data).subscribe(value => {
-          if (value.status === '1000'){
-            this.showAddOrgazationDialog = false;
-            this.initOrgazitonInfo();
-            this.resetAllData();
-            this.toolSrv.setToast('success', '添加成功', value.message);
-          }else {
-            this.toolSrv.setToast('error', '添加失败', value.message);
-          }
+          this.showAddOrgazationDialog = false;
+          this.initOrgazitonInfo();
+          this.resetAllData();
         });
       });
     }else {
@@ -182,14 +172,9 @@ export class OrganizationManagerComponent implements OnInit {
       delete data.name;
       this.toolSrv.setConfirmation('修改', '修改该公司', () => {
         this.setSrv.updateOrgazitionInfo(data).subscribe(value => {
-          if (value.status === '1000'){
-            this.showEditOrgazationDialog = false;
-            this.initOrgazitonInfo();
-            this.resetAllData();
-            this.toolSrv.setToast('success', '修改成功', value.message);
-          }else {
-            this.toolSrv.setToast('error', '修改失败', value.message);
-          }
+          this.showEditOrgazationDialog = false;
+          this.initOrgazitonInfo();
+          this.resetAllData();
         });
       });
     }else {

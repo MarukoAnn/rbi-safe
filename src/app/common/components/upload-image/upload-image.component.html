@@ -1,0 +1,15 @@
+<div class="upload-image">
+  <div class="ui-md-1 ui-g-1" style="text-align: center;" *ngIf="this.ImageOption.showUploadIcon">
+    <div class="img-upload">
+      <i class="iconfont iconOutline1" style=""></i>
+      <span>上传图片</span>
+      <input type="file"  multiple="multiple"  accept="image/*" (change)="selectImage($event)">
+    </div>
+  </div>
+  <div class="ui-md-1 ui-g-1" style="text-align: center;" *ngFor="let item of filePath">
+    <img  class="show-image" [src]="item" alt="" (click)="imgClick(item)">
+  </div>
+  <p-dialog header="图片详细" [(visible)]="showImageDiaog">
+    <img [src]="ImgUrl" alt="" style="max-width: 60vw">
+  </p-dialog>
+</div>

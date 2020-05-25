@@ -6,11 +6,25 @@
   "description": "",
   "glyphs": [
     {
-      "icon_id": "14769287",
-      "name": "outline-supervised_user_circle-24px",
-      "font_class": "outline-supervised_user_circle-24px",
+      "icon_id": "14882016",
+      "name": "上传图片",
+      "font_class": "Outline1",
+      "unicode": "e616",
+      "unicode_decimal": 58902
+    },
+    {
+      "icon_id": "14778901",
+      "name": "角色管理",
+      "font_class": "baseline-tag_faces-24px",
       "unicode": "e611",
       "unicode_decimal": 58897
+    },
+    {
+      "icon_id": "14778580",
+      "name": "组织管理",
+      "font_class": "baseline-device_hub-24px",
+      "unicode": "e615",
+      "unicode_decimal": 58901
     },
     {
       "icon_id": "14769288",

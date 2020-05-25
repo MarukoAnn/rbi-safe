@@ -113,14 +113,10 @@ export class PersonnelManagerComponent implements OnInit {
   // 初始化数据
   public  initPersonnelData(): void {
       this.setSrv.getPersonnelPageData(this.searchData).subscribe(val => {
-        if (val.status === '1000') {
-          this.pageOption = {pageSize: val.data.pageSize, totalRecord: val.data.totalRecord};
-          this.personnelData = val.data.contents;
-          this.setTableOption(this.personnelData);
-          this.toolSrv.setToast('success', '请求成功', '数据返回成功');
-        } else {
-          this.toolSrv.setToast('error', '请求失败', val.message);
-        }
+        this.pageOption = {pageSize: val.data.pageSize, totalRecord: val.data.totalRecord};
+        this.personnelData = val.data.contents;
+        this.setTableOption(this.personnelData);
+        this.toolSrv.setToast('success', '请求成功', '数据返回成功');
       });
   }
   // 选择数据
@@ -240,12 +236,8 @@ export class PersonnelManagerComponent implements OnInit {
   // 删除请求
   public  delpersonnelData(): void {
       this.setSrv.delPersonnelInfo({ids: this.delIds.join(',')}).subscribe(res => {
-        if (res.status === '1000') {
-          this.initPersonnelData();
-          this.resetAllData();
-        } else {
-          this.toolSrv.setToast('error', '请求失败', res.message);
-        }
+        this.initPersonnelData();
+        this.resetAllData();
       });
   }
   // 重置数据
@@ -264,37 +256,31 @@ export class PersonnelManagerComponent implements OnInit {
   public  uploadPersoonelFile(e): void {
       if (e.getAll('file').length !== 0) {
         this.setSrv.imoprtPersonnelInfoFile(e).subscribe(val => {
-          console.log(val);
-          if (val.status === '1000') {
-            this.UploadFileOption.files = [];
-            this.uploadRecordOption = {
-              width: '900',
-              dialog: true,
-              title: '上传记录',
-              totalNumber: val.data.totalNumber,
-              realNumber: val.data.realNumber,
-              uploadOption: {
-                width: '102%',
-                tableHeader: {
-                  data: [
-                    {field: 'code', header: '序号'},
-                    {field: 'employeeNumber', header: '员工号'},
-                    {field: 'name', header: '名字'},
-                    {field: 'result', header: '结果'},
-                    {field: 'remarks', header: '备注'},
-                  ],
-                  style: {background: '#F5F6FA', color: '#C3C3C5', height: '6vh'}
-                },
-                tableContent: {
-                  data: val.data.importLog,
-                  styleone: {background: '#FFFFFF', color: '#9899A0', height: '2vw', textAlign: 'center'},
-                }
+          this.UploadFileOption.files = [];
+          this.uploadRecordOption = {
+            width: '900',
+            dialog: true,
+            title: '上传记录',
+            totalNumber: val.data.totalNumber,
+            realNumber: val.data.realNumber,
+            uploadOption: {
+              width: '102%',
+              tableHeader: {
+                data: [
+                  {field: 'code', header: '序号'},
+                  {field: 'employeeNumber', header: '员工号'},
+                  {field: 'name', header: '名字'},
+                  {field: 'result', header: '结果'},
+                  {field: 'remarks', header: '备注'},
+                ],
+                style: {background: '#F5F6FA', color: '#C3C3C5', height: '6vh'}
+              },
+              tableContent: {
+                data: val.data.importLog,
+                styleone: {background: '#FFFFFF', color: '#9899A0', height: '2vw', textAlign: 'center'},
               }
-            };
-            this.toolSrv.setToast('sucess', '上传成功', val.message);
-          } else {
-            this.toolSrv.setToast('error', '上传失败', val.message);
-          }
+            }
+          };
         });
       } else {
         this.toolSrv.setToast('error', '上传失败', '请选择需要上传的文件');
@@ -312,18 +298,13 @@ export class PersonnelManagerComponent implements OnInit {
       this.addPersonnel.value['dateOfBirth'] = this.dataPipe.transform(this.addPersonnel.value['dateOfBirth'], 'yyyy-MM-dd');
       this.toolSrv.setConfirmation('添加', '添加', () => {
         this.setSrv.addPersonnelInfo(JSON.stringify(this.addPersonnel.value)).subscribe(res => {
-          if (res.status === '1000') {
-            this.addPersonnel.reset();
-            this.showAddPersionDialog = false;
-            this.initPersonnelData();
-            this.toolSrv.setToast('success', '请求成功', res.message);
-          } else {
-            this.toolSrv.setToast('error', '请求失败', res.message);
-          }
+          this.addPersonnel.reset();
+          this.showAddPersionDialog = false;
+          this.initPersonnelData();
         });
       });
     } else {
-      this.toolSrv.setToast('error', '操作', '数据未填写完整');
+      this.toolSrv.setToast('error', '操作错误', '数据未填写完整');
     }
   }
   // 显示树结构
@@ -359,7 +340,7 @@ export class PersonnelManagerComponent implements OnInit {
         });
       });
     } else {
-      this.toolSrv.setToast('error', '操作', '数据未填写完整');
+      this.toolSrv.setToast('error', '操作错误', '数据未填写完整');
     }
   }
 

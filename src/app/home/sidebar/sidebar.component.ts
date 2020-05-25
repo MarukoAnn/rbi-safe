@@ -66,12 +66,12 @@ export class SidebarComponent implements OnInit {
       ]
     },
     {
-      icon: {class: 'iconzu69', fontsize: '14px', color: '#fff'}, bgc: '#226AD5', label: '隐患排查治理', link: '/home/strain3/institu6', lefticon: 'fa-angle-down', children: [
-        {item: {label: '隐患排查治理状况', bgc: '#D1E0F7', ftcolor: '#4F88DE'}, link: '', isHas: true},
-        {item: {label: '隐患排查治理制度', bgc: '#fff', ftcolor: '#8E8E8E'}, link: '', isHas: true},
-        {item: {label: '隐患排查', bgc: '#fff', ftcolor: '#8E8E8E'}, link: '', isHas: true},
-        {item: {label: '隐患处理', bgc: '#fff', ftcolor: '#8E8E8E'}, link: '', isHas: true},
-        {item: {label: '隐患档案', bgc: '#fff', ftcolor: '#8E8E8E'}, link: '', isHas: true},
+      icon: {class: 'iconzu69', fontsize: '14px', color: '#fff'}, bgc: '#226AD5', label: '隐患排查治理', link: '/home/trouble/checkstatus', lefticon: 'fa-angle-down', children: [
+        {item: {label: '隐患排查治理状况', bgc: '#D1E0F7', ftcolor: '#4F88DE'}, link: '/home/trouble/checkstatus', isHas: true},
+        {item: {label: '隐患排查治理制度', bgc: '#fff', ftcolor: '#8E8E8E'}, link: '/home/trouble/institution', isHas: true},
+        {item: {label: '隐患排查', bgc: '#fff', ftcolor: '#8E8E8E'}, link: '/home/trouble/shoot', isHas: true},
+        {item: {label: '隐患处理', bgc: '#fff', ftcolor: '#8E8E8E'}, link: '/home/trouble/process', isHas: true},
+        {item: {label: '隐患档案', bgc: '#fff', ftcolor: '#8E8E8E'}, link: '/home/trouble/archive', isHas: true},
       ]
     },
     {
@@ -138,7 +138,7 @@ export class SidebarComponent implements OnInit {
       link: '/home/seting/limit'
     },
     {
-      icon: {class: 'iconoutline-supervised_user_circle-24px', fontsize: '20px', color: '#fff'},
+      icon: {class: 'iconbaseline-tag_faces-24px', fontsize: '20px', color: '#fff'},
       bgc: '#226AD5',
       label: '角色管理',
       lefticon: '',
@@ -146,7 +146,7 @@ export class SidebarComponent implements OnInit {
       link: '/home/seting/role'
     },
     {
-      icon: {class: '', fontsize: '16px',  color: '#fff'},
+      icon: {class: 'iconbaseline-device_hub-24px', fontsize: '16px',  color: '#fff'},
       bgc: '#226AD5',
       label: '组织管理',
       lefticon: '',

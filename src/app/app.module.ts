@@ -13,11 +13,12 @@ import {LoginModule} from './login/login.module';
 import {ErrorComponent} from './error/error.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ConfirmationService, MessageService} from 'primeng/api';
+import {ToastModule} from 'primeng/toast';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ErrorComponent
+    ErrorComponent,
   ],
   imports: [
     BrowserModule,
@@ -27,7 +28,9 @@ import {ConfirmationService, MessageService} from 'primeng/api';
     BrowserAnimationsModule,
     HttpClientModule,
     // 加入状态管理器
-    StoreModule.forRoot({loadhidden: counterReducer})
+    StoreModule.forRoot({loadhidden: counterReducer}),
+    ToastModule,
+
   ],
   providers: [MessageService, ConfirmationService,
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}, // 拦截器进入

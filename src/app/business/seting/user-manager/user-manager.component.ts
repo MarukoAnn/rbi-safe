@@ -67,23 +67,15 @@ export class UserManagerComponent implements OnInit {
   }
   public  initUserInfo(): void {
     this.setSrv.getUserInfoPageData({pageNo: this.pageNo, pageSize: 10}).subscribe(val => {
-      if (val.status === '1000') {
-        this.userContent = val.data.contents;
-        this.setTableOption(this.userContent);
-        this.pageOption = {pageSize: val.data.pageSize, totalRecord: val.data.totalRecord};
-        this.toolSrv.setToast('success', '请求成功', val.message);
-      } else {
-        this.toolSrv.setToast('error', '请求失败', val.message);
-      }
+      this.userContent = val.data.contents;
+      this.setTableOption(this.userContent);
+      this.pageOption = {pageSize: val.data.pageSize, totalRecord: val.data.totalRecord};
+      this.toolSrv.setToast('success', '请求成功', val.message);
     });
   }
   public getRolesInfoList(): void {
       this.globalSrv.getRolesInfo({}).subscribe(value => {
-         if (value.status === '1000') {
-           this.rolesList = value.data;
-         } else {
-           this.toolSrv.setToast('error', '请求失败', value.message);
-         }
+        this.rolesList = value.data;
       });
   }
 
@@ -158,18 +150,14 @@ export class UserManagerComponent implements OnInit {
      data.enabled = Number(data.enabled);
      this.toolSrv.setConfirmation('添加', '添加新用户', () => {
        this.setSrv.addUserInfo(data).subscribe(val => {
-         if (val.status === '1000') {
-           this.showAddUserDialog = false;
-           this.addUser.reset();
-           this.initUserInfo();
-           this.toolSrv.setToast('success', '请求成功', val.message);
-         } else {
-           this.toolSrv.setToast('error', '请求失败', val.message);
-         }
+         this.showAddUserDialog = false;
+         this.addUser.reset();
+         this.initUserInfo();
+         this.toolSrv.setToast('success', '请求成功', val.message);
        });
      });
    }else {
-     this.toolSrv.setToast('error', '添加失败', '数据未填写完整');
+     this.toolSrv.setToast('error', '操作失败', '数据未填写完整');
    }
  }
  // 更新信息
@@ -189,18 +177,14 @@ export class UserManagerComponent implements OnInit {
      };
      this.toolSrv.setConfirmation('修改', '修改此用户', () => {
        this.setSrv.updateUserInfo(upData).subscribe(val => {
-         if (val.status === '1000') {
-           this.showEditUserDialog = false;
-           this.addUser.reset();
-           this.initUserInfo();
-           this.toolSrv.setToast('success', '请求成功', val.message);
-         } else {
-           this.toolSrv.setToast('error', '请求失败', val.message);
-         }
+         this.showEditUserDialog = false;
+         this.addUser.reset();
+         this.initUserInfo();
+         this.toolSrv.setToast('success', '请求成功', val.message);
        });
      });
    }else {
-     this.toolSrv.setToast('error', '添加失败', '数据未填写完整');
+     this.toolSrv.setToast('error', '操作失败', '数据未填写完整');
    }
  }
 
@@ -216,13 +200,9 @@ export class UserManagerComponent implements OnInit {
  public  delUserInfo(): void {
      this.toolSrv.setConfirmation('删除', '删除这1项', () => {
         this.setSrv.delUserInfo({id: this.id}).subscribe(res => {
-          if (res.status === '1000') {
-            this.id = '';
-            this.toolSrv.setToast('success', '请求失败', res.message);
-            this.initUserInfo();
-          } else {
-            this.toolSrv.setToast('error', '请求失败', res.message);
-          }
+          this.id = '';
+          this.toolSrv.setToast('success', '请求失败', res.message);
+          this.initUserInfo();
         });
      });
  }

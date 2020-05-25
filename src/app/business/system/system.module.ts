@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { SystemRoutingModule } from './system-routing.module';
 import { SystemComponent } from './system/system.component';
 import { SystemMangerComponent } from './system-manger/system-manger.component';
-import {DialogModule, MessageModule, MessagesModule, PaginatorModule, ScrollPanelModule} from 'primeng/primeng';
+import {DialogModule, FileUploadModule, MessageModule, MessagesModule, PaginatorModule, ScrollPanelModule} from 'primeng/primeng';
 import {BasicDialogModule} from '../../common/components/basic-dialog/basic-dialog.module';
 import {BasicTableModule} from '../../common/components/basic-table/basic-table.module';
 import {PaginationModule} from '../../common/components/pagination/pagination.module';
@@ -35,6 +35,7 @@ import {ConfirmDialogModule} from 'primeng/confirmdialog';
     ScrollPanelModule,
     DialogModule,
     ReactiveFormsModule,
+    FileUploadModule
   ]
 })
 export class SystemModule { }

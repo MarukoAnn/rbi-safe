@@ -19,4 +19,10 @@ export class GlobalService {
   public  getLimitTreeData(params?: {}): Observable<any> {
     return this.http.post(`/getSystemMenuPermissonTree`, params);
   }
+
+
+  // 隐患排查模块公共参数接口
+  public  getHidConfigData(params?: {}): Observable<any> {
+    return this.http.post(`/hid/findAdmChoose`, params);
+  }
 }
