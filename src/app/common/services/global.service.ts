@@ -6,9 +6,7 @@ import {Observable} from 'rxjs';
   providedIn: 'root'
 })
 export class GlobalService {
-  constructor(
-    private http: HttpClient
-  ) { }
+  constructor(private http: HttpClient) {}
   // 获取组织树
   public  getOrgazitionTreeData(params?: {}): Observable<any> {
     return this.http.post(`/getOrganizationTree`, params);
@@ -18,7 +16,7 @@ export class GlobalService {
     return this.http.post(`/getRole`, pamars);
   }
   // 获取权限树
-  public  getLimitTreeData(): Observable<any> {
-    return this.http.post(`/getSystemMenuPermissonTree`, {});
+  public  getLimitTreeData(params?: {}): Observable<any> {
+    return this.http.post(`/getSystemMenuPermissonTree`, params);
   }
 }

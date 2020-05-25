@@ -1,17 +1,17 @@
-import { NgModule } from '@angular/core';
+import {APP_INITIALIZER, NgModule} from '@angular/core';
 import {CommonModule, DatePipe} from '@angular/common';
 
-import { SetingRoutingModule } from './seting-routing.module';
-import { UserManagerComponent } from './user-manager/user-manager.component';
-import { SetingComponent } from './seting/seting.component';
-import { OrganizationManagerComponent } from './organization-manager/organization-manager.component';
-import { RolesManagerComponent } from './roles-manager/roles-manager.component';
-import { PersonnelManagerComponent } from './personnel-manager/personnel-manager.component';
+import {SetingRoutingModule} from './seting-routing.module';
+import {UserManagerComponent} from './user-manager/user-manager.component';
+import {SetingComponent} from './seting/seting.component';
+import {OrganizationManagerComponent} from './organization-manager/organization-manager.component';
+import {RolesManagerComponent} from './roles-manager/roles-manager.component';
+import {PersonnelManagerComponent} from './personnel-manager/personnel-manager.component';
 import {LimitsManagerComponent} from './limits-manager/limits-manager.component';
-import { PersonnelAccountComponent } from './user-manager/personnel-account/personnel-account.component';
-import { AdminAccountComponent } from './user-manager/admin-account/admin-account.component';
+import {PersonnelAccountComponent} from './user-manager/personnel-account/personnel-account.component';
+import {AdminAccountComponent} from './user-manager/admin-account/admin-account.component';
 import {PaginationModule} from '../../common/components/pagination/pagination.module';
-import {InputTextModule, } from 'primeng/inputtext';
+import {InputTextModule} from 'primeng/inputtext';
 import {ButtonModule} from 'primeng/button';
 import {BasicTableModule} from '../../common/components/basic-table/basic-table.module';
 import {DropdownModule} from 'primeng/dropdown';
@@ -22,6 +22,8 @@ import {BasicDialogModule} from '../../common/components/basic-dialog/basic-dial
 import {DialogModule} from 'primeng/dialog';
 import {CalendarModule, FileUploadModule, InputTextareaModule, MessageModule, MessagesModule, RadioButtonModule, ScrollPanelModule, TreeModule} from 'primeng/primeng';
 import {TableModule} from 'primeng/table';
+import {AppConfig, init_app} from '../../common/services/app.config';
+
 @NgModule({
   declarations: [
     UserManagerComponent,
@@ -57,6 +59,10 @@ import {TableModule} from 'primeng/table';
     MessageModule,
     TableModule,
   ],
-  providers: [DatePipe]
+  providers: [
+    DatePipe,
+    AppConfig,
+    {provide: APP_INITIALIZER, useFactory: init_app, deps: [AppConfig], multi: true}
+  ]
 })
-export class SetingModule { }
+export class SetingModule {}

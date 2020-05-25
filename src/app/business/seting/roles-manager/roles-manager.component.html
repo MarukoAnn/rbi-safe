@@ -6,8 +6,8 @@
   </div>
   <div class="roles-manager-header">
     <div class="roles-manager-search">
-      <div class="ui-inputgroup" >
-        <input type="text" pInputText  placeholder="搜索"/>
+      <div class="ui-inputgroup">
+        <input type="text" pInputText placeholder="搜索"/>
         <button pButton type="button" icon="pi pi-search" class="ui-button-warn" (click)="searchDataClick()"></button>
       </div>
     </div>
@@ -17,7 +17,14 @@
     </div>
   </div>
   <div class="roles-manager-table">
-    <p-table [columns]="roleTableHeader" [value]="roleTableData" selectionMode="single" [(selection)]="roleSelectedData">
+    <p-table
+      [columns]="roleTableHeader" [responsive]="true"
+      [value]="roleTableData" selectionMode="single"
+      [(selection)]="roleSelectedData" dataKey="id"
+    >
+      <ng-template pTemplate="caption">
+        角色管理
+      </ng-template>
       <ng-template pTemplate="header" let-columns>
         <tr>
           <th>#</th>
@@ -27,18 +34,121 @@
           <th>操作</th>
         </tr>
       </ng-template>
-      <ng-template pTemplate="body" let-rowData let-columns="columns" let-index="rowIndex">
-        <tr [pSelectableRow]="rowData" [pReorderableRow]="index">
-          <td>{{index + 1}}</td>
+      <ng-template pTemplate="body" let-tableData let-columns="columns" let-index="rowIndex" let-rowIndex="rowIndex">
+        <tr [pSelectableRow]="tableData" [pReorderableRow]="index" [pSelectableRowIndex]="rowIndex">
+          <td>{{rowIndex + 1}}</td>
           <td *ngFor="let col of columns">
-            {{rowData[col.field]}}
+            {{tableData[col.field]}}
           </td>
-          <td></td>
+          <td>
+            <button
+              pButton type="button" label="编辑"
+              (click)="this.roleUpdateOperate('click')"
+              class="ui-button-rounded">
+            </button>
+            <button
+              pButton type="button" label="删除"
+              class="ui-button-pink ui-button-rounded ml-2 mr-2">
+            </button>
+            <button
+              pButton type="button" label="查看权限"
+              class="ui-button-darkPrimary ui-button-rounded ml-2 mr-2"
+              (click)="this.rolePermissionModal = true">
+            </button>
+          </td>
         </tr>
+      </ng-template>
+      <ng-template pTemplate="summary" let-columns>
+        当前有{{roleTableData.length}}条数据
       </ng-template>
     </p-table>
   </div>
   <div class="roles-manager-pagination">
-    <app-pagination [option]="rolePageOption" (clickEvent)="clickEvent($event)"></app-pagination>
+    <app-pagination [option]="rolePageOption" (clickEvent)="rolePageEvent($event)"></app-pagination>
+  </div>
+  <div class="roles-manager-modal">
+    <!--权限详情弹窗-->
+    <p-dialog
+      [blockScroll]="true"
+      [(visible)]="rolePermissionModal" [style]="{width: '40vw'}"
+    >
+      <p-header>权限详情</p-header>
+      <div style="width: 100%;height: 26vh;overflow: hidden">
+        <p-scrollPanel [style]="{width: '100%', height: '100%'}" styleClass="role-scroll">
+          <p-tree [value]="rolePermissionInfo" [style]="{width: '100%'}"></p-tree>
+        </p-scrollPanel>
+      </div>
+    </p-dialog>
+    <!--角色编辑弹窗-->
+    <p-dialog
+      [blockScroll]="true"
+      [(visible)]="roleUpdateModal" [style]="{width: '50vw'}"
+    >
+      <p-header>角色编辑</p-header>
+      <div style="width: 100%;height: 30vh;overflow: hidden">
+        <p-scrollPanel [style]="{width: '100%', height: '100%'}" styleClass="role-scroll">
+          <div class="ui-g">
+            <!--受培训单位-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>角色名称：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <input type="text" pInputText placeholder="请填写培训内容" [(ngModel)]="roleInputField.roleName">
+              </div>
+            </div>
+            <!--是否可看下级-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>是否可看下级：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 radioButton">
+                <p-radioButton name="whetherSee" value="1" label="是" [(ngModel)]="roleInputField.whetherSee"></p-radioButton>
+                <p-radioButton name="whetherSee" value="0" label="否" styleClass="ml-3" [(ngModel)]="roleInputField.whetherSee"></p-radioButton>
+              </div>
+            </div>
+            <!--是否启用-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>是否启用：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 radioButton">
+                <p-radioButton name="enabled" value="1" label="是" [(ngModel)]="roleInputField.enabled"></p-radioButton>
+                <p-radioButton name="enabled" value="0" label="否" styleClass="ml-3" [(ngModel)]="roleInputField.enabled"></p-radioButton>
+              </div>
+            </div>
+          </div>
+          <!--选择权限-->
+          <div class="ui-g">
+            <!--web端权限配置-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>web端权限配置：</span>
+              </label>
+              <div class="ui-g-10 ui-md-8 input">
+                <p-tree
+                  [value]="roleWebPermissionTree" [style]="{width: '100%'}"
+                  selectionMode="checkbox" [(selection)]="roleWebPermissionSelected"
+                  (onNodeSelect)="rolePermissionSelect($event)"
+                ></p-tree>
+              </div>
+            </div>
+            <!--app端权限配置-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>app端权限配置：</span>
+              </label>
+              <div class="ui-g-10 ui-md-8 input">
+                <p-tree
+                  [value]="roleAppPermissionTree" [style]="{width: '100%'}"
+                  selectionMode="checkbox" [(selection)]="roleAppPermissionSelected"
+                  (onNodeSelect)="rolePermissionSelect($event)"
+                ></p-tree>
+              </div>
+            </div>
+          </div>
+        </p-scrollPanel>
+      </div>
+    </p-dialog>
   </div>
 </div>

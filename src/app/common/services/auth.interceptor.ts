@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpEvent, HttpRequest, HttpHandler, HttpInterceptor} from '@angular/common/http';
 import {EMPTY, Observable, of} from 'rxjs';
-import {tap, timeout} from 'rxjs/operators';
+import {catchError, tap, timeout} from 'rxjs/operators';
 import {Router} from '@angular/router';
 import {AppState} from '../../store/loadstatus.state';
 import {GlobalService} from './global.service';
@@ -11,13 +11,17 @@ import {Store} from '@ngrx/store';
 const DEFAULTTIMEOUT = 100000000;
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
-  public clonedRequest: any;
+  public clonedRequest: any; // 重置请求参数
+  public skipState = [`1000`]; // 需要处理的状态码
+  public skipUrl = [`/login`, `/company_personnel/excel_import`, `/uploadSystemDocuments`]; // 无需验证的请求地址
   constructor(
     private globalService: GlobalService,
     private router: Router,
     private localSessionStorage: LocalStorageService,
     private store: Store<AppState>
-  ) {}
+  ) {
+  }
+
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     if (environment.production) {
       return this.prod_http(req, next);
@@ -28,127 +32,123 @@ export class AuthInterceptor implements HttpInterceptor {
   public debug_http(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     // 修改请求状态
     this.store.dispatch({type: 'false'});
-    if (req.url ===  '/login') {
-        this.clonedRequest = req.clone({
-          url: environment.url_safe + req.url,
-          headers: req.headers
+    if (this.isSkipUrl(req.url)) {
+      this.clonedRequest = req.clone({
+        url: environment.url_safe + req.url,
+        headers: req.headers
           .set('Content-type', 'application/json; charset=UTF-8')
       });
     }
     else {
-      if (this.uploadFile(req.url)){
-        this.clonedRequest = req.clone({
-          url: environment.url_safe + req.url,
-          headers: req.headers
-            .set('Access-Control-Allow-Origin', '*')
-            // .set('Content-type', 'application/json; charset=UTF-8')
-            .set('accessToken', this.localSessionStorage.get('token'))
-        });
-      }else {
-        this.clonedRequest = req.clone({
-          url: environment.url_safe + req.url,
-          headers: req.headers
-            .set('Access-Control-Allow-Origin', '*')
-            .set('Content-type', 'application/json; charset=UTF-8')
-            .set('accessToken', this.localSessionStorage.get('token'))
-        });
-      }
+      this.clonedRequest = req.clone({
+        url: environment.url_safe + req.url,
+        headers: req.headers
+          .set('Content-type', 'application/json; charset=UTF-8')
+          .set('accessToken', this.localSessionStorage.get('token'))
+      });
     }
-
     return next.handle(this.clonedRequest).pipe(
       timeout(DEFAULTTIMEOUT),
       tap((event: any) => {
-          if (event.status === 200) {
-          this.store.dispatch({type: 'true'});
-          return of(event);
+        this.store.dispatch({type: 'true'});
+        if (event.status === 200) {
+          if (this.skipState.includes(event.body.status)) {
+            return of(event);
+          } else {
+            throw event;
+          }
+        } else if (event.status === 500) {
+          throw event;
         }
+      }),
+      catchError((error: any) => {
+        if (error.status === 500) {
+          this.router.navigate(['/error'], {
+            queryParams: {
+              msg: '连接服务器失败，请检查网络！',
+              status: error.status,
+              btn: '请重试'
+            }
+          });
           return EMPTY;
-      },
-        (err) => {
-            this.router.navigate(['/error'], {
-                queryParams: {
-                  msg: '连接服务器失败，请检查网络！',
-                  status: err.status,
-                  btn: '请重试'
-                }
-              });
+        }
+        if (error.status === 200) {
+          if (error.body.status === '1002') {
+            this.router.navigate(['/login']);
             return EMPTY;
-          })
-      );
+          }
+          this.router.navigate(['/error'], {
+            queryParams: {
+              msg: error.body.msg,
+              status: error.body.status,
+              btn: '请重试'
+            }
+          });
+        }
+      })
+    );
   }
-   public prod_http(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-     // 修改请求状态
-     this.store.dispatch({type: 'false'});
-     if (req.url ===  '/login') {
-       this.clonedRequest = req.clone({
-         url: environment.url_safe + req.url,
-         headers: req.headers
-           .set('Content-type', 'application/json; charset=UTF-8')
-       });
-     }
-     else {
-       if (this.uploadFile(req.url)){
-         this.clonedRequest = req.clone({
-           url: environment.url_safe + req.url,
-           headers: req.headers
-             .set('Access-Control-Allow-Origin', '*')
-             // .set('Content-type', 'application/json; charset=UTF-8')
-             .set('accessToken', this.localSessionStorage.get('token'))
-         });
-       }else {
-         this.clonedRequest = req.clone({
-           url: environment.url_safe + req.url,
-           headers: req.headers
-             .set('Access-Control-Allow-Origin', '*')
-             .set('Content-type', 'application/json; charset=UTF-8')
-             .set('accessToken', this.localSessionStorage.get('token'))
-         });
-       }
-     }
-     return next.handle(this.clonedRequest).pipe(
-       timeout(DEFAULTTIMEOUT),
-       tap((event: any) => {
-           if (event.status === 200) {
-             // 修改请求状态
-             this.store.dispatch({type: 'true'});
-             return of(event);
-           }
-           return EMPTY;
-         },
-         (err) => {
-           if (err.status === 0) {
-             this.router.navigate(['/error'], {
-               queryParams: {
-                 msg: '连接服务器失败，请检查网络！',
-                 url: null,
-                 btn: '请重试',
-               }});
-           }
-           if (err.status === 403) {
-             this.router.navigate(['/error'], {
-               queryParams: {
-                 msg: '连接服务器失败，请检查网络！',
-                 url: null,
-                 btn: '请重试',
-               }});
-           }
-           if (err.status === 400) {
-             return of(err);
-           }
-           if (err.status === 500) {
-             this.router.navigate(['/error'], {
-               queryParams: {
-                 msg: '服务器处理失败！请联系管理员',
-                 url: null,
-                 btn: '请重试',
-               }});
-           }
-         })
-     );
+  public prod_http(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    // 修改请求状态
+    this.store.dispatch({type: 'false'});
+    if (this.isSkipUrl(req.url)) {
+      this.clonedRequest = req.clone({
+        url: req.url,
+        headers: req.headers
+          .set('Content-type', 'application/json; charset=UTF-8')
+      });
+    }
+    else {
+      this.clonedRequest = req.clone({
+        url: environment.url_safe + req.url,
+        headers: req.headers
+          .set('Content-type', 'application/json; charset=UTF-8')
+          .set('accessToken', this.localSessionStorage.get('token'))
+      });
+    }
+    return next.handle(this.clonedRequest).pipe(
+      timeout(DEFAULTTIMEOUT),
+      tap((event: any) => {
+        if (event.status === 200) {
+          if (this.skipState.includes(event.body.status)) {
+            return of(event);
+          } else {
+            throw event.body;
+          }
+        } else if (event.status === 500) {
+          throw event;
+        }
+      }),
+      catchError((error: any) => {
+        if (error.status === 500) {
+          this.router.navigate(['/error'], {
+            queryParams: {
+              msg: '连接服务器失败，请检查网络！',
+              status: error.status,
+              btn: '请重试'
+            }
+          });
+          return EMPTY;
+        }
+        if (error.status === 200) {
+          if (error.body.status === '1002') {
+            this.router.navigate(['/login']);
+            return EMPTY;
+          }
+          this.router.navigate(['/error'], {
+            queryParams: {
+              msg: error.body.msg,
+              status: error.body.status,
+              btn: '请重试'
+            }
+          });
+        }
+      })
+    );
   }
 
-  public uploadFile(url): any{
-    const urlList = ['/company_personnel/excel_import', '/uploadSystemDocuments'];
-    return urlList.includes(url);
+  // url跳过验证
+  public isSkipUrl(url: string) {
+    return this.skipUrl.includes(url);
   }
 }
