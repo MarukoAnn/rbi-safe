@@ -46,7 +46,7 @@ export function orgInitializeTree(data): any {
  * @param data 需要初始化的数据
  * @param option 初始化配置信息
  */
-export function initializeTree(data, option: TreeOption): any {
+export function initializeTree(data: Array<any>, option: TreeOption): any {
   const oneChild = [];
   for (const item of data) {
     const childnode: any = {};

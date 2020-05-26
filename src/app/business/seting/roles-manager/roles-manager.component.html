@@ -52,14 +52,11 @@
             </button>
             <button
               pButton type="button" label="查看权限"
-              class="ui-button-darkPrimary ui-button-rounded ml-2 mr-2"
+              class="ui-button-darkPrimary ui-button-rounded"
               (click)="roleOperate(roleOperateFlag='permission', tableData)">
             </button>
           </td>
         </tr>
-      </ng-template>
-      <ng-template pTemplate="summary" let-columns>
-        当前有{{roleTableData.length}}条数据
       </ng-template>
     </p-table>
   </div>
@@ -94,7 +91,8 @@
                 <span>角色名称：</span>
               </label>
               <div class="ui-g-8 ui-md-8 input">
-                <input type="text" pInputText placeholder="请填写角色名称" [(ngModel)]="roleInputField.roleName">
+                <input type="text" pInputText placeholder="请填写角色名称" ngModel required [(ngModel)]="roleInputField.roleName">
+                <p class="text-danger mt-1" *ngIf="!roleInputField.roleName">角色名称必填</p>
               </div>
             </div>
             <!--是否可看下级-->

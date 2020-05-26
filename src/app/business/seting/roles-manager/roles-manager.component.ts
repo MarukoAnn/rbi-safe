@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Subscription} from 'rxjs';
+import {Observable, Subscription} from 'rxjs';
 import {ThemeService} from '../../../common/public/theme.service';
 import {SetingService} from '../../../common/services/seting.service';
 import {nums, Role} from '../../../common/public/Api';
@@ -42,7 +42,7 @@ export class RolesManagerComponent implements OnInit {
     private themeSrv: ThemeService,
     private setSrv: SetingService,
     private globalSrv: GlobalService,
-    private publicSrv: PublicMethodService
+    private publicSrv: PublicMethodService,
   ) {
     this.themeSub = this.themeSrv.changeEmitted$.subscribe(
       value => {
@@ -80,12 +80,22 @@ export class RolesManagerComponent implements OnInit {
     });
   }
 
-  // 编辑操作
+  // 角色操作代理请求函数
+  private roleHttpOperate(test: Observable<any>) {
+    test.subscribe(() => {
+      // 操作成功后重新初始化数据列表
+      this.roleDataInit(this.roleNowPage, this.rolePageOption.pageSize);
+      this.roleUpdateModal = false;
+    });
+  }
+
+  // 角色增删改操作
   public roleOperate(flag: string, item?: any) {
     switch (flag) {
       // 添加操作初始化
       case 'add':
         this.roleUpdateModal = true;
+        this.roleWebPermissionSelected = null; // 初始化权限树选择
         this.roleInputField = {
           roleName: '',
           whetherSee: nums.one,
@@ -95,39 +105,54 @@ export class RolesManagerComponent implements OnInit {
         break;
       // 编辑操作初始化
       case 'update':
-        this.roleUpdateModal = true;
-        this.roleInputField = Object.assign(objectCopy({
-          id: null,
-          roleName: '',
-          whetherSee: nums.one,
-          enabled: nums.one,
-          sysRolePermissionList: []
-        }, item), {sysRolePermissionList: item.rolePermissionInfoList});
-        if (this.roleInputField.sysRolePermissionList) {
-          this.roleInputField.sysRolePermissionList = reverseTree(
-            initializeTree(
-              this.roleInputField.sysRolePermissionList,
-              {labelName: 'permissionName', childrenName: 'rolePermissionInfos'}))
-            .map((res) => ({permissionId: res.id})
-            );
-        }
+        this.roleUpdateModal = true; // 显示弹窗
+        this.roleWebPermissionSelected = null; // 初始化权限树选择
+        this.roleInputField = Object.assign(objectCopy(
+          {
+            id: null,
+            roleName: '',
+            whetherSee: nums.one,
+            enabled: nums.one,
+            sysRolePermissionList: []
+          }, item), {sysRolePermissionList: item.rolePermissionInfoList ? item.rolePermissionInfoList : []});
         break;
       // 保存操作
       case 'save':
+        // 角色名称非空校验
+        if (!this.roleInputField.roleName) {
+          this.publicSrv.setToast('error', '操作提示', '角色名称必填');
+          break;
+        }
+        // 修改保存操作
         if ('id' in this.roleInputField) {
-          // 修改保存操作
-          this.roleInputField.sysRolePermissionList = [];
+          // 如果选择了权限
           if (this.roleWebPermissionSelected) {
             this.roleInputField.sysRolePermissionList = this.roleWebPermissionSelected.map((res) => ({permissionId: res.id}));
           }
-          this.setSrv.updateRoleInfo(this.roleInputField).subscribe((res) => {
-            this.roleUpdateModal = false;
-          });
-        } else {
-          // 新增保存操作
-          console.log(this.roleInputField);
+          // 如果没有选择权限，则初始化自身权限
+          else {
+            // 判断下是否选择了权限
+            if (this.roleInputField.sysRolePermissionList) {
+              this.roleInputField.sysRolePermissionList = reverseTree(
+                initializeTree(
+                  this.roleInputField.sysRolePermissionList,
+                  {labelName: 'permissionName', childrenName: 'rolePermissionInfos'}))
+                .map((res) => ({permissionId: res.id})
+                );
+            }
+          }
+          // 请求更新操作
+          this.roleHttpOperate(this.setSrv.updateRoleInfo(this.roleInputField));
         }
-        this.roleDataInit(this.roleNowPage, this.rolePageOption.pageSize);
+        // 新增保存操作
+        else {
+          // 如果选择了权限
+          if (this.roleWebPermissionSelected) {
+            this.roleInputField.sysRolePermissionList = this.roleWebPermissionSelected.map((res) => ({permissionId: res.id}));
+          }
+          // 请求更新操作
+          this.roleHttpOperate(this.setSrv.addRoleInfo(this.roleInputField));
+        }
         break;
       // 查看权限操作
       case 'permission':
