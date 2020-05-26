@@ -167,3 +167,19 @@ export function  setDrapdownOptionList(list): any {
   });
 }
 
+/**
+ * formData的图像列表
+ * @param data formdata 动态表单对象
+ * @param label formdata 的文件参数名
+ * @param formData formdata对象
+ */
+export function setImageToFromData(data, label, formData) {
+  if (data.value[label] !== ''){
+    data.value[label].forEach(val => {
+      formData.append(label, val);
+    });
+  }else {
+    formData.append(label, '');
+  }
+}
+

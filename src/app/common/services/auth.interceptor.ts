@@ -16,7 +16,7 @@ const DEFAULTTIMEOUT = 100000000;
 export class AuthInterceptor implements HttpInterceptor {
   public clonedRequest: any; // 重置请求参数
   public skipState = [`1000`]; // 需要处理的状态码
-  public skipUrl = [`/login`, `/company_personnel/excel_import`, `/uploadSystemDocuments`]; // 无需验证的请求地址
+  public skipUrl = [`/login`, `/company_personnel/excel_import`, `/uploadSystemDocuments`, `/hid/addReport`]; // 无需验证的请求地址
   constructor(
     private globalService: GlobalService,
     private router: Router,
@@ -37,20 +37,26 @@ export class AuthInterceptor implements HttpInterceptor {
   public debug_http(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     // 修改请求状态
     this.store.dispatch({type: 'false'});
-    if (this.isSkipUrl(req.url)) {
-      this.clonedRequest = req.clone({
-        url: environment.url_safe + req.url,
-        headers: req.headers
-          .set('Content-type', 'application/json; charset=UTF-8')
-      });
-    }
-    else {
-      this.clonedRequest = req.clone({
-        url: environment.url_safe + req.url,
-        headers: req.headers
-          .set('Content-type', 'application/json; charset=UTF-8')
-          .set('accessToken', this.localSessionStorage.get('token'))
-      });
+    switch (this.isSkipUrl(req.url)) {
+      case true:
+        this.clonedRequest = req.clone({
+          url: environment.url_safe + req.url,
+          headers: req.headers
+            .set('accessToken', this.localSessionStorage.get('token'))
+        });break;
+      case false:
+        this.clonedRequest = req.clone({
+          url: environment.url_safe + req.url,
+          headers: req.headers
+            .set('Content-type', 'application/json; charset=UTF-8')
+            .set('accessToken', this.localSessionStorage.get('token'))
+        });break;
+      case 'login':
+        this.clonedRequest = req.clone({
+          url: environment.url_safe + req.url,
+          headers: req.headers
+            .set('Content-type', 'application/json; charset=UTF-8')
+        });break;
     }
     return next.handle(this.clonedRequest).pipe(
       timeout(DEFAULTTIMEOUT),
@@ -100,29 +106,37 @@ export class AuthInterceptor implements HttpInterceptor {
   public prod_http(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     // 修改请求状态
     this.store.dispatch({type: 'false'});
-    if (this.isSkipUrl(req.url)) {
-      this.clonedRequest = req.clone({
-        url: req.url,
-        headers: req.headers
-          .set('Content-type', 'application/json; charset=UTF-8')
-      });
-    }
-    else {
-      this.clonedRequest = req.clone({
-        url: environment.url_safe + req.url,
-        headers: req.headers
-          .set('Content-type', 'application/json; charset=UTF-8')
-          .set('accessToken', this.localSessionStorage.get('token'))
-      });
+    switch (this.isSkipUrl(req.url)) {
+      case true:
+          this.clonedRequest = req.clone({
+          url: environment.url_safe + req.url,
+          headers: req.headers
+            .set('accessToken', this.localSessionStorage.get('token'))
+        });break;
+      case false:
+          this.clonedRequest = req.clone({
+            url: environment.url_safe + req.url,
+            headers: req.headers
+              .set('Content-type', 'application/json; charset=UTF-8')
+              .set('accessToken', this.localSessionStorage.get('token'))
+          });break;
+      case 'login':
+          this.clonedRequest = req.clone({
+            url: environment.url_safe + req.url,
+            headers: req.headers
+              .set('Content-type', 'application/json; charset=UTF-8')
+          });break;
     }
     return next.handle(this.clonedRequest).pipe(
       timeout(DEFAULTTIMEOUT),
       tap((event: any) => {
+        this.store.dispatch({type: 'true'});
         if (event.status === 200) {
           if (this.skipState.includes(event.body.status)) {
+            this.toolSrv.setToast('success', '请求成功', event.body.message);
             return of(event);
           } else {
-            throw event.body;
+            throw event;
           }
         } else if (event.status === 500) {
           throw event;
@@ -143,14 +157,17 @@ export class AuthInterceptor implements HttpInterceptor {
           if (error.body.status === '1002') {
             this.router.navigate(['/login']);
             return EMPTY;
+          }else{
+            this.toolSrv.setToast('error', '请求错误', error.body.message);
+            return EMPTY;
           }
-          this.router.navigate(['/error'], {
-            queryParams: {
-              msg: error.body.msg,
-              status: error.body.status,
-              btn: '请重试'
-            }
-          });
+          // this.router.navigate(['/error'], {
+          //   queryParams: {
+          //     msg: error.body.msg,
+          //     status: error.body.status,
+          //     btn: '请重试'
+          //   }
+          // });
         }
       })
     );
@@ -158,6 +175,10 @@ export class AuthInterceptor implements HttpInterceptor {
 
   // url跳过验证
   public isSkipUrl(url: string) {
-    return this.skipUrl.includes(url);
+    if (url !== `login`) {
+      return this.skipUrl.includes(url);
+    }else {
+      return 'login';
+    }
   }
 }

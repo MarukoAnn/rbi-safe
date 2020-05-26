@@ -1,9 +1,11 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {Es, initializeTree, setDrapdownOptionList} from '../../../../common/public/contents';
+import {Es, initializeTree, setDrapdownOptionList, setImageToFromData} from '../../../../common/public/contents';
 import {UploadImageComponent} from '../../../../common/components/upload-image/upload-image.component';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {GlobalService} from '../../../../common/services/global.service';
 import {PublicMethodService} from '../../../../common/public/public-method.service';
+import {DatePipe} from '@angular/common';
+import {TroubleShootService} from '../../../../common/services/trouble-shoot.service';
 
 @Component({
   selector: 'app-shoot-report',
@@ -14,18 +16,29 @@ export class ShootReportComponent implements OnInit {
 
   // @ts-ignore
   @ViewChild('upimg') ImageClear: UploadImageComponent;
+  // @ts-ignore
+  // @ViewChild('upimgafter') ImageClearAfter: UploadImageComponent;
   public esDate: any = Es;
   public ImageOption = {
     files: [],
     showUploadIcon: true
   };
+  public ImageOptionAfter = {
+    files: [],
+    showUploadIcon: true
+  };
   public hidFradeOption: any[] = [];
   public isHandle: boolean = false;
+  // private parasAddReport: Array<string> = [
+  //   'troubleshootingTime', 'ifControlMeasures', 'hidDangerContent'
+  // ];
+  private formData: FormData = new FormData();
+
   // @ts-ignore
   public imageFiles: any[] = []; // 图片列表
   // public fileList: any[] = []; // 文件列表
-  public filename: any;
-  public filename1: any;
+  public addPlanFile: File;
+  public addReportFile: File;
   public OrgTrees: any;
   public OrgTree: any;
   public treeDialog: boolean;
@@ -34,11 +47,14 @@ export class ShootReportComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private globalSrv: GlobalService,
-    private toolSrv: PublicMethodService
+    private toolSrv: PublicMethodService,
+    private datePipe: DatePipe,
+    private shootSrv: TroubleShootService
   ) { }
 
 
   ngOnInit() {
+
     this.addReport = this.fb.group({
       troubleshootingTime: new FormControl('', Validators.required), // 排查时间
       ifControlMeasures: new FormControl('无', Validators.required), // 控制措施
@@ -49,11 +65,10 @@ export class ShootReportComponent implements OnInit {
       organizationId: new FormControl('', Validators.required),
       organizationName: new FormControl('', Validators.required),
       beforeImg: new FormControl('', Validators.required), // 排查前图片
-      hidType: new FormControl('', Validators.required),
+      hidType: new FormControl([], Validators.required),
       // hidTypeThing: new FormControl('', Validators.required), // 隐患类型
       // hidTypePerson: new FormControl('', Validators.required), // 隐患类型
       // hidTypeManage: new FormControl('', Validators.required), // 隐患类型
-
       // 处理的
       governanceFunds: new FormControl(''), // 处理资金
       completionTime: new FormControl(''), // 完成时间
@@ -62,17 +77,17 @@ export class ShootReportComponent implements OnInit {
       plan: new FormControl(''), // 整改方案
       report: new FormControl(''), // 验收报告
     });
-    // console.log(this.esDate);
     this.initShootReportData();
   }
 
+  // 初始化珊瑚色
   public  initShootReportData(): void {
     this.getOrgTreeData();
     this.globalSrv.getHidConfigData({data: [{settingType: 'HID_GRADE'}, {settingType: 'HID_GRAE'}]}).subscribe(val => {
         this.hidFradeOption = setDrapdownOptionList(val.data.HID_GRADE);
-        // this.hidFradeOption = this.toolSrv.setDrapdownOptionList(val.HID_GRADE);
       });
   }
+  // 获取树结构数据
   public getOrgTreeData(): void {
       this.globalSrv.getOrgazitionTreeData({}).subscribe(value => {
         this.OrgTrees = initializeTree(
@@ -81,45 +96,66 @@ export class ShootReportComponent implements OnInit {
         );
       });
   }
-  public  selectFile(e, data): void {
+  // 选择图片文件
+  public  selectImageFile(e, data): void {
      this.imageFiles = e;
-     // this.addReport.patchValue({data: this.imageFiles});
-     // this.addReport.patchValue({afterImg: this.imageFiles});
-     // this
-     // this.beforeImg
+     const formVaue = {};
+     formVaue[data] =  this.imageFiles;
+     this.addReport.patchValue(formVaue);
   }
-
+  // 提交
   public submitClcik(): void {
-    // c
-    const subMitDta = JSON.parse(JSON.stringify(this.addReport.value));
-    console.log(subMitDta);
-    this.ImageClear.clearImage();
-  }
-
-  public  SelectFile(e, name): void {
-    if (name === 'filename'){
-      this.filename = e.target.files[0].name;
+    console.log(this.addReport.value);
+    if (this.addReport.valid){
+      setImageToFromData(this.addReport, 'beforeImg', this.formData);
+      setImageToFromData(this.addReport, 'afterImg', this.formData);
+      const subMitDta = JSON.parse(JSON.stringify(this.addReport.value));
+      subMitDta.troubleshootingTime = this.datePipe.transform( subMitDta.troubleshootingTime, 'yyyy-MM-dd');
+      subMitDta.completionTime = this.datePipe.transform( subMitDta.troubleshootingTime, 'yyyy-MM-dd');
+      this.setDataConvertToFromData(subMitDta);
+      this.shootSrv.addReportData(this.formData).subscribe(val => {
+         // console.log(val);
+         this.resetAllData();
+         this.isHandle = false;
+         // this.toolSrv.setToast('')
+      });
     }else {
-      this.filename1 = e.target.files[0].name;
+      this.toolSrv.setToast('error', '提交错误', '参数未填写完整');
+    }
+  }
+  //
+  public  selectFile(e, name): void {
+    const fromObj = {};
+    fromObj[name] = e.target.files[0].name;
+    this.addReport.patchValue(fromObj);
+    if (name === 'plan'){
+      this.addPlanFile = e.target.files[0];
+    }else {
+      this.addReportFile = e.target.files[0];
     }
   }
 
+  // 判断是否处理
   public  selectHandleType(e): void {
     this.isHandle = e === 1;
+    const paraList = ['governanceFunds', 'completionTime', 'completionSituation', 'afterImg', 'plan', 'report'];
     if ( e === 1){
-      this.addReport.setControl(
-        'governanceFunds', new FormControl('', Validators.required));
-      this.addReport.setControl(
-        'completionTime', new FormControl('', Validators.required));
-      this.addReport.setControl(
-        'completionSituation', new FormControl('', Validators.required));
-      this.addReport.setControl(
-        'afterImg', new FormControl('', Validators.required));
-      this.addReport.setControl(
-        'plan', new FormControl('', Validators.required));
-      this.addReport.setControl(
-        'report', new FormControl('', Validators.required));
+      // 如果是处理 则设置处理的参数未必填
+      paraList.forEach(val => {
+        this.addReport.controls[val].setValidators(Validators.required);
+      });
+    }else {
+      paraList.forEach(val => {
+        this.addReport.controls[val].setValidators(null);
+        this.addReport.controls[val].setValue('');
+      });
     }
+  }
+
+  private resetAllData(): void {
+    this.addReport.reset();
+    this.ImageClear.clearImage();
+    // this.ImageClearAfter.clearImage();
   }
 
   public dataTreeSureClick(): void {
@@ -129,4 +165,36 @@ export class ShootReportComponent implements OnInit {
     this.addReport.patchValue({'organizationName': this.OrgTree.label});
     this.addReport.patchValue({'organizationId': this.OrgTree.id});
   }
+
+  private setDataConvertToFromData(data): void{
+    console.log(data);
+    for (const key in data){
+      if (key === 'plan' || key === 'report'){
+        this.formData.append(key, key === 'plan' ? (this.addPlanFile === undefined ? '' : this.addPlanFile) : (this.addReportFile === undefined ? '': this.addReportFile));
+      }else if (key === 'hidType') {
+        data[key].forEach(val => {
+          this.formData.append('hidTypeThing', '');
+          this.formData.append('hidTypePerson', '');
+          this.formData.append('hidTypeManage', '');
+          switch (val) {
+            case '人': this.formData.set('hidTypeThing', '1'); break;
+            case '事物': this.formData.set('hidTypePerson', '1'); break;
+            case '管理': this.formData.set('hidTypeManage', '1'); break;
+          }
+        });
+      } else if (key !== 'beforeImg' || key !== 'beforeImg') {
+        this.formData.append(key, data[key]);
+      }
+    }
+  }
+
+  // private setImageToFromData(data): void{
+  //   if (this.addReport.value[data] !== ''){
+  //     this.addReport.value[data].forEach(val => {
+  //       this.formData.append(data, val);
+  //     });
+  //   }else {
+  //     this.formData.append(data, '');
+  //   }
+  // }
 }
