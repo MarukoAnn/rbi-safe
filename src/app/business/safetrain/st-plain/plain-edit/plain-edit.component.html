@@ -13,9 +13,9 @@
   </div>
   <!--tab切换-->
   <div class="tab pt-3">
-    <p-tabView (onChange)="onTabChange($event)" [activeIndex]="activeIndex">
+    <p-tabView (onClose)="onTabChange($event)" [activeIndex]="activeIndex">
       <!--培训计划-->
-      <p-tabPanel>
+      <p-tabPanel header="培训计划" >
         <app-pl-input></app-pl-input>
       </p-tabPanel>
       <!--培训内容-->

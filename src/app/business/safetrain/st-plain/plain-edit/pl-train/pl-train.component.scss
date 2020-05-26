@@ -1,0 +1,32 @@
+.pl-train{
+  .header{
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #F5F5F8;
+    p{
+      padding: 10px 0;
+      color: #BBBBBB;
+      cursor: pointer;
+      position: relative;
+    }
+    p.active{
+      color: #3B86FF;
+    }
+    p.active:after{
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      border-bottom: 2px solid #3B86FF;
+    }
+  }
+  .tab{
+    /deep/ .ui-tabview-nav{
+      display: none;
+    }
+    /deep/ .ui-tabview-panels{
+      border: none;
+    }
+  }
+}

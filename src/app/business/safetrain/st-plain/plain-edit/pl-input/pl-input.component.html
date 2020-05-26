@@ -15,7 +15,7 @@
         <span>日常培训类别：</span>
       </label>
       <div class="ui-g-9 ui-md-9 input">
-        <p-dropdown [options]="cars" [(ngModel)]="selectedCar1" optionLabel="name" dropdownIcon="fa fa-caret-down"></p-dropdown>
+        <p-dropdown [options]="iptDropdownOptions" [(ngModel)]="iptDropdownSelected" optionLabel="name" dropdownIcon="fa fa-caret-down"></p-dropdown>
       </div>
     </div>
     <!--培训内容-->
@@ -24,7 +24,12 @@
         <span>培训内容：</span>
       </label>
       <div class="ui-g-9 ui-md-9 input">
-        <input type="text" pInputText placeholder="请填写培训内容">
+        <input type="text" pInputText placeholder="请填写培训内容" name="title" #title="ngModel" required [(ngModel)]="iptInputFiled.title">
+        <div *ngIf="title.invalid && (title.dirty || title.touched)" class="text-danger mt-2">
+          <div *ngIf="title.errors.required">
+            请填写培训内容必须填写
+          </div>
+        </div>
       </div>
     </div>
     <!--培训时长-->
@@ -33,7 +38,12 @@
         <span>培训时长：</span>
       </label>
       <div class="ui-g-9 ui-md-9 input">
-        <input type="number" pInputText placeholder="请填写培训时长">
+        <input type="number" pInputText name="duration" #duration="ngModel" required placeholder="请填写培训时长" [(ngModel)]="iptInputFiled.duration">
+        <div *ngIf="duration.invalid && (duration.dirty || duration.touched)" class="text-danger mt-2">
+          <div *ngIf="duration.errors.required">
+            培训时长必须填写
+          </div>
+        </div>
       </div>
     </div>
     <!--组织培训单位-->
@@ -54,7 +64,7 @@
         <p-calendar
           #calendarStart
           placeholder="点击选择时间......"
-          [locale]="es" [(ngModel)]="startDate"
+          [locale]="iptEs" [(ngModel)]="iptStartDate"
           dateFormat="yy-mm-dd"
           [monthNavigator]="true"
           [yearNavigator]="true"
@@ -76,7 +86,7 @@
         <p-calendar
           #calendarEnd
           placeholder="点击选择时间......"
-          [locale]="es" [(ngModel)]="sendDate"
+          [locale]="iptEs" [(ngModel)]="ipTendDate"
           dateFormat="yy-mm-dd"
           [monthNavigator]="true"
           [yearNavigator]="true"
@@ -90,17 +100,17 @@
       </div>
     </div>
     <!--组织数弹窗-->
-    <p-dialog [(visible)]="display" [blockScroll]="true" [contentStyle]="{width: '30vw',height: '30vh'}">
+    <p-dialog [(visible)]="iptOrgModal" [blockScroll]="true" [contentStyle]="{width: '30vw',height: '30vh'}">
       <p-scrollPanel [style]="{width: '100%', height: '250px'}">
         <p-tree
-          [value]="dataTrees"
-          [(selection)]="dataTree"
+          [value]="iptOrgTree"
+          [(selection)]="iptOrgTreeSelect"
           selectionMode="single">
         </p-tree>
       </p-scrollPanel>
       <p-footer>
-        <button type="button" pButton icon="pi pi-check" (click)="display=false" label="Yes"></button>
-        <button type="button" pButton icon="pi pi-close" (click)="display=false" label="No" class="ui-button-secondary"></button>
+        <button type="button" pButton icon="pi pi-check" (click)="iptOrgModal=false" label="Yes"></button>
+        <button type="button" pButton icon="pi pi-close" (click)="iptOrgModal=false" label="No" class="ui-button-secondary"></button>
       </p-footer>
     </p-dialog>
   </div>

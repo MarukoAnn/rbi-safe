@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./pl-train.component.scss']
 })
 export class PlTrainComponent implements OnInit {
-
+  public traTabActiveIndex: number = 0;
   constructor() { }
 
   ngOnInit() {

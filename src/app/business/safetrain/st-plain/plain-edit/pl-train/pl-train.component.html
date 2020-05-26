@@ -1,0 +1,16 @@
+<div class="pl-train">
+  <header class="header pl-3">
+    <p class="mr-4" [ngClass]="{'active': traTabActiveIndex === 0}" (click)="traTabActiveIndex=0">培训内容设置</p>
+    <p class="ml-4" [ngClass]="{'active': traTabActiveIndex === 1}" (click)="traTabActiveIndex=1">预览培训内容</p>
+  </header>
+  <div class="tab">
+    <p-tabView [activeIndex]="traTabActiveIndex">
+      <p-tabPanel>
+        培训内容设置
+      </p-tabPanel>
+      <p-tabPanel>
+        预览培训内容
+      </p-tabPanel>
+    </p-tabView>
+  </div>
+</div>

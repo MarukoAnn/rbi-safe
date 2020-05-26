@@ -12,18 +12,17 @@
       </div>
     </div>
     <div class="roles-manager-button">
-      <button pButton type="button" label="添加角色" class="ui-button-rounded" (click)="roleOperate(roleOperateFlag='add')"></button>
+      <button pButton type="button" label="添加角色" class="ui-button-rounded"
+              (click)="roleOperate(roleOperateFlag='add')"></button>
       <button pButton type="button" label="批量删除" class="ui-button-rounded ui-button-pink ml-2"></button>
     </div>
   </div>
   <div class="roles-manager-table">
     <p-table
-      [columns]="roleTableHeader" [responsive]="true"
+      [scrollable]="true" scrollHeight="55vh"
+      [columns]="roleTableHeader"
       [value]="roleTableData" dataKey="id"
     >
-      <ng-template pTemplate="caption">
-        角色管理
-      </ng-template>
       <ng-template pTemplate="header" let-columns>
         <tr>
           <th>#</th>
@@ -37,7 +36,7 @@
         <tr [pSelectableRow]="tableData" [pReorderableRow]="index" [pSelectableRowIndex]="rowIndex">
           <td>{{rowIndex + 1}}</td>
           <td *ngFor="let col of columns">
-            {{tableData[col.field] === 1?'是': tableData[col.field]===0?'否' : tableData[col.field]}}
+            {{tableData[col.field] === 1 ? '是' : tableData[col.field] === 0 ? '否' : tableData[col.field]}}
           </td>
           <td>
             <button
@@ -81,7 +80,7 @@
       [blockScroll]="true"
       [(visible)]="roleUpdateModal" [style]="{width: '50vw'}"
     >
-      <p-header>{{roleOperateFlag==='update'?'角色编辑':'角色添加'}}</p-header>
+      <p-header>{{roleOperateFlag === 'update' ? '角色编辑' : '角色添加'}}</p-header>
       <div style="width: 100%;height: 30vh;overflow: hidden">
         <p-scrollPanel [style]="{width: '100%', height: '100%'}" styleClass="role-scroll">
           <div class="ui-g">
@@ -91,7 +90,8 @@
                 <span>角色名称：</span>
               </label>
               <div class="ui-g-8 ui-md-8 input">
-                <input type="text" pInputText placeholder="请填写角色名称" ngModel required [(ngModel)]="roleInputField.roleName">
+                <input type="text" pInputText placeholder="请填写角色名称" ngModel required
+                       [(ngModel)]="roleInputField.roleName">
                 <p class="text-danger mt-1" *ngIf="!roleInputField.roleName">角色名称必填</p>
               </div>
             </div>
@@ -101,8 +101,10 @@
                 <span>是否可看下级：</span>
               </label>
               <div class="ui-g-8 ui-md-8 radioButton">
-                <p-radioButton name="whetherSee" value="1" label="是" [(ngModel)]="roleInputField.whetherSee"></p-radioButton>
-                <p-radioButton name="whetherSee" value="0" label="否" styleClass="ml-3" [(ngModel)]="roleInputField.whetherSee"></p-radioButton>
+                <p-radioButton name="whetherSee" value="1" label="是"
+                               [(ngModel)]="roleInputField.whetherSee"></p-radioButton>
+                <p-radioButton name="whetherSee" value="0" label="否" styleClass="ml-3"
+                               [(ngModel)]="roleInputField.whetherSee"></p-radioButton>
               </div>
             </div>
             <!--是否启用-->
@@ -112,7 +114,8 @@
               </label>
               <div class="ui-g-8 ui-md-8 radioButton">
                 <p-radioButton name="enabled" value="1" label="是" [(ngModel)]="roleInputField.enabled"></p-radioButton>
-                <p-radioButton name="enabled" value="0" label="否" styleClass="ml-3" [(ngModel)]="roleInputField.enabled"></p-radioButton>
+                <p-radioButton name="enabled" value="0" label="否" styleClass="ml-3"
+                               [(ngModel)]="roleInputField.enabled"></p-radioButton>
               </div>
             </div>
           </div>
