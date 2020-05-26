@@ -24,8 +24,7 @@ export function orgInitializeTree(data): any {
       }
       if (refs === 'organizationName') {
         childnode.label = item.organizationName;
-      }
-      else {
+      } else {
         if (item.hasOwnProperty(refs)) {
           childnode[refs] = item[refs];
         }
@@ -33,8 +32,7 @@ export function orgInitializeTree(data): any {
     }
     if (item.chiled != null && item.chiled.length !== 0) {
       childnode.children = orgInitializeTree(item.chiled);
-    }
-    else {
+    } else {
       childnode.children = [];
       childnode.icon = 'fa fa-address-card-o';
     }
@@ -48,7 +46,7 @@ export function orgInitializeTree(data): any {
  * @param data 需要初始化的数据
  * @param option 初始化配置信息
  */
-export function initializeTree(data, option: TreeOption): any {
+export function initializeTree(data: Array<any>, option: TreeOption): any {
   const oneChild = [];
   for (const item of data) {
     const childnode: any = {};
@@ -66,14 +64,48 @@ export function initializeTree(data, option: TreeOption): any {
     }
     if (item[option.childrenName] != null && item[option.childrenName].length !== 0) {
       childnode.children = initializeTree(item[option.childrenName], option);
-    }
-    else {
+    } else {
       childnode.children = [];
       childnode.icon = option.icon;
     }
     oneChild.push(childnode);
   }
   return oneChild;
+}
+
+/**
+ * 树形结构数据平行序列化函数
+ * @param data 需要平行序列化的数据
+ */
+export function reverseTree(data): Array<any> {
+  let queen = [];
+  const out = [];
+  queen = queen.concat(data);
+  while (queen.length) {
+    const first = queen.shift();
+    if (first.children) {
+      queen = queen.concat(first.children);
+      delete first.children;
+    }
+    out.push(first);
+  }
+  return out;
+}
+
+/**
+ * 对象赋值
+ * @param assignedObj Object 需要赋值的对象
+ * @param copyObj Object 被复制的对象
+ * @returns {*}
+ */
+export function objectCopy(assignedObj: any, copyObj: any): any {
+  const obj = {};
+  for (const prop in assignedObj) {
+    if (assignedObj.hasOwnProperty(prop)) {
+      obj[prop] = copyObj[prop];
+    }
+  }
+  return obj;
 }
 
 // 数据结构模拟数据

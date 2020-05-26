@@ -45,7 +45,7 @@ export class PublicMethodService {
     });
   }
 
-  public  setConfirmation(title, message, callback: (...args: any[]) => any): void {
+  public setConfirmation(title, message, callback: (...args: any[]) => any): void {
     this.confirmationService.confirm({
       message: `确认要${message}吗？`,
       header: `${title}` + `提醒`,

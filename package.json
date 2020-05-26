@@ -21,6 +21,7 @@
     "@angular/platform-browser-dynamic": "~8.2.14",
     "@angular/router": "^8.2.14",
     "@ngrx/store": "^8.5.1",
+    "@why520crazy/ngx-validator": "^1.0.0",
     "chart.js": "^2.9.3",
     "font-awesome": "^4.7.0",
     "node-sass": "^4.14.1",

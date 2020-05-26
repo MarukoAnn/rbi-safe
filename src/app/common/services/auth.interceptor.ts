@@ -79,7 +79,6 @@ export class AuthInterceptor implements HttpInterceptor {
           return EMPTY;
         }
         if (error.status === 200) {
-          console.log(error);
           if (error.body.status === '1002') {
             this.router.navigate(['/login']);
             return EMPTY;
