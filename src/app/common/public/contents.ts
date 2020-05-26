@@ -130,8 +130,8 @@ export const dataTrees = [
 
 // 下拉框数据转换
 export function  setDrapdownOptionList(list): any {
-  console.log(list);
   return list.map(val => {
     return {label: val.settingName, value: val.settingCode};
   });
-};
+}
+

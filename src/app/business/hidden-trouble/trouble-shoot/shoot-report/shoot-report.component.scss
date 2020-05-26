@@ -44,6 +44,10 @@
       color: #007ad9;
       background: #fff;
     }
+    //::ng-deep .ui-radiobutton .ui-radiobutton-box.ui-state-active {
+    //  background-color: #FFFFFF;
+    //  color: #007ad9;
+    //}
     input, ::ng-deep .ui-inputtext{
       width: 100%;
       border: 1px solid #D2D6DB;
