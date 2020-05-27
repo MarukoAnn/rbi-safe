@@ -8,8 +8,6 @@ import {OrganizationManagerComponent} from './organization-manager/organization-
 import {RolesManagerComponent} from './roles-manager/roles-manager.component';
 import {PersonnelManagerComponent} from './personnel-manager/personnel-manager.component';
 import {LimitsManagerComponent} from './limits-manager/limits-manager.component';
-import {PersonnelAccountComponent} from './user-manager/personnel-account/personnel-account.component';
-import {AdminAccountComponent} from './user-manager/admin-account/admin-account.component';
 import {PaginationModule} from '../../common/components/pagination/pagination.module';
 import {InputTextModule} from 'primeng/inputtext';
 import {ButtonModule} from 'primeng/button';
@@ -32,8 +30,6 @@ import {AppConfig, init_app} from '../../common/services/app.config';
     RolesManagerComponent,
     PersonnelManagerComponent,
     LimitsManagerComponent,
-    PersonnelAccountComponent,
-    AdminAccountComponent,
   ],
   imports: [
     CommonModule,

@@ -54,7 +54,6 @@ export class ShootReportComponent implements OnInit {
 
 
   ngOnInit() {
-
     this.addReport = this.fb.group({
       troubleshootingTime: new FormControl('', Validators.required), // 排查时间
       ifControlMeasures: new FormControl('无', Validators.required), // 控制措施
@@ -66,9 +65,6 @@ export class ShootReportComponent implements OnInit {
       organizationName: new FormControl('', Validators.required),
       beforeImg: new FormControl('', Validators.required), // 排查前图片
       hidType: new FormControl([], Validators.required),
-      // hidTypeThing: new FormControl('', Validators.required), // 隐患类型
-      // hidTypePerson: new FormControl('', Validators.required), // 隐患类型
-      // hidTypeManage: new FormControl('', Validators.required), // 隐患类型
       // 处理的
       governanceFunds: new FormControl(''), // 处理资金
       completionTime: new FormControl(''), // 完成时间
@@ -105,19 +101,22 @@ export class ShootReportComponent implements OnInit {
   }
   // 提交
   public submitClcik(): void {
-    console.log(this.addReport.value);
     if (this.addReport.valid){
+      this.formData = new FormData();
       setImageToFromData(this.addReport, 'beforeImg', this.formData);
       setImageToFromData(this.addReport, 'afterImg', this.formData);
       const subMitDta = JSON.parse(JSON.stringify(this.addReport.value));
       subMitDta.troubleshootingTime = this.datePipe.transform( subMitDta.troubleshootingTime, 'yyyy-MM-dd');
-      subMitDta.completionTime = this.datePipe.transform( subMitDta.troubleshootingTime, 'yyyy-MM-dd');
+      if (subMitDta.completionTime){
+        subMitDta.completionTime = this.datePipe.transform(subMitDta.completionTime, 'yyyy-MM-dd');
+      }
       this.setDataConvertToFromData(subMitDta);
-      this.shootSrv.addReportData(this.formData).subscribe(val => {
-         // console.log(val);
-         this.resetAllData();
-         this.isHandle = false;
-         // this.toolSrv.setToast('')
+      this.toolSrv.setConfirmation('上报整改', '上报整改', () => {
+        this.shootSrv.addReportData(this.formData).subscribe(val => {
+          this.resetAllData();
+          this.isHandle = false;
+          // this.toolSrv.setToast('')
+        });
       });
     }else {
       this.toolSrv.setToast('error', '提交错误', '参数未填写完整');
@@ -167,34 +166,23 @@ export class ShootReportComponent implements OnInit {
   }
 
   private setDataConvertToFromData(data): void{
-    console.log(data);
     for (const key in data){
       if (key === 'plan' || key === 'report'){
         this.formData.append(key, key === 'plan' ? (this.addPlanFile === undefined ? '' : this.addPlanFile) : (this.addReportFile === undefined ? '': this.addReportFile));
       }else if (key === 'hidType') {
+        this.formData.append('hidTypeThing', '');
+        this.formData.append('hidTypePerson', '');
+        this.formData.append('hidTypeManage', '');
         data[key].forEach(val => {
-          this.formData.append('hidTypeThing', '');
-          this.formData.append('hidTypePerson', '');
-          this.formData.append('hidTypeManage', '');
           switch (val) {
             case '人': this.formData.set('hidTypeThing', '1'); break;
             case '事物': this.formData.set('hidTypePerson', '1'); break;
             case '管理': this.formData.set('hidTypeManage', '1'); break;
           }
         });
-      } else if (key !== 'beforeImg' || key !== 'beforeImg') {
+      } else if (key !== 'beforeImg' && key !== 'afterImg') {
         this.formData.append(key, data[key]);
       }
     }
   }
-
-  // private setImageToFromData(data): void{
-  //   if (this.addReport.value[data] !== ''){
-  //     this.addReport.value[data].forEach(val => {
-  //       this.formData.append(data, val);
-  //     });
-  //   }else {
-  //     this.formData.append(data, '');
-  //   }
-  // }
 }

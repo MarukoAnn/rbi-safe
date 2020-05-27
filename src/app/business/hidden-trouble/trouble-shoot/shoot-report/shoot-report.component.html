@@ -118,22 +118,22 @@
           </div>
           <div class="ui-md-12 ui-g-12" style="line-height: 3vh" *ngIf="isHandle">
             <div class="ui-g-1 ui-md-1 right">
-              <label > 整改方案:</label>
+              <label > <span style="color: #FF8A9A">*</span>整改方案:</label>
             </div>
             <div class="ui-g-4 ui-md-4 dialog-input">
               <div class="ui-inputgroup" style="position: relative">
-                <input type="text" pInputText placeholder="Keyword" formControlName="plan">
+                <input type="text" pInputText placeholder="请选择整改方案" formControlName="plan" disabled>
                 <button pButton type="button" icon="pi pi-folder" class="ui-button-warn" style="background: #F8F8F8;border: 1px solid #E0E3E7;border-left: 0;color: #E0E3E7"></button>
                 <input type="file" style="position: absolute;width: 35px;right: 0;height: 34px;opacity: 0" (change)="selectFile($event, 'plan')">
               </div>
             </div>
             <div class="ui-g-1 ui-md-1"></div>
             <div class="ui-g-1 ui-md-1 right">
-              <label >验收报告:</label>
+              <label ><span style="color: #FF8A9A">*</span>验收报告:</label>
             </div>
             <div class="ui-g-4 ui-md-4 dialog-input">
               <div class="ui-inputgroup" style="position: relative">
-                <input type="text" pInputText placeholder="Keyword" formControlName="report">
+                <input type="text" pInputText placeholder="请选择验收报告" formControlName="report" disabled>
                 <button pButton type="button" icon="pi pi-folder" class="ui-button-warn" style="background: #F8F8F8;border: 1px solid #E0E3E7;border-left: 0;color: #E0E3E7"></button>
                 <input type="file" style="position: absolute;width: 35px;right: 0;height: 34px;opacity: 0" (change)="selectFile($event, 'report')">
               </div>
@@ -154,7 +154,6 @@
       <button pButton type="button" label="提交" class="ui-button-rounded" (click)="submitClcik()"></button>
       <button pButton type="button" label="批量上传" class="ui-button-rounded"></button>
     </div>
-
   <!--组织树结构-->
   <p-dialog [(visible)]="treeDialog" [responsive]="true" showEffect="fade" [modal]= false [maximizable]="false" [baseZIndex]="10000" [width]="350" [height]="400">
     <div class="ui-g ui-fluid">

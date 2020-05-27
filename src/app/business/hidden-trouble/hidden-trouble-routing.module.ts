@@ -6,6 +6,9 @@ import {TroubleArchivesComponent} from './trouble-archives/trouble-archives.comp
 import {TroubleProcessComponent} from './trouble-process/trouble-process.component';
 import {TroubleShootInstitutionComponent} from './trouble-shoot-institution/trouble-shoot-institution.component';
 import {TroubleCheckStatusComponent} from './trouble-check-status/trouble-check-status.component';
+import {TroubleListComponent} from './trouble-process/trouble-list/trouble-list.component';
+import {TroubleDetailComponent} from './trouble-process/trouble-detail/trouble-detail.component';
+import {TroubleNoticeComponent} from './trouble-process/trouble-notice/trouble-notice.component';
 
 
 const routes: Routes = [
@@ -15,7 +18,12 @@ const routes: Routes = [
     children: [
       {path: 'shoot', component: TroubleShootComponent},
       {path: 'archive', component: TroubleArchivesComponent},
-      {path: 'process', component: TroubleProcessComponent},
+      {path: 'process', component: TroubleProcessComponent, children: [
+          {path: '',  redirectTo: 'list', pathMatch: 'full'},
+          {path: 'list',  component: TroubleListComponent},
+          {path: 'detail',  component: TroubleDetailComponent},
+          {path: 'notice',  component: TroubleNoticeComponent},
+        ]},
       {path: 'institution', component: TroubleShootInstitutionComponent},
       {path: 'checkstatus', component: TroubleCheckStatusComponent},
     ]

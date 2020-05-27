@@ -16,7 +16,8 @@ const DEFAULTTIMEOUT = 100000000;
 export class AuthInterceptor implements HttpInterceptor {
   public clonedRequest: any; // 重置请求参数
   public skipState = [`1000`]; // 需要处理的状态码
-  public skipUrl = [`/login`, `/company_personnel/excel_import`, `/uploadSystemDocuments`, `/hid/addReport`]; // 无需验证的请求地址
+  public skipUrl = [`/login`, `/company_personnel/excel_import`, `/uploadSystemDocuments`,
+    `/hid/addReport`, `/hid/addOrder`, `/hid/complete`]; // 无需验证的请求地址
   constructor(
     private globalService: GlobalService,
     private router: Router,

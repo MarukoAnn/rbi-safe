@@ -1,34 +1,46 @@
-.shoot-rectify{
-  margin: 0 2vw;
+.trouble-detail{
+  width: 100%;
   height: 100%;
-  .rectify-body{
+  background: #fff;
+  padding: 1vh 2vw;
+  .trouble-detail-title{
+    padding: 2vh 0;
+    border-bottom: 2px solid #EDEDED;
+    span, i{
+      color: #85898F;
+    }
+  }
+  .trouble-detail-body{
+    margin: 2vh 0;
     .right {
       text-align: right;
       color: #787A84;
       font-size: 13px;
     }
-
     .left {
       text-align: left;
       color: #4D4F5C;
     }
-
   }
-  .rectify-fotter{
-    //width: 100%;
+  .trouble-detail-fotter{
     margin-top: 1vh;
     text-align: center;
-    margin-bottom: 2vh;
+    margin-bottom: 4vh;
     button{
       //width: 6vw;
       margin-left: 2vw;
       background: #3B86FF;
     }
   }
+
   .dialog-input {
     line-height: 3vh;
     text-align: left;
     color: #4D4F5C;
+    //::ng-deep .ui-inputtextarea{
+    //  width: 100%;
+    //
+    //}
     ::ng-deep .ui-chkbox .ui-chkbox-box{
       //color: #A498A0;
       border: 1px solid #C8DDFF;
@@ -37,6 +49,10 @@
       color: #007ad9;
       background: #fff;
     }
+    //::ng-deep .ui-radiobutton .ui-radiobutton-box.ui-state-active {
+    //  background-color: #FFFFFF;
+    //  color: #007ad9;
+    //}
     input, ::ng-deep .ui-inputtext{
       width: 100%;
       border: 1px solid #D2D6DB;
@@ -59,50 +75,5 @@
         border: 0;
       }
     }
-  }
-
-  ::ng-deep  .ui-dialog .ui-dialog-titlebar{
-    text-align: center;
-    background: #F8F8F8;
-    font-size: 16px;
-    border: 0;
-    color: #6F6F6F;
-    border-bottom: 1px solid #CACED5;
-    i {
-      color: #6F6F6F;
-    }
-  }
-  ::ng-deep .ui-dialog .ui-dialog-content{
-    border: 0;
-  }
-  ::ng-deep  .ui-dialog .ui-dialog-footer{
-    text-align: center;
-    border: 0;
-    padding: 20px 0;
-    button:first-child{
-      //padding: 4px 6px;
-      border-radius: 20px;
-      background: #fff;
-      color: #575C65;
-      border: 1px solid #575C65;
-    }
-    button:last-child{
-      //padding: 4px 6px;
-      background: #3B86FF;
-      border-radius: 20px;
-    }
-  }
-  .dialog-btn{
-    width: 6vw;
-    //text-align: center;
-    border-radius: 5px;
-    height: 4vh;
-    outline: none;
-    color: #fff;
-    border: 0;
-    margin-left: 2vw;
-  }
-  ::ng-deep .ui-dialog-content{
-    overflow: visible ;
   }
 }

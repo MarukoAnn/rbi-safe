@@ -14,24 +14,26 @@ import {ErrorComponent} from './error/error.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ConfirmationService, MessageService} from 'primeng/api';
 import {ToastModule} from 'primeng/toast';
+import {ConfirmDialogModule} from 'primeng/confirmdialog';
 
 @NgModule({
   declarations: [
     AppComponent,
     ErrorComponent,
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    LoadingModule,
-    LoginModule,
-    BrowserAnimationsModule,
-    HttpClientModule,
-    // 加入状态管理器
-    StoreModule.forRoot({loadhidden: counterReducer}),
-    ToastModule,
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        LoadingModule,
+        LoginModule,
+        BrowserAnimationsModule,
+        HttpClientModule,
+        // 加入状态管理器
+        StoreModule.forRoot({loadhidden: counterReducer}),
+        ToastModule,
+        ConfirmDialogModule,
 
-  ],
+    ],
   providers: [MessageService, ConfirmationService,
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}, // 拦截器进入
     {provide: LocationStrategy, useClass: HashLocationStrategy}  // 配置哈希路由

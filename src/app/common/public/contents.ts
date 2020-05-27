@@ -1,4 +1,5 @@
 import {OrgTree, TreeOption} from './Api';
+import {FormGroup} from '@angular/forms';
 
 // p-calendar语言本地化
 export const Es = {
@@ -161,7 +162,7 @@ export const dataTrees = [
 
 
 // 下拉框数据转换
-export function  setDrapdownOptionList(list): any {
+export function  setDrapdownOptionList(list: Array<any>): any {
   return list.map(val => {
     return {label: val.settingName, value: val.settingCode};
   });
@@ -173,7 +174,7 @@ export function  setDrapdownOptionList(list): any {
  * @param label formdata 的文件参数名
  * @param formData formdata对象
  */
-export function setImageToFromData(data, label, formData) {
+export function setImageToFromData(data: FormGroup , label: string, formData: FormData) {
   if (data.value[label] !== ''){
     data.value[label].forEach(val => {
       formData.append(label, val);
@@ -183,3 +184,11 @@ export function setImageToFromData(data, label, formData) {
   }
 }
 
+export function setVlaueToLabel(list: Array<any>, data: string){
+   list.forEach(val => {
+     if (val.value === data){
+       data = val.label;
+     }
+   });
+   return data;
+}
