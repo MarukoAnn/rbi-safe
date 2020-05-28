@@ -192,3 +192,12 @@ export function setVlaueToLabel(list: Array<any>, data: string){
    });
    return data;
 }
+
+// 给表单赋值
+export function setValueToFromValue(list: Array<string>, data: object, formGroup: FormGroup) {
+  list.forEach(val => {
+    const obj = {};
+    obj[val] = data[val];
+    formGroup.patchValue(obj);
+  });
+}

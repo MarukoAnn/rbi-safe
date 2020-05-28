@@ -9,6 +9,8 @@ import {TroubleCheckStatusComponent} from './trouble-check-status/trouble-check-
 import {TroubleListComponent} from './trouble-process/trouble-list/trouble-list.component';
 import {TroubleDetailComponent} from './trouble-process/trouble-detail/trouble-detail.component';
 import {TroubleNoticeComponent} from './trouble-process/trouble-notice/trouble-notice.component';
+import {ArchivesListComponent} from './trouble-archives/archives-list/archives-list.component';
+import {ArchivesDetailComponent} from './trouble-archives/archives-detail/archives-detail.component';
 
 
 const routes: Routes = [
@@ -17,7 +19,11 @@ const routes: Routes = [
     component: TroubleComponent,
     children: [
       {path: 'shoot', component: TroubleShootComponent},
-      {path: 'archive', component: TroubleArchivesComponent},
+      {path: 'archive', component: TroubleArchivesComponent, children: [
+          {path: '',  redirectTo: 'alist', pathMatch: 'full'},
+          {path: 'alist',   component: ArchivesListComponent},
+          {path: 'adetail',   component: ArchivesDetailComponent},
+        ]},
       {path: 'process', component: TroubleProcessComponent, children: [
           {path: '',  redirectTo: 'list', pathMatch: 'full'},
           {path: 'list',  component: TroubleListComponent},

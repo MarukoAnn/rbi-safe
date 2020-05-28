@@ -66,7 +66,6 @@ export class TroubleNoticeComponent implements OnInit {
   public  getCorrector(): void {
       this.troubleSrv.getCorrectorData({}).subscribe(val => {
         this.hidCorrectorOption = setDrapdownOptionList(val.data.data);
-        console.log(val);
       });
   }
 }

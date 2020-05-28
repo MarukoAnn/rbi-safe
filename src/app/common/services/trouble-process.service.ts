@@ -11,6 +11,10 @@ export class TroubleProcessService {
     private http: HttpClient
   ) { }
 
+  /**
+   * 隐患处理模块
+   * @param pamars  传入的参数
+   */
   // 隐患处理分页
   public  getTroublePageDta(pamars): Observable<any> {
       return  this.http.post(`/hid/findDealByPage`, pamars);
@@ -31,5 +35,28 @@ export class TroubleProcessService {
   // 通知整改
   public issuedNoticeToRectify(pamars): Observable<any>  {
       return this.http.post(`/hid/rectification_notice`, pamars);
+  }
+  // 通知整改
+  public submitReportToSuperior(pamars): Observable<any>  {
+    return this.http.post(`/hid/report`, pamars);
+  }
+  // 审核通过
+  public reviewToPass(pamars): Observable<any>  {
+    return this.http.post(`/hid/audit_pass`, pamars);
+  }
+  // 审核通过
+  public reviewNoToPass(pamars): Observable<any>  {
+    return this.http.post(`/hid/audit_false`, pamars);
+  }
+
+  /**
+   * 隐患档案模块
+   */
+
+  public getTroubleArchiveListPageData(pamars): Observable<any>  {
+    return this.http.post(`/hid/findFinishByPage`, pamars);
+  }
+  public getTroubleArchiveDetailByCode(pamars): Observable<any>  {
+    return this.http.post(`/hid/findFinishDetailByCode`, pamars);
   }
 }

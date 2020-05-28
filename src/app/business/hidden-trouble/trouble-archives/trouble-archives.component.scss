@@ -1,0 +1,10 @@
+::ng-deep .ui-radiobutton .ui-radiobutton-box{
+  border: 2px solid #C8DDFF;
+}
+/*隐藏滚动条*/
+::ng-deep .ui-scrollpanel-bar {
+  display: none;
+}
+::ng-deep .ui-scrollpanel-content{
+  padding: 0 2vw;
+}

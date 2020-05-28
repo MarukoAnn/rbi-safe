@@ -30,6 +30,8 @@ import {PaginationModule} from '../../common/components/pagination/pagination.mo
 import {BasicTableModule} from '../../common/components/basic-table/basic-table.module';
 import { TroubleDetailComponent } from './trouble-process/trouble-detail/trouble-detail.component';
 import { TroubleNoticeComponent } from './trouble-process/trouble-notice/trouble-notice.component';
+import { ArchivesListComponent } from './trouble-archives/archives-list/archives-list.component';
+import { ArchivesDetailComponent } from './trouble-archives/archives-detail/archives-detail.component';
 
 
 @NgModule({
@@ -44,7 +46,9 @@ import { TroubleNoticeComponent } from './trouble-process/trouble-notice/trouble
     ShootRectifyComponent,
     TroubleListComponent,
     TroubleDetailComponent,
-    TroubleNoticeComponent
+    TroubleNoticeComponent,
+    ArchivesListComponent,
+    ArchivesDetailComponent
   ],
   imports: [
     CommonModule,

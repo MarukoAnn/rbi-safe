@@ -1,11 +1,11 @@
-<div class="trouble-detail">
+<div class="archives-detail">
   <!--导航定位-->
-  <div class="trouble-detail-title">
-    <span class="h5" (click)="backPreviouClick()">隐患处理</span>
-        <i class="fa fa-angle-right h4 pl-2 pr-2"></i>
-        <span class="h5">隐患处理详情</span>
+  <div class="archives-detail-title">
+    <span class="h5" (click)="backPreviouClick()">隐患档案</span>
+    <i class="fa fa-angle-right h4 pl-2 pr-2"></i>
+    <span class="h5">隐患档案详情</span>
   </div>
-  <div class="trouble-detail-body">
+  <div class="archives-detail-body">
     <form [formGroup]="addReport">
       <div class="ui-g ui-fluid ui-md">
         <div class="ui-g-12 ui-md-12" style="line-height: 4vh">
@@ -72,22 +72,15 @@
             <textarea [rows]="5" [cols]="30" pInputTextarea autoResize="autoResize" style="border: 1px solid #D2D6DB" formControlName="hidDangerContent"></textarea>
           </div>
         </div>
-        <div class="ui-md-12 ui-g-12">
-          <div class="ui-g-1 ui-md-1 right">
-            <label ><span style="color: #FF8A9A">*</span>隐患现场情况:</label>
-          </div>
-          <div class="ui-g-10 ui-md-10">
-            <app-upload-image  #upimg [ImageOption]="ImageOption"></app-upload-image>
-          </div>
-        </div>
+
         <div style="width: 100%;height: 2px; background: #F6F6F9"></div>
         <div class="ui-g-12 ui-md-12" style="line-height: 3vh">
           <div class="ui-g-1 ui-md-1 right">
             <label><span style="color: #FF8A9A">*</span>是否处理:</label>
           </div>
           <div class="ui-g-2 ui-md-2 dialog-input" >
-            <p-radioButton name="groupname1" value="是" label="是"  [ngStyle]="{paddingRight: '2vw'}" (onClick)="selectHandleType(1)" formControlName="ifDeal" [disabled]="this.btnList.length === 0"></p-radioButton>
-            <p-radioButton name="groupname1" value="否" label="否" (onClick)="selectHandleType(0)" formControlName="ifDeal" [disabled]="this.btnList.length === 0"></p-radioButton>
+            <p-radioButton name="groupname1" value="是" label="是"  [ngStyle]="{paddingRight: '2vw'}"  formControlName="ifDeal" ></p-radioButton>
+            <p-radioButton name="groupname1" value="否" label="否"  formControlName="ifDeal"></p-radioButton>
           </div>
         </div>
         <div class="ui-g-12 ui-md-12"  style="line-height: 4vh" *ngIf="isHandle">
@@ -115,15 +108,15 @@
             <textarea [rows]="5" [cols]="30" pInputTextarea autoResize="autoResize" style="border: 1px solid #D2D6DB" formControlName="completionSituation"></textarea>
           </div>
         </div>
-        <div class="ui-md-12 ui-g-12" style="line-height: 3vh" *ngIf="isHandle && !this.isDownLoadStatus">
+        <div class="ui-md-12 ui-g-12" style="line-height: 3vh" *ngIf="isHandle">
           <div class="ui-g-1 ui-md-1 right">
             <label > <span style="color: #FF8A9A">*</span>整改方案:</label>
           </div>
           <div class="ui-g-4 ui-md-4 dialog-input">
             <div class="ui-inputgroup" style="position: relative">
               <input type="text" pInputText placeholder="请选择整改方案" formControlName="plan" >
-              <button pButton type="button" icon="pi pi-folder" class="ui-button-warn" style="background: #F8F8F8;border: 1px solid #E0E3E7;border-left: 0;color: #E0E3E7"></button>
-              <input type="file" style="position: absolute;width: 35px;right: 0;height: 34px;opacity: 0" (change)="selectFile($event, 'plan')">
+              <button pButton type="button" icon="pi pi-download" class="ui-button-warn" style="background: #F8F8F8;border: 1px solid #E0E3E7;border-left: 0;color: #66A0FF" (click)="downLoadFile('plan')"></button>
+              <!--              <input type="file" style="position: absolute;width: 35px;right: 0;height: 34px;opacity: 0" (change)="selectFile($event, 'plan')">-->
             </div>
           </div>
           <div class="ui-g-1 ui-md-1"></div>
@@ -133,68 +126,28 @@
           <div class="ui-g-4 ui-md-4 dialog-input">
             <div class="ui-inputgroup" style="position: relative">
               <input type="text" pInputText placeholder="请选择验收报告" formControlName="report" >
-              <button pButton type="button" icon="pi pi-folder" class="ui-button-warn" style="background: #F8F8F8;border: 1px solid #E0E3E7;border-left: 0;color: #E0E3E7"></button>
-              <input type="file" style="position: absolute;width: 35px;right: 0;height: 34px;opacity: 0" (change)="selectFile($event, 'report')">
+              <button pButton type="button" icon="pi pi-download" class="ui-button-warn" style="background: #F8F8F8;border: 1px solid #E0E3E7;border-left: 0;color: #66A0FF" (click)="downLoadFile('report')"></button>
+              <!--              <input type="file" style="position: absolute;width: 35px;right: 0;height: 34px;opacity: 0" (change)="selectFile($event, 'report')">-->
             </div>
           </div>
         </div>
-        <div class="ui-md-12 ui-g-12" style="line-height: 3vh" *ngIf="isHandle && this.isDownLoadStatus">
+        <div class="ui-md-12 ui-g-12">
           <div class="ui-g-1 ui-md-1 right">
-            <label > <span style="color: #FF8A9A">*</span>整改方案:</label>
+            <label ><span style="color: #FF8A9A">*</span>排查前情况:</label>
           </div>
-          <div class="ui-g-4 ui-md-4 dialog-input">
-            <div class="ui-inputgroup" style="position: relative">
-              <input type="text" pInputText placeholder="请选择整改方案" formControlName="plan" disabled>
-              <button pButton type="button" icon="pi pi-download" class="ui-button-warn" style="background: #F8F8F8;border: 1px solid #E0E3E7;border-left: 0;color: #E0E3E7" (click)="downLoadFile('plan')"></button>
-<!--              <input type="file" style="position: absolute;width: 35px;right: 0;height: 34px;opacity: 0" (change)="selectFile($event, 'plan')">-->
-            </div>
-          </div>
-          <div class="ui-g-1 ui-md-1"></div>
-          <div class="ui-g-1 ui-md-1 right">
-            <label ><span style="color: #FF8A9A">*</span>验收报告:</label>
-          </div>
-          <div class="ui-g-4 ui-md-4 dialog-input">
-            <div class="ui-inputgroup" style="position: relative">
-              <input type="text" pInputText placeholder="请选择验收报告" formControlName="report" disabled>
-              <button pButton type="button" icon="pi pi-download" class="ui-button-warn" style="background: #F8F8F8;border: 1px solid #E0E3E7;border-left: 0;color: #E0E3E7" (click)="downLoadFile('report')"></button>
-<!--              <input type="file" style="position: absolute;width: 35px;right: 0;height: 34px;opacity: 0" (change)="selectFile($event, 'report')">-->
-            </div>
+          <div class="ui-g-10 ui-md-10">
+            <app-upload-image  #upimg [ImageOption]="ImageOption"></app-upload-image>
           </div>
         </div>
         <div class="ui-md-12 ui-g-12" *ngIf="isHandle">
           <div class="ui-g-1 ui-md-1 right">
-            <label ><span style="color: #FF8A9A">*</span>排查后隐患现场情况:</label>
+            <label ><span style="color: #FF8A9A">*</span>排查后情况:</label>
           </div>
           <div class="ui-g-10 ui-md-10">
-            <app-upload-image (selectFile)="selectImageFile($event, 'afterImg')" #upimg [ImageOption]="ImageOptionAfter"></app-upload-image>
+            <app-upload-image  [ImageOption]="ImageOptionAfter"></app-upload-image>
           </div>
         </div>
       </div>
     </form>
   </div>
-  <div class="trouble-detail-fotter">
-    <button pButton type="button" [label]="item.botton" class="ui-button-rounded" (click)="submitClcik(item.botton)" *ngFor="let item of btnList"></button>
-  </div>
-  <p-dialog header="审核内容" [(visible)]="showReViewDialog" [style]="{width: '700px'}">
-    <div class="ui-g ui-md ui-fiuld">
-      <div class="ui-g-12 ui-md-12">
-        <div class="ui-g-2 ui-md-2"></div>
-        <div class="ui-g-8 ui-md-8" style="line-height: 4.4vh">
-          <div class="ui-g-4 ui-md-4 right">
-            <span style="color: #FF8A9A">*</span>审核内容：
-          </div>
-          <div class="ui-g-8 ui-md-8 ">
-            <div class="ui-md-12 ui-g-12 dialog-input" style="text-align: left">
-              <textarea [rows]="5" [cols]="30" pInputTextarea autoResize="autoResize" style="border: 1px solid #D2D6DB" [(ngModel)]="rectificationEvaluate"></textarea>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <p-footer>
-      <button class="dialog-btn" (click)="showReViewDialog = false">取消</button>
-      <button class="dialog-btn" (click)="reviewToPassClick()">确认选择</button>
-    </p-footer>
-  </p-dialog>
 </div>
