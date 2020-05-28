@@ -31,15 +31,15 @@
               <label><span style="color: #FF8A9A">*</span>整改方案:</label>
             </div>
             <div class="ui-g-2 ui-md-2 dialog-input">
-              <p-radioButton name="groupname1" value="有" label="有"  [ngStyle]="{paddingRight: '2vw'}" formControlName="ifRectificationPlan"></p-radioButton>
-              <p-radioButton name="groupname1" value="无" label="无" formControlName="ifRectificationPlan"></p-radioButton>
+              <p-radioButton name="groupnamep" value="有" label="有"  [ngStyle]="{paddingRight: '2vw'}" formControlName="ifRectificationPlan"></p-radioButton>
+              <p-radioButton name="groupnamep" value="无" label="无" formControlName="ifRectificationPlan"></p-radioButton>
             </div>
             <div class="ui-g-1 ui-md-1 right">
               <label><span style="color: #FF8A9A">*</span>控制措施:</label>
             </div>
             <div class="ui-g-2 ui-md-2 dialog-input">
-              <p-radioButton name="groupname1" value="有" label="有"  [ngStyle]="{paddingRight: '2vw'}" formControlName="ifControlMeasures"></p-radioButton>
-              <p-radioButton name="groupname1" value="无" label="无" formControlName="ifControlMeasures"></p-radioButton>
+              <p-radioButton name="groupnames" value="有" label="有"  [ngStyle]="{paddingRight: '2vw'}" formControlName="ifControlMeasures"></p-radioButton>
+              <p-radioButton name="groupnames" value="无" label="无" formControlName="ifControlMeasures"></p-radioButton>
             </div>
           </div>
           <div class="ui-md-12 ui-g-12"  style="line-height: 4vh">
@@ -48,13 +48,13 @@
             </div>
             <div class="ui-g-4 ui-md-4 dialog-input left">
               <div class="ui-g-2 ui-g-md-2">
-                <p-checkbox name="groupname" value="人"  label="人" formControlName="hidTypeThing"></p-checkbox>
+                <p-checkbox name="groupname2" value="人"  label="人" [formControl]="addReport.controls['hidType']" ></p-checkbox>
               </div>
               <div class="ui-g-2 ui-g-md-2">
-                <p-checkbox name="groupname" value="事物"  label="事物" formControlName="hidTypePerson"></p-checkbox>
+                <p-checkbox name="groupname2" value="事物"  label="事物" [formControl]="addReport.controls['hidType']"></p-checkbox>
               </div>
               <div class="ui-g-2 ui-g-md-2">
-                <p-checkbox name="groupname" value="管理"  label="管理" formControlName="hidTypeManage"></p-checkbox>
+                <p-checkbox name="groupname2" value="管理"  label="管理" [formControl]="addReport.controls['hidType']"></p-checkbox>
               </div>
             </div>
             <div class="ui-g-1 ui-md-1"></div>
@@ -67,7 +67,7 @@
           </div>
           <div class="ui-md-12 ui-g-12">
             <div class="ui-g-1 ui-md-1 right">
-              <label ><span style="color: #FF8A9A">*</span>隐患内容:</label>
+              <label ><span style="color: #FF8A9A">*</span>隐患描述:</label>
             </div>
             <div class="ui-g-10 ui-md-10">
               <textarea [rows]="5" [cols]="30" pInputTextarea autoResize="autoResize" style="border: 1px solid #D2D6DB" formControlName="hidDangerContent"></textarea>
@@ -78,7 +78,7 @@
               <label ><span style="color: #FF8A9A">*</span>隐患现场情况:</label>
             </div>
             <div class="ui-g-10 ui-md-10">
-              <app-upload-image (selectFile)="selectFile($event)" #upimg [ImageOption]="this.ImageOption"></app-upload-image>
+              <app-upload-image (selectFile)="selectImageFile($event, 'beforeImg')" #upimg [ImageOption]="this.ImageOption"></app-upload-image>
             </div>
           </div>
           <div style="width: 100%;height: 2px; background: #F6F6F9"></div>
@@ -87,8 +87,8 @@
               <label><span style="color: #FF8A9A">*</span>是否处理:</label>
             </div>
             <div class="ui-g-2 ui-md-2 dialog-input" >
-              <p-radioButton name="groupname1" value="1" label="是"  [ngStyle]="{paddingRight: '2vw'}" (onClick)="selectHandleType(1)"></p-radioButton>
-              <p-radioButton name="groupname1" value="0" label="否" (onClick)="selectHandleType(0)"></p-radioButton>
+              <p-radioButton name="groupname1" value="是" label="是"  [ngStyle]="{paddingRight: '2vw'}" (onClick)="selectHandleType(1)" formControlName="ifDeal"></p-radioButton>
+              <p-radioButton name="groupname1" value="否" label="否" (onClick)="selectHandleType(0)" formControlName="ifDeal"></p-radioButton>
             </div>
           </div>
           <div class="ui-g-12 ui-md-12"  style="line-height: 4vh" *ngIf="isHandle">
@@ -96,7 +96,7 @@
               <label><span style="color: #FF8A9A">*</span>治理资金:</label>
             </div>
             <div class="ui-g-4 ui-md-4 dialog-input">
-              <input pInputText type="text" placeholder="请输入治理资金(万元)"/>
+              <input pInputText type="text" placeholder="请输入治理资金(万元)" formControlName="governanceFunds"/>
             </div>
           </div>
           <div class="ui-g-12 ui-md-12"  style="line-height: 4vh" *ngIf="isHandle">
@@ -105,7 +105,7 @@
             </div>
             <div class="ui-g-4 ui-md-4 dialog-input">
               <p-calendar [style]="{width: '100%'}" placeholder="请选择完成时间" [monthNavigator]="true" [yearNavigator]="true"
-                          dateFormat="yy-mm-dd" yearRange="1990:2200" [locale]="esDate"></p-calendar>
+                          dateFormat="yy-mm-dd" yearRange="1990:2200" [locale]="esDate" formControlName="completionTime"></p-calendar>
             </div>
           </div>
           <div class="ui-md-12 ui-g-12" *ngIf="isHandle">
@@ -113,7 +113,7 @@
               <label > 完成情况:</label>
             </div>
             <div class="ui-g-10 ui-md-10">
-              <textarea [rows]="5" [cols]="30" pInputTextarea autoResize="autoResize" style="border: 1px solid #D2D6DB"></textarea>
+              <textarea [rows]="5" [cols]="30" pInputTextarea autoResize="autoResize" style="border: 1px solid #D2D6DB" formControlName="completionSituation"></textarea>
             </div>
           </div>
           <div class="ui-md-12 ui-g-12" style="line-height: 3vh" *ngIf="isHandle">
@@ -122,9 +122,9 @@
             </div>
             <div class="ui-g-4 ui-md-4 dialog-input">
               <div class="ui-inputgroup" style="position: relative">
-                <input type="text" pInputText placeholder="Keyword" [(ngModel)]="filename">
+                <input type="text" pInputText placeholder="Keyword" formControlName="plan">
                 <button pButton type="button" icon="pi pi-folder" class="ui-button-warn" style="background: #F8F8F8;border: 1px solid #E0E3E7;border-left: 0;color: #E0E3E7"></button>
-                <input type="file" style="position: absolute;width: 35px;right: 0;height: 34px;opacity: 0" (change)="SelectFile($event, 'filename')">
+                <input type="file" style="position: absolute;width: 35px;right: 0;height: 34px;opacity: 0" (change)="selectFile($event, 'plan')">
               </div>
             </div>
             <div class="ui-g-1 ui-md-1"></div>
@@ -133,9 +133,9 @@
             </div>
             <div class="ui-g-4 ui-md-4 dialog-input">
               <div class="ui-inputgroup" style="position: relative">
-                <input type="text" pInputText placeholder="Keyword" [(ngModel)]="filename1">
+                <input type="text" pInputText placeholder="Keyword" formControlName="report">
                 <button pButton type="button" icon="pi pi-folder" class="ui-button-warn" style="background: #F8F8F8;border: 1px solid #E0E3E7;border-left: 0;color: #E0E3E7"></button>
-                <input type="file" style="position: absolute;width: 35px;right: 0;height: 34px;opacity: 0" (change)="SelectFile($event, 'filename1')">
+                <input type="file" style="position: absolute;width: 35px;right: 0;height: 34px;opacity: 0" (change)="selectFile($event, 'report')">
               </div>
             </div>
           </div>
@@ -144,7 +144,7 @@
               <label ><span style="color: #FF8A9A">*</span>排查后隐患现场情况:</label>
             </div>
             <div class="ui-g-10 ui-md-10">
-              <app-upload-image (selectFile)="selectFile($event)" #upimg></app-upload-image>
+              <app-upload-image (selectFile)="selectImageFile($event, 'afterImg')" #upimg [ImageOption]="this.ImageOptionAfter"></app-upload-image>
             </div>
           </div>
         </div>
