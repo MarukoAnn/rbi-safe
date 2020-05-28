@@ -12,11 +12,18 @@ import {PublicMethodService} from '../public/public-method.service';
 import {environment} from '../../../environments/environment';
 // import {environment} from '../../../environments/environment.zga';
 const DEFAULTTIMEOUT = 100000000;
+
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
   public clonedRequest: any; // 重置请求参数
   public skipState = [`1000`]; // 需要处理的状态码
-  public skipUrl = [`/login`, `/company_personnel/excel_import`, `/uploadSystemDocuments`, `/hid/addReport`]; // 无需验证的请求地址
+  public skipUrl = [
+    `/login`,
+    `/company_personnel/excel_import`,
+    `/uploadSystemDocuments`,
+    `/hid/addReport`,
+    `/training/add`
+  ]; // 无需验证的请求地址
   constructor(
     private globalService: GlobalService,
     private router: Router,
@@ -34,6 +41,7 @@ export class AuthInterceptor implements HttpInterceptor {
       return this.debug_http(req, next);
     }
   }
+
   public debug_http(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     // 修改请求状态
     this.store.dispatch({type: 'false'});
@@ -43,20 +51,23 @@ export class AuthInterceptor implements HttpInterceptor {
           url: environment.url_safe + req.url,
           headers: req.headers
             .set('accessToken', this.localSessionStorage.get('token'))
-        });break;
+        });
+        break;
       case false:
         this.clonedRequest = req.clone({
           url: environment.url_safe + req.url,
           headers: req.headers
             .set('Content-type', 'application/json; charset=UTF-8')
             .set('accessToken', this.localSessionStorage.get('token'))
-        });break;
+        });
+        break;
       case 'login':
         this.clonedRequest = req.clone({
           url: environment.url_safe + req.url,
           headers: req.headers
             .set('Content-type', 'application/json; charset=UTF-8')
-        });break;
+        });
+        break;
     }
     return next.handle(this.clonedRequest).pipe(
       timeout(DEFAULTTIMEOUT),
@@ -88,7 +99,7 @@ export class AuthInterceptor implements HttpInterceptor {
           if (error.body.status === '1002') {
             this.router.navigate(['/login']);
             return EMPTY;
-          }else{
+          } else {
             this.toolSrv.setToast('error', '请求错误', error.body.message);
             return EMPTY;
           }
@@ -103,29 +114,33 @@ export class AuthInterceptor implements HttpInterceptor {
       })
     );
   }
+
   public prod_http(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     // 修改请求状态
     this.store.dispatch({type: 'false'});
     switch (this.isSkipUrl(req.url)) {
       case true:
-          this.clonedRequest = req.clone({
+        this.clonedRequest = req.clone({
           url: environment.url_safe + req.url,
           headers: req.headers
             .set('accessToken', this.localSessionStorage.get('token'))
-        });break;
+        });
+        break;
       case false:
-          this.clonedRequest = req.clone({
-            url: environment.url_safe + req.url,
-            headers: req.headers
-              .set('Content-type', 'application/json; charset=UTF-8')
-              .set('accessToken', this.localSessionStorage.get('token'))
-          });break;
+        this.clonedRequest = req.clone({
+          url: environment.url_safe + req.url,
+          headers: req.headers
+            .set('Content-type', 'application/json; charset=UTF-8')
+            .set('accessToken', this.localSessionStorage.get('token'))
+        });
+        break;
       case 'login':
-          this.clonedRequest = req.clone({
-            url: environment.url_safe + req.url,
-            headers: req.headers
-              .set('Content-type', 'application/json; charset=UTF-8')
-          });break;
+        this.clonedRequest = req.clone({
+          url: environment.url_safe + req.url,
+          headers: req.headers
+            .set('Content-type', 'application/json; charset=UTF-8')
+        });
+        break;
     }
     return next.handle(this.clonedRequest).pipe(
       timeout(DEFAULTTIMEOUT),
@@ -157,7 +172,7 @@ export class AuthInterceptor implements HttpInterceptor {
           if (error.body.status === '1002') {
             this.router.navigate(['/login']);
             return EMPTY;
-          }else{
+          } else {
             this.toolSrv.setToast('error', '请求错误', error.body.message);
             return EMPTY;
           }
@@ -177,7 +192,7 @@ export class AuthInterceptor implements HttpInterceptor {
   public isSkipUrl(url: string) {
     if (url !== `login`) {
       return this.skipUrl.includes(url);
-    }else {
+    } else {
       return 'login';
     }
   }

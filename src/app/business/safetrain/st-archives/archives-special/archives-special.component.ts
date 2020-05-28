@@ -86,6 +86,7 @@ export class ArchivesSpecialComponent implements OnInit {
 
   // 分页操作
   public specialPageEvent(page) {
-    console.log(page);
+    this.specialNowPage = page;
+    this.specialDataInit(page, this.specialPageOption.pageSize);
   }
 }
