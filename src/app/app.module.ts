@@ -14,6 +14,7 @@ import {ErrorComponent} from './error/error.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ConfirmationService, MessageService} from 'primeng/api';
 import {ToastModule} from 'primeng/toast';
+import {ConfirmDialogModule} from 'primeng/confirmdialog';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import {ToastModule} from 'primeng/toast';
     LoginModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    ConfirmDialogModule,
     // 加入状态管理器
     StoreModule.forRoot({loadhidden: counterReducer}),
     ToastModule,

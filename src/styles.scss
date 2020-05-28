@@ -568,3 +568,38 @@ body .ui-button.text-left{
   text-align: left;
 }
 
+.dialog-input {
+  line-height: 3vh;
+  text-align: left;
+  color: #4D4F5C;
+  ::ng-deep .ui-chkbox .ui-chkbox-box{
+    //color: #A498A0;
+    border: 1px solid #C8DDFF;
+  }
+  ::ng-deep .ui-chkbox .ui-chkbox-box.ui-state-active{
+    color: #007ad9;
+    background: #fff;
+  }
+  input, ::ng-deep .ui-inputtext{
+    width: 100%;
+    border: 1px solid #D2D6DB;
+  }
+  /deep/ .ui-widget::placeholder{
+    color: #A498A0;
+  }
+  ::ng-deep .ui-dropdown{
+    width: 100%;
+    border: 1px solid #EDEDED;
+    line-height: 2.4vh;
+    .ui-dropdown-trigger-icon{
+      color: #AAAAAA;
+    }
+    .ui-dropdown-label{
+      color: #A498A0;
+    }
+    .ui-inputtext{
+      width: 100%;
+      border: 0;
+    }
+  }
+}

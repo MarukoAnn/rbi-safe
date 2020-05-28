@@ -50,8 +50,9 @@ export class UploadImageComponent implements OnInit, OnChanges{
   }
 
   ngOnChanges(changes: SimpleChanges): void {
+    console.log(this.ImageOption);
     if (this.ImageOption.showUploadIcon !== true){
-       this.filePath = this.ImageOption.files = [];
+       this.filePath = this.ImageOption.files;
     }
   }
   public  imgClick(e): void {

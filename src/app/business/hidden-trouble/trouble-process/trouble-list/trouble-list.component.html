@@ -1,0 +1,25 @@
+<div class="trouble-list">
+  <div class="trouble-list-title">
+     <span>
+       隐患处理
+     </span>
+  </div>
+  <div class="trouble-list-header">
+    <div class="trouble-list-search">
+      <div class="ui-inputgroup" >
+        <input type="text" pInputText  placeholder="搜索" [(ngModel)]="searchData"/>
+        <button pButton type="button" icon="pi pi-search" class="ui-button-warn" (click)="searchDataClick()"></button>
+      </div>
+    </div>
+<!--    <div class="trouble-list-button">-->
+<!--      <button pButton type="button" label="添加权限" class="ui-button-rounded" (click)="showAddtroubleListClick()"></button>-->
+<!--      <button pButton type="button" label="批量删除" class="ui-button-rounded" (click)="deltroubleListInfoClick()"></button>-->
+<!--    </div>-->
+  </div>
+  <div class="trouble-list-table">
+    <app-bf-table-btn [select]="troubleListSelect"   (selectData)="selectData($event)" [option]="optionTable" (detail)="DetailClick($event)"></app-bf-table-btn>
+  </div>
+  <div class="trouble-list-pagination">
+    <app-pagination [option]="pageOption" (clickEvent)="clickEvent($event)"></app-pagination>
+  </div>
+</div>

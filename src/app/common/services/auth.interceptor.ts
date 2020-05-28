@@ -5,12 +5,10 @@ import {catchError, tap, timeout} from 'rxjs/operators';
 import {Router} from '@angular/router';
 import {AppState} from '../../store/loadstatus.state';
 import {GlobalService} from './global.service';
-// import {environment} from '../../../environments/environment';
 import {LocalStorageService} from './local-storage.service';
 import {Store} from '@ngrx/store';
 import {PublicMethodService} from '../public/public-method.service';
 import {environment} from '../../../environments/environment';
-// import {environment} from '../../../environments/environment.zga';
 const DEFAULTTIMEOUT = 100000000;
 
 @Injectable()
@@ -22,7 +20,9 @@ export class AuthInterceptor implements HttpInterceptor {
     `/company_personnel/excel_import`,
     `/uploadSystemDocuments`,
     `/hid/addReport`,
-    `/training/add`
+    `/hid/addOrder`,
+    `/hid/complete`,
+    `/training/add`,
   ]; // 无需验证的请求地址
   constructor(
     private globalService: GlobalService,
@@ -34,14 +34,12 @@ export class AuthInterceptor implements HttpInterceptor {
   }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    // console.log(environment.name);
     if (environment.production) {
       return this.prod_http(req, next);
     } else {
       return this.debug_http(req, next);
     }
   }
-
   public debug_http(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     // 修改请求状态
     this.store.dispatch({type: 'false'});
@@ -192,7 +190,7 @@ export class AuthInterceptor implements HttpInterceptor {
   public isSkipUrl(url: string) {
     if (url !== `login`) {
       return this.skipUrl.includes(url);
-    } else {
+    }else {
       return 'login';
     }
   }

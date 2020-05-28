@@ -25,6 +25,13 @@ import {
   ScrollPanelModule, TreeModule
 } from 'primeng/primeng';
 import {UploadImageModule} from '../../common/components/upload-image/upload-image.module';
+import {TroubleListComponent} from './trouble-process/trouble-list/trouble-list.component';
+import {PaginationModule} from '../../common/components/pagination/pagination.module';
+import {BasicTableModule} from '../../common/components/basic-table/basic-table.module';
+import { TroubleDetailComponent } from './trouble-process/trouble-detail/trouble-detail.component';
+import { TroubleNoticeComponent } from './trouble-process/trouble-notice/trouble-notice.component';
+import { ArchivesListComponent } from './trouble-archives/archives-list/archives-list.component';
+import { ArchivesDetailComponent } from './trouble-archives/archives-detail/archives-detail.component';
 
 
 @NgModule({
@@ -36,7 +43,12 @@ import {UploadImageModule} from '../../common/components/upload-image/upload-ima
     TroubleProcessComponent,
     TroubleArchivesComponent,
     ShootReportComponent,
-    ShootRectifyComponent
+    ShootRectifyComponent,
+    TroubleListComponent,
+    TroubleDetailComponent,
+    TroubleNoticeComponent,
+    ArchivesListComponent,
+    ArchivesDetailComponent
   ],
   imports: [
     CommonModule,
@@ -56,7 +68,9 @@ import {UploadImageModule} from '../../common/components/upload-image/upload-ima
     ReactiveFormsModule,
     CheckboxModule,
     DialogModule,
-    TreeModule
+    TreeModule,
+    PaginationModule,
+    BasicTableModule,
   ],
   providers: [DatePipe]
 })
