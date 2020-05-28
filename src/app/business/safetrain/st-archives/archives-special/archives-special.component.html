@@ -1,0 +1,268 @@
+<div class="archives-special">
+  <h2 class="title text-center pt-3 pb-3 text-littleGray">特种作业人员登记台账</h2>
+  <div class="header pt-2 pb-2">
+    <div class="ui-inputgroup">
+      <input type="text" pInputText placeholder="搜索"/>
+      <button pButton type="button" icon="pi pi-search" class="ui-button-warn"></button>
+    </div>
+    <div class="button">
+      <button pButton type="button" label="新增台账" class="ui-button-rounded" (click)="specialOperate(specialOperateFlag = 'add')"></button>
+      <button pButton type="button" label="文件导入" class="ui-button-rounded ui-button-darkPrimary ml-2 mr-2"></button>
+      <button pButton type="button" label="文件导出" class="ui-button-rounded ui-button-pink "></button>
+    </div>
+  </div>
+  <div class="content">
+    <p-table
+      [value]="specialTableData" [columns]="specialTableHeader"
+      [scrollable]="true" scrollHeight="90%"
+    >
+      <ng-template pTemplate="header" let-columns>
+        <tr>
+          <th>#</th>
+          <th *ngFor="let col of columns">
+            {{col.header}}
+          </th>
+          <th>操作</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-rowData let-columns="columns" let-rowIndex="rowIndex">
+        <tr>
+          <td>{{rowIndex}}</td>
+          <td *ngFor="let col of columns">
+            {{rowData[col.field]}}
+          </td>
+          <td>
+            <button pButton label="编辑" class="ui-button-rounded mr-3" (click)="specialOperate(specialOperateFlag='update',rowData)"></button>
+            <button pButton label="删除" class="ui-button-rounded ui-button-pink"></button>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+  <div class="pagination">
+    <app-pagination [option]="specialPageOption" (clickEvent)="specialPageEvent($event)"></app-pagination>
+  </div>
+  <div class="modal">
+    <!--角色新增/编辑弹窗-->
+    <p-dialog
+      [blockScroll]="true"
+      [(visible)]="specialOperateModal" [style]="{width: '50vw'}"
+    >
+      <p-header>{{specialOperateFlag === 'update' ? '台账编辑' : '台账添加'}}</p-header>
+      <div style="width: 100%;height: 40vh;overflow: hidden">
+        <p-scrollPanel [style]="{width: '100%', height: '100%'}" styleClass="role-scroll">
+          <div class="ui-g">
+            <!--身份证-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>身份证：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <input type="text" pInputText placeholder="请填写身份证" [(ngModel)]="specialOperateField.idCardNo">
+              </div>
+            </div>
+            <!--工种-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>工种：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <input type="text" pInputText placeholder="请填写工种" [(ngModel)]="specialOperateField.typeOfWork">
+              </div>
+            </div>
+            <!--操作项目-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>操作项目：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <input type="text" pInputText placeholder="请填写操作项目" [(ngModel)]="specialOperateField.operationItems">
+              </div>
+            </div>
+            <!--本工种工龄-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>本工种工龄：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <input type="number" pInputText placeholder="请填写本工种工龄" [(ngModel)]="specialOperateField.workingYears">
+              </div>
+            </div>
+            <!--理论成绩-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>理论成绩：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <input type="text" pInputText placeholder="请填写理论成绩" [(ngModel)]="specialOperateField.theoreticalAchievements">
+              </div>
+            </div>
+            <!--实际成绩-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>实际成绩：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <input type="text" pInputText placeholder="请填写实际成绩" [(ngModel)]="specialOperateField.actualResults">
+              </div>
+            </div>
+            <!--操作证号-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>操作证号：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <input type="text" pInputText placeholder="请填写操作证号" [(ngModel)]="specialOperateField.operationCertificateNo">
+              </div>
+            </div>
+            <!--发证日期-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>发证日期：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <input type="text" pInputText placeholder="请填写发证日期，格式如：2020-01-01" [(ngModel)]="specialOperateField.dateOfIssue">
+              </div>
+            </div>
+            <!--复审年限-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>复审年限：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <input type="number" pInputText placeholder="复审年限，默认为3" [(ngModel)]="specialOperateField.validityPeriod">
+              </div>
+            </div>
+          </div>
+          <!--复审-->
+          <div class="ui-g">
+            <!--第一次复审成绩-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>第一次复审成绩：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <input type="text" pInputText placeholder="请填写复审成绩" [(ngModel)]="specialOperateField.oneReviewResults">
+              </div>
+            </div>
+            <!--第一次复审时间-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>第一次复审时间：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <input type="text" pInputText placeholder="请填写复审时间，格式如：2020-01-01" [(ngModel)]="specialOperateField.oneReviewTime">
+              </div>
+            </div>
+            <!--第二次复审成绩-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>第二次复审成绩：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <input type="text" pInputText placeholder="请填写复审成绩" [disabled]="!(specialOperateField.oneReviewResults)" [(ngModel)]="specialOperateField.towReviewResults">
+              </div>
+            </div>
+            <!--第二次复审时间-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>第一次复审时间：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <input type="text" pInputText placeholder="请填写复审时间，格式如：2020-01-01" [disabled]="!(specialOperateField.oneReviewResults)" [(ngModel)]="specialOperateField.towReviewTime">
+              </div>
+            </div>
+            <!--第三次复审成绩-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>第三次复审成绩：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <input type="text" pInputText placeholder="请填写复审成绩" [disabled]="!(specialOperateField.towReviewResults)" [(ngModel)]="specialOperateField.threeReviewResults">
+              </div>
+            </div>
+            <!--第三次复审时间-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>第一次复审时间：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <input type="text" pInputText placeholder="请填写复审时间，格式如：2020-01-01" [disabled]="!(specialOperateField.towReviewResults)" [(ngModel)]="specialOperateField.threeReviewTime">
+              </div>
+            </div>
+            <!--第四次复审成绩-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>第四次复审成绩：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <input type="text" pInputText placeholder="请填写复审成绩" [disabled]="!(specialOperateField.threeReviewResults)" [(ngModel)]="specialOperateField.fourReviewResults">
+              </div>
+            </div>
+            <!--第四次复审时间-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>第四次复审时间：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <input type="text" pInputText placeholder="请填写复审时间，格式如：2020-01-01" [disabled]="!(specialOperateField.threeReviewResults)" [(ngModel)]="specialOperateField.fourReviewTime">
+              </div>
+            </div>
+            <!--第五次复审成绩-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>第五次复审成绩：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <input type="text" pInputText placeholder="请填写复审成绩" [disabled]="!(specialOperateField.fourReviewResults)" [(ngModel)]="specialOperateField.fiveReviewResults">
+              </div>
+            </div>
+            <!--第五次复审时间-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>第五次复审时间：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <input type="text" pInputText placeholder="请填写复审时间，格式如：2020-01-01" [disabled]="!(specialOperateField.fourReviewResults)" [(ngModel)]="specialOperateField.fiveReviewTime">
+              </div>
+            </div>
+            <!--第六次复审成绩-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>第六次复审成绩：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <input type="text" pInputText placeholder="请填写复审成绩" [disabled]="!(specialOperateField.fiveReviewResults)" [(ngModel)]="specialOperateField.sixReviewResults">
+              </div>
+            </div>
+            <!--第六次复审时间-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>第六次复审时间：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <input type="text" pInputText placeholder="请填写复审时间，格式如：2020-01-01" [disabled]="!(specialOperateField.fiveReviewResults)" [(ngModel)]="specialOperateField.sixReviewTime">
+              </div>
+            </div>
+          </div>
+          <!--备注-->
+          <div class="ui-g">
+            <div class="ui-g-12 ui-md-12">
+              <label class="ui-g-2 ui-md-2 label">
+                <span>第一次复审成绩：</span>
+              </label>
+              <div class="ui-g-10 ui-md-10 input">
+                <textarea [rows]="5" [cols]="30" pInputTextarea autoResize="autoResize" placeholder="请填写备注"></textarea>
+              </div>
+            </div>
+
+          </div>
+        </p-scrollPanel>
+      </div>
+      <p-footer>
+        <button pButton label="保存" (click)="specialOperate(specialOperateFlag = 'save')"></button>
+        <button pButton label="取消" class="ui-button-pink" (click)="specialOperateModal = false"></button>
+      </p-footer>
+    </p-dialog>
+  </div>
+</div>

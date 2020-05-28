@@ -17,7 +17,12 @@ import {FormsModule} from '@angular/forms';
 import {BasicTableModule} from '../../common/components/basic-table/basic-table.module';
 import {InputTextModule} from 'primeng/inputtext';
 import {ButtonModule} from 'primeng/button';
-import {CalendarModule, DialogModule, DropdownModule, ScrollPanelModule, StepsModule, TabViewModule, TreeModule} from 'primeng/primeng';
+import {CalendarModule, DialogModule, DropdownModule, FileUploadModule, InputTextareaModule, RadioButtonModule, ScrollPanelModule, StepsModule, TabViewModule, TreeModule} from 'primeng/primeng';
+import {StArchivesComponent} from './st-archives/st-archives.component';
+import {ArchivesSpecialComponent} from './st-archives/archives-special/archives-special.component';
+import {TableModule} from 'primeng/table';
+import { ScsContentsComponent } from './st-content-seting/scs-contents/scs-contents.component';
+import { ScsQuestionComponent } from './st-content-seting/scs-question/scs-question.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +35,11 @@ import {CalendarModule, DialogModule, DropdownModule, ScrollPanelModule, StepsMo
     PlInputComponent,
     PlTrainComponent,
     PlExamComponent,
-    PlReleaseComponent
+    PlReleaseComponent,
+    StArchivesComponent,
+    ArchivesSpecialComponent,
+    ScsContentsComponent,
+    ScsQuestionComponent
   ],
   imports: [
     CommonModule,
@@ -48,6 +57,10 @@ import {CalendarModule, DialogModule, DropdownModule, ScrollPanelModule, StepsMo
     FormsModule,
     DialogModule,
     TreeModule,
+    TableModule,
+    RadioButtonModule,
+    InputTextareaModule,
+    FileUploadModule
   ],
   providers: []
 })

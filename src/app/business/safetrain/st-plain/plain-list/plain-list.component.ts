@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Subscription} from 'rxjs';
 import {ThemeService} from '../../../../common/public/theme.service';
 import {Router} from '@angular/router';
+import {PageOption} from '../../../../common/public/Api';
 
 @Component({
   selector: 'app-plain-list',
@@ -12,9 +13,9 @@ export class PlainListComponent implements OnInit {
   public plainSelect: any;
   public optionTable: any;
   public optionTable1: any;
-  public pageOption = {
-    row: 10,
-    totalPage: 50
+  public listPageOption: PageOption = {
+    pageSize: 10,
+    totalRecord: 50
   };
   public data = [
     {id: 1, type: '日常培训', content: '厂规', unit: '矿业公司', subtime: '2020.5.12', time: '2020.5.12' },

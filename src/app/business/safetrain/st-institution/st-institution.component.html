@@ -1,34 +1,17 @@
 <div class="institution">
-   <div class="institution-header">
-       <div class="institution-title">
-          <span>教育培训制度</span>
-       </div>
-       <div class="institution-search">
-         <div class="ui-inputgroup">
-           <input type="text" pInputText  placeholder="搜索" class="input-search"/>
-         </div>
-         <i class="fa fa-search" style="position: absolute;margin-top: -2.4vh;margin-left: 7.5vw;color: #ABABAB;"></i>
-       </div>
-   </div>
-  <div class="institution-body">
-    <div class="institution-list" *ngIf="itemData.length <= 6">
-      <div class="institution-item" *ngFor="let item of itemData">
-        <div class="institution-item-title">
-          <h2>{{item.num}}</h2>
-          <div class="institution-content">
-            <p>{{item.label}}</p>
-            <p>最近编辑时间：{{item.time}}</p>
-          </div>
-        </div>
-        <!--        <div class="institution-btn">-->
-        <!--          <div class="edit-btn">-->
-        <!--            <i class="fa fa-pencil"></i>-->
-        <!--            编辑-->
-        <!--          </div>-->
-        <!--        </div>-->
-      </div>
+  <div class="header">
+    <div class="title p-4">
+      <span class="text-gray h3">教育培训制度</span>
     </div>
-    <div class="institution-list" *ngIf="itemData.length > 6">
+    <div class="search p-4">
+      <div class="ui-inputgroup">
+        <input type="text" pInputText placeholder="搜索" class="input-search"/>
+      </div>
+      <i class="fa fa-search" style="position: absolute;margin-top: -2.4vh;margin-left: 7.5vw;color: #ABABAB;"></i>
+    </div>
+  </div>
+  <div class="content">
+    <div class="list">
       <p-scrollPanel [style]="{width: '100%', height: '74vh'}">
         <div class="institution-item" *ngFor="let item of itemData">
           <div class="institution-item-title">
@@ -38,16 +21,8 @@
               <p>最近编辑时间：{{item.time}}</p>
             </div>
           </div>
-<!--                  <div class="institution-btn">-->
-<!--                    <div class="edit-btn">-->
-<!--                      <i class="fa fa-pencil"></i>-->
-<!--                      编辑-->
-<!--                    </div>-->
-<!--                  </div>-->
         </div>
       </p-scrollPanel>
-
     </div>
-
   </div>
 </div>

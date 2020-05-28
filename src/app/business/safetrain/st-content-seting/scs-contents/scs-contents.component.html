@@ -1,0 +1,90 @@
+<div class="scs-contents">
+  <h2 class="title text-center pt-3 pb-3 text-littleGray">培训内容</h2>
+  <div class="header pt-2 pb-2">
+    <div class="ui-inputgroup">
+      <input type="text" pInputText placeholder="搜索"/>
+      <button pButton type="button" icon="pi pi-search" class="ui-button-warn"></button>
+    </div>
+    <div class="button">
+      <button pButton type="button" label="上传培训内容" class="ui-button-rounded" (click)="contentsOperate(contentsOperateFlag = 'add')"></button>
+    </div>
+  </div>
+  <div class="content">
+    <p-table
+      [value]="contentsTableData" [columns]="contentsTableHeader"
+      [scrollable]="true" scrollHeight="90%"
+    >
+      <ng-template pTemplate="header" let-columns>
+        <tr>
+          <th>#</th>
+          <th *ngFor="let col of columns">
+            {{col.header}}
+          </th>
+          <th>操作</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-rowData let-columns="columns" let-rowIndex="rowIndex">
+        <tr>
+          <td>{{rowIndex}}</td>
+          <td *ngFor="let col of columns">
+            {{rowData[col.field]}}
+          </td>
+          <td>
+            <button pButton label="查看" class="ui-button-rounded mr-3" (click)="contentsOperate(contentsOperateFlag='update',rowData)"></button>
+            <button pButton label="删除" class="ui-button-rounded ui-button-pink"></button>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+  <div class="pagination">
+    <app-pagination [option]="contentsPageOption" (clickEvent)="contentsPageEvent($event)"></app-pagination>
+  </div>
+  <div class="modal">
+    <!--角色新增/编辑弹窗-->
+    <p-dialog
+      [blockScroll]="true"
+      [(visible)]="contentsOperateModal" [style]="{width: '50vw'}"
+    >
+      <p-header>{{contentsOperateFlag === 'update' ? '台账编辑' : '台账添加'}}</p-header>
+      <div style="width: 100%;height: 30vh;overflow: hidden">
+        <p-scrollPanel [style]="{width: '100%', height: '100%'}" styleClass="role-scroll">
+          <div class="ui-g">
+            <!--选择分类-->
+            <div class="ui-g-12 ui-md-12">
+              <label class="ui-g-3 ui-md-3 label">
+                <span>选择分类：</span>
+              </label>
+              <div class="ui-g-9 ui-md-9 input">
+                <p-dropdown
+                  placeholder="请选择分类"
+                  [options]="contentsClassifyOptions"
+                  [(ngModel)]="contentsOperateField.contentCategoryId"
+                  optionLabel="contentCategoryId"
+                  dropdownIcon="fa fa-caret-down">
+                </p-dropdown>
+              </div>
+            </div>
+            <!--选择文件-->
+            <div class="ui-g-12 ui-md-12">
+              <label class="ui-g-3 ui-md-3 label">
+                <span>选择文件：</span>
+              </label>
+              <div class="ui-g-9 ui-md-9 input">
+                <p-fileUpload
+                  chooseLabel="点击选择上传文件" cancelLabel="取消"
+                  [showUploadButton]="false" mode="advanced" name="file" #fileUpload
+                  >
+                </p-fileUpload>
+              </div>
+            </div>
+          </div>
+        </p-scrollPanel>
+      </div>
+      <p-footer>
+        <button pButton label="保存" (click)="contentsOperate(contentsOperateFlag = 'save',fileUpload)"></button>
+        <button pButton label="取消" class="ui-button-pink" (click)="contentsOperateModal = false"></button>
+      </p-footer>
+    </p-dialog>
+  </div>
+</div>

@@ -1,9 +1,9 @@
-.plain-list{
-  .plain-list-title {
+.plain-list {
+  .title {
     display: flex;
     align-items: center;
     height: 10vh;
-    .plain-list-btn{
+    .btn {
       height: 6vh;
       width: 100%;
       border-radius: 30px;
@@ -19,46 +19,24 @@
       span {
         font-size: 16px;
         margin-left: 1vw;
-        font-family: "微软雅黑 Light",serif,"Gill Sans", sans-serif;
+        font-family: "微软雅黑 Light", serif, "Gill Sans", sans-serif;
         font-weight: bold;
         letter-spacing: 0.2rem;
       }
     }
   }
-  .plain-list-unprocessed{
-    margin-top: 1vh;
-    .plain-list-unprocessed-title{
-      color: #9B9B9B;
-      font-size: 22px;
+  .tab {
+    /deep/ .ui-tabview.ui-tabview-top .ui-tabview-nav li{
+      background-color: #AAABB0;
+      border: 1px solid #AAABB0;
     }
-    .plain-list-unprocessed-table{
-      margin-top: 2vh;
+    /deep/ .ui-tabview .ui-tabview-nav li.ui-state-active{
+      background-color: #3B86FF;
+      border: 1px solid #3B86FF;
     }
-    .plain-list-unprocessed-line {
-      margin-top: 3vh;
-      width: 100%;
-      height: 1px;
-      background: #F4F4F7;
+    /deep/ .ui-tabview .ui-tabview-panels{
+      border: none;
+      padding: 0.371em 0 0 0;
     }
-
-  }
-  .plain-list-processed {
-    margin-top: 2vh;
-    .plain-list-processed-title{
-      padding-bottom: 2vh;
-      span{
-        color: #9B9B9B;
-        font-size: 22px;
-      }
-    }
-    .plain-list-processed-search {
-      position: relative;
-      margin-bottom: 2vh;
-    }
-  }
-  .plain-list-pagination{
-    margin: 4vh 0;
-    width: 20vw;
-    float: right
   }
 }
