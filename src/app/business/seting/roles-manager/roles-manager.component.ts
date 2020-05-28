@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Observable, Subscription} from 'rxjs';
 import {ThemeService} from '../../../common/public/theme.service';
 import {SetingService} from '../../../common/services/seting.service';
-import {nums, Role} from '../../../common/public/Api';
+import {nums, PageOption, Role} from '../../../common/public/Api';
 import {initializeTree, objectCopy, reverseTree} from '../../../common/public/contents';
 import {GlobalService} from '../../../common/services/global.service';
 import {PublicMethodService} from '../../../common/public/public-method.service';
@@ -20,7 +20,7 @@ export class RolesManagerComponent implements OnInit {
     {field: 'enabled', header: '是否启用'},
   ]; // 表格组件表头内容
   public roleTableData: Role[] = []; // 表格组件表体内容
-  public rolePageOption = {
+  public rolePageOption: PageOption = {
     pageSize: 10, // 默认显示多少条
     totalRecord: null // 总条数
   }; // 分页组件配置

@@ -33,9 +33,9 @@ export class SidebarComponent implements OnInit {
         {item: {label: '教育培训需求', bgc: '#fff', ftcolor: '#8E8E8E'}, link: '/home/strain/demand', isHas: true},
         {item: {label: '教育培训计划',  bgc: '#fff', ftcolor: '#8E8E8E'}, link: '/home/strain/plain', isHas: true},
         {item: {label: '培训内容库设置', bgc: '#fff', ftcolor: '#8E8E8E' }, link: '/home/strain/contentset', isHas: true},
-        {item: {label: '档案培训管理', bgc: '#fff', ftcolor: '#8E8E8E' },  link: '', isHas: true},
-        {item: {label: '教育培训制度', bgc: '#fff', ftcolor: '#8E8E8E' },  link: '', isHas: true},
+        {item: {label: '档案培训管理', bgc: '#fff', ftcolor: '#8E8E8E' },  link: '/home/strain/archives', isHas: true},
         {item: {label: '开始学习', bgc: '#fff', ftcolor: '#8E8E8E' },  link: '', isHas: true},
+        {item: {label: '在线考试', bgc: '#fff', ftcolor: '#8E8E8E' },  link: '', isHas: true},
         {item: {label: '我的培训档案', bgc: '#fff', ftcolor: '#8E8E8E' }, link: '', isHas: true},
       ]
     },

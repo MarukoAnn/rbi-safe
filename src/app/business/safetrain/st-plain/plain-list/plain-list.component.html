@@ -1,38 +1,46 @@
-<div class="plain-list">
+<div class="plain-list pl-3 pr-3">
   <!-- 新增 -->
-  <div class="plain-list-title">
-    <div class="plain-list-btn">
+  <div class="title">
+    <div class="btn">
       <span>+</span>
       <span>新增教育培训计划</span>
     </div>
   </div>
-  <!-- 待处理 -->
-  <div class="plain-list-unprocessed">
-    <div class="plain-list-unprocessed-title">
-      <span>待处理培训计划（{{this.data.length}}）</span>
-    </div>
-    <div class="plain-list-unprocessed-table">
-      <app-bf-table-btn [select]="plainSelect" [option]="optionTable" (detail)="DetailClick($event)"></app-bf-table-btn>
-    </div>
-    <div class="plain-list-unprocessed-line"></div>
-  </div>
-  <!-- 已处理 -->
-  <div class="plain-list-processed">
-    <div class="plain-list-processed-title">
-      <span>已处理培训计划</span>
-    </div>
-    <div class="plain-list-processed-search">
-      <div class="ui-inputgroup">
-        <input type="text" pInputText placeholder="搜索"/>
-      </div>
-      <i class="fa fa-search" style="position: absolute;margin-top: -2.5vh;margin-left: 7.5vw;color: #ABABAB;"></i>
-    </div>
-    <div class="plain-list-processed-table">
-      <app-bf-table-btn [select]="plainSelect" [option]="optionTable1" (detail)="DetailClick($event)"></app-bf-table-btn>
-    </div>
-  </div>
-  <!-- 分页 -->
-  <div class="plain-list-pagination">
-    <app-pagination [option]="pageOption"></app-pagination>
+  <div class="tab">
+    <p-tabView>
+      <!-- 待处理 -->
+      <p-tabPanel [header]="'待处理培训计划('+this.data.length+')'">
+        <p-scrollPanel [style]="{height: '60vh'}">
+          <app-bf-table-btn [select]="plainSelect" [option]="optionTable"
+                            (detail)="DetailClick($event)"></app-bf-table-btn>
+        </p-scrollPanel>
+        <!-- 分页 -->
+        <div class="pagination pt-3">
+          <app-pagination [option]="listPageOption"></app-pagination>
+        </div>
+      </p-tabPanel>
+      <!-- 已处理 -->
+      <p-tabPanel header="已处理培训计划" [selected]="true">
+        <!--搜素-->
+        <div class="processed-search">
+          <div class="ui-fluid">
+            <div class="ui-lg-4 ui-md-4">
+              <div class="ui-inputgroup">
+                <input type="text" pInputText placeholder="Keyword">
+                <button pButton type="button" label="Search"></button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--表格-->
+        <p-scrollPanel [style]="{height: '60vh'}">
+          <app-bf-table-btn [select]="plainSelect" [option]="optionTable1" (detail)="DetailClick($event)"></app-bf-table-btn>
+        </p-scrollPanel>
+        <!-- 分页 -->
+        <div class="pagination pt-3">
+          <app-pagination [option]="listPageOption"></app-pagination>
+        </div>
+      </p-tabPanel>
+    </p-tabView>
   </div>
 </div>

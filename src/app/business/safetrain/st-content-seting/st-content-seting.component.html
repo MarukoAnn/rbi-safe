@@ -1,1 +1,25 @@
-<p>st-content-seting works!</p>
+<!--培训内容库-->
+<div class="st-content-seting">
+  <div class="tab">
+    <div class="tab-list" *ngFor="let item of arcTabItem;let i=index">
+      <a class="item-content" (click)="arcTabItemClick(i)">
+        <span [ngStyle]="{color: item.item.ftcolor}">{{item.item.label}}</span>
+        <span [ngStyle]="{background: item.item.bgc}" class="line"></span>
+      </a>
+    </div>
+  </div>
+  <div class="content">
+    <p-tabView [activeIndex]="arcActiveIndex">
+      <p-tabPanel>
+        <div class="content-panel">
+          <app-scs-contents></app-scs-contents>
+        </div>
+      </p-tabPanel>
+      <p-tabPanel>
+        <div class="content-panel">
+          <app-scs-question></app-scs-question>
+        </div>
+      </p-tabPanel>
+    </p-tabView>
+  </div>
+</div>

@@ -7,8 +7,7 @@ import {PageOption} from '../../public/Api';
   styleUrls: ['./pagination.component.scss']
 })
 export class PaginationComponent implements OnInit {
-  @Input()
-  public option: PageOption;
+  @Input() public option: PageOption = {};
   @Output()
   clickEvent = new EventEmitter();
   constructor() { }

@@ -11,7 +11,6 @@ import {DropdownModule} from 'primeng/dropdown';
 import {InputTextModule} from 'primeng/inputtext';
 import {FormsModule} from '@angular/forms';
 import {ButtonModule} from 'primeng/button';
-import {TableModule} from 'primeng/table';
 import {PaginationModule} from '../../../common/components/pagination/pagination.module';
 import {BasicTableModule} from '../../../common/components/basic-table/basic-table.module';
 
@@ -33,6 +32,6 @@ import {BasicTableModule} from '../../../common/components/basic-table/basic-tab
     FormsModule,
     PaginationModule,
     BasicTableModule
-  ]
+  ],
 })
 export class StDemandModule { }
