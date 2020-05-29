@@ -244,6 +244,7 @@ export class PersonnelManagerComponent implements OnInit {
   public  resetAllData(): void{
     this.personnelSelect = [];
     this.delIds = [];
+    this.dataTree = null;
   }
  // 显示上传文件
   public  showUploadFile(): void {

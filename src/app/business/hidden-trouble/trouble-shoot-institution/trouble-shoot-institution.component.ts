@@ -11,6 +11,7 @@ export class TroubleShootInstitutionComponent implements OnInit {
 
   public searchData: string = '';
   public itemData = [];
+  public url = 'http://storage.xuetangx.com/public_assets/xuetangx/PDF/PlayerAPI_v1.0.6.pdf';
   constructor(
     private globalSrv: GlobalService,
     private toolSrv: PublicMethodService,
@@ -31,7 +32,8 @@ export class TroubleShootInstitutionComponent implements OnInit {
   }
   // 打开文件
   public  openFile(item): void {
-    window.open(`http://view.officeapps.live.com/op/view.aspx?src=http://${item.filePath}`);
+    this.url = item.filePath;
+    // window.open(`http://view.officeapps.live.com/op/view.aspx?src=http://${item.filePath}`);
   }
 
 }

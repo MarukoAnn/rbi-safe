@@ -178,6 +178,7 @@ export class LimitsManagerComponent implements OnInit {
 
   public  resetAllData(): void {
       this.delData = [];
+      this.dataTree = null;
       this.limitSelect = [];
   }
   // 添加权限

@@ -36,9 +36,9 @@ export class TroubleProcessService {
   public issuedNoticeToRectify(pamars): Observable<any>  {
       return this.http.post(`/hid/rectification_notice`, pamars);
   }
-  // 通知整改
+  // 上报整改
   public submitReportToSuperior(pamars): Observable<any>  {
-    return this.http.post(`/hid/report`, pamars);
+    return this.http.post(`/hid/rectification_notice`, pamars);
   }
   // 审核通过
   public reviewToPass(pamars): Observable<any>  {
