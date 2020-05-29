@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
 import { StDemandRoutingModule } from './st-demand-routing.module';
 import { DemandReportComponent } from './demand-report/demand-report.component';
 import {StDemandComponent} from './st-demand.component';
@@ -13,6 +12,9 @@ import {FormsModule} from '@angular/forms';
 import {ButtonModule} from 'primeng/button';
 import {PaginationModule} from '../../../common/components/pagination/pagination.module';
 import {BasicTableModule} from '../../../common/components/basic-table/basic-table.module';
+import {TableModule} from 'primeng/table';
+import {DialogModule} from 'primeng/dialog';
+import {InputTextareaModule, ScrollPanelModule} from 'primeng/primeng';
 
 
 @NgModule({
@@ -31,7 +33,11 @@ import {BasicTableModule} from '../../../common/components/basic-table/basic-tab
     ButtonModule,
     FormsModule,
     PaginationModule,
-    BasicTableModule
+    BasicTableModule,
+    TableModule,
+    DialogModule,
+    ScrollPanelModule,
+    InputTextareaModule
   ],
 })
 export class StDemandModule { }

@@ -216,3 +216,28 @@ export class ScsContentFieldClass implements ScsContentField{
     this.contentCategoryId = '';
   }
 }
+
+/**
+ * 特种人员复审接口及实现
+ */
+export interface ReviewInfo {
+  id: any;
+  completionStatus: string;
+  reasonForHandling: string;
+}
+export class ReviewInfoClass implements ReviewInfo {
+  id: any;
+  completionStatus: string;
+  reasonForHandling: string;
+  constructor() {
+    this.id  = null;
+    this.completionStatus = '3';
+    this.reasonForHandling = '';
+  }
+}
+/**
+ * id限定类接口
+ */
+export interface IdInterface {
+  id: any;
+}

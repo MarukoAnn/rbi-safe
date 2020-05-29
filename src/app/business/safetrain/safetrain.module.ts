@@ -23,6 +23,9 @@ import {ArchivesSpecialComponent} from './st-archives/archives-special/archives-
 import {TableModule} from 'primeng/table';
 import { ScsContentsComponent } from './st-content-seting/scs-contents/scs-contents.component';
 import { ScsQuestionComponent } from './st-content-seting/scs-question/scs-question.component';
+import { ArchivesEducateComponent } from './st-archives/archives-educate/archives-educate.component';
+import { ArchivesManageComponent } from './st-archives/archives-manage/archives-manage.component';
+import { ArchivesDailyComponent } from './st-archives/archives-daily/archives-daily.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +42,10 @@ import { ScsQuestionComponent } from './st-content-seting/scs-question/scs-quest
     StArchivesComponent,
     ArchivesSpecialComponent,
     ScsContentsComponent,
-    ScsQuestionComponent
+    ScsQuestionComponent,
+    ArchivesEducateComponent,
+    ArchivesManageComponent,
+    ArchivesDailyComponent
   ],
   imports: [
     CommonModule,

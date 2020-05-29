@@ -12,13 +12,13 @@ export class StArchivesComponent implements OnInit {
     {item: {label: '主要负责人、安全生产管理人员培训台账', ftcolor: '#B3B3B3', bgc: '#EDEDED'}, simbol: 'principal'},
     {item: {label: '日常培训台账', ftcolor: '#B3B3B3', bgc: '#EDEDED'}, simbol: 'record'},
   ];
-  public arcActiveIndex: number = 1;
+  public arcActiveIndex: number = 0;
 
   constructor() {
   }
 
   ngOnInit() {
-    this.arcTabItemClick(1);
+    this.arcTabItemClick(0);
   }
 
   public arcTabItemClick(index): void {

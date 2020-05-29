@@ -41,7 +41,6 @@ export class ScsContentsComponent implements OnInit {
     this.safeSrv.getScsContentsList({pageNo, pageSize}).subscribe((res) => {
       this.contentsTableData = res.data.contents;
       this.contentsPageOption.totalRecord = res.data.totalRecord;
-      this.contentsOperateFlag = 'add';
     });
   }
 
@@ -94,7 +93,9 @@ export class ScsContentsComponent implements OnInit {
         break;
       // 搜索重置
       case 'reset':
-        this.contentsDataInit(this.contentsNowPage = 1, this.contentsPageOption.pageSize);
+        if ( !this.contentsClassifySelected) {
+          this.contentsDataInit(this.contentsNowPage = 1, this.contentsPageOption.pageSize);
+        }
         break;
     }
   }

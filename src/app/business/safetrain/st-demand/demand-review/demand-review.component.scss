@@ -1,57 +1,28 @@
-.demand-review {
-  .demand-review-title {
-    height: 6vh;
-    line-height: 6vh;
-    text-align: center;
-    span {
-      font-size: 20px;
-      color: #9A9DA2;
-    }
-    button{
-      margin-left: 1vw;
-      //height: 32px;
-      width: 5vw;
-      background: #66A0FF;
-      border: 0;
-    }
-  }
-  .demand-review-search{
-    //background: #ee9900;
-    position: relative;
+.demand-review{
+  height: 100%;
+  .header{
     display: flex;
     justify-content: space-between;
-    .review-btn {
-      button {
-        width: 6vw;
-        //height: 40px;
-        background: #3B86FF;
-        border-radius: 20px;
-        margin-right: 1vw;
+  }
+  .content{
+    height: 83%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .modal{
+    .label{
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      font-size: 14px;
+      padding: 0.97em;
+    }
+    .input{
+      .ui-inputtext{
+        width: 100%;
       }
     }
   }
-  .demand-review-table{
-    margin-top: 2vh;
-  }
-  .demand-review-pagination {
-    position: absolute;
-    bottom: 8vh;
-    right: 4vw;
-  }
-  ::ng-deep .ui-inputgroup .ui-widget {
-    border-radius: 20px;
-    color: #8D8E96;
-    font-size: 14px;
-    height: 32px;
-    border: 1px solid #F0F0F0;
-    background: #F8F8F8;
-  }
-  ::ng-deep.ui-button .pi {
-    font-size: 0.8rem;
-  }
-  ::ng-deep .ui-button .ui-button-icon-left{
-    margin-left: 0.5vw;
-    top: 51%;
-  }
-
 }
+

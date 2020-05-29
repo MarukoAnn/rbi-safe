@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {Subscription} from 'rxjs';
-import {ThemeService} from '../../../../common/public/theme.service';
+import {PageOption, ReviewInfo, ReviewInfoClass, SpecialField, SpecialFieldClass, TableHeader} from '../../../../common/public/Api';
+import {Observable} from 'rxjs';
+import {GlobalService} from '../../../../common/services/global.service';
+import {DemandService} from '../../../../common/services/demand.service';
 
 @Component({
   selector: 'app-demand-review',
@@ -8,77 +10,89 @@ import {ThemeService} from '../../../../common/public/theme.service';
   styleUrls: ['./demand-review.component.scss']
 })
 export class DemandReviewComponent implements OnInit {
-
-  public reviewSelect: any;
-  public optionTable: any;
-  public themeSub: Subscription;
-  public pageOption = {
-    pageSize: 10,
-    totalRecord: 50
-  };
-  public data = [
-    {id: 1, type: '日常培训', content: '厂规', unit: '矿业公司', subtime: '2020.5.12', time: '2020.5.12' },
-    {id: 2, type: '安全生产管理', content: '复审', unit: '安全环保局', subtime: '2020.5.12', time: '2020.5.12' },
-    {id: 3, type: '特种人员培训', content: '复审', unit: '安全环保局', subtime: '2020.5.12', time: '2020.5.12' },
-    {id: 3, type: '特种人员培训', content: '复审', unit: '安全环保局', subtime: '2020.5.12', time: '2020.5.12' },
-    {id: 3, type: '特种人员培训', content: '复审', unit: '安全环保局', subtime: '2020.5.12', time: '2020.5.12' },
-    {id: 3, type: '特种人员培训', content: '复审', unit: '安全环保局', subtime: '2020.5.12', time: '2020.5.12' },
-    {id: 3, type: '特种人员培训', content: '复审', unit: '安全环保局', subtime: '2020.5.12', time: '2020.5.12' },
-    {id: 3, type: '特种人员培训', content: '复审', unit: '安全环保局', subtime: '2020.5.12', time: '2020.5.12' },
-    {id: 3, type: '特种人员培训', content: '复审', unit: '安全环保局', subtime: '2020.5.12', time: '2020.5.12' },
-    {id: 3, type: '特种人员培训', content: '复审', unit: '安全环保局', subtime: '2020.5.12', time: '2020.5.12' },
-    {id: 3, type: '特种人员培训', content: '复审', unit: '安全环保局', subtime: '2020.5.12', time: '2020.5.12' },
-  ];
-  public table = {
-    tableheader: {background: '#F5F6FA', color: '#C3C3C5'},
-    tableContent: [
-      {background: '#FFFFFF', color: '#9899A0'}],
-    detailBtn: ['#3B86FF']
-  };
+  public reviewPageOption: PageOption = {
+    pageSize: 8, // 默认显示多少条
+    totalRecord: null // 总条数
+  }; // 分页组件配置
+  public reviewTableHeader: TableHeader[] = [
+    {field: 'name', header: '姓名'},
+    {field: 'gender', header: '性别'},
+    {field: 'typeOfWork', header: '工种名称'},
+    {field: 'degreeOfEducation', header: '文化程度'},
+    {field: 'dateOfIssue', header: '发证日期'},
+  ]; // 表头字段
+  public reviewTableData: any[]; // 表体数据
+  public reviewNowPage: number = 1; // 当前页
+  public reviewOperateFlag: 'update' | 'save' | 'del' | 'add' ; // 操作标识
+  public reviewOperateField: SpecialField = new SpecialFieldClass(); // 操作字段
+  public reviewOperateFieldCopy: SpecialField = new SpecialFieldClass(); // 状态判断用
+  public reviewOperateModal: boolean = false; // 模态框
+  public reviewInfoHandle: ReviewInfo = new ReviewInfoClass(); // 取消复审相关处理信息
   constructor(
-    private themeSrv: ThemeService
-  ) {
-    this.themeSub =  this.themeSrv.changeEmitted$.subscribe(
-      value => {
-        this.table.tableheader = value.table.header;
-        this.table.tableContent = value.table.content;
-        this.table.detailBtn = value.table.detailBtn;
-        this.setTableOption(this.data);
-      }
-    );
-  }
+    private demandSrv: DemandService,
+    private globalSrv: GlobalService,
+  ) {}
 
   ngOnInit() {
-    this.setTableOption(this.data);
+    this.reviewDataInit(this.reviewNowPage, this.reviewPageOption.pageSize);
   }
-  // set table data （设置列表数据）
-  public  setTableOption(data1): void {
-    this.optionTable = {
-      width: '100%',
-      header: {
-        data:  [
-          {field: 'id', header: '序号'},
-          {field: 'type', header: '培训类型'},
-          {field: 'content', header: '培训内容'},
-          {field: 'unit', header: '培训单位'},
-          {field: 'subtime', header: '提交时间'},
-          {field: 'time', header: '处理时间'},
-          {field: 'operating', header: '操作'}
-        ],
-        style: {background: this.table.tableheader.background, color: this.table.tableheader.color, height: '6vh'}
-      },
-      Content: {
-        data: data1,
-        styleone: {background: this.table.tableContent[0].background, color: this.table.tableContent[0].color, textAlign: 'center', height: '3vw'},
-      },
-      type: 2,
-      tableList:  [{label: '完成审核', color: this.table.detailBtn[0]}]
-    };
+  // 数据初始化
+  private reviewDataInit(pageNo, pageSize) {
+    this.demandSrv.getReviewList({pageNo, pageSize}).subscribe((res) => {
+      this.reviewTableData = res.data.contents;
+      this.reviewPageOption.totalRecord = res.data.totalRecord;
+    });
   }
-  public selectData(e): void {
-      this.reviewSelect = e;
+
+  // 角色操作代理请求函数
+  private reviewHttpOperate(test: Observable<any>) {
+    test.subscribe(() => {
+      // 操作成功后重新初始化数据列表
+      this.reviewOperateModal = false;
+      this.reviewDataInit(this.reviewNowPage, this.reviewPageOption.pageSize);
+    });
   }
-  public  DetailClick(e): void {
-      console.log(e);
+
+  // 特殊台账操作操作
+  public reviewOperate(flag: string, item?: any) {
+    switch (flag) {
+      // 取消操作初始化
+      case 'cancel':
+        this.reviewOperateModal = true;
+        this.reviewInfoHandle.id = item.id;
+        this.reviewInfoHandle.completionStatus = '2';
+        break;
+      // 编辑操作初始化
+      case 'update':
+        this.globalSrv.publicGetSpecialInfo({id: item.specialPersonnelId}).subscribe((res) => {
+          this.reviewOperateField = Object.assign({}, res.data);
+          this.reviewOperateFieldCopy = Object.assign({}, res.data);
+          this.reviewInfoHandle.completionStatus = '3';
+          this.reviewInfoHandle.id = item.id;
+          this.reviewOperateModal = true;
+        });
+        break;
+      // 保存操作
+      case 'save':
+        // 完成复审操作
+        if (this.reviewInfoHandle.completionStatus === '3') {
+          this.demandSrv.updateArchivesInfo(this.reviewOperateField).subscribe(() => {
+            this.reviewHttpOperate(this.demandSrv.handleReviewInfo(this.reviewInfoHandle));
+          });
+          break;
+        }
+        this.reviewHttpOperate(this.demandSrv.handleReviewInfo(this.reviewInfoHandle));
+        break;
+      // 删除操作
+      case 'del':
+        console.log('暂时不做');
+        break;
+    }
+  }
+
+  // 分页操作
+  public reviewPageEvent(page) {
+    this.reviewNowPage = page;
+    this.reviewDataInit(page, this.reviewPageOption.pageSize);
   }
 }
