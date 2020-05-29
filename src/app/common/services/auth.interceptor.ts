@@ -16,7 +16,7 @@ const DEFAULTTIMEOUT = 100000000;
 export class AuthInterceptor implements HttpInterceptor {
   public clonedRequest: any; // 重置请求参数
   public skipState = [`1000`]; // 需要处理的状态码
-  public skipUrl = [`/login`, `/company_personnel/excel_import`, `/uploadSystemDocuments`,
+  public skipUrl = [`/company_personnel/excel_import`, `/uploadSystemDocuments`,
     `/hid/addReport`, `/hid/addOrder`, `/hid/complete`]; // 无需验证的请求地址
   constructor(
     private globalService: GlobalService,
@@ -33,31 +33,31 @@ export class AuthInterceptor implements HttpInterceptor {
       return this.prod_http(req, next);
     } else {
       return this.debug_http(req, next);
+      // return this.prod_http(req, next);
     }
   }
   public debug_http(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     // 修改请求状态
     this.store.dispatch({type: 'false'});
-    switch (this.isSkipUrl(req.url)) {
-      case true:
-        this.clonedRequest = req.clone({
-          url: environment.url_safe + req.url,
-          headers: req.headers
-            .set('accessToken', this.localSessionStorage.get('token'))
-        });break;
-      case false:
-        this.clonedRequest = req.clone({
-          url: environment.url_safe + req.url,
-          headers: req.headers
-            .set('Content-type', 'application/json; charset=UTF-8')
-            .set('accessToken', this.localSessionStorage.get('token'))
-        });break;
-      case 'login':
-        this.clonedRequest = req.clone({
-          url: environment.url_safe + req.url,
-          headers: req.headers
-            .set('Content-type', 'application/json; charset=UTF-8')
-        });break;
+    if (this.isSkipUrl(req.url)){
+      this.clonedRequest = req.clone({
+        url: environment.url_safe + req.url,
+        headers: req.headers
+          .set('accessToken', this.localSessionStorage.get('token'))
+      });
+    }else if (req.url === '/login'){
+      this.clonedRequest = req.clone({
+        url: environment.url_safe + req.url,
+        headers: req.headers
+          .set('Content-type', 'application/json; charset=UTF-8')
+      });
+    }else {
+      this.clonedRequest = req.clone({
+        url: environment.url_safe + req.url,
+        headers: req.headers
+          .set('Content-type', 'application/json; charset=UTF-8')
+          .set('accessToken', this.localSessionStorage.get('token'))
+      });
     }
     return next.handle(this.clonedRequest).pipe(
       timeout(DEFAULTTIMEOUT),
@@ -107,26 +107,25 @@ export class AuthInterceptor implements HttpInterceptor {
   public prod_http(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     // 修改请求状态
     this.store.dispatch({type: 'false'});
-    switch (this.isSkipUrl(req.url)) {
-      case true:
-          this.clonedRequest = req.clone({
-          url: environment.url_safe + req.url,
-          headers: req.headers
-            .set('accessToken', this.localSessionStorage.get('token'))
-        });break;
-      case false:
-          this.clonedRequest = req.clone({
-            url: environment.url_safe + req.url,
-            headers: req.headers
-              .set('Content-type', 'application/json; charset=UTF-8')
-              .set('accessToken', this.localSessionStorage.get('token'))
-          });break;
-      case 'login':
-          this.clonedRequest = req.clone({
-            url: environment.url_safe + req.url,
-            headers: req.headers
-              .set('Content-type', 'application/json; charset=UTF-8')
-          });break;
+    if (this.isSkipUrl(req.url)){
+      this.clonedRequest = req.clone({
+        url: environment.url_safe + req.url,
+        headers: req.headers
+          .set('accessToken', this.localSessionStorage.get('token'))
+      });
+    }else if (req.url === '/login'){
+      this.clonedRequest = req.clone({
+        url: environment.url_safe + req.url,
+        headers: req.headers
+          .set('Content-type', 'application/json; charset=UTF-8')
+      });
+    }else {
+      this.clonedRequest = req.clone({
+        url: environment.url_safe + req.url,
+        headers: req.headers
+          .set('Content-type', 'application/json; charset=UTF-8')
+          .set('accessToken', this.localSessionStorage.get('token'))
+      });
     }
     return next.handle(this.clonedRequest).pipe(
       timeout(DEFAULTTIMEOUT),
@@ -176,10 +175,6 @@ export class AuthInterceptor implements HttpInterceptor {
 
   // url跳过验证
   public isSkipUrl(url: string) {
-    if (url !== `login`) {
-      return this.skipUrl.includes(url);
-    }else {
-      return 'login';
-    }
+    return this.skipUrl.includes(url);
   }
 }

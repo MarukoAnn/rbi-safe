@@ -20,7 +20,7 @@ export class ScsContentsComponent implements OnInit {
   ]; // 表头字段
   public contentsTableData: any[]; // 表体数据
   public contentsNowPage: number = 1; // 当前页
-  public contentsOperateFlag: 'save' | 'del' | 'add' ; // 操作标识
+  public contentsOperateFlag: any ; // 操作标识
   public contentsOperateField: ScsContentField = new ScsContentFieldClass() ; // 操作字段
   public contentsOperateModal: boolean = false; // 模态框
   public contentsClassifyOptions: any; // 模态框

@@ -1,1 +1,95 @@
-<p>scs-question works!</p>
+<div class="scs-question">
+<!--  <h2 class="title text-center pt-3 pb-3 text-littleGray">培训内容</h2>-->
+  <div class="scs-question-header">
+    <div class="scs-question-search">
+      <div class="ui-inputgroup" >
+        <input type="text" pInputText  placeholder="搜索" [(ngModel)]="searchData"/>
+        <button pButton type="button" icon="pi pi-search" class="ui-button-warn" (click)="searchDataClick()"></button>
+      </div>
+    </div>
+    <div class="scs-question-button">
+      <button pButton type="button" label="上传题库" class="ui-button-rounded" icon="iconfont iconbaseline-open_in_browser-24px" (click)="showUploadFileClick()"></button>
+      <button pButton type="button" label="添加单个条目" class="ui-button-rounded" icon="pi pi-plus" (click)="showAddSingleQuestionDialog = true"></button>
+    </div>
+  </div>
+  <div class="scs-question-table">
+    <app-check-table-btn [select]="questionSelect"   (selectData)="selectData($event)" [option]="optionTable" (detail)="DetailClick($event)"></app-check-table-btn>
+  </div>
+  <div class="scs-question-pagination">
+    <app-pagination [option]="pageOption" (clickEvent)="clickEvent($event)"></app-pagination>
+  </div>
+  <!--  <p-toast position="top-center" key="toast"></p-toast>-->
+  <!--  <p-confirmDialog header="Confirmation" acceptLabel="取消" rejectLabel="确认选择" acceptIcon="" rejectIcon=""></p-confirmDialog>-->
+  <p-dialog header="文件上传"
+            [(visible)]="showUploadFileDialog"
+            [style]="{width: '700px'}">
+    <div class="ui-g ui-md ui-fiuld">
+      <div class="ui-g-12 ui-md-12">
+        <div class="ui-g-2 ui-md-2"></div>
+        <div class="ui-g-8 ui-md-8" style="line-height: 4.4vh">
+          <div class="ui-g-4 ui-md-4 right">
+            <span style="color: #FF8A9A">*</span>权限标识码：
+          </div>
+          <div class="ui-g-8 ui-md-8 ">
+            <div class="ui-md-12 ui-g-12 dialog-input">
+              <input pInputText type="text" placeholder="请输入权限标识码"/>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="ui-g-12 ui-md-12">
+        <div class="ui-g-2 ui-md-2"></div>
+        <div class="ui-g-8 ui-md-8" style="line-height: 4.4vh">
+          <div class="ui-g-4 ui-md-4 right">
+            <span style="color: #FF8A9A">*</span>选择文件：
+          </div>
+          <div class="ui-g-8 ui-md-8 ">
+            <div class="ui-md-12 ui-g-12 dialog-input">
+              <p-fileUpload
+                name="file"
+                chooseLabel="点击选择上传文件"
+                [auto]="true"
+                (onSelect)="selectFile($event)"></p-fileUpload>
+<!--              <p-fileUpload-->
+<!--                chooseLabel="点击选择上传文件" cancelLabel="取消"-->
+<!--                [showUploadButton]="false" mode="advanced" name="file" #fileUpload-->
+<!--              >-->
+<!--              </p-fileUpload>-->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p-footer>
+      <button class="dialog-btn" (click)="showUploadFileDialog = false;resetAllData()">取消</button>
+      <button class="dialog-btn" (click)="addLimitInfoClick()">确认选择</button>
+    </p-footer>
+  </p-dialog>
+  <p-dialog header="添加单个条目" [(visible)]="showAddSingleQuestionDialog" [style]="{width: '700px'}">
+    <div class="ui-g ui-md ui-fiuld">
+    </div>
+    <p-footer>
+      <button class="dialog-btn" (click)="showAddSingleQuestionDialog = false;resetAllData()">取消</button>
+      <button class="dialog-btn" (click)="UpdateLimitInfoClick()">确认选择</button>
+    </p-footer>
+  </p-dialog>
+
+  <!--组织树结构-->
+<!--  <p-dialog [(visible)]="treeDialog" [responsive]="true" showEffect="fade" [modal]= false [maximizable]="false" [baseZIndex]="10000" [modal]="true" [width]="350" [height]="400">-->
+<!--    <div class="ui-g ui-fluid">-->
+<!--      <div class="ui-g-12">-->
+<!--        <p-scrollPanel [style]="{width: '100%', height: '250px'}">-->
+<!--          <p-tree-->
+<!--            [value]="dataTrees"-->
+<!--            [(selection)]="dataTree"-->
+<!--            selectionMode="single">-->
+<!--          </p-tree>-->
+<!--        </p-scrollPanel>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--    <p-footer>-->
+<!--      <button  style="width: 4vw;padding: 4px 0"  (click)="treeDialog = false">取消</button>-->
+<!--      <button  style="width: 6vw;border: 0;color: #fff;padding: 4px 0"   (click)="dataTreeSureClick()" >确认选择</button>-->
+<!--    </p-footer>-->
+<!--  </p-dialog>-->
+</div>

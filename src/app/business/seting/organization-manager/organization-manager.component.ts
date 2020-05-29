@@ -150,6 +150,7 @@ export class OrganizationManagerComponent implements OnInit {
   }
   // 添加请求
   public  addOragizationInfoClick(): void {
+    console.log(this.addOragization.value);
     if (this.addOragization.valid){
       const data = JSON.parse(JSON.stringify(this.addOragization.value));
       delete data.name;
@@ -184,6 +185,7 @@ export class OrganizationManagerComponent implements OnInit {
   // 重置数据
   public  resetAllData(): void {
     this.addOragization.reset();
+    this.dataTree = null;
   }
 
   // Tree structure initialization
@@ -211,6 +213,7 @@ export class OrganizationManagerComponent implements OnInit {
      this.addOragization.patchValue({parentId: this.dataTree.value});
      this.addOragization.patchValue({parentLevel: this.dataTree.level});
      this.addOragization.patchValue({name: this.dataTree.label});
+     this.addOragization.patchValue({id: this.dataTree.value});
   }
 
 }

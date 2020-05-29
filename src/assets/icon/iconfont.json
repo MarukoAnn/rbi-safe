@@ -6,6 +6,27 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "14982398",
+      "name": "导出",
+      "font_class": "lujing364",
+      "unicode": "e610",
+      "unicode_decimal": 58896
+    },
+    {
+      "icon_id": "14982227",
+      "name": "上传",
+      "font_class": "baseline-open_in_browser-24px",
+      "unicode": "e618",
+      "unicode_decimal": 58904
+    },
+    {
+      "icon_id": "14914824",
+      "name": "pic_del",
+      "font_class": "baseline-add_circle-24px",
+      "unicode": "e617",
+      "unicode_decimal": 58903
+    },
+    {
       "icon_id": "14882016",
       "name": "上传图片",
       "font_class": "Outline1",
@@ -48,11 +69,11 @@
       "unicode_decimal": 58900
     },
     {
-      "icon_id": "14755198",
+      "icon_id": "14982357",
       "name": "baseline-open_in_new-24px",
-      "font_class": "baseline-open_in_new-24px",
-      "unicode": "e610",
-      "unicode_decimal": 58896
+      "font_class": "baseline-open_in_new-24px-copy",
+      "unicode": "e619",
+      "unicode_decimal": 58905
     },
     {
       "icon_id": "14752785",
