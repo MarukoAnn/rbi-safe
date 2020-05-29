@@ -52,6 +52,10 @@ export class ArchivesDetailComponent implements OnInit {
     });
     this.addReport = this.fb.group({
       troubleshootingTime: new FormControl({value: '', disabled: true}, Validators.required),
+      companyName: new FormControl({value: '', disabled: true}, Validators.required), // 公司名称
+      copyOrganizationName: new FormControl({value: '', disabled: true}, Validators.required), // 车间名字
+      className: new FormControl({value: '', disabled: true}, Validators.required), // 班主名称
+      factoryName: new FormControl({value: '', disabled: true}, Validators.required), // 工厂名称
       ifControlMeasures: new FormControl({value: '', disabled: true}, Validators.required), // 控制措施
       hidDangerContent: new FormControl({value: '', disabled: true}, Validators.required), // 隐患内容
       hidDangerGrade: new FormControl({value: '', disabled: true}, Validators.required), // 	隐患等级
@@ -84,7 +88,8 @@ export class ArchivesDetailComponent implements OnInit {
      this.troubleSrv.getTroubleArchiveDetailByCode({hidDangerCode: this.code}).subscribe(val => {
         console.log(val);
         const list = ['troubleshootingTime', 'ifControlMeasures', 'hidDangerContent', 'hidDangerGrade', 'ifRectificationPlan',
-          'ifDeal', 'organizationId', 'organizationName', 'governanceFunds', 'completionTime', 'completionSituation'];
+          'ifDeal', 'organizationId', 'organizationName', 'governanceFunds', 'completionTime', 'completionSituation',
+          'companyName', 'copyOrganizationName', 'className', 'factoryName'];
         setValueToFromValue(list, val.data.hidDangerDO, this.addReport);
         const typeList = [];
         this.hidTypeList.forEach(res => {

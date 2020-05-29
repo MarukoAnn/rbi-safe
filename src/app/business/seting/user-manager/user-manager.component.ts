@@ -59,8 +59,8 @@ export class UserManagerComponent implements OnInit {
       idCardNo: new FormControl('', Validators.compose([Validators.pattern(/^[1-9]\d{5}(18|19|20)\d{2}((0[1-9])|(1[0-2]))(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$/)])),
       enabled: new FormControl('', Validators.required),
       sysUserRoleList: new FormControl('', Validators.required),
-      id: new FormControl('', Validators.required),
-      companyPersonnelId: new FormControl('', Validators.required)
+      id: new FormControl(''),
+      companyPersonnelId: new FormControl('')
     });
     this.initUserInfo();
     this.getRolesInfoList();
@@ -144,10 +144,12 @@ export class UserManagerComponent implements OnInit {
  }
  // 添加信息
  public  addUserInfoClick(): void {
+    console.log(this.addUser.value);
    if (this.addUser.valid){
      const data = JSON.parse(JSON.stringify(this.addUser.value));
      data.sysUserRoleList = [{roleId: data.sysUserRoleList}];
      data.enabled = Number(data.enabled);
+     delete data.id;
      this.toolSrv.setConfirmation('添加', '添加新用户', () => {
        this.setSrv.addUserInfo(data).subscribe(val => {
          this.showAddUserDialog = false;

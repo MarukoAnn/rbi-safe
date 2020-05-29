@@ -23,6 +23,7 @@ import {ArchivesSpecialComponent} from './st-archives/archives-special/archives-
 import {TableModule} from 'primeng/table';
 import { ScsContentsComponent } from './st-content-seting/scs-contents/scs-contents.component';
 import { ScsQuestionComponent } from './st-content-seting/scs-question/scs-question.component';
+import {QuestionTemplateModule} from '../../common/components/question-template/question-template.module';
 
 @NgModule({
   declarations: [
@@ -60,7 +61,8 @@ import { ScsQuestionComponent } from './st-content-seting/scs-question/scs-quest
     TableModule,
     RadioButtonModule,
     InputTextareaModule,
-    FileUploadModule
+    FileUploadModule,
+    QuestionTemplateModule
   ],
   providers: []
 })
