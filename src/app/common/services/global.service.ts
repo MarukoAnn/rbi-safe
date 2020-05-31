@@ -47,4 +47,12 @@ export class GlobalService {
   public publicGetSpecialInfo(params: IdInterface): Observable<any> {
     return this.http.post('/training/getSpecialTrainingById', params);
   }
+
+  /**
+   * 根据ID精确查询四级HSE教育培训台账
+   * @param params
+   */
+  public publicGetEducateById(params: IdInterface): Observable<any> {
+    return this.http.post('/training/getSpecialTrainingById', params);
+  }
 }
