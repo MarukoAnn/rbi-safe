@@ -41,6 +41,10 @@ export class PersonnelManagerComponent implements OnInit {
     {label: '身份证号', value: 3},
     {label: '岗位', value: 4},
   ];
+  public maritalStatusOption: Array<object> = [
+    {label: '已婚', value: '已婚'},
+    {label: '未婚', value: '未婚'}
+  ];
   public selectType = '';
   public orgazitionName: any;
   // public showOrgazationTree;
@@ -91,9 +95,10 @@ export class PersonnelManagerComponent implements OnInit {
       organizationName: new FormControl(''),
       name: new FormControl('', Validators.required),
       gender: new FormControl('', Validators.required),
+
       maritalStatus: new FormControl('', Validators.required),
       nation: new FormControl('', Validators.required),
-      idCardNo: new FormControl(''),
+      idCardNo: new FormControl('', [Validators.pattern(/^[1-9]\d{5}(18|19|20)\d{2}((0[1-9])|(1[0-2]))(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$/)]),
       workshopName: new FormControl({value: '', disabled: true}),
       companyName: new FormControl({value: '', disabled: true}),
       factoryName: new FormControl({value: '', disabled: true}),

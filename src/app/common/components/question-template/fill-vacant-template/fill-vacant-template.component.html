@@ -1,0 +1,19 @@
+<div class="fill-vacant-template ui-g-12 ui-md-12">
+  <div style="border: 1px solid #DEE0E5" class="ui-g-12 ui-md-12 text-left dialog-sel-Input p-2">
+    <textarea type="text" pInputTextarea [rows]="4" [cols]="40"  [(ngModel)]="selTitle" class="m-2" (change)="changeIpnutSelect()"></textarea>
+    <div *ngFor="let i of checkBoxList;let index = index"  style="line-height: 4vh"  class="ui-g-12 ui-md-12 p-1">
+      <div class="ui-g-3 ui-md-3 text-center">
+        答案：
+      </div>
+      <div class="ui-g-8 ui-md-8" >
+        <input type="text" pInputText  [(ngModel)]="i.label" (focus)="i.check = true" (change)="changeIpnutSelect()"/>
+      </div>
+      <div class="ui-g-1 ui-md-1">
+        <i class="pi pi-times" *ngIf="i.check" style="color: #3B86FF" (click)="delRadioItem(index)" ></i>
+      </div>
+    </div>
+    <div  class="ui-g-12 ui-md-12 p-1" style="line-height: 2vh">
+      <button pButton type="button" label="新增选项" class="ui-button-rounded" icon="pi pi-plus" style="outline: none;background: #FFFFFF;color: #4F88DE;border: 0" (click)="addRadioItem()"></button>
+    </div>
+  </div>
+</div>

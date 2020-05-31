@@ -218,6 +218,16 @@ export class ScsContentFieldClass implements ScsContentField{
 }
 
 /**
+ * 单选条目增加
+ */
+export interface RadioTemplate {
+  rightKey: any;  // 正确答案
+  subject: any;  // 试题题目
+  order: any;  // 选项顺序
+  option: any; // 选项数据
+}
+
+/**
  * 特种人员复审接口及实现
  */
 export interface ReviewInfo {

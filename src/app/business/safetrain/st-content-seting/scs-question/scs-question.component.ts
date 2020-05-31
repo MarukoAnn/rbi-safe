@@ -36,6 +36,14 @@ export class ScsQuestionComponent implements OnInit {
   public showAddSingleQuestionDialog: boolean;
   // 搜索相关
   public searchData: any;
+  public showQuesType = 1;
+  // 添加单个条目
+  public btnQuestionList: Array<object> = [
+    {label: '单选题', active: true, value: 1},
+    {label: '多选题', active: false, value: 2},
+    {label: '判断题', active: false, value: 3},
+    {label: '填空题', active: false, value: 4},
+  ];
 
   // 权限树相关
   public dataTrees: OragizationTree[];
@@ -137,14 +145,22 @@ export class ScsQuestionComponent implements OnInit {
     //   console.log(res);
     // });
   }
+  // 试题点击
+  public  questionClick(item): void {
+    this.showQuesType = item.value;
+    this.btnQuestionList.forEach(val => {
+      // @ts-ignore
+      val.active = false;
+    });
+    item.active = true;
+  }
   // Paging event (分页事件)
   public  clickEvent(e): void {
     this.pageNo = e;
     this.initLimitData();
   }
-  // 添加单个条目
-  public  showAddSingleQuestionClick(): void {
-    ;
+  public  radioEvent(e): void {
+      console.log(e);
   }
   // 删除请求
   public  delLimitInfo(data): void {

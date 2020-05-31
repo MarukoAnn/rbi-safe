@@ -66,6 +66,15 @@
         </div>
         <div class="ui-g-6 ui-md-6" style="line-height: 3vh;">
           <div class="ui-g-4 ui-md-4 right">
+            <span style="color: #FF8A9A">*</span>身份证号：
+          </div>
+          <div class="ui-g-8 ui-md-8 dialog-input">
+            <input pInputText type="text" formControlName="idCardNo" placeholder="请输入身份证号"/>
+            <p-message severity="error" text="请输入合法的身份证号" *ngIf="!addPersonnel.controls['idCardNo'].valid&&addPersonnel.controls['idCardNo'].dirty"></p-message>
+          </div>
+        </div>
+        <div class="ui-g-6 ui-md-6" style="line-height: 3vh;">
+          <div class="ui-g-4 ui-md-4 right">
             <span style="color: #FF8A9A">*</span>名族：
           </div>
           <div class="ui-g-8 ui-md-8 dialog-input">
@@ -77,15 +86,7 @@
             <span style="color: #FF8A9A">*</span>婚姻状况：
           </div>
           <div class="ui-g-8 ui-md-8 dialog-input">
-            <input pInputText type="text" formControlName="maritalStatus" placeholder="请输入婚姻状况"/>
-          </div>
-        </div>
-        <div class="ui-g-6 ui-md-6" style="line-height: 3vh;">
-          <div class="ui-g-4 ui-md-4 right">
-            身份证号：
-          </div>
-          <div class="ui-g-8 ui-md-8 dialog-input">
-            <input pInputText type="text" formControlName="idCardNo" placeholder="请输入身份证号"/>
+            <p-dropdown dropdownIcon="pi pi-caret-down" placeholder="请选择婚姻状况" [options]="maritalStatusOption" formControlName="maritalStatus"></p-dropdown>
           </div>
         </div>
         <div class="ui-g-6 ui-md-6" style="line-height: 3vh;">
@@ -221,6 +222,15 @@
         </div>
         <div class="ui-g-6 ui-md-6" style="line-height: 3vh;">
           <div class="ui-g-4 ui-md-4 right">
+            <span style="color: #FF8A9A">*</span>身份证号：
+          </div>
+          <div class="ui-g-8 ui-md-8 dialog-input">
+            <input pInputText type="text" formControlName="idCardNo" placeholder="请输入身份证号"/>
+            <p-message severity="error" text="请输入合法的身份证号" *ngIf="!addPersonnel.controls['idCardNo'].valid&&addPersonnel.controls['idCardNo'].dirty"></p-message>
+          </div>
+        </div>
+        <div class="ui-g-6 ui-md-6" style="line-height: 3vh;">
+          <div class="ui-g-4 ui-md-4 right">
             <span style="color: #FF8A9A">*</span>名族：
           </div>
           <div class="ui-g-8 ui-md-8 dialog-input">
@@ -232,17 +242,11 @@
             <span style="color: #FF8A9A">*</span>婚姻状况：
           </div>
           <div class="ui-g-8 ui-md-8 dialog-input">
-            <input pInputText type="text" formControlName="maritalStatus" placeholder="请输入婚姻状况"/>
+            <p-dropdown dropdownIcon="pi pi-caret-down" placeholder="请选择婚姻状况" [options]="maritalStatusOption" formControlName="maritalStatus"></p-dropdown>
+<!--            <input pInputText type="text" formControlName="maritalStatus" placeholder="请输入婚姻状况"/>-->
           </div>
         </div>
-        <div class="ui-g-6 ui-md-6" style="line-height: 3vh;">
-          <div class="ui-g-4 ui-md-4 right">
-            身份证号：
-          </div>
-          <div class="ui-g-8 ui-md-8 dialog-input">
-            <input pInputText type="text" formControlName="idCardNo" placeholder="请输入身份证号"/>
-          </div>
-        </div>
+
         <div class="ui-g-6 ui-md-6" style="line-height: 3vh;">
           <div class="ui-g-4 ui-md-4 right">
             出生日期：

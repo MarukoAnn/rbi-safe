@@ -60,5 +60,9 @@ export class UploadImageComponent implements OnInit, OnChanges{
     this.ImgUrl = e;
       // console.log(e);
   }
+  public  delItemImg(i): void {
+      this.filePath.splice(i, 1);
+      this.ImageOption.files.splice(i, 1);
+  }
 }
 

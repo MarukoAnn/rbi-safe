@@ -9,7 +9,7 @@
     align-items: center;
   }
   .scs-question-header{
-    margin-top: 4vh;
+    margin-top: 2vh;
     //margin-top: 1vh;
     display: flex;
     justify-content: space-between;
@@ -56,6 +56,63 @@
     bottom: 8vh;
     right: 4vw;
   }
+  .right {
+    text-align: right;
+    color: #4D4F5C;
+  }
+  .dialog-input {
+    line-height: 3vh;
+    text-align: left;
+    color: #4D4F5C;
+    input, ::ng-deep .ui-inputtext{
+      width: 100%;
+      border: 1px solid #D2D6DB;
+    }
+    ::ng-deep .ui-fileupload-row > div{
+      font-size: 12px;
+      padding: 2px 1px;
+    }
+    ::ng-deep .ui-dropdown{
+      width: 100%;
+      border: 1px solid #EDEDED;
+      line-height: 2.4vh;
+      .ui-dropdown-trigger-icon{
+        color: #AAAAAA;
+      }
+      .ui-dropdown-label{
+        color: #A498A0;
+      }
+      .ui-inputtext{
+        width: 100%;
+        border: 0;
+      }
+    }
+  }
+
+  .dialog-btn{
+    width: 6vw;
+    //text-align: center;
+    border-radius: 5px;
+    height: 4vh;
+    outline: none;
+    color: #fff;
+    border: 0;
+    margin-left: 2vw;
+  }
+  .personnel-manager-pagination{
+    position: absolute;
+    bottom: 8vh;
+    right: 4vw;
+  }
+  .selbtn-menu{
+     background: #FFFFFF;
+     color: #3B86FF;
+    border: 1px solid #9EC3FF;
+  }
+  .selbtn-menu-active{
+    background: #3B86FF;
+    color: #fff;
+  }
   ::ng-deep .ui-inputgroup .ui-widget {
     color: #8D8E96;
     font-size: 14px;
@@ -65,11 +122,6 @@
     //border-right: 0;
     border-left: 0;
     background: #F8F8F8;
-  }
-  .personnel-manager-pagination{
-    position: absolute;
-    bottom: 8vh;
-    right: 4vw;
   }
   ::ng-deep .ui-inputgroup .ui-widget {
     color: #8D8E96;
@@ -88,6 +140,9 @@
     border: 0;
     color: #6F6F6F;
     border-bottom: 1px solid #CACED5;
+    .ui-dialog-titlebar-icon{
+      color: #6F6F6F;
+    }
   }
   ::ng-deep .ui-dialog .ui-dialog-content{
     border: 0;
@@ -109,33 +164,7 @@
       border-radius: 20px;
     }
   }
-  .right {
-    text-align: right;
-    color: #4D4F5C;
-  }
-  .dialog-input {
-    line-height: 3vh;
-    text-align: left;
-    color: #4D4F5C;
-    input, ::ng-deep .ui-inputtext{
-      width: 100%;
-      border: 1px solid #D2D6DB;
-    }
-    ::ng-deep .ui-fileupload-row > div{
-      font-size: 12px;
-      padding: 2px 1px;
-    }
-  }
-  .dialog-btn{
-    width: 6vw;
-    //text-align: center;
-    border-radius: 5px;
-    height: 4vh;
-    outline: none;
-    color: #fff;
-    border: 0;
-    margin-left: 2vw;
-  }
+
   ::ng-deep .ui-dialog-content{
     overflow: visible ;
   }

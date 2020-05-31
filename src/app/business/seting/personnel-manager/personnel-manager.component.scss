@@ -110,6 +110,9 @@
     border: 0;
     color: #6F6F6F;
     border-bottom: 1px solid #CACED5;
+    .ui-dialog-titlebar-icon{
+      color: #6F6F6F;
+    }
   }
   ::ng-deep .ui-dialog .ui-dialog-content{
     border: 0;
@@ -142,6 +145,21 @@
     input, ::ng-deep .ui-inputtext{
       width: 100%;
       border: 1px solid #D2D6DB;
+    }
+    ::ng-deep .ui-dropdown{
+      width: 100%;
+      border: 1px solid #D2D6DB;
+      line-height: 2.4vh;
+      .ui-dropdown-trigger-icon{
+        color: #AAAAAA;
+      }
+      .ui-dropdown-label{
+        color: #A498A0;
+      }
+      .ui-inputtext{
+        width: 100%;
+        border: 0;
+      }
     }
   }
   .dialog-btn{

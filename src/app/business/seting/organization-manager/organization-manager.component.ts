@@ -61,7 +61,7 @@ export class OrganizationManagerComponent implements OnInit {
       organizationName: new FormControl('',  Validators.required),
       parentId: new FormControl('', Validators.required),
       parentLevel: new FormControl('', Validators.required),
-      id: new FormControl('', Validators.required),
+      id: new FormControl(''),
       name: new FormControl('', Validators.required),
     });
     this.getOrgazationTreeInfo();
@@ -213,7 +213,6 @@ export class OrganizationManagerComponent implements OnInit {
      this.addOragization.patchValue({parentId: this.dataTree.value});
      this.addOragization.patchValue({parentLevel: this.dataTree.level});
      this.addOragization.patchValue({name: this.dataTree.label});
-     this.addOragization.patchValue({id: this.dataTree.value});
   }
 
 }

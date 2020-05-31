@@ -23,6 +23,7 @@ import {ArchivesSpecialComponent} from './st-archives/archives-special/archives-
 import {TableModule} from 'primeng/table';
 import { ScsContentsComponent } from './st-content-seting/scs-contents/scs-contents.component';
 import { ScsQuestionComponent } from './st-content-seting/scs-question/scs-question.component';
+import {QuestionTemplateModule} from '../../common/components/question-template/question-template.module';
 import { ArchivesEducateComponent } from './st-archives/archives-educate/archives-educate.component';
 import { ArchivesManageComponent } from './st-archives/archives-manage/archives-manage.component';
 import { ArchivesDailyComponent } from './st-archives/archives-daily/archives-daily.component';
@@ -66,7 +67,8 @@ import { ArchivesDailyComponent } from './st-archives/archives-daily/archives-da
     TableModule,
     RadioButtonModule,
     InputTextareaModule,
-    FileUploadModule
+    FileUploadModule,
+    QuestionTemplateModule
   ],
   providers: []
 })

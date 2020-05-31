@@ -183,6 +183,7 @@ export class LimitsManagerComponent implements OnInit {
   }
   // 添加权限
   public  addLimitInfoClick(): void {
+    // console.log(this.addLimit.value);
      if (this.addLimit.valid){
        const data = JSON.parse(JSON.stringify(this.addLimit.value));
        delete data.name;

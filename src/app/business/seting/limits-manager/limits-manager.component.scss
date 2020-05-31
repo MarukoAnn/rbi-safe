@@ -87,6 +87,9 @@
     border: 0;
     color: #6F6F6F;
     border-bottom: 1px solid #CACED5;
+    .ui-dialog-titlebar-icon{
+      color: #6F6F6F;
+    }
   }
   ::ng-deep .ui-dialog .ui-dialog-content{
     border: 0;

@@ -6,8 +6,9 @@
       <input type="file"  multiple="multiple"  accept="image/*" (change)="selectImage($event)">
     </div>
   </div>
-  <div class="ui-md-1 ui-g-1" style="text-align: center;" *ngFor="let item of filePath">
+  <div class="ui-md-1 ui-g-1" style="text-align: center;position: relative" *ngFor="let item of filePath, let i = index">
     <img  class="show-image" [src]="item" alt="" (click)="imgClick(item)">
+    <i class="iconfont iconbaseline-add_circle-24px" style="position: absolute;top: -10px;font-size: 40px;right: -10px;color: #3B86FF;" (click)="delItemImg(i)"></i>
   </div>
   <p-dialog header="图片详细" [(visible)]="showImageDiaog">
     <img [src]="ImgUrl" alt="" style="max-width: 60vw">
