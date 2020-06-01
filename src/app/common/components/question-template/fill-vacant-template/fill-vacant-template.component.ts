@@ -28,7 +28,11 @@ export class FillVacantTemplateComponent implements OnInit {
   ngOnInit() {
   }
   public  delRadioItem(index): void {
+    // console.log(this.checkBoxList[index].num);
     this.checkBoxList.splice(index, 1);
+    // var  reg = RegExp(/______/);
+    console.log(this.selTitle.split(''));
+
     this.selTitle = this.selTitle.slice(0, this.selTitle.lastIndexOf('______')) +
       this.selTitle.slice(this.selTitle.lastIndexOf('______') + 6, this.selTitle.length);
     this.setData();
@@ -36,7 +40,7 @@ export class FillVacantTemplateComponent implements OnInit {
   }
 
   public  addRadioItem(): void {
-    this.checkBoxList.push({label: '填空', check: false, value: this.checkBoxList.length + 1});
+    this.checkBoxList.push({label: '填空', check: false, value: this.checkBoxList.length + 1, num: this.selTitle + 1});
     this.selTitle = this.selTitle + '______';
     this.setData();
     this.questionEvent.emit(this.radioTemplate);

@@ -75,4 +75,37 @@ export class SafetrainService {
   public searchScsContentsInfo(params: any): Observable<any> {
     return this.http.post(`/training/findByCondition`, params);
   }
+  //                                    培训题库
+  /*---------------------------------------------------------------------------------------------------------*/
+  /**
+   * 查询所有题库分类名称
+   * @param params
+   */
+  public searchScsQuestionSortInfo(params?: {}): Observable<any> {
+    return this.http.post(`/getAllSubjectStoreName`, params);
+  }
+
+  //                                    题库分类
+  /*---------------------------------------------------------------------------------------------------------*/
+  /**
+   * 添加题库分类名称
+   * @param params
+   */
+  public addScsQuestionSortInfo(params?: {}): Observable<any> {
+    return this.http.post(`/insertSubjectStoreName`, params);
+  }
+  /**
+   * 修改题库分类名称
+   * @param params
+   */
+  public editScsQuestionSortInfo(params?: {}): Observable<any> {
+    return this.http.post(`/updateSubjectStoreName`, params);
+  }
+  /**
+   * 删除题库分类名称
+   * @param params
+   */
+  public delScsQuestionSortInfo(params?: {}): Observable<any> {
+    return this.http.post(`/deleteSubjectStoreName`, params);
+  }
 }

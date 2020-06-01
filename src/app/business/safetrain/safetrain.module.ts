@@ -24,6 +24,7 @@ import {TableModule} from 'primeng/table';
 import { ScsContentsComponent } from './st-content-seting/scs-contents/scs-contents.component';
 import { ScsQuestionComponent } from './st-content-seting/scs-question/scs-question.component';
 import {QuestionTemplateModule} from '../../common/components/question-template/question-template.module';
+import { ScsSortComponent } from './st-content-seting/scs-sort/scs-sort.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import {QuestionTemplateModule} from '../../common/components/question-template/
     StArchivesComponent,
     ArchivesSpecialComponent,
     ScsContentsComponent,
-    ScsQuestionComponent
+    ScsQuestionComponent,
+    ScsSortComponent
   ],
   imports: [
     CommonModule,

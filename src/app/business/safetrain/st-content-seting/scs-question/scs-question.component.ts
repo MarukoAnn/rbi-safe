@@ -7,6 +7,7 @@ import {SetingService} from '../../../../common/services/seting.service';
 import {PublicMethodService} from '../../../../common/public/public-method.service';
 import {DatePipe} from '@angular/common';
 import {GlobalService} from '../../../../common/services/global.service';
+import {SafetrainService} from '../../../../common/services/safetrain.service';
 
 @Component({
   selector: 'app-scs-question',
@@ -30,6 +31,7 @@ export class ScsQuestionComponent implements OnInit {
   // 删除相关
   public delData = [];
   // 上传文件相关
+  public sortQuestionOption: Array<object> = [];
   // public addLimit: FormGroup;
   public showUploadFileDialog: boolean;
   // 修改xiangguan
@@ -51,7 +53,7 @@ export class ScsQuestionComponent implements OnInit {
   public treeDialog: boolean;
   constructor(
     private themeSrv: ThemeService,
-    private setSrv: SetingService,
+    private safeSrv: SafetrainService,
     private toolSrv: PublicMethodService,
     // private fb: FormBuilder,
     // private dataPipe: DatePipe,
@@ -80,18 +82,27 @@ export class ScsQuestionComponent implements OnInit {
     //   id: new FormControl(''),
     // });
     this.initLimitData();
+    this.getQuestionSortInfoConfig();
+  }
+  public getQuestionSortInfoConfig(): void {
+    this.safeSrv.searchScsQuestionSortInfo().subscribe(val => {
+      val.data.forEach(res => {
+        this.sortQuestionOption.push({label: res.subjectStoreName, value: res.id});
+      });
+    });
   }
 
+
   public initLimitData(): void {
-    this.setSrv.getPermissionInfoPageData({pageNo: this.pageNo, pageSize: 10}).subscribe(val => {
-      this.questionContent = val.data.contents.map(v => {
-        v.enabled  = v.enabled === 1 ? '启用' : '未启用';
-        return v;
-      });
-      this.pageOption = {totalRecord: val.data.totalRecord, pageSize: val.data.pageSize};
-      // this.pageOption = {pageSize: ''};
-      this.setTableOption(this.questionContent);
-    });
+    // this.setSrv.getPermissionInfoPageData({pageNo: this.pageNo, pageSize: 10}).subscribe(val => {
+    //   this.questionContent = val.data.contents.map(v => {
+    //     v.enabled  = v.enabled === 1 ? '启用' : '未启用';
+    //     return v;
+    //   });
+    //   this.pageOption = {totalRecord: val.data.totalRecord, pageSize: val.data.pageSize};
+    //   // this.pageOption = {pageSize: ''};
+    //   this.setTableOption(this.questionContent);
+    // });
   }
   public  selectData(e): void {
     this.questionSelect = e;
@@ -164,10 +175,10 @@ export class ScsQuestionComponent implements OnInit {
   }
   // 删除请求
   public  delLimitInfo(data): void {
-    this.setSrv.delPermissionInfo(data).subscribe(res => {
-      this.initLimitData();
-      this.resetAllData();
-    });
+    // this.setSrv.delPermissionInfo(data).subscribe(res => {
+    //   this.initLimitData();
+    //   this.resetAllData();
+    // });
   }
   public  showUploadFileClick(): void {
     this.showUploadFileDialog = true;

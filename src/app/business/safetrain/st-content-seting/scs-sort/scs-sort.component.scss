@@ -1,0 +1,171 @@
+.scs-sort{
+  width: 100%;
+  height: 100%;
+  background: #fff;
+  //padding: 1vh 2vw;
+  .header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .scs-sort-header{
+    margin-top: 2vh;
+    //margin-top: 1vh;
+    display: flex;
+    justify-content: space-between;
+
+    align-items: center;
+    .scs-sort-search{
+      position: relative;
+      .ui-inputgroup {
+        display: inline-block;
+        //margin-left: 1vw;
+        input{
+          border-radius: 20px 0 0 20px;
+          outline: none;
+        }
+        button{
+          margin-top: 1px;
+          border-radius: 0 20px 20px 0;
+          border: 0;
+        }
+      }
+    }
+    .scs-sort-button {
+      button{
+        padding: 0 4px;
+        //width: 6vw;
+        margin-right: 1vw;
+      }
+      button:last-child{
+        background: #3B86FF;
+        border: 1px solid #3B86FF;
+      }
+      /deep/.ui-button-icon-left, .ui-button-icon-right {
+        margin-top: -0.4em;
+        font-size: 1.2em;
+      }
+    }
+
+  }
+  .scs-sort-table{
+    margin-top: 2vh;
+  }
+  .scs-sort-pagination{
+    position: absolute;
+    bottom: 8vh;
+    right: 4vw;
+  }
+  .right {
+    text-align: right;
+    color: #4D4F5C;
+  }
+  .dialog-input {
+    line-height: 3vh;
+    text-align: left;
+    color: #4D4F5C;
+    input, ::ng-deep .ui-inputtext{
+      width: 100%;
+      border: 1px solid #D2D6DB;
+    }
+    ::ng-deep .ui-fileupload-row > div{
+      font-size: 12px;
+      padding: 2px 1px;
+    }
+    ::ng-deep .ui-dropdown{
+      width: 100%;
+      border: 1px solid #EDEDED;
+      line-height: 2.4vh;
+      .ui-dropdown-trigger-icon{
+        color: #AAAAAA;
+      }
+      .ui-dropdown-label{
+        color: #A498A0;
+      }
+      .ui-inputtext{
+        width: 100%;
+        border: 0;
+      }
+    }
+  }
+
+  .dialog-btn{
+    width: 6vw;
+    //text-align: center;
+    border-radius: 5px;
+    height: 4vh;
+    outline: none;
+    color: #fff;
+    border: 0;
+    margin-left: 2vw;
+  }
+  .personnel-manager-pagination{
+    position: absolute;
+    bottom: 8vh;
+    right: 4vw;
+  }
+  .selbtn-menu{
+    background: #FFFFFF;
+    color: #3B86FF;
+    border: 1px solid #9EC3FF;
+  }
+  .selbtn-menu-active{
+    background: #3B86FF;
+    color: #fff;
+  }
+  ::ng-deep .ui-inputgroup .ui-widget {
+    color: #8D8E96;
+    font-size: 14px;
+    //height: 3vh;
+    height: 32px;
+    border: 1px solid #F0F0F0;
+    //border-right: 0;
+    border-left: 0;
+    background: #F8F8F8;
+  }
+  ::ng-deep .ui-inputgroup .ui-widget {
+    color: #8D8E96;
+    font-size: 14px;
+    //height: 3vh;
+    height: 32px;
+    border: 1px solid #F0F0F0;
+    //border-right: 0;
+    border-left: 0;
+    background: #F8F8F8;
+  }
+  ::ng-deep  .ui-dialog .ui-dialog-titlebar{
+    text-align: center;
+    background: #F8F8F8;
+    font-size: 16px;
+    border: 0;
+    color: #6F6F6F;
+    border-bottom: 1px solid #CACED5;
+    .ui-dialog-titlebar-icon{
+      color: #6F6F6F;
+    }
+  }
+  ::ng-deep .ui-dialog .ui-dialog-content{
+    border: 0;
+  }
+  ::ng-deep  .ui-dialog .ui-dialog-footer{
+    text-align: center;
+    border: 0;
+    padding: 20px 0;
+    button:first-child{
+      //padding: 4px 6px;
+      border-radius: 20px;
+      background: #fff;
+      color: #575C65;
+      border: 1px solid #575C65;
+    }
+    button:last-child{
+      //padding: 4px 6px;
+      background: #3B86FF;
+      border-radius: 20px;
+    }
+  }
+
+  ::ng-deep .ui-dialog-content{
+    overflow: visible ;
+  }
+}
