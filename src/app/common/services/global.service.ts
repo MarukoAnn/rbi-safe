@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
+import {IdInterface} from '../public/Api';
 
 @Injectable({
   providedIn: 'root'
@@ -37,5 +38,21 @@ export class GlobalService {
   public getEducationList(params?: {systemCategoryId: 1 | 2 |3 |4 |5 | 6}): Observable<any> {
     console.log(params);
     return this.http.post('/getSystemFileByTypeId', params);
+  }
+
+  /**
+   * 根据id获取特种人员信息
+   * @param params 根据不同的systemCategoryId获取不同文件
+   */
+  public publicGetSpecialInfo(params: IdInterface): Observable<any> {
+    return this.http.post('/training/getSpecialTrainingById', params);
+  }
+
+  /**
+   * 根据ID精确查询四级HSE教育培训台账
+   * @param params
+   */
+  public publicGetEducateById(params: IdInterface): Observable<any> {
+    return this.http.post('/training/getSpecialTrainingById', params);
   }
 }

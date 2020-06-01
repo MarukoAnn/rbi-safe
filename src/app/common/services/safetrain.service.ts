@@ -75,6 +75,46 @@ export class SafetrainService {
   public searchScsContentsInfo(params: any): Observable<any> {
     return this.http.post(`/training/findByCondition`, params);
   }
+
+  /**
+   * 教育培训台账列表获取
+   * @param params
+   */
+  public getEducateList(params: any): Observable<any> {
+    return this.http.post(`/safeFourLevel/findSafeFourLevelByPage`, params);
+  }
+
+  /**
+   * 教育培训台账添加
+   * @param params
+   */
+  public addEducateInfo(params: any): Observable<any> {
+    return this.http.post(`/safeFourLevel/insertSafeFourLevel`, params);
+  }
+
+  /**
+   * 教育培训台账修改
+   * @param params
+   */
+  public updateEducateInfo(params: any): Observable<any> {
+    return this.http.post(`/safeFourLevel/updateSafeFourLevel`, params);
+  }
+
+  /**
+   * 教育培训台账删除
+   * @param params
+   */
+  public delEducateInfo(params: any): Observable<any> {
+    return this.http.post(`/safeFourLevel/deleteSafeFourLevelById`, params);
+  }
+
+  /**
+   * 根据分类信息查询教育台账
+   * @param params
+   */
+  public searchEducateList(params: any): Observable<any> {
+    return this.http.post(`/safeFourLevel/deleteSafeFourLevelById`, params);
+  }
   //                                    培训题库
   /*---------------------------------------------------------------------------------------------------------*/
   /**

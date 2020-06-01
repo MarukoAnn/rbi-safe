@@ -226,3 +226,80 @@ export interface RadioTemplate {
   order: any;  // 选项顺序
   option: any; // 选项数据
 }
+
+/**
+ * 特种人员复审接口及实现
+ */
+export interface ReviewInfo {
+  id: any;
+  completionStatus: string;
+  reasonForHandling: string;
+}
+export class ReviewInfoClass implements ReviewInfo {
+  id: any;
+  completionStatus: string;
+  reasonForHandling: string;
+  constructor() {
+    this.id  = null;
+    this.completionStatus = '3';
+    this.reasonForHandling = '';
+  }
+}
+
+/**
+ * id限定类接口
+ */
+export interface IdInterface {
+  id: any;
+}
+
+/**
+ * 教育培训台账接口及实现
+ */
+export interface EducateField {
+  id?: any;
+  idCardNo?: string;
+  organizationName?: string;
+  companyEducationTime: string;
+  companyFraction: number;
+  factoryEducationTime: string;
+  factoryFraction: number;
+  workshopEducationTime: string;
+  workshopFraction: number;
+  classEducationTime: string;
+  classFraction: number;
+}
+export class AddEducateFieldClass implements EducateField{
+  classEducationTime: string;
+  classFraction: number;
+  companyEducationTime: string;
+  companyFraction: number;
+  factoryEducationTime: string;
+  factoryFraction: number;
+  organizationName: string;
+  workshopEducationTime: string;
+  workshopFraction: number;
+  idCardNo: string;
+}
+export class UpdateEducateFieldClass implements EducateField {
+  classEducationTime: string;
+  classFraction: number;
+  companyEducationTime: string;
+  companyFraction: number;
+  factoryEducationTime: string;
+  factoryFraction: number;
+  id: any;
+  workshopEducationTime: string;
+  workshopFraction: number;
+  constructor() {
+    this.id = null;
+    this.classEducationTime = '';
+    this.companyEducationTime = '';
+    this.factoryEducationTime = '';
+    this.workshopEducationTime = '';
+    this.classFraction = null;
+    this.companyFraction = null;
+    this.factoryFraction = null;
+    this.workshopFraction = null;
+  }
+}

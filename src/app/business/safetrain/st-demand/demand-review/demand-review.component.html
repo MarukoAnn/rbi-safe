@@ -1,23 +1,347 @@
 <div class="demand-review">
-   <div class="demand-review-title">
-     <span>特种人员待取证/复审名单</span>
-     <button pButton type="button" label="导出" class="ui-button-rounded" icon="pi pi-external-link"></button>
-   </div>
-   <div class="demand-review-search">
-     <div>
-       <div class="ui-inputgroup">
-         <input type="text" pInputText  placeholder="搜索"/>
-       </div>
-       <i class="fa fa-search" style="position: absolute;margin-top: -2.5vh;margin-left: 7.5vw;color: #ABABAB;"></i>
-     </div>
-     <div class="review-btn">
-       <button pButton type="button" label="批量审核" class="ui-button-rounded"></button>
-     </div>
+  <h2 class="title text-center pt-3 pb-3 text-littleGray">特种作业人员取证/复审培训</h2>
+  <div class="header pt-2 pb-2">
+    <div class="ui-inputgroup">
+      <input type="text" pInputText placeholder="搜索"/>
+      <button pButton type="button" icon="pi pi-search" class="ui-button-warn"></button>
+    </div>
+    <div class="button">
+      <button pButton type="button" label="导出复审名单表" class="ui-button-rounded ui-button-pink "></button>
+    </div>
   </div>
-  <div class="demand-review-table">
-    <app-check-table-btn [select]="reviewSelect"   (selectData)="selectData($event)" [option]="optionTable" (detail)="DetailClick($event)"></app-check-table-btn>
+  <div class="content">
+    <p-table
+      [value]="reviewTableData" [columns]="reviewTableHeader"
+      [scrollable]="true" scrollHeight="90%"
+    >
+      <ng-template pTemplate="header" let-columns>
+        <tr>
+          <th>#</th>
+          <th *ngFor="let col of columns">
+            {{col.header}}
+          </th>
+          <th>操作</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-rowData let-columns="columns" let-rowIndex="rowIndex">
+        <tr>
+          <td>{{rowIndex + 1}}</td>
+          <td *ngFor="let col of columns">
+            {{rowData[col.field]}}
+          </td>
+          <td>
+            <button pButton label="完成复审" class="ui-button-rounded mr-3" *ngIf="(rowData.completionStatus === 1)" (click)="reviewOperate(reviewOperateFlag='update',rowData)"></button>
+            <button pButton label="取消" class="ui-button-rounded ui-button-pink" *ngIf="(rowData.completionStatus === 1)" (click)="reviewOperate(reviewOperateFlag='cancel',rowData)"></button>
+            <button pButton label="已操作完成" class="ui-button-rounded ui-button-white" disabled *ngIf="!(rowData.completionStatus === 1)"></button>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
   </div>
-  <div class="demand-review-pagination">
-    <app-pagination [option]="pageOption"></app-pagination>
+  <div class="pagination">
+    <app-pagination [option]="reviewPageOption" (clickEvent)="reviewPageEvent($event)"></app-pagination>
+  </div>
+  <div class="modal">
+    <!--角色新增/编辑弹窗-->
+    <p-dialog
+      [blockScroll]="true"
+      [(visible)]="reviewOperateModal" [style]="{width: '50vw'}"
+    >
+      <p-header>{{reviewOperateFlag === 'update' ? '完成复审操作' : '取消复审操作'}}</p-header>
+      <div style="width: 100%;height: 40vh;overflow: hidden" *ngIf="reviewOperateFlag === 'update'">
+        <p-scrollPanel [style]="{width: '100%', height: '100%'}" styleClass="role-scroll">
+          <div class="ui-g">
+            <!--身份证-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>身份证：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <input
+                  type="text" pInputText placeholder="请填写身份证"
+                  [(ngModel)]="reviewOperateField.idCardNo"
+                  [disabled]="!!reviewOperateFieldCopy.idCardNo">
+              </div>
+            </div>
+            <!--工种-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>工种：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <input
+                  type="text" pInputText placeholder="请填写工种"
+                  [(ngModel)]="reviewOperateField.typeOfWork"
+                  [disabled]="!!reviewOperateFieldCopy.typeOfWork">
+              </div>
+            </div>
+            <!--操作项目-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>操作项目：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <input
+                  type="text" pInputText placeholder="请填写操作项目"
+                  [(ngModel)]="reviewOperateField.operationItems"
+                  [disabled]="!!reviewOperateFieldCopy.operationItems">
+              </div>
+            </div>
+            <!--本工种工龄-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>本工种工龄：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <input
+                  type="number" pInputText placeholder="请填写本工种工龄"
+                  [(ngModel)]="reviewOperateField.workingYears"
+                  [disabled]="!!reviewOperateFieldCopy.workingYears">
+              </div>
+            </div>
+            <!--理论成绩-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>理论成绩：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <input
+                  type="text" pInputText placeholder="请填写理论成绩"
+                  [(ngModel)]="reviewOperateField.theoreticalAchievements"
+                  [disabled]="!!reviewOperateFieldCopy.theoreticalAchievements">
+              </div>
+            </div>
+            <!--实际成绩-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>实际成绩：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <input
+                  type="text" pInputText placeholder="请填写实际成绩"
+                  [(ngModel)]="reviewOperateField.actualResults"
+                  [disabled]="!!reviewOperateFieldCopy.actualResults">
+              </div>
+            </div>
+            <!--操作证号-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>操作证号：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <input
+                  type="text" pInputText placeholder="请填写操作证号"
+                  [(ngModel)]="reviewOperateField.operationCertificateNo"
+                  [disabled]="!!reviewOperateFieldCopy.operationCertificateNo">
+              </div>
+            </div>
+            <!--发证日期-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>发证日期：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <input
+                  type="text" pInputText placeholder="请填写发证日期，格式如：2020-01-01"
+                  [(ngModel)]="reviewOperateField.dateOfIssue"
+                  [disabled]="!!reviewOperateFieldCopy.dateOfIssue">
+              </div>
+            </div>
+            <!--复审年限-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>复审年限：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <input
+                  type="number" pInputText placeholder="复审年限，默认为3"
+                  [(ngModel)]="reviewOperateField.validityPeriod"
+                  [disabled]="!!reviewOperateFieldCopy.validityPeriod">
+              </div>
+            </div>
+          </div>
+          <!--复审-->
+          <div class="ui-g">
+            <!--第一次复审成绩-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>第一次复审成绩：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <input
+                  type="text" pInputText placeholder="请填写复审成绩"
+                  [(ngModel)]="reviewOperateField.oneReviewResults"
+                  [disabled]="!!reviewOperateFieldCopy.oneReviewResults">
+              </div>
+            </div>
+            <!--第一次复审时间-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>第一次复审时间：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <input
+                  type="text" pInputText placeholder="请填写复审时间，格式如：2020-01-01"
+                  [(ngModel)]="reviewOperateField.oneReviewTime"
+                  [disabled]="!!reviewOperateFieldCopy.oneReviewTime">
+              </div>
+            </div>
+            <!--第二次复审成绩-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>第二次复审成绩：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <input
+                  type="text" pInputText placeholder="请填写复审成绩"
+                  [disabled]="!!reviewOperateFieldCopy.towReviewResults || !(reviewOperateField.oneReviewResults)"
+                  [(ngModel)]="reviewOperateField.towReviewResults">
+              </div>
+            </div>
+            <!--第二次复审时间-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>第二次复审时间：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <input
+                  type="text" pInputText placeholder="请填写复审时间，格式如：2020-01-01"
+                  [disabled]="!!reviewOperateFieldCopy.towReviewTime || !(reviewOperateField.oneReviewResults)"
+                  [(ngModel)]="reviewOperateField.towReviewTime">
+              </div>
+            </div>
+            <!--第三次复审成绩-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>第三次复审成绩：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <input
+                  type="text" pInputText placeholder="请填写复审成绩"
+                  [disabled]="!!reviewOperateFieldCopy.threeReviewResults || !(reviewOperateFieldCopy.towReviewResults)"
+                  [(ngModel)]="reviewOperateField.threeReviewResults">
+              </div>
+            </div>
+            <!--第三次复审时间-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>第三次复审时间：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <input
+                  type="text" pInputText placeholder="请填写复审时间，格式如：2020-01-01"
+                  [disabled]="!!reviewOperateFieldCopy.threeReviewTime || !(reviewOperateFieldCopy.towReviewResults)"
+                  [(ngModel)]="reviewOperateField.threeReviewTime">
+              </div>
+            </div>
+            <!--第四次复审成绩-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>第四次复审成绩：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <input
+                  type="text" pInputText placeholder="请填写复审成绩"
+                  [disabled]="!!reviewOperateFieldCopy.fourReviewResults  || !(reviewOperateField.threeReviewResults)"
+                  [(ngModel)]="reviewOperateField.fourReviewResults">
+              </div>
+            </div>
+            <!--第四次复审时间-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>第四次复审时间：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <input
+                  type="text" pInputText placeholder="请填写复审时间，格式如：2020-01-01"
+                  [disabled]="!!reviewOperateFieldCopy.fourReviewTime  || !(reviewOperateField.threeReviewResults)"
+                  [(ngModel)]="reviewOperateField.fourReviewTime">
+              </div>
+            </div>
+            <!--第五次复审成绩-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>第五次复审成绩：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <input
+                  type="text" pInputText placeholder="请填写复审成绩"
+                  [disabled]="!!reviewOperateFieldCopy.fiveReviewResults || !(reviewOperateField.fourReviewResults)"
+                  [(ngModel)]="reviewOperateField.fiveReviewResults">
+              </div>
+            </div>
+            <!--第五次复审时间-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>第五次复审时间：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <input
+                  type="text" pInputText placeholder="请填写复审时间，格式如：2020-01-01"
+                  [disabled]="!!reviewOperateFieldCopy.fiveReviewTime || !(reviewOperateField.fourReviewResults)"
+                  [(ngModel)]="reviewOperateField.fiveReviewTime">
+              </div>
+            </div>
+            <!--第六次复审成绩-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>第六次复审成绩：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <input
+                  type="text" pInputText placeholder="请填写复审成绩"
+                  [disabled]="!!reviewOperateFieldCopy.sixReviewResults || !(reviewOperateFieldCopy.fiveReviewResults)"
+                  [(ngModel)]="reviewOperateField.sixReviewResults">
+              </div>
+            </div>
+            <!--第六次复审时间-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>第六次复审时间：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <input
+                  type="text" pInputText placeholder="请填写复审时间，格式如：2020-01-01"
+                  [disabled]="!!reviewOperateFieldCopy.sixReviewTime || !(reviewOperateFieldCopy.fiveReviewResults)"
+                  [(ngModel)]="reviewOperateField.sixReviewTime">
+              </div>
+            </div>
+          </div>
+          <!--备注-->
+          <div class="ui-g">
+            <div class="ui-g-12 ui-md-12">
+              <label class="ui-g-2 ui-md-2 label">
+                <span>请填写备注：</span>
+              </label>
+              <div class="ui-g-10 ui-md-10 input">
+                <textarea [rows]="5" [cols]="30" [(ngModel)]="reviewOperateField.remarks" pInputTextarea autoResize="autoResize" placeholder="请填写备注"></textarea>
+              </div>
+            </div>
+          </div>
+        </p-scrollPanel>
+      </div>
+      <div style="width: 100%;height: 40vh;overflow: hidden" *ngIf="!(reviewOperateFlag === 'update')">
+        <!--取消复审备注-->
+        <div class="ui-g">
+          <div class="ui-g-12 ui-md-12">
+            <label class="ui-g-2 ui-md-2 label">
+              <span>取消备注：</span>
+            </label>
+            <div class="ui-g-10 ui-md-10 input">
+              <textarea
+                [rows]="5" [cols]="30" pInputTextarea
+                [(ngModel)]="reviewInfoHandle.reasonForHandling"
+                autoResize="autoResize" placeholder="请填写取消原因">
+              </textarea>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <p-footer>
+        <button pButton label="确定" (click)="reviewOperate(reviewOperateFlag = 'save')"></button>
+        <button pButton label="取消" class="ui-button-pink" (click)="reviewOperateModal = false"></button>
+      </p-footer>
+    </p-dialog>
   </div>
 </div>

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {PageOption, ScsContentField, ScsContentFieldClass, TableHeader} from '../../../../common/public/Api';
+import {PageOption, TableHeader} from '../../../../common/public/Api';
 import {SafetrainService} from '../../../../common/services/safetrain.service';
 import {Observable} from 'rxjs';
 @Component({
@@ -20,63 +20,93 @@ export class ScsContentsComponent implements OnInit {
   ]; // 表头字段
   public contentsTableData: any[]; // 表体数据
   public contentsNowPage: number = 1; // 当前页
-  public contentsOperateFlag: any ; // 操作标识
-  public contentsOperateField: ScsContentField = new ScsContentFieldClass() ; // 操作字段
+  public contentsOperateFlag: string ; // 操作标识
+  public contentsOperateField: FormData = new FormData(); // 操作字段
   public contentsOperateModal: boolean = false; // 模态框
-  public contentsClassifyOptions: any; // 模态框
+  public contentsClassifyOptions: any[] = []; // 下拉选框option
+  public contentsClassifySelected: any; // 下拉选框的选择内容
   constructor(
     private safeSrv: SafetrainService,
   ) { }
 
   ngOnInit() {
-    this.specialDataInit(this.contentsNowPage, this.contentsPageOption.pageSize);
+    this.contentsDataInit(this.contentsNowPage, this.contentsPageOption.pageSize);
+    // 分类初始化
     this.safeSrv.getScsContentsClassify().subscribe((res) => {
-      console.log(res);
+      this.contentsClassifyOptions = res.data;
     });
   }
-// 数据初始化
-  private specialDataInit(pageNo, pageSize) {
+ // 数据初始化
+  private contentsDataInit(pageNo, pageSize) {
     this.safeSrv.getScsContentsList({pageNo, pageSize}).subscribe((res) => {
       this.contentsTableData = res.data.contents;
       this.contentsPageOption.totalRecord = res.data.totalRecord;
-      this.contentsOperateFlag = 'add';
     });
   }
 
-  // 角色操作代理请求函数
-  private specialHttpOperate(test: Observable<any>) {
+  // 操作代理请求函数
+  private contentsHttpOperate(test: Observable<any>) {
     test.subscribe(() => {
       // 操作成功后重新初始化数据列表
       this.contentsOperateModal = false;
-      this.specialDataInit(this.contentsNowPage, this.contentsPageOption.pageSize);
+      this.contentsDataInit(this.contentsNowPage, this.contentsPageOption.pageSize);
     });
   }
 
-  // 特殊台账操作操作
+  // 搜索请求
+  private contentsSearchOperate() {
+    const searchField = {
+      pageNo: this.contentsNowPage,
+      pageSize: this.contentsPageOption.pageSize,
+      value: this.contentsClassifySelected.id
+    };
+    this.safeSrv.searchScsContentsInfo(searchField).subscribe((res) => {
+      this.contentsTableData = res.data.contents;
+      this.contentsPageOption.totalRecord = res.data.totalRecord;
+    });
+  }
+
+  // 操作
   public contentsOperate(flag: string, item?: any) {
     switch (flag) {
-      // 添加操作初始化
-      case 'add':
-        this.contentsOperateModal = true;
-        this.contentsOperateField = Object.assign({}, new ScsContentFieldClass());
+      // 查看操作
+      case 'view':
+        window.open(item.resourcePath);
         break;
       // 保存操作
       case 'save':
-        console.log(item);
-        // this.specialHttpOperate(this.safeSrv.addArchivesInfo(this.contentsOperateField));
+        this.contentsOperateField.append('contentCategoryId', this.contentsClassifySelected.id);
+        this.contentsOperateField.append('file', item.files[0]);
+        this.contentsHttpOperate(this.safeSrv.addScsContentsInfo(this.contentsOperateField));
         break;
       // 删除操作
       case 'del':
-        console.log('暂时不做');
+        this.contentsHttpOperate(this.safeSrv.delScsContentsInfo({data: [{id: item.id}]}));
+        break;
+      // 筛选搜索
+      case 'search':
+        if (!this.contentsClassifySelected) {
+          this.contentsDataInit(this.contentsNowPage = 1, this.contentsPageOption.pageSize);
+          break;
+        }
+        this.contentsSearchOperate();
+        break;
+      // 搜索重置
+      case 'reset':
+        if ( !this.contentsClassifySelected) {
+          this.contentsDataInit(this.contentsNowPage = 1, this.contentsPageOption.pageSize);
+        }
         break;
     }
   }
 
   // 分页操作
   public contentsPageEvent(page) {
-    console.log(page);
-  }
-  onBasicUpload(item) {
-    console.log(item);
+    this.contentsNowPage = page;
+    if (!this.contentsClassifySelected) {
+      this.contentsDataInit(page, this.contentsPageOption.pageSize);
+      return;
+    }
+    this.contentsSearchOperate();
   }
 }
