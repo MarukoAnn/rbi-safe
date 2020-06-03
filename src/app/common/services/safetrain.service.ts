@@ -124,7 +124,34 @@ export class SafetrainService {
   public searchScsQuestionSortInfo(params?: {}): Observable<any> {
     return this.http.post(`/getAllSubjectStoreName`, params);
   }
-
+  /**
+   * 培训题库分页
+   * @param params
+   */
+  public queryScsQuestionPageInfo(params: any): Observable<any> {
+    return this.http.post(`/safeSubject/getSafeSubjectByPage`, params);
+  }
+  /**
+   * 培训题库修改
+   * @param params
+   */
+  public editScsQuestionPageInfo(params: any): Observable<any> {
+    return this.http.post(`/safeSubject/updateSafeSubjectById`, params);
+  }
+  /**
+   * 培训题库删除
+   * @param params
+   */
+  public delScsQuestionPageInfo(params: any): Observable<any> {
+    return this.http.post(`/safeSubject/deleteSafeSubjectById`, params);
+  }
+  /**
+   * 培训题库添加
+   * @param params
+   */
+  public addScsQuestionPageInfo(params: any): Observable<any> {
+    return this.http.post(`/safeSubject/insertSafeSubject`, params);
+  }
   //                                    题库分类
   /*---------------------------------------------------------------------------------------------------------*/
   /**

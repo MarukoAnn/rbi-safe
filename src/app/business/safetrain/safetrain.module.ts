@@ -17,7 +17,19 @@ import {FormsModule} from '@angular/forms';
 import {BasicTableModule} from '../../common/components/basic-table/basic-table.module';
 import {InputTextModule} from 'primeng/inputtext';
 import {ButtonModule} from 'primeng/button';
-import {CalendarModule, DialogModule, DropdownModule, FileUploadModule, InputTextareaModule, RadioButtonModule, ScrollPanelModule, StepsModule, TabViewModule, TreeModule} from 'primeng/primeng';
+import {
+  CalendarModule,
+  CheckboxModule,
+  DialogModule,
+  DropdownModule,
+  FileUploadModule,
+  InputTextareaModule,
+  RadioButtonModule,
+  ScrollPanelModule,
+  StepsModule,
+  TabViewModule,
+  TreeModule
+} from 'primeng/primeng';
 import {StArchivesComponent} from './st-archives/st-archives.component';
 import {ArchivesSpecialComponent} from './st-archives/archives-special/archives-special.component';
 import {TableModule} from 'primeng/table';
@@ -28,6 +40,7 @@ import { ArchivesEducateComponent } from './st-archives/archives-educate/archive
 import { ArchivesManageComponent } from './st-archives/archives-manage/archives-manage.component';
 import { ArchivesDailyComponent } from './st-archives/archives-daily/archives-daily.component';
 import { ScsSortComponent } from './st-content-seting/scs-sort/scs-sort.component';
+import { StMytrainFileComponent } from './st-mytrain-file/st-mytrain-file.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +61,8 @@ import { ScsSortComponent } from './st-content-seting/scs-sort/scs-sort.componen
     ArchivesEducateComponent,
     ArchivesManageComponent,
     ArchivesDailyComponent,
-    ScsSortComponent
+    ScsSortComponent,
+    StMytrainFileComponent
   ],
   imports: [
     CommonModule,
@@ -70,7 +84,8 @@ import { ScsSortComponent } from './st-content-seting/scs-sort/scs-sort.componen
     RadioButtonModule,
     InputTextareaModule,
     FileUploadModule,
-    QuestionTemplateModule
+    QuestionTemplateModule,
+    CheckboxModule
   ],
   providers: []
 })

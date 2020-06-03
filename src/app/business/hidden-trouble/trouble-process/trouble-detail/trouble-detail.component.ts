@@ -33,8 +33,10 @@ export class TroubleDetailComponent implements OnInit {
   public addPlanFile: any;
   public addReportFile: any;
   public isHandle: boolean = false;
+  public specifiedRectificationTime: any;
   public esDate: any = Es;
   public code: any;
+  public revieLabelText: string = '整改评估';
   public isDownLoadStatus: boolean = false;
   public btnList: Array<object> = [];
   public hidTypeList: Array<object> = [
@@ -61,7 +63,7 @@ export class TroubleDetailComponent implements OnInit {
     this.addReport = this.fb.group({
       troubleshootingTime: new FormControl({value: '', disabled: true}, Validators.required),
       companyName: new FormControl({value: '', disabled: true}, Validators.required), // 公司名称
-      copyOrganizationName: new FormControl({value: '', disabled: true}, Validators.required), // 车间名字
+      workshopName: new FormControl({value: '', disabled: true}, Validators.required), // 车间名字
       className: new FormControl({value: '', disabled: true}, Validators.required), // 班主名称
       factoryName: new FormControl({value: '', disabled: true}, Validators.required), // 工厂名称
       ifControlMeasures: new FormControl({value: '', disabled: true}, Validators.required), // 控制措施
@@ -96,9 +98,10 @@ export class TroubleDetailComponent implements OnInit {
       // this.addReport.setControl('ifDeal', new FormControl({value: '', disabled: true}, Validators.required));
 
       const list = ['troubleshootingTime', 'ifControlMeasures', 'hidDangerContent', 'hidDangerGrade', 'ifRectificationPlan',
-        'ifDeal', 'organizationId', 'organizationName', 'className', 'companyName', 'copyOrganizationName', 'factoryName'];
+        'ifDeal', 'organizationId', 'organizationName', 'className', 'companyName', 'workshopName', 'factoryName'];
       setValueToFromValue(list, res.data.hidDangerDO, this.addReport);
       // 隐患类型
+      this.specifiedRectificationTime = res.data.hidDangerDO['specifiedRectificationTime'];
       const typeList = [];
       this.hidTypeList.forEach(val => {
         if (res.data.hidDangerDO[val['name']] === 1){
@@ -142,7 +145,7 @@ export class TroubleDetailComponent implements OnInit {
   // 判断是否处理
   public  selectHandleType(e): void {
     this.isHandle = e === 1;
-    const paraList = ['governanceFunds', 'completionTime', 'completionSituation', 'afterImg', 'plan', 'report'];
+    const paraList = ['governanceFunds', 'completionTime', 'completionSituation', 'afterImg',];
     if ( e === 1){
       // 如果是处理 则设置处理的参数未必填
       paraList.forEach(val => {
@@ -168,8 +171,8 @@ export class TroubleDetailComponent implements OnInit {
     switch (e) {
       case '完成整改': this.compelteReportClick(); break;
       case '通知整改': this.noticeToRectifyClick(); break;
-      case '审核通过': this.showReViewDialog = true; break;
-      case '审核不通过': this.reviewNoToPassClick(); break;
+      case '审核通过': this.showReViewDialog = true; this.revieLabelText = '整改评估'; break;
+      case '审核不通过': this.showReViewDialog = true; this.revieLabelText = '审核原因'; break;
       case '上报处理': this.submitReportToSuperiorClick(); break;
     }
   }
@@ -225,7 +228,7 @@ export class TroubleDetailComponent implements OnInit {
   }
   // 通知整改
   public  noticeToRectifyClick(): void {
-     this.router.navigate(['home/trouble/process/notice'], {queryParams: {code: this.code}});
+     this.router.navigate(['home/trouble/process/notice'], {queryParams: {code: this.code, time: this.specifiedRectificationTime}});
   }
   // 上报处理
   public  submitReportToSuperiorClick(): void {
@@ -245,12 +248,13 @@ export class TroubleDetailComponent implements OnInit {
     this.ImageClear.clearImage();
     this.isDownLoadStatus = false;
     this.isHandle = false;
+    this.revieLabelText = '整改评估';
   }
   // 转换json对象为formdata 对象
   private setDataConvertToFromData(data): void{
     for (const key in data){
       if (key === 'report' || key === 'plan'){
-        this.formData.append(key, key === 'plan' ? (this.addPlanFile === undefined ? '' : this.addPlanFile) : (this.addReportFile === undefined ? '': this.addReportFile));
+        this.formData.append(key, key === 'plan' ? (this.addPlanFile === undefined ? '' : this.addPlanFile) : (this.addReportFile === undefined ? '' : this.addReportFile));
       }else if (key !== 'afterImg') {
         this.formData.append(key, data[key]);
       }
@@ -259,14 +263,18 @@ export class TroubleDetailComponent implements OnInit {
   // 审核通过
   public  reviewToPassClick(): void {
       if (this.rectificationEvaluate !== ''){
-        this.toolSrv.setConfirmation('审核通过', '审核通过', () => {
-           this.troubleSrv.reviewToPass({hidDangerCode: this.code, rectificationEvaluate: this.rectificationEvaluate}).subscribe(val => {
-             this.resetAllData();
-             this.showReViewDialog = false;
-             this.rectificationEvaluate = '';
-             this.router.navigate(['home/trouble/process/list']);
-           });
-        });
+        if (this.revieLabelText === '整改评估'){
+          this.toolSrv.setConfirmation('审核通过', '审核通过', () => {
+            this.troubleSrv.reviewToPass({hidDangerCode: this.code, rectificationEvaluate: this.rectificationEvaluate}).subscribe(val => {
+              this.resetAllData();
+              this.showReViewDialog = false;
+              this.rectificationEvaluate = '';
+              this.router.navigate(['home/trouble/process/list']);
+            });
+          });
+        }else {
+          this.reviewNoToPassClick();
+        }
       }else {
         this.toolSrv.setToast('error', '操作错误', '带星号的参数未填写完整');
       }
@@ -274,7 +282,7 @@ export class TroubleDetailComponent implements OnInit {
 // 审核不通过
   public  reviewNoToPassClick(): void {
     this.toolSrv.setConfirmation('审核不通过', '审不核通过', () => {
-      this.troubleSrv.reviewNoToPass({hidDangerCode: this.code}).subscribe(val => {
+      this.troubleSrv.reviewNoToPass({hidDangerCode: this.code, rectificationEvaluate: this.rectificationEvaluate}).subscribe(val => {
         this.resetAllData();
         this.router.navigate(['home/trouble/process/list']);
       });

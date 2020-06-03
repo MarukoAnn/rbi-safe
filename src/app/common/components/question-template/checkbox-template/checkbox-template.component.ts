@@ -1,5 +1,5 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {RadioTemplate} from '../../../public/Api';
+import {questionTemplate} from '../../../public/Api';
 
 @Component({
   selector: 'app-checkbox-template',
@@ -10,7 +10,7 @@ export class CheckboxTemplateComponent implements OnInit {
   public selTitle: string = '请选择单个或者多个选项(多选)';
   @Output()
   public questionEvent: EventEmitter<any> = new EventEmitter<any>();
-  public radioTemplate: RadioTemplate = {
+  public radioTemplate: questionTemplate = {
     subject: '',
     option: '',
     rightKey: '',
@@ -65,4 +65,14 @@ export class CheckboxTemplateComponent implements OnInit {
     this.radioTemplate.rightKey = rightList.join('#');
   }
 
+  public clearData(): void {
+      this.checkBoxList = [
+        {label: `选项`, check: false, value: '1'},
+        {label: '选项', check: false, value: '2'},
+        {label: '选项', check: false, value: '3'},
+        {label: '选项', check: false, value: '4'},
+      ];
+      this.selTitle = '请选择单个或者多个选项(多选)';
+      this.rightKey = ['1'];
+  }
 }

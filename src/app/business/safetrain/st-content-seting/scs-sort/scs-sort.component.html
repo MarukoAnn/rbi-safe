@@ -40,37 +40,37 @@
       <button class="dialog-btn" (click)="addSortClick()">确认选择</button>
     </p-footer>
   </p-dialog>
-  <p-dialog header="添加单个条目" [(visible)]="showAddSingleQuestionDialog" [style]="{width: '700px'}">
-    <div class="ui-g ui-md ui-fiuld text-center">
-      <div class="ui-g-12 ui-md-12">
-        <div class="ui-g-4 ui-md-4 m-1">
-          <div *ngFor="let item of btnQuestionList" class="p-2">
-            <button class="selbtn-menu pl-2 pr-2" [ngClass]="{'selbtn-menu-active': item.active}" pButton type="button" [label]="item.label" (click)="questionClick(item)"></button>
-          </div>
-        </div>
-        <!--        <div class="m-2" style="width: 1px;height: 20vh;background: #4F88DE"></div>-->
-        <div class="ui-g-7 ui-md-7">
-          <div class="ui-g-12 ui-md-12" style="line-height: 4vh">
-            <div class="ui-g-3 ui-md-3" >
-              选择题库:
-            </div>
-            <div class="ui-g-9 ui-md-9 dialog-input">
-              <p-dropdown dropdownIcon="pi pi-caret-down" placeholder="请选择题库" ></p-dropdown>
-            </div>
-          </div>
-          <div class="ui-g-12 ui-md-12">
-            <app-radio-template (questionEvent)="radioEvent($event)" *ngIf="this.showQuesType === 1"></app-radio-template>
-            <app-checkbox-template (questionEvent)="radioEvent($event)" *ngIf="this.showQuesType === 2"></app-checkbox-template>
-            <app-judge-template (questionEvent)="radioEvent($event)" *ngIf="this.showQuesType === 3"></app-judge-template>
-            <app-fill-vacant-template (questionEvent)="radioEvent($event)" *ngIf="this.showQuesType === 4"></app-fill-vacant-template>
-          </div>
-        </div>
-      </div>
+<!--  <p-dialog header="添加单个条目" [(visible)]="showAddSingleQuestionDialog" [style]="{width: '700px'}">-->
+<!--    <div class="ui-g ui-md ui-fiuld text-center">-->
+<!--      <div class="ui-g-12 ui-md-12">-->
+<!--        <div class="ui-g-4 ui-md-4 m-1">-->
+<!--          <div *ngFor="let item of btnQuestionList" class="p-2">-->
+<!--            <button class="selbtn-menu pl-2 pr-2" [ngClass]="{'selbtn-menu-active': item.active}" pButton type="button" [label]="item.label" (click)="questionClick(item)"></button>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--        &lt;!&ndash;        <div class="m-2" style="width: 1px;height: 20vh;background: #4F88DE"></div>&ndash;&gt;-->
+<!--        <div class="ui-g-7 ui-md-7">-->
+<!--          <div class="ui-g-12 ui-md-12" style="line-height: 4vh">-->
+<!--            <div class="ui-g-3 ui-md-3" >-->
+<!--              选择题库:-->
+<!--            </div>-->
+<!--            <div class="ui-g-9 ui-md-9 dialog-input">-->
+<!--              <p-dropdown dropdownIcon="pi pi-caret-down" placeholder="请选择题库" ></p-dropdown>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--          <div class="ui-g-12 ui-md-12">-->
+<!--            <app-radio-template (questionEvent)="radioEvent($event)" *ngIf="this.showQuesType === 1"></app-radio-template>-->
+<!--            <app-checkbox-template (questionEvent)="radioEvent($event)" *ngIf="this.showQuesType === 2"></app-checkbox-template>-->
+<!--            <app-judge-template (questionEvent)="radioEvent($event)" *ngIf="this.showQuesType === 3"></app-judge-template>-->
+<!--            <app-fill-vacant-template (questionEvent)="radioEvent($event)" *ngIf="this.showQuesType === 4"></app-fill-vacant-template>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
 
-    </div>
-    <p-footer>
-      <button class="dialog-btn" (click)="showAddSingleQuestionDialog = false;resetAllData()">取消</button>
-      <button class="dialog-btn" (click)="UpdateLimitInfoClick()">确认选择</button>
-    </p-footer>
-  </p-dialog>
+<!--    </div>-->
+<!--    <p-footer>-->
+<!--      <button class="dialog-btn" (click)="showAddSingleQuestionDialog = false;resetAllData()">取消</button>-->
+<!--      <button class="dialog-btn" (click)="UpdateLimitInfoClick()">确认选择</button>-->
+<!--    </p-footer>-->
+<!--  </p-dialog>-->
 </div>

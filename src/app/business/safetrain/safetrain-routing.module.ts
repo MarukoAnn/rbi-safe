@@ -7,6 +7,7 @@ import {SafeTrainComponent} from './safe-train/safe-train.component';
 import {PlainEditComponent} from './st-plain/plain-edit/plain-edit.component';
 import {PlainListComponent} from './st-plain/plain-list/plain-list.component';
 import {StArchivesComponent} from './st-archives/st-archives.component';
+import {StMytrainFileComponent} from './st-mytrain-file/st-mytrain-file.component';
 
 
 const routes: Routes = [
@@ -26,6 +27,7 @@ const routes: Routes = [
         ]
       },
       {path: 'contentset', component: StContentSetingComponent},
+      {path: 'mytrainfile', component: StMytrainFileComponent},
     ]
   }
 ];

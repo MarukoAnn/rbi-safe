@@ -69,6 +69,7 @@ export class ArchivesDetailComponent implements OnInit {
       governanceFunds: new FormControl({value: '', disabled: true}), // 处理资金
       completionTime: new FormControl({value: '', disabled: true}), // 完成时间
       completionSituation: new FormControl({value: '', disabled: true}), // 完成情况
+      rectificationEvaluate: new FormControl({value: '', disabled: true}), // 完成情况
       afterImg: new FormControl({value: '', disabled: true}), // 排查后图片
       plan: new FormControl({value: '', disabled: true}), // 整改方案
       report: new FormControl({value: '', disabled: true}), // 验收报告
@@ -108,7 +109,7 @@ export class ArchivesDetailComponent implements OnInit {
            this.ImageOptionAfter.files.push(v.afterPicture);
          });
          this.ImageOptionAfter.showUploadIcon = false;
-         const lists = ['governanceFunds', 'completionTime', 'completionSituation'];
+         const lists = ['governanceFunds', 'completionTime', 'completionSituation', 'rectificationEvaluate'];
          setValueToFromValue(lists, val.data.hidDangerDO, this.addReport);
          this.setFileInfo(val.data.hidDangerDO);
        }

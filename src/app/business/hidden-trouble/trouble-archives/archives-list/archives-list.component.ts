@@ -56,6 +56,7 @@ export class ArchivesListComponent implements OnInit {
 
   public initarchivesListData(): void {
     this.archivesSrv.getTroubleArchiveListPageData({pageNo: this.pageNo, pageSize: 10}).subscribe(val => {
+      console.log(val);
       this.archivesListContent = val.data.contents.map(v => {
         v.processingStatus = setVlaueToLabel(this.hidStatusOption, v.processingStatus );
         return v;
@@ -92,6 +93,7 @@ export class ArchivesListComponent implements OnInit {
           {field: 'rectificationNoticeTime', header: '通知整改时间'},
           {field: 'completionTime', header: '整改完成时间'},
           {field: 'specifiedRectificationTime', header: '整改截止时间'},
+          {field: 'processingStatus', header: '状态'},
           {field: 'operating', header: '操作'}
         ],
         style: {background: this.table.tableheader.background, color: this.table.tableheader.color, height: '6vh'}

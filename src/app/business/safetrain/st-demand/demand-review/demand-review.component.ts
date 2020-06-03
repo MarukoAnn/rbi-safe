@@ -23,7 +23,7 @@ export class DemandReviewComponent implements OnInit {
   ]; // 表头字段
   public reviewTableData: any[]; // 表体数据
   public reviewNowPage: number = 1; // 当前页
-  public reviewOperateFlag: 'update' | 'save' | 'del' | 'add' ; // 操作标识
+  public reviewOperateFlag: any; // 操作标识
   public reviewOperateField: SpecialField = new SpecialFieldClass(); // 操作字段
   public reviewOperateFieldCopy: SpecialField = new SpecialFieldClass(); // 状态判断用
   public reviewOperateModal: boolean = false; // 模态框

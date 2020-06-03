@@ -1,13 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {Subscription} from 'rxjs';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {OragizationTree} from '../../../../common/public/Api';
+import {AddQuestion, ChangeQuestion, OragizationTree, QuestionItemClass} from '../../../../common/public/Api';
 import {ThemeService} from '../../../../common/public/theme.service';
-import {SetingService} from '../../../../common/services/seting.service';
 import {PublicMethodService} from '../../../../common/public/public-method.service';
-import {DatePipe} from '@angular/common';
 import {GlobalService} from '../../../../common/services/global.service';
 import {SafetrainService} from '../../../../common/services/safetrain.service';
+import {RadioTemplateComponent} from '../../../../common/components/question-template/radio-template/radio-template.component';
+import {CheckboxTemplateComponent} from '../../../../common/components/question-template/checkbox-template/checkbox-template.component';
+import {FillVacantTemplateComponent} from '../../../../common/components/question-template/fill-vacant-template/fill-vacant-template.component';
+import {JudgeTemplateComponent} from '../../../../common/components/question-template/judge-template/judge-template.component';
+import {setVlaueToLabel} from '../../../../common/public/contents';
 
 @Component({
   selector: 'app-scs-question',
@@ -15,16 +17,32 @@ import {SafetrainService} from '../../../../common/services/safetrain.service';
   styleUrls: ['./scs-question.component.scss']
 })
 export class ScsQuestionComponent implements OnInit {
-  public optionTable: any;
-  public questionSelect = [];
+  // @ts-ignore
+  @ViewChild('radioTemplateComponent') radioTemplate: RadioTemplateComponent;
+  // @ts-ignore
+  @ViewChild('checkboxTemplateComponent') checkTemplate: CheckboxTemplateComponent;
+  // @ts-ignore
+  @ViewChild('judgeTemplateComponent') judgeTemplate: JudgeTemplateComponent;
+  // @ts-ignore
+  @ViewChild('fillVacantTemplateComponent') fillVancantTemplate: FillVacantTemplateComponent;
+  public questionItem: QuestionItemClass = new QuestionItemClass();
+  public changeQuestion: ChangeQuestion = new ChangeQuestion();
+  public addQuestion: AddQuestion = new AddQuestion();
   public table = {
     tableheader: {background: '#F5F6FA', color: '#C3C3C5'},
     tableContent: [
       {background: '#FFFFFF', color: '#9899A0'}],
-    detailBtn: ['#3B86FF', '#FF8A9A']
+    detailBtn: ['#FF8A9A']
   };
+  public questionTemplate: string = 'radioTemplate';
   public themeSub: Subscription;
-  public questionContent: any;
+  public questionContent: any[] = [];
+  public questionTitle = [
+    {field: 'id', header: '序号'},
+    {field: 'subjectStoreName', header: '题库名称'},
+    {field: 'type', header: '题目类型'},
+    {field: 'operating', header: '操作'}
+  ];
   public pageNo = 1;
   public pageOption: any;
 
@@ -40,11 +58,11 @@ export class ScsQuestionComponent implements OnInit {
   public searchData: any;
   public showQuesType = 1;
   // 添加单个条目
-  public btnQuestionList: Array<object> = [
-    {label: '单选题', active: true, value: 1},
-    {label: '多选题', active: false, value: 2},
-    {label: '判断题', active: false, value: 3},
-    {label: '填空题', active: false, value: 4},
+  public btnQuestionList  = [
+    {label: '单选题', active: true, value: 1, template: 'radioTemplate'},
+    {label: '多选题', active: false, value: 2, template: 'checkTemplate'},
+    {label: '判断题', active: false, value: 3, template: 'judgeTemplate'},
+    {label: '填空题', active: false, value: 4, template: 'fillVancantTemplate'},
   ];
 
   // 权限树相关
@@ -55,8 +73,6 @@ export class ScsQuestionComponent implements OnInit {
     private themeSrv: ThemeService,
     private safeSrv: SafetrainService,
     private toolSrv: PublicMethodService,
-    // private fb: FormBuilder,
-    // private dataPipe: DatePipe,
     private globalSrv: GlobalService
   ) {
     this.themeSub =  this.themeSrv.changeEmitted$.subscribe(
@@ -64,26 +80,16 @@ export class ScsQuestionComponent implements OnInit {
         this.table.tableheader = value.table.header;
         this.table.tableContent = value.table.content;
         this.table.detailBtn = value.table.detailBtn;
-        this.setTableOption(this.questionContent);
+        // this.setTableOption(this.questionContent);
       }
     );
   }
 
 
   ngOnInit() {
-    // this.addLimit = this.fb.group({
-    //   permissionName: new FormControl('', Validators.required),
-    //   operateCode: new FormControl('', Validators.required),
-    //   systemId: new FormControl('', Validators.required),
-    //   enabled: new FormControl('', Validators.required),
-    //   description: new FormControl(''),
-    //   parentId: new FormControl(''),
-    //   name: new FormControl(''),
-    //   id: new FormControl(''),
-    // });
-    this.initLimitData();
-    this.getQuestionSortInfoConfig();
+    this.initQuestionData();
   }
+  // 初始化题目类型信息
   public getQuestionSortInfoConfig(): void {
     this.safeSrv.searchScsQuestionSortInfo().subscribe(val => {
       val.data.forEach(res => {
@@ -92,71 +98,85 @@ export class ScsQuestionComponent implements OnInit {
     });
   }
 
+  // 初始化题目列表
+  public initQuestionData(): void {
+    this.questionContent = [];
+    this.safeSrv.queryScsQuestionPageInfo({pageNo: this.pageNo, pageSize: 10}).subscribe(
+      val => {
+         console.log(val);
+         this.pageOption = {
+           totalRecord: val.data.totalRecord,
+           pageSize: val.data.pageSize
+         };
+         val.data.contents.forEach( res => {
+         res.safeSubject.subjectType = setVlaueToLabel(this.btnQuestionList, res.safeSubject.subjectType);
+          // res.res.safeSubject.subjectType
+         this.questionItem = {
+            title: res.safeSubject.subject,
+            option: res.safeSubjectOptionList,
+            sureKey: res.safeSubject.subjectType === 2 ? res.safeSubject.rightKey.split('#') : res.safeSubject.rightKey,
+            type: res.safeSubject.subjectType};
+         this.questionContent.push({
+            id: res.safeSubject.id,
+            item: this.questionItem,
+            subjectStoreName: res.safeSubject.subjectStoreName,
+            subjectStoreId: res.safeSubject.subjectStoreId,
+            type: res.safeSubject.subjectType
+          });
+         });
 
-  public initLimitData(): void {
-    // this.setSrv.getPermissionInfoPageData({pageNo: this.pageNo, pageSize: 10}).subscribe(val => {
-    //   this.questionContent = val.data.contents.map(v => {
-    //     v.enabled  = v.enabled === 1 ? '启用' : '未启用';
-    //     return v;
-    //   });
-    //   this.pageOption = {totalRecord: val.data.totalRecord, pageSize: val.data.pageSize};
-    //   // this.pageOption = {pageSize: ''};
-    //   this.setTableOption(this.questionContent);
-    // });
+    });
   }
-  public  selectData(e): void {
-    this.questionSelect = e;
+  // 删除题目
+  public  delClick(e): void {
+    this.toolSrv.setConfirmation('删除', '删除该项', () => {
+      this.delData.push({id: e.id});
+      this.delQuestionInfo(this.delData);
+    });
   }
-  public  DetailClick(e): void {
-    if (e.label === '删除'){
-      this.toolSrv.setConfirmation('删除', '删除该项', () => {
-        this.delData.push({id: e.id});
-        this.delLimitInfo(this.delData);
+  // 添加题目选项
+  public  addOptionItem(item): void {
+      item.push({option: ''});
+  }
+  // 删除题目选项
+  public  delOptionItem(item, index): void {
+      item.splice(index, 1);
+  }
+  // 保存编辑
+  public  saveEditDataClick(data): void {
+    this.toolSrv.setConfirmation('保存编辑', '保存编辑', () => {
+      this.changeQuestion.id = data.id;
+      const option = [];
+      const IndexList = [];
+      data.item.option.forEach((val, index) => {
+        option.push(val.option);
+        IndexList.push(index + 1);
       });
-    }else {
-      const list = ['id', 'permissionName', 'operateCode', 'parentId', 'description', 'systemId', 'enabled'];
-      list.forEach(val => {
-        const a = {};
-        if (val === 'enabled'){
-          e.data[val] = e.data[val] === '启用' ? 1 : 0;
-        }
-        a[val] = e.data[val];
-        // this.addLimit.patchValue(a);
+      this.changeQuestion.option = option.join('#');
+      this.changeQuestion.order = IndexList.join('#');
+      this.changeQuestion.subject = data.item.title;
+      if (data.item.type !== 4){
+        this.changeQuestion.rightKey = data.item.type === 2 ? data.item.sureKey.join('#') : data.item.sureKey;
+      }else {
+        this.changeQuestion.rightKey = this.changeQuestion.option;
+      }
+      this.changeQuestion.subjectType = data.item.type;
+      this.changeQuestion.subjectStoreId = data.subjectStoreId;
+      this.safeSrv.editScsQuestionPageInfo(this.changeQuestion).subscribe(val => {
+        this.initQuestionData();
+        this.resetAllData();
       });
-      // this.addLimit.patchValue({name: e.data.systemName});
-    }
+    });
   }
-  // set table data （设置列表数据）
-  public  setTableOption(data1): void {
-    this.optionTable = {
-      width: '100%',
-      header: {
-        data:  [
-          {field: 'id', header: '序号'},
-          {field: 'permissionName', header: '权限名称'},
-          {field: 'operateCode', header: '权限编号'},
-          {field: 'parentId', header: '父级id'},
-          {field: 'enabled', header: '是否启用'},
-          {field: 'systemName', header: '系统名称'},
-          {field: 'operating', header: '操作'}
-        ],
-        style: {background: this.table.tableheader.background, color: this.table.tableheader.color, height: '6vh'}
-      },
-      Content: {
-        data: data1,
-        styleone: {background: this.table.tableContent[0].background, color: this.table.tableContent[0].color, textAlign: 'center', height: '3vw'},
-      },
-      type: 2,
-      tableList:  [{label: '查看', color: this.table.detailBtn[0]}, {label: '删除', color: this.table.detailBtn[1]}]
-    };
+
+  // 收缩行
+  public  closeRowClick(e): void {
+      this.initQuestionData();
   }
   // search Data (搜索事件)
   public  searchDataClick(): void {
-    // this.setSrv.queryPermissionInfoById({id: this.searchData}).subscribe(res => {
-    //   console.log(res);
-    // });
   }
-  // 试题点击
+  // 试题切换
   public  questionClick(item): void {
     this.showQuesType = item.value;
     this.btnQuestionList.forEach(val => {
@@ -167,78 +187,62 @@ export class ScsQuestionComponent implements OnInit {
   }
   // Paging event (分页事件)
   public  clickEvent(e): void {
+    console.log(e);
     this.pageNo = e;
-    this.initLimitData();
+    this.initQuestionData();
   }
+  // 试题改变事件
   public  radioEvent(e): void {
-      console.log(e);
+      for(let key in e){
+        this.addQuestion[key] = e[key];
+      }
   }
   // 删除请求
-  public  delLimitInfo(data): void {
-    // this.setSrv.delPermissionInfo(data).subscribe(res => {
-    //   this.initLimitData();
-    //   this.resetAllData();
-    // });
+  public  delQuestionInfo(value): void {
+     this.safeSrv.delScsQuestionPageInfo({data: value}).subscribe(val => {
+        this.initQuestionData();
+        this.resetAllData();
+     });
   }
+  // 显示上传文件弹窗
   public  showUploadFileClick(): void {
     this.showUploadFileDialog = true;
   }
 
   public  resetAllData(): void {
     this.delData = [];
-    this.dataTree = null;
-    this.questionSelect = [];
+    this.addQuestion = new AddQuestion();
+    this.changeQuestion = new ChangeQuestion();
   }
   // 添加权限
   public  addLimitInfoClick(): void {
-    // if (this.addLimit.valid){
-    //   const data = JSON.parse(JSON.stringify(this.addLimit.value));
-    //   delete data.name;
-    //   delete data.id;
-    //   this.toolSrv.setConfirmation('添加', '添加该权限', () => {
-    //     this.setSrv.addPermissionInfo(data).subscribe(val => {
-    //       this.showAddLimitDialog = false;
-    //       this.resetAllData();
-    //       this.initLimitData();
-    //     });
-    //   });
-    // }else {
-    //   this.toolSrv.setToast('error', '添加失败', '数据未填写完整');
-    // }
   }
-  public  UpdateLimitInfoClick(): void {
-    // // console.log(this.addLimit.value);
-    // if (this.addLimit.valid){
-    //   const data = JSON.parse(JSON.stringify(this.addLimit.value));
-    //   delete data.name;
-    //   this.toolSrv.setConfirmation('修改', '修改该权限', () => {
-    //     this.setSrv.updatePermissionInfo(data).subscribe(val => {
-    //       this.showEditLimitDialog = false;
-    //       this.resetAllData();
-    //       this.initLimitData();
-    //     });
-    //   });
-    // }else {
-    //   this.toolSrv.setToast('error', '添加失败', '数据未填写完整');
-    // }
+  // 添加单个试题
+  public  AddQuestionSingleInfoClick(): void {
+    if (this.addQuestion.option !== undefined && this.addQuestion.subjectStoreId !== undefined){
+      this.toolSrv.setConfirmation('添加', '添加', () => {
+        this.btnQuestionList.forEach(val => {
+          if (val.active){
+            this.addQuestion.subjectType = val.value;
+            this.questionTemplate = val.template;
+          }
+        });
+        this.safeSrv.addScsQuestionPageInfo(this.addQuestion).subscribe(value => {
+          this.showAddSingleQuestionDialog = false;
+          this.initQuestionData();
+          this.resetAllData();
+          switch (this.questionTemplate) {
+            case 'radioTemplate': this.radioTemplate.clearData(); break;
+            case 'fillVancantTemplate': this.fillVancantTemplate.clearData(); break;
+            case 'checkTemplate': this.checkTemplate.clearData(); break;
+            case 'judgeTemplate': this.judgeTemplate.clearData(); break;
+            default:
+              break;
+          }
+        });
+      });
+    }else {
+      this.toolSrv.setToast('error', '操作错误', '数据未填写完整');
+    }
   }
-  // 树结构选择
-  public  dataTreeSureClick(): void {
-    // console.log(this.dataTree);
-    this.treeDialog = false;
-    // this.addLimit.patchValue({name: this.dataTree.label});
-    // if (this.dataTree.level === 1){
-    //   this.addLimit.patchValue({systemId: this.dataTree.value});
-    //   this.addLimit.patchValue({parentId: ''});
-    //
-    // }else {
-    //   this.addLimit.patchValue({parentId: this.dataTree.value});
-    //   this.addLimit.patchValue({systemId: this.dataTree.id});
-    // }
-  }
-
-  public  selectFile(e): void {
-
-  }
-
 }
