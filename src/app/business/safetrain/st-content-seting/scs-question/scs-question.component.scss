@@ -202,4 +202,13 @@
     border-left: 0;
     border-right: 0;
   }
+
+  //隐藏滚动条
+  ::ng-deep .custombar .ui-scrollpanel-bar {
+    background-color: rgba(0, 0, 0, 0);
+    transition: background-color .3s;
+  }
+  ::ng-deep .custombar .ui-scrollpanel-content{
+    padding: 0;
+  }
 }

@@ -11,8 +11,20 @@
         font-size: 24px;
         color: #ABABAB;
       }
-      .search {
-        position: relative;
+      .institution-search {
+        .ui-inputgroup {
+          display: inline-block;
+          margin-left: 1vw;
+          input{
+            border-radius: 20px 0 0 20px;
+            outline: none;
+          }
+          button{
+            //margin-top: 1px;
+            border-radius: 0 20px 20px 0;
+            border: 0;
+          }
+        }
       }
     }
   }
@@ -91,5 +103,16 @@
         padding: 0;
       }
     }
+  }
+
+  ::ng-deep .ui-inputgroup .ui-widget {
+    color: #8D8E96;
+    font-size: 14px;
+    //height: 3vh;
+    height: 32px;
+    border: 1px solid #F0F0F0;
+    //border-right: 0;
+    border-left: 0;
+    background: #F8F8F8;
   }
 }

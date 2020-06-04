@@ -1,3 +1,19 @@
 .fill-vacant-template{
-
+  .dialog-sel-Input{
+    color: #8D8E96;
+    input{
+      border: 0;
+      //width: 70%;
+    }
+    input:focus {
+      border: 1px solid #DEE0E5;
+    }
+    ::ng-deep .ui-button .ui-button-rounded{
+      outline:0 none !important;
+      border: 0;
+    }
+  }
+  ::ng-deep .ui-md-1, .ui-md-2, .ui-md-3, .ui-md-4, .ui-md-5, .ui-md-6, .ui-md-7, .ui-md-8, .ui-md-9, .ui-md-10, .ui-md-11, .ui-md-12{
+    padding: 0.2em;
+  }
 }

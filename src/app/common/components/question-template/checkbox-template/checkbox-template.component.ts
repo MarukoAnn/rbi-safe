@@ -1,5 +1,5 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {questionTemplate} from '../../../public/Api';
+import {QuestionTemplate} from '../../../public/Api';
 
 @Component({
   selector: 'app-checkbox-template',
@@ -8,13 +8,15 @@ import {questionTemplate} from '../../../public/Api';
 })
 export class CheckboxTemplateComponent implements OnInit {
   public selTitle: string = '请选择单个或者多个选项(多选)';
+  public score: number = 2;
   @Output()
   public questionEvent: EventEmitter<any> = new EventEmitter<any>();
-  public radioTemplate: questionTemplate = {
+  public radioTemplate: QuestionTemplate = {
     subject: '',
     option: '',
     rightKey: '',
-    order: ''
+    order: '',
+    score: null
   };
   public rightKey: Array<string> = ['1'];
 
@@ -54,25 +56,23 @@ export class CheckboxTemplateComponent implements OnInit {
       // @ts-ignore
       indexList.push(index + 1);
       // @ts-ignore
-      if (this.rightKey.includes(val.value.toString())){
-        // @ts-ignore
-        rightList.push(val.label);
-      }
     });
     this.radioTemplate.option = list.join('#');
     this.radioTemplate.order = indexList.join('#');
     this.radioTemplate.subject = this.selTitle;
-    this.radioTemplate.rightKey = rightList.join('#');
+    this.radioTemplate.rightKey = this.rightKey.join('#');
+    this.radioTemplate.score = this.score;
   }
 
   public clearData(): void {
       this.checkBoxList = [
-        {label: `选项`, check: false, value: '1'},
+        {label: '选项', check: false, value: '1'},
         {label: '选项', check: false, value: '2'},
         {label: '选项', check: false, value: '3'},
         {label: '选项', check: false, value: '4'},
       ];
       this.selTitle = '请选择单个或者多个选项(多选)';
       this.rightKey = ['1'];
+      this.score = 2;
   }
 }

@@ -8,6 +8,10 @@ import {PlainEditComponent} from './st-plain/plain-edit/plain-edit.component';
 import {PlainListComponent} from './st-plain/plain-list/plain-list.component';
 import {StArchivesComponent} from './st-archives/st-archives.component';
 import {StMytrainFileComponent} from './st-mytrain-file/st-mytrain-file.component';
+import {StOnlineExamComponent} from './st-online-exam/st-online-exam.component';
+import {DailyRecordComponent} from './st-mytrain-file/daily-record/daily-record.component';
+import {AptitudeCertificateComponent} from './st-mytrain-file/aptitude-certificate/aptitude-certificate.component';
+import {LevelEducationCardComponent} from './st-mytrain-file/level-education-card/level-education-card.component';
 
 
 const routes: Routes = [
@@ -28,6 +32,12 @@ const routes: Routes = [
       },
       {path: 'contentset', component: StContentSetingComponent},
       {path: 'mytrainfile', component: StMytrainFileComponent},
+      {path: 'exam', component: StOnlineExamComponent, children: [
+          {path: '', redirectTo: 'record', pathMatch: 'full'},
+          {path: 'record', component: DailyRecordComponent},
+          {path: 'certificate', component: AptitudeCertificateComponent},
+          {path: 'level', component: LevelEducationCardComponent},
+        ]},
     ]
   }
 ];

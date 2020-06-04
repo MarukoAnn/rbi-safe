@@ -1,5 +1,5 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {questionTemplate} from '../../../public/Api';
+import {QuestionTemplate} from '../../../public/Api';
 
 @Component({
   selector: 'app-fill-vacant-template',
@@ -9,13 +9,15 @@ import {questionTemplate} from '../../../public/Api';
 export class FillVacantTemplateComponent implements OnInit {
 
   public selTitle: string = '请输入填空题目';
+  public score: number = 2;
   @Output()
   public questionEvent: EventEmitter<any> = new EventEmitter<any>();
-  public radioTemplate: questionTemplate = {
+  public radioTemplate: QuestionTemplate = {
     subject: '',
     option: '',
     rightKey: '',
-    order: ''
+    order: '',
+    score: null
   };
   public rightKey: Array<string> = [];
   // 单选选择
@@ -57,6 +59,7 @@ export class FillVacantTemplateComponent implements OnInit {
     this.radioTemplate.order = indexList.join('#');
     this.radioTemplate.subject = this.selTitle;
     this.radioTemplate.rightKey = this.rightKey.join('#');
+    this.radioTemplate.score = this.score;
   }
 
  // 清除数据
@@ -64,5 +67,6 @@ export class FillVacantTemplateComponent implements OnInit {
      this.checkBoxList = [];
      this.rightKey = [];
      this.selTitle = '请输入填空题目';
+     this.score = 2;
  }
 }

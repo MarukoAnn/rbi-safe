@@ -1,0 +1,29 @@
+<div class="st-no-exam">
+  <div class="no-exam">
+    <p-table [columns]="dailyRectordTitle" [value]="dailyRectordContent" scrollHeight="50vh">
+      <ng-template pTemplate="header" let-columns>
+        <tr [ngStyle]="table.tableheader" class="text-center" style="height: 5vh">
+          <th *ngFor="let col of columns">
+            {{col.header}}
+          </th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-rowData let-columns="columns">
+        <tr [ngStyle]="table.tableContent[0]">
+          <td *ngFor="let col of columns.slice(0, columns.length -2)" class="text-center" style="height: 5vh;color: #5E5F6B;">
+            {{rowData[col.field]}}
+          </td>
+          <td *ngFor="let col of columns.slice(columns.length -2, columns.length -1)" class="text-center" style="height: 5vh;color: #7BE1BB;font-weight: bold">
+            {{rowData[col.field]}}
+          </td>
+          <td  class="text-center" style="height: 5vh"  *ngFor="let col of columns.slice(columns.length -1 ,  columns.length)">
+            <button pButton type="button" icon="iconfont iconbaseline-play_circle_filled-24px" [label]="rowData[col.field]" iconPos="right" class="ui-button-rounded"></button>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+  <div class="no-exam-pagination">
+    <app-pagination [option]="pageOption" (clickEvent)="clickEvent($event)"></app-pagination>
+  </div>
+</div>

@@ -220,11 +220,12 @@ export class ScsContentFieldClass implements ScsContentField{
 /**
  * 单选条目增加
  */
-export interface questionTemplate {
+export interface QuestionTemplate {
   rightKey: any;  // 正确答案
   subject: any;  // 试题题目
   order: any;  // 选项顺序
   option: any; // 选项数据
+  score: any; // 选项分数
 }
 
 /**
@@ -316,6 +317,7 @@ export class QuestionItemClass implements QuestionItem{
   option: Array<object>; // 选项
   sureKey: any; // 正确答案
   type: any; // 题目类型
+  score: any; // 题目分数
 }
 
 export interface Question {
@@ -324,8 +326,9 @@ export interface Question {
   subject?: any; // 题目
   subjectType?: any; // 题目类型(1:单选；2：多选；3：判断；4：填空
   option?: any; // 选择题的选项
-  order?: any; //	选项排序
-  subjectStoreId?: any; //	题库id
+  order?: any; // 	选项排序
+  subjectStoreId?: any; // 	题库id
+  score?: any; // 	题库分数
 }
 export class ChangeQuestion implements Question{
   id: any; // 题目id
@@ -333,14 +336,16 @@ export class ChangeQuestion implements Question{
   subject: any; // 题目
   subjectType: any; // 题目类型(1:单选；2：多选；3：判断；4：填空
   option: any; // 选择题的选项
-  order: any;  //选项排序
-  subjectStoreId?: any;  //题库id
+  order: any;  // 选项排序
+  subjectStoreId?: any;  // 题库id
+  score?: any;  // 题库分数
 }
 export class AddQuestion implements Question{
   rightKey: any; // 正确答案
   subject: any; // 题目
   subjectType: any; // 题目类型(1:单选；2：多选；3：判断；4：填空
   option: any; // 选择题的选项
-  order: any;  //选项排序
-  subjectStoreId?: any;  //题库id
+  order: any;  // 选项排序
+  subjectStoreId?: any;  // 题库id
+  score?: any;  // 题库分数
 }

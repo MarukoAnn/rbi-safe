@@ -96,7 +96,6 @@ export class TroubleListComponent implements OnInit {
           {field: 'completionTime', header: '整改完成时间'},
           {field: 'specifiedRectificationTime', header: '整改截止时间'},
           {field: 'processingStatus', header: '状态'},
-          {field: 'systemName', header: '系统名称'},
           {field: 'operating', header: '操作'}
         ],
         style: {background: this.table.tableheader.background, color: this.table.tableheader.color, height: '6vh'}

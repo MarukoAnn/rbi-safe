@@ -9,7 +9,7 @@ import {RadioTemplateComponent} from '../../../../common/components/question-tem
 import {CheckboxTemplateComponent} from '../../../../common/components/question-template/checkbox-template/checkbox-template.component';
 import {FillVacantTemplateComponent} from '../../../../common/components/question-template/fill-vacant-template/fill-vacant-template.component';
 import {JudgeTemplateComponent} from '../../../../common/components/question-template/judge-template/judge-template.component';
-import {setVlaueToLabel} from '../../../../common/public/contents';
+import {setLabelToVlaue, setVlaueToLabel} from '../../../../common/public/contents';
 
 @Component({
   selector: 'app-scs-question',
@@ -92,6 +92,7 @@ export class ScsQuestionComponent implements OnInit {
   // 初始化题目类型信息
   public getQuestionSortInfoConfig(): void {
     this.safeSrv.searchScsQuestionSortInfo().subscribe(val => {
+      this.sortQuestionOption = [];
       val.data.forEach(res => {
         this.sortQuestionOption.push({label: res.subjectStoreName, value: res.id});
       });
@@ -113,9 +114,12 @@ export class ScsQuestionComponent implements OnInit {
           // res.res.safeSubject.subjectType
          this.questionItem = {
             title: res.safeSubject.subject,
+            score: res.safeSubject.score,
             option: res.safeSubjectOptionList,
-            sureKey: res.safeSubject.subjectType === 2 ? res.safeSubject.rightKey.split('#') : res.safeSubject.rightKey,
-            type: res.safeSubject.subjectType};
+            sureKey: res.safeSubject.subjectType === '多选题' ?
+              res.safeSubject.rightKey.split('#') :  res.safeSubject.rightKey,
+            type: res.safeSubject.subjectType
+         };
          this.questionContent.push({
             id: res.safeSubject.id,
             item: this.questionItem,
@@ -155,12 +159,13 @@ export class ScsQuestionComponent implements OnInit {
       this.changeQuestion.option = option.join('#');
       this.changeQuestion.order = IndexList.join('#');
       this.changeQuestion.subject = data.item.title;
-      if (data.item.type !== 4){
-        this.changeQuestion.rightKey = data.item.type === 2 ? data.item.sureKey.join('#') : data.item.sureKey;
+      this.changeQuestion.score = data.item.score;
+      if (data.item.type !== '填空题'){
+        this.changeQuestion.rightKey = data.item.type === '多选题' ? data.item.sureKey.join('#') : data.item.sureKey;
       }else {
         this.changeQuestion.rightKey = this.changeQuestion.option;
       }
-      this.changeQuestion.subjectType = data.item.type;
+      this.changeQuestion.subjectType = setLabelToVlaue(this.btnQuestionList, data.item.type);
       this.changeQuestion.subjectStoreId = data.subjectStoreId;
       this.safeSrv.editScsQuestionPageInfo(this.changeQuestion).subscribe(val => {
         this.initQuestionData();
@@ -187,13 +192,12 @@ export class ScsQuestionComponent implements OnInit {
   }
   // Paging event (分页事件)
   public  clickEvent(e): void {
-    console.log(e);
     this.pageNo = e;
     this.initQuestionData();
   }
   // 试题改变事件
   public  radioEvent(e): void {
-      for(let key in e){
+      for (const key in e){
         this.addQuestion[key] = e[key];
       }
   }
@@ -210,6 +214,14 @@ export class ScsQuestionComponent implements OnInit {
   }
 
   public  resetAllData(): void {
+    switch (this.questionTemplate) {
+      case 'radioTemplate': this.radioTemplate.clearData(); break;
+      case 'fillVancantTemplate': this.fillVancantTemplate.clearData(); break;
+      case 'checkTemplate': this.checkTemplate.clearData(); break;
+      case 'judgeTemplate': this.judgeTemplate.clearData(); break;
+      default:
+        break;
+    }
     this.delData = [];
     this.addQuestion = new AddQuestion();
     this.changeQuestion = new ChangeQuestion();
@@ -231,14 +243,7 @@ export class ScsQuestionComponent implements OnInit {
           this.showAddSingleQuestionDialog = false;
           this.initQuestionData();
           this.resetAllData();
-          switch (this.questionTemplate) {
-            case 'radioTemplate': this.radioTemplate.clearData(); break;
-            case 'fillVancantTemplate': this.fillVancantTemplate.clearData(); break;
-            case 'checkTemplate': this.checkTemplate.clearData(); break;
-            case 'judgeTemplate': this.judgeTemplate.clearData(); break;
-            default:
-              break;
-          }
+
         });
       });
     }else {
