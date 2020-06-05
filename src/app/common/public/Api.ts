@@ -399,9 +399,9 @@ export class TrainingFieldAddClass implements TrainingField {
 export interface CompanyPersonParams {
   pageNo: string;
   pageSize: string;
-  organizationId: string;
-  employeeNumber: string;
-  name: string;
-  idCardNo: string;
-  position: string;
+  organizationId?: string; // 根据组织id查询
+  employeeNumber?: string; // 根据员工号查询
+  name?: string; // 根据姓名查询
+  idCardNo?: string; // 根据身份证号查询
+  position?: string; // 根据所在职位查询
 }

@@ -14,7 +14,7 @@ import {PaginationModule} from '../../../common/components/pagination/pagination
 import {BasicTableModule} from '../../../common/components/basic-table/basic-table.module';
 import {TableModule} from 'primeng/table';
 import {DialogModule} from 'primeng/dialog';
-import {CalendarModule, InputTextareaModule, ScrollPanelModule, TreeModule} from 'primeng/primeng';
+import {CalendarModule, InputTextareaModule, ScrollPanelModule, TooltipModule, TreeModule} from 'primeng/primeng';
 
 
 @NgModule({
@@ -39,7 +39,8 @@ import {CalendarModule, InputTextareaModule, ScrollPanelModule, TreeModule} from
     ScrollPanelModule,
     InputTextareaModule,
     CalendarModule,
-    TreeModule
+    TreeModule,
+    TooltipModule
   ],
 })
 export class StDemandModule { }
