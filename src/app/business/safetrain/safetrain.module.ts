@@ -26,7 +26,7 @@ import {
     InputTextareaModule,
     RadioButtonModule,
     ScrollPanelModule,
-    StepsModule, TabMenuModule,
+    StepsModule,
     TabViewModule,
     TreeModule
 } from 'primeng/primeng';
@@ -70,7 +70,7 @@ import { PtUnprocessedComponent } from './st-plain/plain-list/pt-unprocessed/pt-
     ArchivesManageComponent,
     ArchivesDailyComponent,
     PtProcessedComponent,
-    PtUnprocessedComponent
+    PtUnprocessedComponent,
     ArchivesDailyComponent,
     ScsSortComponent,
     StMytrainFileComponent,
