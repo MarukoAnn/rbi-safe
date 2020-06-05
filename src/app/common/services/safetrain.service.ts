@@ -109,11 +109,20 @@ export class SafetrainService {
   }
 
   /**
-   * 根据分类信息查询教育台账
+   * 教育台账分类信息查询
    * @param params
    */
   public searchEducateList(params: any): Observable<any> {
     return this.http.post(`/safeFourLevel/deleteSafeFourLevelById`, params);
+  }
+
+
+  /**
+   * 教育培训计划列表获取
+   * @param params
+   */
+  public getProgramList(params: any): Observable<any> {
+    return this.http.post(`/pagingSafeDemandReport`, params);
   }
   //                                    培训题库
   /*---------------------------------------------------------------------------------------------------------*/

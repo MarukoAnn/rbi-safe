@@ -13,7 +13,7 @@ export class StDemandComponent implements OnInit {
     {item: {label: '主要负责人/安全生产管理员', ftcolor: '#B3B3B3', bgc: '#EDEDED'}, simbol: 'principal'},
     {item: {label: '历史教育需求记录', ftcolor: '#B3B3B3', bgc: '#EDEDED'},  simbol: 'record'},
   ];
-  public simbol = 'review';
+  public simbol = 'report';
   constructor() { }
 
   ngOnInit() {

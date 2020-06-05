@@ -25,6 +25,11 @@ export class ScsContentsComponent implements OnInit {
   public contentsOperateModal: boolean = false; // 模态框
   public contentsClassifyOptions: any[] = []; // 下拉选框option
   public contentsClassifySelected: any; // 下拉选框的选择内容
+  public contentsFileOptions: any[] = [
+    {label: '视频', value: '视频'},
+    {label: '文件', value: '文件'},
+  ]; // 下拉选框option
+  public contentsFileSelected: any; // 下拉选框的选择内容
   constructor(
     private safeSrv: SafetrainService,
   ) { }
@@ -50,6 +55,7 @@ export class ScsContentsComponent implements OnInit {
       // 操作成功后重新初始化数据列表
       this.contentsOperateModal = false;
       this.contentsDataInit(this.contentsNowPage, this.contentsPageOption.pageSize);
+      this.contentsOperateField  = new FormData();
     });
   }
 
@@ -77,6 +83,7 @@ export class ScsContentsComponent implements OnInit {
       case 'save':
         this.contentsOperateField.append('contentCategoryId', this.contentsClassifySelected.id);
         this.contentsOperateField.append('file', item.files[0]);
+        this.contentsOperateField.append('resourceType', `${this.contentsFileSelected}`);
         this.contentsHttpOperate(this.safeSrv.addScsContentsInfo(this.contentsOperateField));
         break;
       // 删除操作

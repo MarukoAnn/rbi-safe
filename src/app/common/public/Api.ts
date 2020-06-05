@@ -349,3 +349,59 @@ export class AddQuestion implements Question{
   subjectStoreId?: any;  // 题库id
   score?: any;  // 题库分数
 }
+
+/**
+ * 教育培训相关接口及实现
+ */
+export interface ProgramField {
+  id: any;
+  trainingTypeName: string;
+  trainingContent: string;
+  processingStatus: number; // 1：申请中 2：进行中 3：已完成
+  reportPerson: any;
+  proposedTime: string;
+  name: string;
+}
+export class ProgramFieldClass implements ProgramField{
+  id: any;
+  name: string;
+  processingStatus: number;
+  proposedTime: string;
+  reportPerson: any;
+  trainingContent: string;
+  trainingTypeName: string;
+}
+export interface TrainingField {
+  targetSet: string;
+  trainingTypeId: number;
+  trainingContent: string;
+  trainingDuration: string;
+  startTime: string;
+  endTime: string;
+  organizationTrainingDepartmentId: string;
+  processingStatus: string;
+}
+export class TrainingFieldAddClass implements TrainingField {
+  endTime: string;
+  organizationTrainingDepartmentId: string;
+  processingStatus: string;
+  startTime: string;
+  targetSet: string;
+  trainingContent: string;
+  trainingDuration: string;
+  trainingTypeId: number;
+  constructor() {
+    this.processingStatus = '1';
+  }
+}
+
+// 获取公司人员查询参数接口
+export interface CompanyPersonParams {
+  pageNo: string;
+  pageSize: string;
+  organizationId: string;
+  employeeNumber: string;
+  name: string;
+  idCardNo: string;
+  position: string;
+}

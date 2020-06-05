@@ -26,7 +26,7 @@ import {
     InputTextareaModule,
     RadioButtonModule,
     ScrollPanelModule,
-    StepsModule, TabMenuModule,
+    StepsModule,
     TabViewModule,
     TreeModule
 } from 'primeng/primeng';
@@ -47,6 +47,8 @@ import { AptitudeCertificateComponent } from './st-mytrain-file/aptitude-certifi
 import { LevelEducationCardComponent } from './st-mytrain-file/level-education-card/level-education-card.component';
 import { StCompletedExamComponent } from './st-online-exam/st-completed-exam/st-completed-exam.component';
 import { StNoExamComponent } from './st-online-exam/st-no-exam/st-no-exam.component';
+import { PtProcessedComponent } from './st-plain/plain-list/pt-processed/pt-processed.component';
+import { PtUnprocessedComponent } from './st-plain/plain-list/pt-unprocessed/pt-unprocessed.component';
 
 @NgModule({
   declarations: [
@@ -66,6 +68,9 @@ import { StNoExamComponent } from './st-online-exam/st-no-exam/st-no-exam.compon
     ScsQuestionComponent,
     ArchivesEducateComponent,
     ArchivesManageComponent,
+    ArchivesDailyComponent,
+    PtProcessedComponent,
+    PtUnprocessedComponent,
     ArchivesDailyComponent,
     ScsSortComponent,
     StMytrainFileComponent,

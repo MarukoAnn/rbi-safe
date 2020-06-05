@@ -1,0 +1,73 @@
+<div class="pt-processed">
+  <div class="header pt-2 pb-2">
+    <div class="ui-inputgroup">
+      <input type="text" pInputText placeholder="搜索"/>
+      <button pButton type="button" icon="pi pi-search" class="ui-button-warn"></button>
+    </div>
+  </div>
+  <div class="content">
+    <p-table
+      [value]="processedTableData" [columns]="processedTableHeader"
+      [scrollable]="true" scrollHeight="90%"
+    >
+      <ng-template pTemplate="header" let-columns>
+        <tr>
+          <th>#</th>
+          <th *ngFor="let col of columns">
+            {{col.header}}
+          </th>
+          <th>操作</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-rowData let-columns="columns" let-rowIndex="rowIndex">
+        <tr>
+          <td>{{rowIndex + 1}}</td>
+          <td *ngFor="let col of columns">
+            {{rowData[col.field]}}
+          </td>
+          <td class="text-center">
+            <button
+              pButton label="查看详情" class="ui-button-rounded ui-button-pink"
+              (click)="processedOperate(processedOperateFlag = 'detail', rowData)">
+            </button>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+  <div class="pagination">
+    <app-pagination [option]="processedPageOption" (clickEvent)="processedPageEvent($event)"></app-pagination>
+  </div>
+  <div class="modal">
+    <!--查看详情-->
+    <p-dialog
+      [blockScroll]="true"
+      [(visible)]="processedOperateModal" [style]="{width: '50vw'}"
+    >
+      <p-header>查看详情</p-header>
+      <div style="width: 100%;height: 40vh;overflow: hidden" *ngIf="processedOperateFlag === 'update'">
+        <p-scrollPanel [style]="{width: '100%', height: '100%'}" styleClass="role-scroll">
+          <div class="ui-g">
+            <!--身份证-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>提报人姓名：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <!--<input
+                  type="text" pInputText placeholder="请填写身份证"
+                  disabled
+                  [(ngModel)]="processedOperateField.name">-->
+                <span>{{processedOperateField.name}}</span>
+              </div>
+            </div>
+          </div>
+        </p-scrollPanel>
+      </div>
+      <p-footer>
+        <button pButton label="关闭" class="ui-button-pink" (click)="processedOperateModal = false"></button>
+      </p-footer>
+    </p-dialog>
+  </div>
+</div>
+
