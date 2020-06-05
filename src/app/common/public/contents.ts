@@ -141,6 +141,14 @@ export function setVlaueToLabel(list: Array<any>, data: string){
    return data;
 }
 
+export function setLabelToVlaue(list: Array<any>, data: string){
+  list.forEach(val => {
+    if (val.label === data){
+      data = val.value;
+    }
+  });
+  return data;
+}
 // 给表单赋值
 export function setValueToFromValue(list: Array<string>, data: object, formGroup: FormGroup) {
   list.forEach(val => {

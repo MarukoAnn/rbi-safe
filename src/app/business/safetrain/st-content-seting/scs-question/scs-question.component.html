@@ -9,17 +9,145 @@
     </div>
     <div class="scs-question-button">
       <button pButton type="button" label="上传题库" class="ui-button-rounded" icon="iconfont iconbaseline-open_in_browser-24px" (click)="showUploadFileClick()"></button>
-      <button pButton type="button" label="添加单个条目" class="ui-button-rounded" icon="pi pi-plus" (click)="showAddSingleQuestionDialog = true"></button>
+      <button pButton type="button" label="添加单个条目" class="ui-button-rounded" icon="pi pi-plus" (click)="showAddSingleQuestionDialog = true;this.getQuestionSortInfoConfig();"></button>
     </div>
   </div>
   <div class="scs-question-table">
-    <app-check-table-btn [select]="questionSelect"   (selectData)="selectData($event)" [option]="optionTable" (detail)="DetailClick($event)"></app-check-table-btn>
+    <p-table [columns]="questionTitle" [value]="questionContent" dataKey="id"  [scrollable]="true"   scrollHeight="60vh" (onRowCollapse)="closeRowClick($event)">
+      <ng-template pTemplate="header" let-columns>
+        <tr [ngStyle]="table.tableheader" style="text-align: center;height: 6vh">
+          <th style="width: 3em"></th>
+          <th *ngFor="let col of columns">
+            {{col.header}}
+          </th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-rowData let-expanded="expanded" let-columns="columns">
+        <tr [ngStyle]="table.tableContent[0]" style="text-align: center;height: 3vh">
+          <td style="width: 3em">
+            <a href="#" [pRowToggler]="rowData">
+              <i [ngClass]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></i>
+            </a>
+          </td>
+          <td *ngFor="let col of columns.slice(0 ,columns.length -1)">
+            {{rowData[col.field]}}
+          </td>
+          <td>
+            <button pButton type="button" label="删除" class="ui-button-rounded" [ngStyle]="{'background': table.detailBtn[0], 'border': '1px solid'+table.detailBtn[0]}" (click)="delClick(rowData)"></button>
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="rowexpansion" let-rowData let-columns="columns">
+        <div class="p-grid -fluid question-item">
+          <div class="dialog-sel-Input" >
+            <input type="text" pInputText style="width: 60%;font-size: 1rem;margin-right: 1vw" [(ngModel)]="rowData.item.title"/>
+            分数: <input type="text" pInputText style="width: 10%;font-size: 1rem;" [(ngModel)]="rowData.item.score"/>
+            <span class="pl-3" (click)="saveEditDataClick(rowData)">保存</span>
+          </div>
+          <div class="dialog-sel-Input" *ngIf="rowData.item.type === '多选题'">
+            <div
+              *ngFor="
+              let option1 of rowData.item.option;
+              let index = index"
+              style="line-height: 4vh;margin-top: 1vh;margin-left: 4vw"
+            >
+              <p-checkbox
+                name="group2"
+                [value]="(index + 1).toString()"
+                [(ngModel)]="rowData.item.sureKey"
+              ></p-checkbox>
+              <input
+                type="text"
+                pInputText
+                [(ngModel)]="option1.option"
+                style="margin-left: 1vw; width: 40%"/>
+              <i
+                class="pi pi-times-circle pl-3"
+                style="color: #007AD9"
+                (click)="delOptionItem(rowData.item.option, index)"
+              ></i>
+            </div>
+            <div style="line-height: 2vh;margin-left: 4vw">
+              <button pButton type="button" label="新增选项" class="ui-button-rounded" icon="pi pi-plus" style="outline: none;background: #F4F4F4;color: #4F88DE;border: 0" (click)="addOptionItem(rowData.item.option)"></button>
+            </div>
+          </div>
+          <div class="dialog-sel-Input" *ngIf="rowData.item.type === '单选题'">
+            <div
+              *ngFor="
+              let option1 of rowData.item.option;
+              let index = index"
+              style="line-height: 4vh;margin-top: 1vh;margin-left: 4vw"
+            >
+              <p-radioButton
+                name="group2"
+                [value]="(index + 1).toString()"
+                [(ngModel)]="rowData.item.sureKey"
+              ></p-radioButton>
+              <input
+                type="text"
+                pInputText
+                [(ngModel)]="option1.option"
+                style="margin-left: 1vw; width: 40%"/>
+              <i
+                class="pi pi-times-circle pl-3"
+                style="color: #007AD9"
+                (click)="delOptionItem(rowData.item.option, index)"
+              ></i>
+            </div>
+            <div style="line-height: 2vh;margin-left: 4vw">
+              <button pButton type="button" label="新增选项" class="ui-button-rounded" icon="pi pi-plus" style="outline: none;background: #F4F4F4;color: #4F88DE;border: 0" (click)="addOptionItem(rowData.item.option)"></button>
+            </div>
+          </div>
+          <div class="dialog-sel-Input" *ngIf="rowData.item.type === '判断题'">
+            <div
+              *ngFor="
+              let option1 of rowData.item.option;
+              let index = index"
+              style="line-height: 4vh;margin-top: 1vh;margin-left: 4vw"
+            >
+              <p-radioButton
+                name="group2"
+                [value]="(index + 1).toString()"
+                [(ngModel)]="rowData.item.sureKey"
+              ></p-radioButton>
+              <input
+                type="text"
+                pInputText
+                [(ngModel)]="option1.option"
+                style="margin-left: 1vw; width: 40%"/>
+            </div>
+          </div>
+          <div class="dialog-sel-Input" *ngIf="rowData.item.type === '填空题'">
+            <div
+              *ngFor="
+              let option1 of rowData.item.option;
+              let index = index"
+              style="line-height: 4vh;margin-top: 1vh;margin-left: 4vw"
+            >
+              <span>答案：</span>
+              <input
+                type="text"
+                pInputText
+                [(ngModel)]="option1.option"
+                style="margin-left: 1vw; width: 40%"/>
+              <i
+                class="pi pi-times-circle pl-3"
+                style="color: #007AD9"
+                (click)="delOptionItem(rowData.item.option, index)"
+              ></i>
+            </div>
+            <div style="line-height: 4vh;margin-left: 4vw">
+              <button pButton type="button" label="新增选项" class="ui-button-rounded" icon="pi pi-plus" style="outline: none;background: #F4F4F4;color: #4F88DE;border: 0" (click)="addOptionItem(rowData.item.option)"></button>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+    </p-table>
+<!--    <app-check-table-btn [select]="questionSelect"   (selectData)="selectData($event)" [option]="optionTable" (detail)="DetailClick($event)"></app-check-table-btn>-->
   </div>
   <div class="scs-question-pagination">
     <app-pagination [option]="pageOption" (clickEvent)="clickEvent($event)"></app-pagination>
   </div>
-  <!--  <p-toast position="top-center" key="toast"></p-toast>-->
-  <!--  <p-confirmDialog header="Confirmation" acceptLabel="取消" rejectLabel="确认选择" acceptIcon="" rejectIcon=""></p-confirmDialog>-->
   <p-dialog header="文件上传"
             [(visible)]="showUploadFileDialog"
             [style]="{width: '700px'}">
@@ -49,12 +177,7 @@
                 name="file"
                 chooseLabel="点击选择上传文件"
                 [auto]="true"
-                (onSelect)="selectFile($event)"></p-fileUpload>
-<!--              <p-fileUpload-->
-<!--                chooseLabel="点击选择上传文件" cancelLabel="取消"-->
-<!--                [showUploadButton]="false" mode="advanced" name="file" #fileUpload-->
-<!--              >-->
-<!--              </p-fileUpload>-->
+               ></p-fileUpload>
             </div>
           </div>
         </div>
@@ -67,54 +190,36 @@
   </p-dialog>
   <p-dialog header="添加单个条目" [(visible)]="showAddSingleQuestionDialog" [style]="{width: '700px'}">
     <div class="ui-g ui-md ui-fiuld text-center">
-      <div class="ui-g-12 ui-md-12">
-        <div class="ui-g-4 ui-md-4 m-1">
-          <div *ngFor="let item of btnQuestionList" class="p-2">
-            <button class="selbtn-menu pl-2 pr-2" [ngClass]="{'selbtn-menu-active': item.active}" pButton type="button" [label]="item.label" (click)="questionClick(item)"></button>
-          </div>
-        </div>
-<!--        <div class="m-2" style="width: 1px;height: 20vh;background: #4F88DE"></div>-->
-        <div class="ui-g-7 ui-md-7">
-          <div class="ui-g-12 ui-md-12" style="line-height: 4vh">
-            <div class="ui-g-3 ui-md-3" >
-              选择题库:
-            </div>
-            <div class="ui-g-9 ui-md-9 dialog-input">
-              <p-dropdown dropdownIcon="pi pi-caret-down" placeholder="请选择题库" ></p-dropdown>
+      <p-scrollPanel  [style]="{width: '100%', height: '50vh'}" styleClass="custombar">
+        <div class="ui-g-12 ui-md-12">
+          <div class="ui-g-4 ui-md-4 m-1">
+            <div *ngFor="let item of btnQuestionList" class="p-2">
+              <button class="selbtn-menu pl-2 pr-2" [ngClass]="{'selbtn-menu-active': item.active}" pButton type="button" [label]="item.label" (click)="questionClick(item)"></button>
             </div>
           </div>
-          <div class="ui-g-12 ui-md-12">
-            <app-radio-template (questionEvent)="radioEvent($event)" *ngIf="this.showQuesType === 1"></app-radio-template>
-            <app-checkbox-template (questionEvent)="radioEvent($event)" *ngIf="this.showQuesType === 2"></app-checkbox-template>
-            <app-judge-template (questionEvent)="radioEvent($event)" *ngIf="this.showQuesType === 3"></app-judge-template>
-            <app-fill-vacant-template (questionEvent)="radioEvent($event)" *ngIf="this.showQuesType === 4"></app-fill-vacant-template>
+          <!--        <div class="m-2" style="width: 1px;height: 20vh;background: #4F88DE"></div>-->
+          <div class="ui-g-7 ui-md-7">
+            <div class="ui-g-12 ui-md-12" style="line-height: 4vh">
+              <div class="ui-g-3 ui-md-3" >
+                选择题库:
+              </div>
+              <div class="ui-g-9 ui-md-9 dialog-input">
+                <p-dropdown dropdownIcon="pi pi-caret-down" [options]="sortQuestionOption" placeholder="请选择题库" [(ngModel)]="addQuestion.subjectStoreId"></p-dropdown>
+              </div>
+            </div>
+            <div class="ui-g-12 ui-md-12">
+              <app-radio-template (questionEvent)="radioEvent($event)" *ngIf="this.showQuesType === 1" #radioTemplateComponent></app-radio-template>
+              <app-checkbox-template (questionEvent)="radioEvent($event)" *ngIf="this.showQuesType === 2" #checkboxTemplateComponent></app-checkbox-template>
+              <app-judge-template (questionEvent)="radioEvent($event)" *ngIf="this.showQuesType === 3" #judgeTemplateComponent></app-judge-template>
+              <app-fill-vacant-template (questionEvent)="radioEvent($event)" *ngIf="this.showQuesType === 4" #fillVacantTemplateComponent></app-fill-vacant-template>
+            </div>
           </div>
         </div>
-      </div>
-
+      </p-scrollPanel>
     </div>
     <p-footer>
       <button class="dialog-btn" (click)="showAddSingleQuestionDialog = false;resetAllData()">取消</button>
-      <button class="dialog-btn" (click)="UpdateLimitInfoClick()">确认选择</button>
+      <button class="dialog-btn" (click)="AddQuestionSingleInfoClick()">确认选择</button>
     </p-footer>
   </p-dialog>
-
-  <!--组织树结构-->
-<!--  <p-dialog [(visible)]="treeDialog" [responsive]="true" showEffect="fade" [modal]= false [maximizable]="false" [baseZIndex]="10000" [modal]="true" [width]="350" [height]="400">-->
-<!--    <div class="ui-g ui-fluid">-->
-<!--      <div class="ui-g-12">-->
-<!--        <p-scrollPanel [style]="{width: '100%', height: '250px'}">-->
-<!--          <p-tree-->
-<!--            [value]="dataTrees"-->
-<!--            [(selection)]="dataTree"-->
-<!--            selectionMode="single">-->
-<!--          </p-tree>-->
-<!--        </p-scrollPanel>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--    <p-footer>-->
-<!--      <button  style="width: 4vw;padding: 4px 0"  (click)="treeDialog = false">取消</button>-->
-<!--      <button  style="width: 6vw;border: 0;color: #fff;padding: 4px 0"   (click)="dataTreeSureClick()" >确认选择</button>-->
-<!--    </p-footer>-->
-<!--  </p-dialog>-->
 </div>

@@ -1,0 +1,30 @@
+<!--我的培训档案-->
+<div class="st-mytrain-file">
+  <div class="tab">
+    <div class="tab-list" *ngFor="let item of arcTabItem;let i=index">
+      <a class="item-content" (click)="arcTabItemClick(i)">
+        <span [ngStyle]="{color: item.item.ftcolor}">{{item.item.label}}</span>
+        <span [ngStyle]="{background: item.item.bgc}" class="line"></span>
+      </a>
+    </div>
+  </div>
+  <div class="content">
+    <p-tabView [activeIndex]="arcActiveIndex">
+      <p-tabPanel>
+        <div class="content-panel">
+          <app-daily-record></app-daily-record>
+        </div>
+      </p-tabPanel>
+      <p-tabPanel>
+        <div class="content-panel">
+          <app-aptitude-certificate></app-aptitude-certificate>
+        </div>
+      </p-tabPanel>
+      <p-tabPanel>
+        <div class="content-panel">
+          <app-level-education-card></app-level-education-card>
+        </div>
+      </p-tabPanel>
+    </p-tabView>
+  </div>
+</div>

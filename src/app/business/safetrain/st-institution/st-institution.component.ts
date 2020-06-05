@@ -7,23 +7,27 @@ import {GlobalService} from '../../../common/services/global.service';
 	styleUrls: ['./st-institution.component.scss']
 })
 export class StInstitutionComponent implements OnInit {
-	public itemData = [
-		{num: 1, label: 'HSE教育培训制度', time: '2020.05.06'},
-		{num: 2, label: 'HSE教育培训制度', time: '2020.05.06'},
-		{num: 3, label: 'HSE教育培训制度', time: '2020.05.06'},
-		{num: 4, label: 'HSE教育培训制度', time: '2020.05.06'},
-		{num: 5, label: 'HSE教育培训制度', time: '2020.05.06'},
-		{num: 6, label: 'HSE教育培训制度', time: '2020.05.06'},
-		{num: 3, label: 'HSE教育培训制度', time: '2020.05.06'},
-		{num: 3, label: 'HSE教育培训制度', time: '2020.05.06'},
-	];
+	public itemData: Array<object> = [];
+  public searchData: string = '';
 	constructor(
 	  private globalSrv: GlobalService
   ) {}
 	ngOnInit() {
 	  this.globalSrv.getEducationList({systemCategoryId: 1}).subscribe((res) => {
-	    console.log(res);
+	    res.data.forEach(v => {
+        this.itemData.push({num: v.id, label: v.fileName, time: v.idt, filePath: v.filePath});
+      });
     });
   }
+  // 打开文件
+  public  openFile(item): void {
+    window.open(`http://view.officeapps.live.com/op/view.aspx?src=http://${item.filePath}`);
+  }
 
+  // 搜索文件
+  public  searchDataClick(): void {
+    // if (this.)
+    // this.toolSrv.setToast('error', )
+    // console.log(this);
+  }
 }

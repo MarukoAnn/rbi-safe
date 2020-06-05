@@ -124,4 +124,64 @@ export class SafetrainService {
   public getProgramList(params: any): Observable<any> {
     return this.http.post(`/pagingSafeDemandReport`, params);
   }
+  //                                    培训题库
+  /*---------------------------------------------------------------------------------------------------------*/
+  /**
+   * 查询所有题库分类名称
+   * @param params
+   */
+  public searchScsQuestionSortInfo(params?: {}): Observable<any> {
+    return this.http.post(`/getAllSubjectStoreName`, params);
+  }
+  /**
+   * 培训题库分页
+   * @param params
+   */
+  public queryScsQuestionPageInfo(params: any): Observable<any> {
+    return this.http.post(`/safeSubject/getSafeSubjectByPage`, params);
+  }
+  /**
+   * 培训题库修改
+   * @param params
+   */
+  public editScsQuestionPageInfo(params: any): Observable<any> {
+    return this.http.post(`/safeSubject/updateSafeSubjectById`, params);
+  }
+  /**
+   * 培训题库删除
+   * @param params
+   */
+  public delScsQuestionPageInfo(params: any): Observable<any> {
+    return this.http.post(`/safeSubject/deleteSafeSubjectById`, params);
+  }
+  /**
+   * 培训题库添加
+   * @param params
+   */
+  public addScsQuestionPageInfo(params: any): Observable<any> {
+    return this.http.post(`/safeSubject/insertSafeSubject`, params);
+  }
+  //                                    题库分类
+  /*---------------------------------------------------------------------------------------------------------*/
+  /**
+   * 添加题库分类名称
+   * @param params
+   */
+  public addScsQuestionSortInfo(params?: {}): Observable<any> {
+    return this.http.post(`/insertSubjectStoreName`, params);
+  }
+  /**
+   * 修改题库分类名称
+   * @param params
+   */
+  public editScsQuestionSortInfo(params?: {}): Observable<any> {
+    return this.http.post(`/updateSubjectStoreName`, params);
+  }
+  /**
+   * 删除题库分类名称
+   * @param params
+   */
+  public delScsQuestionSortInfo(params?: {}): Observable<any> {
+    return this.http.post(`/deleteSubjectStoreName`, params);
+  }
 }

@@ -1,5 +1,5 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {RadioTemplate} from '../../../public/Api';
+import {QuestionTemplate} from '../../../public/Api';
 
 @Component({
   selector: 'app-fill-vacant-template',
@@ -9,35 +9,31 @@ import {RadioTemplate} from '../../../public/Api';
 export class FillVacantTemplateComponent implements OnInit {
 
   public selTitle: string = '请输入填空题目';
+  public score: number = 2;
   @Output()
   public questionEvent: EventEmitter<any> = new EventEmitter<any>();
-  public radioTemplate: RadioTemplate = {
+  public radioTemplate: QuestionTemplate = {
     subject: '',
     option: '',
     rightKey: '',
-    order: ''
+    order: '',
+    score: null
   };
   public rightKey: Array<string> = [];
-
   // 单选选择
-  public checkBoxList: Array<object> = [
-    // {label: `填空`, check: false, value: '1'},
-  ];
+  public checkBoxList: Array<object> = [];
   constructor() { }
 
   ngOnInit() {
   }
   public  delRadioItem(index): void {
     this.checkBoxList.splice(index, 1);
-    this.selTitle = this.selTitle.slice(0, this.selTitle.lastIndexOf('______')) +
-      this.selTitle.slice(this.selTitle.lastIndexOf('______') + 6, this.selTitle.length);
     this.setData();
     this.questionEvent.emit(this.radioTemplate);
   }
 
   public  addRadioItem(): void {
-    this.checkBoxList.push({label: '填空', check: false, value: this.checkBoxList.length + 1});
-    this.selTitle = this.selTitle + '______';
+    this.checkBoxList.push({label: '填空', check: false, value: this.checkBoxList.length + 1, num: this.selTitle + 1});
     this.setData();
     this.questionEvent.emit(this.radioTemplate);
   }
@@ -63,5 +59,14 @@ export class FillVacantTemplateComponent implements OnInit {
     this.radioTemplate.order = indexList.join('#');
     this.radioTemplate.subject = this.selTitle;
     this.radioTemplate.rightKey = this.rightKey.join('#');
+    this.radioTemplate.score = this.score;
   }
+
+ // 清除数据
+ public  clearData(): void {
+     this.checkBoxList = [];
+     this.rightKey = [];
+     this.selTitle = '请输入填空题目';
+     this.score = 2;
+ }
 }

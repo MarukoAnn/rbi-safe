@@ -17,7 +17,19 @@ import {FormsModule} from '@angular/forms';
 import {BasicTableModule} from '../../common/components/basic-table/basic-table.module';
 import {InputTextModule} from 'primeng/inputtext';
 import {ButtonModule} from 'primeng/button';
-import {CalendarModule, DialogModule, DropdownModule, FileUploadModule, InputTextareaModule, RadioButtonModule, ScrollPanelModule, StepsModule, TabViewModule, TreeModule} from 'primeng/primeng';
+import {
+    CalendarModule,
+    CheckboxModule,
+    DialogModule,
+    DropdownModule,
+    FileUploadModule,
+    InputTextareaModule,
+    RadioButtonModule,
+    ScrollPanelModule,
+    StepsModule, TabMenuModule,
+    TabViewModule,
+    TreeModule
+} from 'primeng/primeng';
 import {StArchivesComponent} from './st-archives/st-archives.component';
 import {ArchivesSpecialComponent} from './st-archives/archives-special/archives-special.component';
 import {TableModule} from 'primeng/table';
@@ -27,6 +39,14 @@ import {QuestionTemplateModule} from '../../common/components/question-template/
 import { ArchivesEducateComponent } from './st-archives/archives-educate/archives-educate.component';
 import { ArchivesManageComponent } from './st-archives/archives-manage/archives-manage.component';
 import { ArchivesDailyComponent } from './st-archives/archives-daily/archives-daily.component';
+import { ScsSortComponent } from './st-content-seting/scs-sort/scs-sort.component';
+import { StMytrainFileComponent } from './st-mytrain-file/st-mytrain-file.component';
+import { StOnlineExamComponent } from './st-online-exam/st-online-exam.component';
+import { DailyRecordComponent } from './st-mytrain-file/daily-record/daily-record.component';
+import { AptitudeCertificateComponent } from './st-mytrain-file/aptitude-certificate/aptitude-certificate.component';
+import { LevelEducationCardComponent } from './st-mytrain-file/level-education-card/level-education-card.component';
+import { StCompletedExamComponent } from './st-online-exam/st-completed-exam/st-completed-exam.component';
+import { StNoExamComponent } from './st-online-exam/st-no-exam/st-no-exam.component';
 import { PtProcessedComponent } from './st-plain/plain-list/pt-processed/pt-processed.component';
 import { PtUnprocessedComponent } from './st-plain/plain-list/pt-unprocessed/pt-unprocessed.component';
 
@@ -51,29 +71,39 @@ import { PtUnprocessedComponent } from './st-plain/plain-list/pt-unprocessed/pt-
     ArchivesDailyComponent,
     PtProcessedComponent,
     PtUnprocessedComponent
+    ArchivesDailyComponent,
+    ScsSortComponent,
+    StMytrainFileComponent,
+    StOnlineExamComponent,
+    DailyRecordComponent,
+    AptitudeCertificateComponent,
+    LevelEducationCardComponent,
+    StCompletedExamComponent,
+    StNoExamComponent
   ],
-  imports: [
-    CommonModule,
-    SafetrainRoutingModule,
-    InputTextModule,
-    ButtonModule,
-    BasicTableModule,
-    ScrollPanelModule,
-    StDemandModule,
-    PaginationModule,
-    StepsModule,
-    TabViewModule,
-    DropdownModule,
-    CalendarModule,
-    FormsModule,
-    DialogModule,
-    TreeModule,
-    TableModule,
-    RadioButtonModule,
-    InputTextareaModule,
-    FileUploadModule,
-    QuestionTemplateModule
-  ],
+    imports: [
+        CommonModule,
+        SafetrainRoutingModule,
+        InputTextModule,
+        ButtonModule,
+        BasicTableModule,
+        ScrollPanelModule,
+        StDemandModule,
+        PaginationModule,
+        StepsModule,
+        TabViewModule,
+        DropdownModule,
+        CalendarModule,
+        FormsModule,
+        DialogModule,
+        TreeModule,
+        TableModule,
+        RadioButtonModule,
+        InputTextareaModule,
+        FileUploadModule,
+        QuestionTemplateModule,
+        CheckboxModule
+    ],
   providers: []
 })
 export class SafetrainModule { }

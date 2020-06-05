@@ -6,6 +6,13 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "15134523",
+      "name": "考试",
+      "font_class": "baseline-play_circle_filled-24px",
+      "unicode": "e61a",
+      "unicode_decimal": 58906
+    },
+    {
       "icon_id": "14982398",
       "name": "导出",
       "font_class": "lujing364",

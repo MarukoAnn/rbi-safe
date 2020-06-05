@@ -17,6 +17,7 @@ export class TroubleNoticeComponent implements OnInit {
   public esDate: any = Es;
   // public formData: FormData = new FormData();
   public hidCorrectorOption: Array<object> = [];
+  public time: any;
   public code: any;
   constructor(
     private route: ActivatedRoute,
@@ -31,13 +32,16 @@ export class TroubleNoticeComponent implements OnInit {
   ngOnInit() {
     this.route.queryParams.subscribe(val => {
       this.code = val.code;
+      this.time = val.time;
     });
+    console.log(this.time);
     this.addNotice = this.fb.group({
       correctorId: new FormControl('', Validators.required),
       hidDangerCode: new FormControl(this.code, Validators.required),
       rectificationOpinions: new FormControl('', Validators.required),
-      requiredCompletionTime: new FormControl('', Validators.required),
+      specifiedRectificationTime: new FormControl('', Validators.required),
     });
+    this.addNotice.patchValue({specifiedRectificationTime: this.time});
     this.getCorrector();
   }
 

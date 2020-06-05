@@ -1,6 +1,11 @@
 <div class="fill-vacant-template ui-g-12 ui-md-12">
   <div style="border: 1px solid #DEE0E5" class="ui-g-12 ui-md-12 text-left dialog-sel-Input p-2">
-    <textarea type="text" pInputTextarea [rows]="4" [cols]="40"  [(ngModel)]="selTitle" class="m-2" (change)="changeIpnutSelect()"></textarea>
+    <div class="ui-g-12 ui-md-12 text-center dialog-sel-Input">
+      <div class="ui-g-9 ui-md-9">
+        <textarea type="text" pInputTextarea [rows]="4" [cols]="40"  style="width: 100%" [(ngModel)]="selTitle" class="m-2" (change)="changeIpnutSelect()"></textarea>
+      </div>
+      <input type="text" pInputText style="width: 10%;text-align: right" [(ngModel)]="score" class="m-2" (change)="changeIpnutSelect()"/>分
+    </div>
     <div *ngFor="let i of checkBoxList;let index = index"  style="line-height: 4vh"  class="ui-g-12 ui-md-12 p-1">
       <div class="ui-g-3 ui-md-3 text-center">
         答案：

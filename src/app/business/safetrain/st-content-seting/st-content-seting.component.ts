@@ -7,8 +7,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class StContentSetingComponent implements OnInit {
   public arcTabItem = [
-    {item: {label: '培训内容', ftcolor: '#4F88DE', bgc: '#4F88DE'}, simbol: 'report'},
-    {item: {label: '培训题库', ftcolor: '#B3B3B3', bgc: '#EDEDED'}, simbol: 'review'},
+    {item: {label: '培训内容', ftcolor: '#4F88DE', bgc: '#4F88DE'}},
+    {item: {label: '培训题库', ftcolor: '#B3B3B3', bgc: '#EDEDED'}},
+    {item: {label: '题库分类', ftcolor: '#B3B3B3', bgc: '#EDEDED'}},
   ];
   public arcActiveIndex: number = 0;
   constructor() { }
