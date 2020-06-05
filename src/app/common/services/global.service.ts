@@ -55,4 +55,20 @@ export class GlobalService {
   public publicGetEducateById(params: IdInterface): Observable<any> {
     return this.http.post('/training/getSpecialTrainingById', params);
   }
+
+  /**
+   * 获取所有培训类型下拉框信息
+   * @param params
+   */
+  public publicGetSafeTrainingType(params?: {}): Observable<any> {
+    return this.http.post('/getSafaTrainingType', params);
+  }
+
+  /**
+   * 获取公司人员信息，带有条件查询
+   * @param params
+   */
+  public publicGetCompanyPerson(params?: {}): Observable<any> {
+    return this.http.post('/company_personnel/query/page', params);
+  }
 }

@@ -1,37 +1,23 @@
 .demand-report{
   display: flex;
   justify-content: center;
-  align-items: center;
-  .demand-content {
-     width: 100%;
-     height: 100%;
-     padding: 80px 0;
-    .item {
-      display: flex;
-      align-items: center;
-      margin-bottom: 20px;
-      color: #9798A0;
+  .label{
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    height: 100%;
+    font-size: 14px
+  }
+  .inputButton{
+    .ui-button {
+      margin: 0;
+      color: #116FBF;
+      background-color: unset;
     }
   }
-  .demand-report-btn {
-    height: 4vh;
-    text-align: center;
-    line-height: 4vh;
-    button {
-      width: 6vw;
-      margin-left: 8vw;
+  .orgButton{
+    /deep/ .ui-button-text{
+      padding: 0.429em;
     }
-  }
-  ::ng-deep .ui-dropdown, .ui-inputtext{
-    width: 400px;
-    height: 40px;
-    line-height: 25px;
-    border: 1px solid #EDEDED;
-  }
-  ::ng-deep  .ui-dropdown .ui-dropdown-trigger {
-    color: #EDEDED;
-  }
-  ::ng-deep .ui-dropdown .ui-dropdown-label{
-   color: #9798A0;
   }
 }

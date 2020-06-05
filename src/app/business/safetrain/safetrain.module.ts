@@ -27,6 +27,8 @@ import {QuestionTemplateModule} from '../../common/components/question-template/
 import { ArchivesEducateComponent } from './st-archives/archives-educate/archives-educate.component';
 import { ArchivesManageComponent } from './st-archives/archives-manage/archives-manage.component';
 import { ArchivesDailyComponent } from './st-archives/archives-daily/archives-daily.component';
+import { PtProcessedComponent } from './st-plain/plain-list/pt-processed/pt-processed.component';
+import { PtUnprocessedComponent } from './st-plain/plain-list/pt-unprocessed/pt-unprocessed.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +48,9 @@ import { ArchivesDailyComponent } from './st-archives/archives-daily/archives-da
     ScsQuestionComponent,
     ArchivesEducateComponent,
     ArchivesManageComponent,
-    ArchivesDailyComponent
+    ArchivesDailyComponent,
+    PtProcessedComponent,
+    PtUnprocessedComponent
   ],
   imports: [
     CommonModule,
