@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {PageOption} from '../../../../common/public/Api';
 import {Subscription} from 'rxjs';
 
@@ -8,6 +8,8 @@ import {Subscription} from 'rxjs';
   styleUrls: ['./st-no-exam.component.scss']
 })
 export class StNoExamComponent implements OnInit {
+  @Output()
+  public eventNum: EventEmitter<any> = new EventEmitter<any>();
   public table = {
     tableheader: {background: '#F5F6FA', color: '#C3C3C5'},
     tableContent: [
@@ -18,7 +20,7 @@ export class StNoExamComponent implements OnInit {
     totalRecord: 10,
     pageSize: 10
   };
-  public dailyRectordTitle: Array<object>  = [
+  public noExamTitle: Array<object>  = [
     { field: 'id', header: '序号' },
     { field: 'name', header: '组织培训单位' },
     { field: 'plan', header: '教育培训计划' },
@@ -30,7 +32,7 @@ export class StNoExamComponent implements OnInit {
     { field: 'result', header: '培训结果' },
     { field: 'operating', header: '操作' },
   ];
-  public dailyRectordContent: Array<object> = [
+  public noExamContent: Array<object> = [
     {id: 1, name: '矿山', plan: '岗位章程', content: '岗位员工安全培训', time: '2020-5-12', examTime: '2020-5-12', timeLenght: '32学时', score: 100, result: '合格', operating: '开始考试'},
     {id: 1, name: '矿山', plan: '岗位章程', content: '岗位员工安全培训', time: '2020-5-12', examTime: '2020-5-12', timeLenght: '32学时', score: 100, result: '合格', operating: '开始考试'},
     {id: 1, name: '矿山', plan: '岗位章程', content: '岗位员工安全培训', time: '2020-5-12', examTime: '2020-5-12', timeLenght: '32学时', score: 100, result: '合格', operating: '开始考试'},
@@ -41,6 +43,7 @@ export class StNoExamComponent implements OnInit {
   ];
   public themeSub: Subscription;
   ngOnInit() {
+    this.eventNum.emit(this.noExamContent.length);
   }
 
   public  clickEvent(e): void {

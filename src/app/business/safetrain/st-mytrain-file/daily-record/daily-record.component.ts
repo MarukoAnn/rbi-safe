@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ThemeService} from '../../../../common/public/theme.service';
 import {Subscription} from 'rxjs';
+import {PageOption} from '../../../../common/public/Api';
 
 @Component({
   selector: 'app-daily-record',
@@ -8,7 +9,10 @@ import {Subscription} from 'rxjs';
   styleUrls: ['./daily-record.component.scss']
 })
 export class DailyRecordComponent implements OnInit {
-  public index: number = 0;
+  public pageOption: PageOption = {
+    totalRecord: 10,
+    pageSize: 10
+  };
   public table = {
     tableheader: {background: '#F5F6FA', color: '#C3C3C5'},
     tableContent: [
@@ -43,5 +47,8 @@ export class DailyRecordComponent implements OnInit {
 
   ngOnInit() {
   }
-
+  // 分页点击事件
+  public  clickEvent(e): void {
+      console.log(e);
+  }
 }

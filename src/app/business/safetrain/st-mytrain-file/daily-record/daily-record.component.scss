@@ -2,6 +2,11 @@
   .daily-record-table{
     margin-top: 2vh;
   }
+  .daily-record-pagination{
+    position: absolute;
+    bottom: 8vh;
+    right: 4vw;
+  }
   ::ng-deep .ui-table .ui-table-thead>tr >th{
     border: 0;
 

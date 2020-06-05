@@ -148,30 +148,37 @@ export class ScsQuestionComponent implements OnInit {
   }
   // 保存编辑
   public  saveEditDataClick(data): void {
-    this.toolSrv.setConfirmation('保存编辑', '保存编辑', () => {
-      this.changeQuestion.id = data.id;
-      const option = [];
-      const IndexList = [];
-      data.item.option.forEach((val, index) => {
-        option.push(val.option);
-        IndexList.push(index + 1);
+    console.log(data);
+    if (data.item.option.some(v => {
+      return v.option === '';
+    })){
+      this.toolSrv.setToast('error', '操作错误',  '选项不能为空');
+    }else {
+      this.toolSrv.setConfirmation('保存编辑', '保存编辑', () => {
+        this.changeQuestion.id = data.id;
+        const option = [];
+        const IndexList = [];
+        data.item.option.forEach((val, index) => {
+          option.push(val.option);
+          IndexList.push(index + 1);
+        });
+        this.changeQuestion.option = option.join('#');
+        this.changeQuestion.order = IndexList.join('#');
+        this.changeQuestion.subject = data.item.title;
+        this.changeQuestion.score = data.item.score;
+        if (data.item.type !== '填空题'){
+          this.changeQuestion.rightKey = data.item.type === '多选题' ? data.item.sureKey.join('#') : data.item.sureKey;
+        }else {
+          this.changeQuestion.rightKey = this.changeQuestion.option;
+        }
+        this.changeQuestion.subjectType = setLabelToVlaue(this.btnQuestionList, data.item.type);
+        this.changeQuestion.subjectStoreId = data.subjectStoreId;
+        this.safeSrv.editScsQuestionPageInfo(this.changeQuestion).subscribe(val => {
+          this.initQuestionData();
+          this.resetAllData();
+        });
       });
-      this.changeQuestion.option = option.join('#');
-      this.changeQuestion.order = IndexList.join('#');
-      this.changeQuestion.subject = data.item.title;
-      this.changeQuestion.score = data.item.score;
-      if (data.item.type !== '填空题'){
-        this.changeQuestion.rightKey = data.item.type === '多选题' ? data.item.sureKey.join('#') : data.item.sureKey;
-      }else {
-        this.changeQuestion.rightKey = this.changeQuestion.option;
-      }
-      this.changeQuestion.subjectType = setLabelToVlaue(this.btnQuestionList, data.item.type);
-      this.changeQuestion.subjectStoreId = data.subjectStoreId;
-      this.safeSrv.editScsQuestionPageInfo(this.changeQuestion).subscribe(val => {
-        this.initQuestionData();
-        this.resetAllData();
-      });
-    });
+    }
   }
 
   // 收缩行
