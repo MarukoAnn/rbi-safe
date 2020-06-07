@@ -1,23 +1,157 @@
 <div class="demand-principal">
-  <div class="demand-principal-title">
-    <span>安全管理负责/管理人员复审名单</span>
-    <button pButton type="button" label="导出" class="ui-button-rounded" icon="pi pi-external-link"></button>
+  <h2 class="title text-center pt-3 pb-3 text-littleGray">安全管理负责/管理人员复审名单</h2>
+  <div class="header pt-2 pb-2">
+    <div class="ui-inputgroup">
+      <input type="text" pInputText placeholder="搜索"/>
+      <button pButton type="button" icon="pi pi-search" class="ui-button-warn"></button>
+    </div>
+    <div class="button">
+      <button pButton type="button" label="新增台账" class="ui-button-rounded" (click)="educateOperate(educateOperateFlag = 'add')"></button>
+      <!--      <button pButton type="button" label="文件导入" class="ui-button-rounded ui-button-darkPrimary ml-2 mr-2"></button>-->
+      <button pButton type="button" label="文件导出" class="ui-button-rounded ui-button-pink ml-2 mr-2"></button>
+    </div>
   </div>
-  <div class="demand-principal-search">
-    <div>
-      <div class="ui-inputgroup">
-        <input type="text" pInputText  placeholder="搜索"/>
+  <div class="content">
+    <p-table
+      [value]="educateTableData" [columns]="educateTableHeader"
+      [scrollable]="true" scrollHeight="90%"
+    >
+      <ng-template pTemplate="header" let-columns>
+        <tr>
+          <th>#</th>
+          <th *ngFor="let col of columns">
+            {{col.header}}
+          </th>
+          <th>操作</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-rowData let-columns="columns" let-rowIndex="rowIndex">
+        <tr>
+          <td>{{rowIndex}}</td>
+          <td *ngFor="let col of columns">
+            {{rowData[col.field]}}
+          </td>
+          <td>
+            <button pButton label="编辑" class="ui-button-rounded mr-3" (click)="educateOperate(educateOperateFlag='update',rowData)"></button>
+            <button pButton label="删除" class="ui-button-rounded ui-button-pink" (click)="educateOperate(educateOperateFlag='del',rowData)"></button>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+  <div class="pagination">
+    <app-pagination [option]="educatePageOption" (clickEvent)="educatePageEvent($event)"></app-pagination>
+  </div>
+  <div class="modal">
+    <!--角色新增/编辑弹窗-->
+    <p-dialog
+      [blockScroll]="true"
+      [(visible)]="educateOperateModal" [style]="{width: '50vw'}"
+    >
+      <p-header>{{educateOperateFlag === 'update' ? '台账编辑' : '台账添加'}}</p-header>
+      <div style="width: 100%;height: 40vh;overflow: hidden">
+        <p-scrollPanel [style]="{width: '100%', height: '100%'}" styleClass="role-scroll">
+          <div class="ui-g" *ngIf="!(educateOperateField.id)">
+            <!--身份证-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>身份证：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <input type="text" pInputText placeholder="请填写身份证" [(ngModel)]="educateOperateField.idCardNo">
+              </div>
+            </div>
+            <!--组织名-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>组织名：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <input type="text" pInputText placeholder="请填组织名" [(ngModel)]="educateOperateField.organizationName">
+              </div>
+            </div>
+          </div>
+          <div class="ui-g">
+            <!--公司培训时间-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>公司培训时间：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <input type="text" pInputText placeholder="请填写公司培训时间，如：2020-05-30" [(ngModel)]="educateOperateField.companyEducationTime">
+              </div>
+            </div>
+            <!--公司培训成绩-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>公司培训成绩：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <input type="number" pInputText placeholder="请填公司培训成绩" [(ngModel)]="educateOperateField.companyFraction">
+              </div>
+            </div>
+            <!--工厂培训时间-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>工厂培训时间：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <input type="text" pInputText placeholder="请填写工厂培训时间，如：2020-05-30" [(ngModel)]="educateOperateField.factoryEducationTime">
+              </div>
+            </div>
+            <!--工厂培训成绩-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>工厂培训成绩：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <input type="number" pInputText placeholder="请填写工厂培训成绩" [(ngModel)]="educateOperateField.factoryFraction">
+              </div>
+            </div>
+            <!--车间培训时间-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>车间培训时间：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <input type="text" pInputText placeholder="请填写车间培训时间，如：2020-05-30" [(ngModel)]="educateOperateField.workshopEducationTime">
+              </div>
+            </div>
+            <!--车间培训成绩-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>车间培训成绩：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <input type="number" pInputText placeholder="请填写车间培训成绩" [(ngModel)]="educateOperateField.workshopFraction">
+              </div>
+            </div>
+            <!--班组培训时间-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>班组培训时间：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <input type="text" pInputText placeholder="请填写班组培训时间，如：2020-05-30" [(ngModel)]="educateOperateField.classEducationTime">
+              </div>
+            </div>
+            <!--班组培训成绩-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>班组培训成绩：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <input type="number" pInputText placeholder="请填写班组培训成绩" [(ngModel)]="educateOperateField.classFraction">
+              </div>
+            </div>
+          </div>
+        </p-scrollPanel>
       </div>
-      <i class="fa fa-search" style="position: absolute;margin-top: -2.5vh;margin-left: 7.5vw;color: #ABABAB;"></i>
-    </div>
-    <div class="review-btn">
-      <button pButton type="button" label="批量审核" class="ui-button-rounded"></button>
-    </div>
-  </div>
-  <div class="demand-principal-table">
-    <app-check-table-btn [select]="principalSelect"   (selectData)="selectData($event)" [option]="optionTable" (detail)="DetailClick($event)"></app-check-table-btn>
-  </div>
-  <div class="demand-principal-pagination">
-    <app-pagination [option]="pageOption"></app-pagination>
+      <p-footer>
+        <button pButton label="保存" (click)="educateOperate(educateOperateFlag = 'save')"></button>
+        <button pButton label="取消" class="ui-button-pink" (click)="educateOperateModal = false"></button>
+      </p-footer>
+    </p-dialog>
   </div>
 </div>
+

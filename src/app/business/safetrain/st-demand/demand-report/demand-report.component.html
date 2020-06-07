@@ -7,7 +7,8 @@
       </label>
       <div class="ui-g-9 ui-md-9 input inputButton">
         <button
-          pButton type="button" label="请选择受训单位人员"
+          [pTooltip]="reportTableSelectName"
+          pButton type="button" [label]="reportTableSelectName"
           class="ui-button-rounded"
           (click)="reportOperate(reportOperateFlag = 'strain')">
         </button>
@@ -66,7 +67,10 @@
         <span>组织培训单位：</span>
       </label>
       <div class="ui-g-9 ui-md-9 input orgButton">
-        <button pButton type="button" [label]="reportOrgTreeSelect.label?reportOrgTreeSelect.label:'点击选择单位'" class="ui-button-white text-left" (click)="reportOperate(reportOperateFlag = 'tree')"></button>
+        <button
+          pButton type="button" [label]="reportOrgTreeSelect.label?reportOrgTreeSelect.label:'点击选择单位'"
+          class="ui-button-white text-left" (click)="reportOperate(reportOperateFlag = 'tree')">
+        </button>
       </div>
     </div>
     <!--开始时间-->
@@ -163,7 +167,7 @@
       </ng-template>
     </p-table>
     <p-footer>
-      <button type="button" pButton icon="pi pi-check" (click)="reportOperateModal=false" label="确定"></button>
+      <button type="button" pButton icon="pi pi-check" (click)="reportOperate('select')" label="确定"></button>
     </p-footer>
   </p-dialog>
 </div>

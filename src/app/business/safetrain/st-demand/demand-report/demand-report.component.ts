@@ -32,6 +32,7 @@ export class DemandReportComponent implements OnInit {
   ]; // 表头字段
   public reportTableData: any[]; // 表体数据
   public reportTableSelect: any[]; // 表体数据选择
+  public reportTableSelectName: any = '请选择受训单位人员'; // 表体数据选择名字
   public reportNowPage: number = 1; // 当前页
 
   constructor(
@@ -87,6 +88,12 @@ export class DemandReportComponent implements OnInit {
         break;
       case 'strain':
         this.reportOperateModal = true;
+        break;
+      case 'select':
+        this.reportOperateModal = false;
+        if (this.reportTableSelect) {
+          this.reportTableSelectName = this.reportTableSelect.map((res) => res.name).join(',');
+        }
         break;
     }
   }

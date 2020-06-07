@@ -305,6 +305,44 @@ export class UpdateEducateFieldClass implements EducateField {
   }
 }
 
+/**
+ * 主要负责人/安全生产管理员培训台账接口及实现
+ */
+export interface ManageField {
+  id?: any;
+  idCardNo?: string; // 身份证号
+  unit: string; // 单位
+  dateOfIssue: string; // 发证时间
+  termOfValidity: string; // 有效期
+  typeOfCertificate: string; // 合格证类型 手输
+  oneTrainingTime: string; // 培训时间1
+  twoTrainingTime: string; // 培训时间2
+  threeTrainingTime: string; // 培训时间3
+  remarks: string; // 备注
+}
+export class AddManageFieldClass implements ManageField{
+  dateOfIssue: string;
+  idCardNo: string;
+  oneTrainingTime: string;
+  remarks: string;
+  termOfValidity: string;
+  threeTrainingTime: string;
+  twoTrainingTime: string;
+  typeOfCertificate: string;
+  unit: string;
+}
+export class UpdateManageFieldClass implements ManageField {
+  dateOfIssue: string;
+  id: any;
+  oneTrainingTime: string;
+  remarks: string;
+  termOfValidity: string;
+  threeTrainingTime: string;
+  twoTrainingTime: string;
+  typeOfCertificate: string;
+  unit: string;
+}
+
 
 export interface QuestionItem {
   title?: any;
