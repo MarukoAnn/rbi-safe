@@ -564,6 +564,17 @@ body .ui-button.ui-state-default.ui-button-darkPrimary:hover{
   border: 1px solid #66A0FF;
 }
 
+body .ui-button.ui-state-default.ui-button-outlinePrimary {
+  color: #66A0FF;
+  background-color: #FFFFFF;
+  border: 1px solid #66A0FF;
+}
+body .ui-button.ui-state-default.ui-button-outlinePrimary:hover{
+  color: #66A0FF;
+  background-color: #FFFFFF;
+  border: 1px solid #66A0FF;
+}
+
 body .ui-button.text-left{
   text-align: left;
 }

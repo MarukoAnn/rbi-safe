@@ -40,10 +40,10 @@ export class DemandPrincipalComponent implements OnInit {
   }
   // 数据初始化
   private principalDataInit(pageNo, pageSize) {
-    this.demandSrv.getPrincipalList({pageNo, pageSize}).subscribe((res) => {
+   /* this.demandSrv.getPrincipalList({pageNo, pageSize}).subscribe((res) => {
       this.principalTableData = res.data.contents;
       this.principalPageOption.totalRecord = res.data.totalRecord;
-    });
+    });*/
   }
 
   // 角色操作代理请求函数
