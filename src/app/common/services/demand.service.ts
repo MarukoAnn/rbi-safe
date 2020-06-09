@@ -32,4 +32,31 @@ export class DemandService {
   public handleReviewInfo(params: any): Observable<any> {
     return this.http.post(`/handleSpecialReview`, params);
   }
+
+  /*-----------------------------------------------------------------------------------------*/
+  //  主要负责人/安全生产管理员模块
+  /**
+   * 分页查询
+   * @param params
+   */
+  public getPrincipalPageInfo(params: any): Observable<any> {
+    return this.http.post(`/administratorReview/findByPage`, params);
+  }
+
+  /**
+   * 取消审核
+   * @param params 传参
+   */
+  public canclePrincipalReveiew(params: any): Observable<any> {
+    return this.http.post(`/administratorReview/cancel`, params);
+  }
+
+  /**
+   * 复审
+   * @param params 传参
+   * @constructor
+   */
+  public principalReveiewToPass(params: any): Observable<any> {
+    return this.http.post(`/administratorReview/review`, params);
+  }
 }

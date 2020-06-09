@@ -513,3 +513,34 @@ export class LevelFourEducationDetail implements MYLevelFourEducationInfo{
   classFraction?: any;
   operatingStaff?: any;
 }
+
+export interface Principoal {
+  id?: any;
+  safeAdministratorId?: any;
+  oneTrainingTime?: any;
+  twoTrainingTime?: any;
+  threeTrainingTime?: any;
+  reasonForHandling?: any;
+}
+
+export class CanclePrincipoal implements Principoal{
+  id: any;
+  reasonForHandling: any;
+  constructor() {
+    this.reasonForHandling = '';
+  }
+}
+export class ReviewPrincipoal implements Principoal{
+  id: any;
+  safeAdministratorId: any;
+  oneTrainingTime: any;
+  twoTrainingTime: any;
+  threeTrainingTime: any;
+  constructor() {
+    this.id = '';
+    this.safeAdministratorId = '';
+    this.oneTrainingTime = '';
+    this.twoTrainingTime = '';
+    this.threeTrainingTime = '';
+  }
+}
