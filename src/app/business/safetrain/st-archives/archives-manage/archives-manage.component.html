@@ -1,3 +1,149 @@
 <div class="archives-manage">
-  <p>管理人员台账</p>
+  <h2 class="title text-center pt-3 pb-3 text-littleGray">主要负责人、安全生产管理人员台账</h2>
+  <div class="header pt-2 pb-2">
+    <div class="ui-inputgroup">
+      <input type="text" pInputText placeholder="搜索"/>
+      <button pButton type="button" icon="pi pi-search" class="ui-button-warn"></button>
+    </div>
+    <div class="button">
+      <button pButton type="button" label="新增台账" class="ui-button-rounded" (click)="manageOperate(manageOperateFlag = 'add')"></button>
+      <!--      <button pButton type="button" label="文件导入" class="ui-button-rounded ui-button-darkPrimary ml-2 mr-2"></button>-->
+      <button pButton type="button" label="文件导出" class="ui-button-rounded ui-button-pink ml-2 mr-2"></button>
+    </div>
+  </div>
+  <div class="content">
+    <p-table
+      [value]="manageTableData" [columns]="manageTableHeader"
+      [scrollable]="true" scrollHeight="90%"
+    >
+      <ng-template pTemplate="header" let-columns>
+        <tr>
+          <th>#</th>
+          <th *ngFor="let col of columns">
+            {{col.header}}
+          </th>
+          <th>操作</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-rowData let-columns="columns" let-rowIndex="rowIndex">
+        <tr>
+          <td>{{rowIndex}}</td>
+          <td *ngFor="let col of columns" style="overflow: hidden;text-overflow: ellipsis" [pTooltip]="rowData[col.field]">
+            {{rowData[col.field]}}
+          </td>
+          <td>
+            <button pButton label="编辑" class="ui-button-rounded mr-3" (click)="manageOperate(manageOperateFlag='update',rowData)"></button>
+            <button pButton label="删除" class="ui-button-rounded ui-button-pink" (click)="manageOperate(manageOperateFlag='del',rowData)"></button>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+  <div class="pagination">
+    <app-pagination [option]="managePageOption" (clickEvent)="managePageEvent($event)"></app-pagination>
+  </div>
+  <div class="modal">
+    <!--角色新增/编辑弹窗-->
+    <p-dialog
+      [blockScroll]="true"
+      [(visible)]="manageOperateModal" [style]="{width: '50vw'}"
+    >
+      <p-header>{{manageOperateFlag === 'update' ? '台账编辑' : '台账添加'}}</p-header>
+      <div style="width: 100%;height: 40vh;overflow: hidden">
+        <p-scrollPanel [style]="{width: '100%', height: '100%'}" styleClass="role-scroll">
+          <!--基础字段-->
+          <div class="ui-g">
+            <!--身份证-->
+            <div class="ui-g-6 ui-md-6" *ngIf="!(manageOperateField.id)">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>身份证：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <input type="text" pInputText placeholder="请填写身份证" [(ngModel)]="manageOperateField.idCardNo">
+              </div>
+            </div>
+            <!--组织名-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>单位：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <input type="text" pInputText placeholder="请填组织名" [(ngModel)]="manageOperateField.unit">
+              </div>
+            </div>
+            <!--发证时间-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>发证时间：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <input type="text" pInputText placeholder="请填写发证时间，如：2020-05-30" [(ngModel)]="manageOperateField.dateOfIssue">
+              </div>
+            </div>
+            <!--有效期-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>有效期：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <input type="text" pInputText placeholder="请填公有效期，如：2020-05-30" [(ngModel)]="manageOperateField.termOfValidity">
+              </div>
+            </div>
+            <!--合格证类型-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>合格证类型：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <input type="text" pInputText placeholder="请填写合格证类型" [(ngModel)]="manageOperateField.typeOfCertificate">
+              </div>
+            </div>
+            <!--培训时间1-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>培训时间1：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <input type="text" pInputText placeholder="请填写培训时间1,如：2020-05-30" [(ngModel)]="manageOperateField.oneTrainingTime">
+              </div>
+            </div>
+            <!--培训时间2-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>培训时间2：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <input type="text" pInputText placeholder="请填写培训时间2,如：2020-05-30" [(ngModel)]="manageOperateField.twoTrainingTime">
+              </div>
+            </div>
+            <!--培训时间3-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>培训时间3：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <input type="text" pInputText placeholder="请填写培训时间3,如：2020-05-30" [(ngModel)]="manageOperateField.threeTrainingTime">
+              </div>
+            </div>
+          </div>
+          <!--备注-->
+          <div class="ui-g">
+            <div class="ui-g-12 ui-md-12">
+              <label class="ui-g-2 ui-md-2 label">
+                <span>备注：</span>
+              </label>
+              <div class="ui-g-10 ui-md-10 input">
+                <textarea [rows]="5" [cols]="30" [(ngModel)]="manageOperateField.remarks" pInputTextarea autoResize="autoResize" placeholder="请填写备注"></textarea>
+              </div>
+            </div>
+          </div>
+        </p-scrollPanel>
+      </div>
+      <p-footer>
+        <button pButton label="保存" (click)="manageOperate(manageOperateFlag = 'save')"></button>
+        <button pButton label="取消" class="ui-button-pink" (click)="manageOperateModal = false"></button>
+      </p-footer>
+    </p-dialog>
+  </div>
 </div>
+

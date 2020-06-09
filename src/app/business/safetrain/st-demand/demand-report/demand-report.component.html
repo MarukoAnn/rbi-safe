@@ -7,7 +7,8 @@
       </label>
       <div class="ui-g-9 ui-md-9 input inputButton">
         <button
-          pButton type="button" label="请选择受训单位人员"
+          [pTooltip]="reportTableSelectName"
+          pButton type="button" [label]="reportTableSelectName"
           class="ui-button-rounded"
           (click)="reportOperate(reportOperateFlag = 'strain')">
         </button>
@@ -66,7 +67,10 @@
         <span>组织培训单位：</span>
       </label>
       <div class="ui-g-9 ui-md-9 input orgButton">
-        <button pButton type="button" label="点击选择单位" class="ui-button-white text-left" (click)="reportOperate(reportOperateFlag = 'tree')"></button>
+        <button
+          pButton type="button" [label]="reportOrgTreeSelect.label?reportOrgTreeSelect.label:'点击选择单位'"
+          class="ui-button-white text-left" (click)="reportOperate(reportOperateFlag = 'tree')">
+        </button>
       </div>
     </div>
     <!--开始时间-->
@@ -118,23 +122,52 @@
     <div class="ui-g-12 ui-md-12 text-center">
       <button pButton label="提交" style="width: auto" (click)="reportOperate('add')"></button>
     </div>
-    <!--组织数弹窗-->
-    <p-dialog
-      [title]="reportOperateFlag === 'strain'?'请选择受训单位人员':'请选择组织培训单位'"
-      [(visible)]="reportOperateModal" [blockScroll]="true"
-      [contentStyle]="{width: '30vw',height: '30vh'}">
-      <p-scrollPanel [style]="{width: '100%', height: '250px'}">
-        <p-tree
-          [hidden]="reportOperateFlag === 'strain'"
-          [value]="reportOrgTree"
-          [(selection)]="reportOrgTreeSelect"
-          selectionMode="single">
-        </p-tree>
-      </p-scrollPanel>
-      <p-footer>
-        <button type="button" pButton icon="pi pi-check" (click)="reportOperateModal=false" label="确定"></button>
-        <button type="button" pButton icon="pi pi-close" (click)="reportOperateModal=false" label="取消" class="ui-button-secondary"></button>
-      </p-footer>
-    </p-dialog>
   </div>
+  <!--弹窗-->
+  <p-dialog
+    [(visible)]="reportOperateModal" [blockScroll]="true"
+    [contentStyle]="{width: reportOperateFlag === 'strain'?'50vw':'30vw',height: '30vh'}">
+    <p-header>{{reportOperateFlag === 'strain'?'请选择受训单位人员':'请选择组织培训单位'}}</p-header>
+    <p-scrollPanel [style]="{width: '100%', height: '250px'}" *ngIf="reportOperateFlag === 'tree'">
+      <p-tree
+        [style]="{width: '100%'}"
+        [value]="reportOrgTree"
+        [(selection)]="reportOrgTreeSelect"
+        selectionMode="single">
+      </p-tree>
+    </p-scrollPanel>
+    <p-table
+      *ngIf="reportOperateFlag === 'strain'"
+      [(selection)]="reportTableSelect"
+      [value]="reportTableData" [columns]="reportTableHeader"
+      [scrollable]="true" scrollHeight="50vh"
+    >
+      <ng-template pTemplate="header" let-columns>
+        <tr>
+          <th style="width: 3em">
+            #
+          </th>
+          <th *ngFor="let col of columns">
+            {{col.header}}
+          </th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-rowData let-columns="columns">
+        <tr>
+          <td style="width: 3em">
+            <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
+          </td>
+          <td *ngFor="let col of columns" style="overflow: hidden;text-overflow: ellipsis;" [pTooltip]="rowData[col.field]">
+            {{rowData[col.field]}}
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="summary">
+        <app-pagination [option]="reportPageOption" (clickEvent)="reportPageEvent($event)"></app-pagination>
+      </ng-template>
+    </p-table>
+    <p-footer>
+      <button type="button" pButton icon="pi pi-check" (click)="reportOperate('select')" label="确定"></button>
+    </p-footer>
+  </p-dialog>
 </div>

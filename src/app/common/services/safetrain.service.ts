@@ -37,6 +37,22 @@ export class SafetrainService {
   }
 
   /**
+   * 日常需求信息填报新增
+   * @param params
+   */
+  public addReportsInfo(params: any): Observable<any> {
+    return this.http.post(`/insertTrainingNeeds`, params);
+  }
+
+  /**
+   * 日常需求信息填报查看
+   * @param params
+   */
+  public getReportsInfo(params: any): Observable<any> {
+    return this.http.post(`/getTrainingNeedsById`, params);
+  }
+
+  /**
    * 培训内容列表获取
    * @param params
    */
@@ -116,6 +132,45 @@ export class SafetrainService {
     return this.http.post(`/safeFourLevel/deleteSafeFourLevelById`, params);
   }
 
+  /**
+   * 主要负责人/安全生产管理员培训台账列表获取
+   * * @param params
+   */
+  public getManageList(params: any): Observable<any> {
+    return this.http.post(`/training/findAdministratorTrainByPage`, params);
+  }
+
+  /**
+   * 主要负责人/安全生产管理员培训台账添加
+   * @param params
+   */
+  public addManageInfo(params: any): Observable<any> {
+    return this.http.post(`/training/insertAdministratorTrain`, params);
+  }
+
+  /**
+   * 主要负责人/安全生产管理员培训台账修改
+   * @param params
+   */
+  public updateManageInfo(params: any): Observable<any> {
+    return this.http.post(`/training/updateAdministratorTrain`, params);
+  }
+
+  /**
+   * 主要负责人/安全生产管理员培训台账删除
+   * @param params
+   */
+  public delManageInfo(params: any): Observable<any> {
+    return this.http.post(`/training/deleteAdministratorTrain`, params);
+  }
+
+  /**
+   * 教育台账分类信息查询
+   * @param params
+   */
+  public searchManageList(params: any): Observable<any> {
+    return this.http.post(`/training/findAdministratorTrainByCondition`, params);
+  }
 
   /**
    * 教育培训计划列表获取

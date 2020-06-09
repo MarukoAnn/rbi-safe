@@ -305,6 +305,44 @@ export class UpdateEducateFieldClass implements EducateField {
   }
 }
 
+/**
+ * 主要负责人/安全生产管理员培训台账接口及实现
+ */
+export interface ManageField {
+  id?: any;
+  idCardNo?: string; // 身份证号
+  unit: string; // 单位
+  dateOfIssue: string; // 发证时间
+  termOfValidity: string; // 有效期
+  typeOfCertificate: string; // 合格证类型 手输
+  oneTrainingTime: string; // 培训时间1
+  twoTrainingTime: string; // 培训时间2
+  threeTrainingTime: string; // 培训时间3
+  remarks: string; // 备注
+}
+export class AddManageFieldClass implements ManageField{
+  dateOfIssue: string;
+  idCardNo: string;
+  oneTrainingTime: string;
+  remarks: string;
+  termOfValidity: string;
+  threeTrainingTime: string;
+  twoTrainingTime: string;
+  typeOfCertificate: string;
+  unit: string;
+}
+export class UpdateManageFieldClass implements ManageField {
+  dateOfIssue: string;
+  id: any;
+  oneTrainingTime: string;
+  remarks: string;
+  termOfValidity: string;
+  threeTrainingTime: string;
+  twoTrainingTime: string;
+  typeOfCertificate: string;
+  unit: string;
+}
+
 
 export interface QuestionItem {
   title?: any;
@@ -371,7 +409,9 @@ export class ProgramFieldClass implements ProgramField{
   trainingContent: string;
   trainingTypeName: string;
 }
+
 export interface TrainingField {
+  id?: any;
   targetSet: string;
   trainingTypeId: number;
   trainingContent: string;
@@ -394,16 +434,52 @@ export class TrainingFieldAddClass implements TrainingField {
     this.processingStatus = '1';
   }
 }
+export class TrainingFieldUpdateClass implements TrainingField {
+  id: any;
+  endTime: string;
+  organizationTrainingDepartmentId: string;
+  processingStatus: string;
+  startTime: string;
+  targetSet: string;
+  trainingContent: string;
+  trainingDuration: string;
+  trainingTypeId: number;
+  constructor() {
+    this.id = '';
+    this.endTime = '';
+    this.organizationTrainingDepartmentId = '';
+    this.processingStatus = '';
+    this.startTime = '';
+    this.targetSet = '';
+    this.trainingContent = '';
+    this.trainingDuration = '';
+    this.trainingTypeId = null;
+  }
+}
+
+export interface ExamRuleField {
+  startTime: string; // 考试开始时间
+  endTime: string; // 考试结束时间
+  duration: number; // 考试时长
+  test_paper_name: string; // 考试名称
+}
+export class ExamRuleFieldClass implements ExamRuleField{
+  duration: number;
+  endTime: string;
+  startTime: string;
+  // tslint:disable-next-line:variable-name
+  test_paper_name: string;
+}
 
 // 获取公司人员查询参数接口
 export interface CompanyPersonParams {
   pageNo: string;
   pageSize: string;
-  organizationId: string;
-  employeeNumber: string;
-  name: string;
-  idCardNo: string;
-  position: string;
+  organizationId?: string; // 根据组织id查询
+  employeeNumber?: string; // 根据员工号查询
+  name?: string; // 根据姓名查询
+  idCardNo?: string; // 根据身份证号查询
+  position?: string; // 根据所在职位查询
 }
 
 export interface MYLevelFourEducationInfo {

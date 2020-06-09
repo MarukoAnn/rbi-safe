@@ -15,6 +15,7 @@ export class ScsContentsComponent implements OnInit {
   public contentsTableHeader: TableHeader[] = [
     {field: 'resourceName', header: '文件名'},
     {field: 'resourceType', header: '文件类型'},
+    {field: 'contentCategoryName', header: '内容类型'},
     {field: 'operatorName', header: '添加人'},
     {field: 'idt', header: '添加时间'},
   ]; // 表头字段

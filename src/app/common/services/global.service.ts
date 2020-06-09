@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {IdInterface} from '../public/Api';
+import {CompanyPersonParams, IdInterface} from '../public/Api';
 
 @Injectable({
   providedIn: 'root'
@@ -68,7 +68,7 @@ export class GlobalService {
    * 获取公司人员信息，带有条件查询
    * @param params
    */
-  public publicGetCompanyPerson(params?: {}): Observable<any> {
+  public publicGetCompanyPerson(params?: CompanyPersonParams): Observable<any> {
     return this.http.post('/company_personnel/query/page', params);
   }
 }

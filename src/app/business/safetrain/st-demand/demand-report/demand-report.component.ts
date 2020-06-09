@@ -1,7 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {OrgTree, TrainingField, TrainingFieldAddClass} from '../../../../common/public/Api';
+import {OrgTree, PageOption, TableHeader, TrainingField, TrainingFieldAddClass} from '../../../../common/public/Api';
 import {Es, orgInitializeTree} from '../../../../common/public/contents';
 import {GlobalService} from '../../../../common/services/global.service';
+import {SafetrainService} from '../../../../common/services/safetrain.service';
 
 @Component({
   selector: 'app-demand-report',
@@ -9,17 +10,34 @@ import {GlobalService} from '../../../../common/services/global.service';
   styleUrls: ['./demand-report.component.scss']
 })
 export class DemandReportComponent implements OnInit {
+  public reportDropdownOptions: any; // 下拉配置项
+  public reportDropdownSelected: any; // 下拉选择
+  public reportOrgTree: OrgTree[] = []; // 树配置项
+  public reportOrgTreeSelect: OrgTree = {}; // 树选择
   public reportOperateField: TrainingField = new TrainingFieldAddClass(); // 操作字段
-  public reportDropdownOptions: any;
-  public reportDropdownSelected: any;
   public reportOperateModal: boolean = false; // 模态框
   public reportOperateFlag: any ; // 操作标识
   public reportEs: any = Es;
-  public reportOrgTree: OrgTree[] = [];
-  public reportOrgTreeSelect: OrgTree = {};
+  public reportPageOption: PageOption = {
+    pageSize: 8, // 默认显示多少条
+    totalRecord: null // 总条数
+  }; // 分页组件配置
+  public reportTableHeader: TableHeader[] = [
+    {field: 'name', header: '姓名'},
+    {field: 'employeeNumber', header: '员工号'},
+    {field: 'idCardNo', header: '身份证'},
+    {field: 'gender', header: '性别'},
+    {field: 'position', header: '所在岗位'},
+    {field: 'degreeOfEducation', header: '文化程度'},
+  ]; // 表头字段
+  public reportTableData: any[]; // 表体数据
+  public reportTableSelect: any[]; // 表体数据选择
+  public reportTableSelectName: any = '请选择受训单位人员'; // 表体数据选择名字
+  public reportNowPage: number = 1; // 当前页
 
   constructor(
     private globalSrv: GlobalService,
+    private safeSrv: SafetrainService,
   ) {
   }
 
@@ -39,15 +57,31 @@ export class DemandReportComponent implements OnInit {
         this.reportOrgTree = orgInitializeTree(res.data);
       }
     );
+    // 初始化公司人员
+    this.reportCompanyDataInit(this.reportNowPage, this.reportPageOption.pageSize);
   }
 
-  // 特殊台账操作操作
+  //  公司人员分页
+  private reportCompanyDataInit(pageNo, pageSize) {
+    this.globalSrv.publicGetCompanyPerson({pageNo, pageSize}).subscribe((res) => {
+      this.reportTableData = res.data.contents;
+      this.reportPageOption.totalRecord = res.data.totalRecord;
+    });
+  }
+
+  // 操作
   public reportOperate(flag: string, item?: any) {
     switch (flag) {
       // 添加操作初始化
       case 'add':
-        this.reportOperateField.trainingTypeId = this.reportDropdownSelected.id;
-        this.reportOperateField.organizationTrainingDepartmentId = this.reportOrgTreeSelect.id;
+        if (this.reportDropdownSelected && this.reportOrgTreeSelect && this.reportTableSelect) {
+          this.reportOperateField.trainingTypeId = this.reportDropdownSelected.id;
+          this.reportOperateField.organizationTrainingDepartmentId = this.reportOrgTreeSelect.id;
+          this.reportOperateField.targetSet = this.reportTableSelect.map((res) => res.id).join(',');
+          this.safeSrv.addReportsInfo(this.reportOperateField).subscribe(() => this.reportOperateField = new TrainingFieldAddClass());
+          break;
+        }
+        window.alert('请把参数填写完整');
         break;
       case 'tree':
         this.reportOperateModal = true;
@@ -55,6 +89,18 @@ export class DemandReportComponent implements OnInit {
       case 'strain':
         this.reportOperateModal = true;
         break;
+      case 'select':
+        this.reportOperateModal = false;
+        if (this.reportTableSelect) {
+          this.reportTableSelectName = this.reportTableSelect.map((res) => res.name).join(',');
+        }
+        break;
     }
+  }
+
+  // 分页操作
+  public reportPageEvent(page) {
+    this.reportNowPage = page;
+    this.reportCompanyDataInit(page, this.reportPageOption.pageSize);
   }
 }

@@ -14,10 +14,17 @@
       color: #116FBF;
       background-color: unset;
     }
+    /deep/ .ui-button-text{
+      overflow: hidden;text-overflow: ellipsis;white-space: nowrap;
+    }
   }
   .orgButton{
     /deep/ .ui-button-text{
       padding: 0.429em;
     }
+  }
+  /deep/ .ui-table-summary{
+    background-color: unset;
+    border: unset;
   }
 }

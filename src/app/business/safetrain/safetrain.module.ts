@@ -18,7 +18,7 @@ import {BasicTableModule} from '../../common/components/basic-table/basic-table.
 import {InputTextModule} from 'primeng/inputtext';
 import {ButtonModule} from 'primeng/button';
 import {
-  CalendarModule, CardModule,
+  CalendarModule,
   CheckboxModule,
   DialogModule,
   DropdownModule,
@@ -27,14 +27,14 @@ import {
   RadioButtonModule,
   ScrollPanelModule,
   StepsModule,
-  TabViewModule,
-  TreeModule
+  TabViewModule, TooltipModule,
+  TreeModule, CardModule
 } from 'primeng/primeng';
 import {StArchivesComponent} from './st-archives/st-archives.component';
 import {ArchivesSpecialComponent} from './st-archives/archives-special/archives-special.component';
 import {TableModule} from 'primeng/table';
-import { ScsContentsComponent } from './st-content-seting/scs-contents/scs-contents.component';
-import { ScsQuestionComponent } from './st-content-seting/scs-question/scs-question.component';
+import {ScsContentsComponent} from './st-content-seting/scs-contents/scs-contents.component';
+import {ScsQuestionComponent} from './st-content-seting/scs-question/scs-question.component';
 import {QuestionTemplateModule} from '../../common/components/question-template/question-template.module';
 import { ArchivesEducateComponent } from './st-archives/archives-educate/archives-educate.component';
 import { ArchivesManageComponent } from './st-archives/archives-manage/archives-manage.component';
@@ -51,6 +51,9 @@ import { PtProcessedComponent } from './st-plain/plain-list/pt-processed/pt-proc
 import { PtUnprocessedComponent } from './st-plain/plain-list/pt-unprocessed/pt-unprocessed.component';
 import { StTakingExamComponent } from './st-online-exam/st-taking-exam/st-taking-exam.component';
 import { StExamListComponent } from './st-online-exam/st-exam-list/st-exam-list.component';
+import { ExamRuleComponent } from './st-plain/plain-edit/pl-exam/exam-rule/exam-rule.component';
+import { ExamTopicComponent } from './st-plain/plain-edit/pl-exam/exam-topic/exam-topic.component';
+import { ExamPreviewComponent } from './st-plain/plain-edit/pl-exam/exam-preview/exam-preview.component';
 
 @NgModule({
   declarations: [
@@ -82,33 +85,39 @@ import { StExamListComponent } from './st-online-exam/st-exam-list/st-exam-list.
     LevelEducationCardComponent,
     StCompletedExamComponent,
     StNoExamComponent,
+    ExamRuleComponent,
+    ExamTopicComponent,
+    ExamPreviewComponent,
+    StNoExamComponent,
     StTakingExamComponent,
     StExamListComponent
   ],
-    imports: [
-        CommonModule,
-        SafetrainRoutingModule,
-        InputTextModule,
-        ButtonModule,
-        BasicTableModule,
-        ScrollPanelModule,
-        StDemandModule,
-        PaginationModule,
-        StepsModule,
-        TabViewModule,
-        DropdownModule,
-        CalendarModule,
-        FormsModule,
-        DialogModule,
-        TreeModule,
-        TableModule,
-        RadioButtonModule,
-        InputTextareaModule,
-        FileUploadModule,
-        QuestionTemplateModule,
-        CheckboxModule,
-        CardModule,
-    ],
+  imports: [
+    CommonModule,
+    SafetrainRoutingModule,
+    InputTextModule,
+    ButtonModule,
+    BasicTableModule,
+    ScrollPanelModule,
+    StDemandModule,
+    PaginationModule,
+    StepsModule,
+    TabViewModule,
+    DropdownModule,
+    CalendarModule,
+    FormsModule,
+    DialogModule,
+    TreeModule,
+    TableModule,
+    RadioButtonModule,
+    InputTextareaModule,
+    FileUploadModule,
+    QuestionTemplateModule,
+    CheckboxModule,
+    TooltipModule,
+    CardModule,
+  ],
   providers: []
 })
-export class SafetrainModule { }
+export class SafetrainModule {
+}

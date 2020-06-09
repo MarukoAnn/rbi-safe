@@ -62,7 +62,7 @@ export class ArchivesEducateComponent implements OnInit {
       // 编辑操作初始化
       case 'update':
         this.educateOperateModal = true;
-        this.educateOperateField = objectCopy(Object.assign({}, new UpdateEducateFieldClass()), item);
+        this.educateOperateField = Object.assign({}, new UpdateEducateFieldClass(), item);
         break;
       // 保存操作
       case 'save':
