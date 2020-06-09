@@ -8,7 +8,7 @@ import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 export class PlExamComponent implements OnInit {
   @Output() nextChange: EventEmitter<any> = new EventEmitter<any>();
   @Output() previousChange: EventEmitter<any> = new EventEmitter<any>();
-  public traTabActiveIndex: number = 0;
+  public traTabActiveIndex: number = 1;
   constructor() { }
 
   ngOnInit() {

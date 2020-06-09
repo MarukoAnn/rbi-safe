@@ -1,0 +1,55 @@
+.exam-topic{
+  .menu{
+    height: 64vh;
+    border: 1px solid #F5F5F5;
+    padding: 0;
+    .title{
+      display: flex;
+      justify-content: center;
+      p{
+        flex: 1;
+        height: 4vh;
+        line-height: 4vh;
+        color: #BBBBBB;
+        cursor: pointer;
+        text-align: center;
+        background-color: #EFF2F6;
+      }
+      p.active{
+        color: #3B86FF;
+        background-color: #FFFFFF;
+      }
+    }
+    .list{
+      /deep/ .ui-tabview-nav{
+        display: none;
+      }
+      /deep/ .ui-tabview-panels{
+        border: none;
+      }
+      .select-list{
+        border-bottom: 1px solid #FAFAFB;
+        cursor: pointer;
+      }
+    }
+  }
+  .content{
+    padding: 2px 0 0 10px;
+    height: 64vh;
+    .input{
+      height: 4vh;
+      .ui-inputtext{
+        height: 100%;
+        width: 100%;
+        text-align: center;
+      }
+      .ui-inputtext::placeholder{
+        text-align: center;
+      }
+    }
+    .topic{
+      height: 57vh;
+      margin-top: 1vh;
+    }
+  }
+}
