@@ -12,6 +12,7 @@ export class HeaderComponent implements OnInit {
   private outer = new EventEmitter();
   @Output()
   private outEvent = new EventEmitter();
+  public username: string = '';
   public logoWidth = 10;
   public showNotice = false;
   constructor(
@@ -19,6 +20,7 @@ export class HeaderComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+   this.username = this.localSrv.get('username');
   }
 
   public  logoClick(): void {
