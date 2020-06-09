@@ -1,6 +1,11 @@
 .level-education-card{
   .level-education-card-table{
+    text-align: center;
     margin-top: 2vh;
+    padding: 0 10vw;
+    ::ng-deep .ui-card {
+      height: 75vh;
+    }
   }
   .level--education-card-pagination{
     position: absolute;

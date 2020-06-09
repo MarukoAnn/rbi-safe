@@ -18,17 +18,17 @@ import {BasicTableModule} from '../../common/components/basic-table/basic-table.
 import {InputTextModule} from 'primeng/inputtext';
 import {ButtonModule} from 'primeng/button';
 import {
-    CalendarModule,
-    CheckboxModule,
-    DialogModule,
-    DropdownModule,
-    FileUploadModule,
-    InputTextareaModule,
-    RadioButtonModule,
-    ScrollPanelModule,
-    StepsModule,
-    TabViewModule,
-    TreeModule
+  CalendarModule, CardModule,
+  CheckboxModule,
+  DialogModule,
+  DropdownModule,
+  FileUploadModule,
+  InputTextareaModule,
+  RadioButtonModule,
+  ScrollPanelModule,
+  StepsModule,
+  TabViewModule,
+  TreeModule
 } from 'primeng/primeng';
 import {StArchivesComponent} from './st-archives/st-archives.component';
 import {ArchivesSpecialComponent} from './st-archives/archives-special/archives-special.component';
@@ -49,6 +49,8 @@ import { StCompletedExamComponent } from './st-online-exam/st-completed-exam/st-
 import { StNoExamComponent } from './st-online-exam/st-no-exam/st-no-exam.component';
 import { PtProcessedComponent } from './st-plain/plain-list/pt-processed/pt-processed.component';
 import { PtUnprocessedComponent } from './st-plain/plain-list/pt-unprocessed/pt-unprocessed.component';
+import { StTakingExamComponent } from './st-online-exam/st-taking-exam/st-taking-exam.component';
+import { StExamListComponent } from './st-online-exam/st-exam-list/st-exam-list.component';
 
 @NgModule({
   declarations: [
@@ -79,7 +81,9 @@ import { PtUnprocessedComponent } from './st-plain/plain-list/pt-unprocessed/pt-
     AptitudeCertificateComponent,
     LevelEducationCardComponent,
     StCompletedExamComponent,
-    StNoExamComponent
+    StNoExamComponent,
+    StTakingExamComponent,
+    StExamListComponent
   ],
     imports: [
         CommonModule,
@@ -102,7 +106,8 @@ import { PtUnprocessedComponent } from './st-plain/plain-list/pt-unprocessed/pt-
         InputTextareaModule,
         FileUploadModule,
         QuestionTemplateModule,
-        CheckboxModule
+        CheckboxModule,
+        CardModule,
     ],
   providers: []
 })

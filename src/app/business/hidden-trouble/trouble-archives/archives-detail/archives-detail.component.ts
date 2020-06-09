@@ -65,6 +65,7 @@ export class ArchivesDetailComponent implements OnInit {
       organizationName: new FormControl({value: '', disabled: true}, Validators.required),
       beforeImg: new FormControl({value: '', disabled: true}, Validators.required), // 排查前图片
       hidType: new FormControl({value: '', disabled: true}, Validators.required),
+      rectificationOpinions: new FormControl({value: '', disabled: true}),
       // 处理的
       governanceFunds: new FormControl({value: '', disabled: true}), // 处理资金
       completionTime: new FormControl({value: '', disabled: true}), // 完成时间
@@ -89,7 +90,7 @@ export class ArchivesDetailComponent implements OnInit {
      this.troubleSrv.getTroubleArchiveDetailByCode({hidDangerCode: this.code}).subscribe(val => {
         console.log(val);
         const list = ['troubleshootingTime', 'ifControlMeasures', 'hidDangerContent', 'hidDangerGrade', 'ifRectificationPlan',
-          'ifDeal', 'organizationId', 'organizationName', 'governanceFunds', 'completionTime', 'completionSituation',
+          'ifDeal', 'organizationId', 'organizationName', 'governanceFunds', 'completionTime', 'completionSituation', 'rectificationOpinions',
           'companyName', 'copyOrganizationName', 'className', 'factoryName'];
         setValueToFromValue(list, val.data.hidDangerDO, this.addReport);
         const typeList = [];

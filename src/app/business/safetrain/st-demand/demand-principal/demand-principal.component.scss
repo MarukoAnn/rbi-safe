@@ -7,6 +7,13 @@
       font-size: 20px;
       color: #9A9DA2;
     }
+    ::ng-deep .ui-button .pi {
+      font-size: 0.8rem;
+    }
+    ::ng-deep .ui-button .ui-button-icon-left{
+      margin-left: 0.5vw;
+      top: 51%;
+    }
     button{
       margin-left: 1vw;
       //height: 32px;
@@ -20,6 +27,19 @@
     position: relative;
     display: flex;
     justify-content: space-between;
+    .ui-inputgroup {
+      display: inline-block;
+      margin-left: 1vw;
+      input{
+        border-radius: 20px 0 0 20px;
+        outline: none;
+      }
+      button{
+        //margin-top: 1px;
+        border-radius: 0 20px 20px 0;
+        border: 0;
+      }
+    }
     .review-btn {
       button {
         width: 6vw;
@@ -39,19 +59,13 @@
     right: 4vw;
   }
   ::ng-deep .ui-inputgroup .ui-widget {
-    border-radius: 20px;
+    //border-radius: 20px;
     color: #8D8E96;
     font-size: 14px;
     height: 32px;
     border: 1px solid #F0F0F0;
     background: #F8F8F8;
   }
-  ::ng-deep .ui-button .pi {
-    font-size: 0.8rem;
-  }
-  ::ng-deep .ui-button .ui-button-icon-left{
-    margin-left: 0.5vw;
-    top: 51%;
-  }
+
 
 }

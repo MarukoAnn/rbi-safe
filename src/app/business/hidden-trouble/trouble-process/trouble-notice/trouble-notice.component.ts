@@ -6,6 +6,7 @@ import {GlobalService} from '../../../../common/services/global.service';
 import {DatePipe} from '@angular/common';
 import {PublicMethodService} from '../../../../common/public/public-method.service';
 import {Es, setDrapdownOptionList} from '../../../../common/public/contents';
+import {LocalStorageService} from '../../../../common/services/local-storage.service';
 
 @Component({
   selector: 'app-trouble-notice',
@@ -23,6 +24,7 @@ export class TroubleNoticeComponent implements OnInit {
     private route: ActivatedRoute,
     private fb: FormBuilder,
     private troubleSrv: TroubleProcessService,
+    private localSrv: LocalStorageService,
     private globalSrv: GlobalService,
     private datePipe: DatePipe,
     private toolSrv: PublicMethodService,
@@ -32,16 +34,15 @@ export class TroubleNoticeComponent implements OnInit {
   ngOnInit() {
     this.route.queryParams.subscribe(val => {
       this.code = val.code;
-      this.time = val.time;
+      this.time = this.datePipe.transform(val.time, 'yyyy-MM-dd');
     });
-    console.log(this.time);
+    const rectificationOpinion = this.localSrv.get('rectificationOpinions');
     this.addNotice = this.fb.group({
       correctorId: new FormControl('', Validators.required),
       hidDangerCode: new FormControl(this.code, Validators.required),
-      rectificationOpinions: new FormControl('', Validators.required),
-      specifiedRectificationTime: new FormControl('', Validators.required),
+      rectificationOpinions: new FormControl({value: rectificationOpinion, disabled: rectificationOpinion}, Validators.required),
+      specifiedRectificationTime: new FormControl({value: this.time, disabled: this.time}, Validators.required),
     });
-    this.addNotice.patchValue({specifiedRectificationTime: this.time});
     this.getCorrector();
   }
 
@@ -56,6 +57,7 @@ export class TroubleNoticeComponent implements OnInit {
       // this.formData.append('hidDangerCode', this.code);
       const subMitDta = JSON.parse(JSON.stringify(this.addNotice.value));
       subMitDta.requiredCompletionTime = this.datePipe.transform(subMitDta.requiredCompletionTime, 'yyyy-MM-dd');
+      subMitDta.specifiedRectificationTime = this.datePipe.transform(subMitDta.specifiedRectificationTime, 'yyyy-MM-dd');
       this.toolSrv.setConfirmation('下发整改', '通知整改', () => {
         this.troubleSrv.issuedNoticeToRectify(subMitDta).subscribe(value => {
           this.addNotice.reset();

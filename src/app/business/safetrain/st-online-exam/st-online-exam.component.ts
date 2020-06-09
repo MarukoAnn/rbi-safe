@@ -8,18 +8,9 @@ import {PageOption} from '../../../common/public/Api';
   styleUrls: ['./st-online-exam.component.scss']
 })
 export class StOnlineExamComponent implements OnInit {
-  public noExamNum: any =  '';
-  public themeSub: Subscription;
-  ngOnInit() {
+  constructor() {
   }
+  ngOnInit(): void {
 
-
-  public clickEvent(e): void {
-    console.log(e);
-  }
-  public  getLength(e): void {
-    setTimeout(() => {
-      this.noExamNum = e;
-    }, 10);
   }
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {PageOption} from '../../../../common/public/Api';
 import {Subscription} from 'rxjs';
+import {StOnlineExamService} from '../../../../common/services/st-online-exam.service';
 
 @Component({
   selector: 'app-st-completed-exam',
@@ -19,31 +20,39 @@ export class StCompletedExamComponent implements OnInit {
     totalRecord: 10,
     pageSize: 10
   };
+  public pageNo: number = 1;
   public completedExamTitle: Array<object>  = [
-    { field: 'id', header: '序号' },
-    { field: 'name', header: '组织培训单位' },
-    { field: 'plan', header: '教育培训计划' },
-    { field: 'content', header: '日常培训内容' },
-    { field: 'time', header: '培训时间' },
-    { field: 'examTime', header: '考试时间' },
-    { field: 'timeLenght', header: '累计学习时长' },
-    { field: 'score', header: '考试成绩' },
-    { field: 'result', header: '培训结果' },
+    { field: 'id', header: '试卷id' },
+    { field: 'testPaperName', header: '试卷名称' },
+    { field: 'processingStatus', header: '完成状态' },
+    { field: 'testResults', header: '考试结果' },
+    { field: 'startTime', header: '开始考试时间' },
+    { field: 'endTime', header: '结束考试时间' },
+    { field: 'duration', header: '考试时长' },
+    { field: 'personnelTrainingRecordId', header: '人员培训记录id' },
     { field: 'operating', header: '操作' },
   ];
-  public completedExamContent: Array<object> = [
-    {id: 1, name: '矿山', plan: '岗位章程', content: '岗位员工安全培训', time: '2020-5-12', examTime: '2020-5-12', timeLenght: '32学时', score: 100, result: '合格', operating: '详情'},
-    {id: 1, name: '矿山', plan: '岗位章程', content: '岗位员工安全培训', time: '2020-5-12', examTime: '2020-5-12', timeLenght: '32学时', score: 100, result: '合格', operating: '详情'},
-    {id: 1, name: '矿山', plan: '岗位章程', content: '岗位员工安全培训', time: '2020-5-12', examTime: '2020-5-12', timeLenght: '32学时', score: 100, result: '合格', operating: '详情'},
-    {id: 1, name: '矿山', plan: '岗位章程', content: '岗位员工安全培训', time: '2020-5-12', examTime: '2020-5-12', timeLenght: '32学时', score: 100, result: '合格', operating: '详情'},
-    {id: 1, name: '矿山', plan: '岗位章程', content: '岗位员工安全培训', time: '2020-5-12', examTime: '2020-5-12', timeLenght: '32学时', score: 100, result: '合格', operating: '详情'},
-    {id: 1, name: '矿山', plan: '岗位章程', content: '岗位员工安全培训', time: '2020-5-12', examTime: '2020-5-12', timeLenght: '32学时', score: 100, result: '合格', operating: '详情'},
-    {id: 1, name: '矿山', plan: '岗位章程', content: '岗位员工安全培训', time: '2020-5-12', examTime: '2020-5-12', timeLenght: '32学时', score: 100, result: '合格', operating: '详情'},
-  ];
+  public completedExamContent: Array<object> = [];
+  constructor(
+    private stOnlineExamSrv: StOnlineExamService
+  ) {
+  }
   public themeSub: Subscription;
   ngOnInit() {
+    this.initCompleteExamData();
   }
-
+  public  initCompleteExamData(): void {
+      this.stOnlineExamSrv.getOnlineExamOPageInfo({pageSize: 10, pageNo: this.pageNo, processingStatus: 2}).subscribe(res => {
+        console.log(res);
+        this.pageOption = {pageSize: res.data.pageSize, totalRecord: res.data.totalRecord};
+        if (res.data.contents){
+          this.completedExamContent = res.data.contents.map(v => {
+            v.operating = '详情';
+            return v;
+          });
+        }
+      });
+  }
   public  clickEvent(e): void {
     console.log(e);
   }

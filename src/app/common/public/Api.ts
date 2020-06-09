@@ -405,3 +405,35 @@ export interface CompanyPersonParams {
   idCardNo: string;
   position: string;
 }
+
+export interface MYLevelFourEducationInfo {
+  id?: any;
+  entryTime?: any; // 入场时间
+  organizationName?: any;
+  workType?: any; // 工种
+  jobNature?: any; //
+  companyEducationTime?: any; // 公司教育时间
+  companyFraction?: any; // 公司级成绩
+  factoryEducationTime?: any;
+  factoryFraction?: any;
+  workshopEducationTime?: any;
+  workshopFraction?: any;
+  classEducationTime?: any;
+  classFraction?: any;
+  operatingStaff?: any;
+}
+export class LevelFourEducationDetail implements MYLevelFourEducationInfo{
+  entryTime?: any; // 入场时间
+  organizationName?: any;
+  workType?: any; // 工种
+  jobNature?: any; //
+  companyEducationTime?: any; // 公司教育时间
+  companyFraction?: any; // 公司级成绩
+  factoryEducationTime?: any;
+  factoryFraction?: any;
+  workshopEducationTime?: any;
+  workshopFraction?: any;
+  classEducationTime?: any;
+  classFraction?: any;
+  operatingStaff?: any;
+}

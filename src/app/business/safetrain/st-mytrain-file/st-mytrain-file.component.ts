@@ -16,7 +16,7 @@ export class StMytrainFileComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.arcTabItemClick(0);
+    this.arcTabItemClick(2);
   }
   public arcTabItemClick(index): void {
     this.arcActiveIndex = index;

@@ -1,5 +1,31 @@
 .st-completed-exam{
-  .completed-exam{
+  .st-completed-search{
+    margin-top: 2vh;
+    .ui-inputgroup {
+      display: inline-block;
+      //margin-left: 1vw;
+      input{
+        border-radius: 20px 0 0 20px;
+        outline: none;
+      }
+      button{
+        margin-top: 1px;
+        border-radius: 0 20px 20px 0;
+        border: 0;
+      }
+    }
+    ::ng-deep .ui-inputgroup .ui-widget {
+      color: #8D8E96;
+      font-size: 14px;
+      //height: 3vh;
+      height: 32px;
+      border: 1px solid #F0F0F0;
+      //border-right: 0;
+      border-left: 0;
+      background: #F8F8F8;
+    }
+  }
+  .completed-exam {
     margin-top: 2vh;
   }
   .completed-exam-pagination{
