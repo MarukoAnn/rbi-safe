@@ -45,6 +45,14 @@ export class SafetrainService {
   }
 
   /**
+   * 日常需求信息填报查看
+   * @param params
+   */
+  public getReportsInfo(params: any): Observable<any> {
+    return this.http.post(`/getTrainingNeedsById`, params);
+  }
+
+  /**
    * 培训内容列表获取
    * @param params
    */

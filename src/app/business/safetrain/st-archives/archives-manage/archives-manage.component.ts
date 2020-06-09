@@ -15,7 +15,7 @@ export class ArchivesManageComponent implements OnInit {
     totalRecord: null // 总条数
   }; // 分页组件配置
   public manageTableHeader: TableHeader[] = [
-    {field: 'idCardNo', header: '身份证号'},
+    {field: 'name', header: '姓名'},
     {field: 'unit', header: '单位'},
     {field: 'typeOfCertificate', header: '合格证类型'},
     {field: 'termOfValidity', header: '有效期'},

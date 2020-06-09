@@ -3,7 +3,7 @@
     <p class="mr-4" [ngClass]="{'active': traTabActiveIndex === 0}" (click)="traTabActiveIndex=0">培训内容设置</p>
     <p class="ml-4" [ngClass]="{'active': traTabActiveIndex === 1}" (click)="traTabActiveIndex=1">预览培训内容</p>
   </header>
-  <div class="tab">
+  <div class="tab pl-5 pr-5">
     <p-tabView [activeIndex]="traTabActiveIndex">
       <p-tabPanel>
         <div class="ui-g setting">
@@ -14,18 +14,18 @@
                 <p-dropdown
                   [showClear]="true"
                   placeholder="请选择分类..."
-                  [options]="contentsClassifyOptions"
-                  [(ngModel)]="contentsClassifySelected"
-                  (onChange)="contentsOperate(contentsOperateFlag = 'reset')"
+                  [options]="trainClassifyOptions"
+                  [(ngModel)]="trainClassifySelected"
+                  (onChange)="trainOperate(trainOperateFlag = 'reset')"
                   optionLabel="contentCategoryName"
                   dropdownIcon="fa fa-caret-down">
                 </p-dropdown>
-                <button pButton type="button" label="搜索" (click)="contentsOperate(contentsOperateFlag = 'search')"></button>
+                <button pButton type="button" label="搜索" (click)="trainOperate(trainOperateFlag = 'search')"></button>
               </div>
             </div>
             <div class="content" style="height: 52vh">
               <p-table
-                [value]="contentsTableData" [columns]="contentsTableHeader"
+                [value]="trainTableData" [columns]="trainTableHeader"
                 [scrollable]="true" scrollHeight="50vh"
               >
                 <ng-template pTemplate="header" let-columns>
@@ -47,7 +47,7 @@
                       <button
                         *ngIf="rowData.active === 0"
                         pButton label="添加" class="ui-button-rounded mr-3"
-                        (click)="contentsOperate(contentsOperateFlag='add',rowData, rowIndex)">
+                        (click)="trainOperate(trainOperateFlag='add',rowData, rowIndex)">
                       </button>
                       <button
                         *ngIf="rowData.active === 1"
@@ -59,7 +59,7 @@
               </p-table>
             </div>
             <div class="pagination mt-2">
-              <app-pagination [option]="contentsPageOption" (clickEvent)="contentsPageEvent($event)"></app-pagination>
+              <app-pagination [option]="trainPageOption" (clickEvent)="trainPageEvent($event)"></app-pagination>
             </div>
           </div>
           <div class="ui-g-4 ui-md-4">
@@ -67,12 +67,12 @@
               <span>已添加的课程</span>
             </div>
             <div class="content pl-2 pr-2">
-              <div class="list" *ngFor="let item of contentsAddList;let i = index">
+              <div class="list" *ngFor="let item of trainAddList;let i = index">
                 <div class="left pt-2 pb-2">
                   <p>{{item?.resourceName}}</p>
                   <p class="text-gray">{{item?.resourceType}}</p>
                 </div>
-                <div class="right" (click)="contentsOperate(contentsOperateFlag='del', item, i)">
+                <div class="right" (click)="trainOperate(trainOperateFlag='del', item, i)">
                   <i class="fa fa-trash-o h5 text-gray" aria-hidden="true"></i>
                 </div>
               </div>
@@ -80,11 +80,12 @@
           </div>
         </div>
       </p-tabPanel>
-      <p-tabPanel>
+      <p-tabPanel [cache]="false">
         <div class="ui-g train">
           <div class="files">
+            <p class="h6 text-gray mb-3">培训资料</p>
             <a
-              *ngFor="let item of contentsAddFileList"
+              *ngFor="let item of trainAddFileList"
               [href]="item.resourcePath"
               class="list pt-2 pb-2 pl-3 mt-1"
               target="_blank">
@@ -92,13 +93,25 @@
             </a>
           </div>
           <div class="video mt-3">
+            <p class="h6 text-gray mb-3">培训视频</p>
             <video
-              *ngFor="let item of contentsAddVideoList"
+              *ngFor="let item of trainAddVideoList"
               [src]="item.resourcePath" >
             </video>
           </div>
+          <div class="footer">
+            <button
+              pButton class="ui-button-rounded ui-button-pink mr-3"
+              label="上一步"
+              (click)="trainOperate(trainOperateFlag='previous')">
+            </button>
+            <button
+              pButton class="ui-button-rounded"
+              label="下一步"
+              (click)="trainOperate(trainOperateFlag='next')">
+            </button>
+          </div>
         </div>
-        预览培训内容
       </p-tabPanel>
     </p-tabView>
   </div>

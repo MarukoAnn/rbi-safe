@@ -409,7 +409,9 @@ export class ProgramFieldClass implements ProgramField{
   trainingContent: string;
   trainingTypeName: string;
 }
+
 export interface TrainingField {
+  id?: any;
   targetSet: string;
   trainingTypeId: number;
   trainingContent: string;
@@ -431,6 +433,42 @@ export class TrainingFieldAddClass implements TrainingField {
   constructor() {
     this.processingStatus = '1';
   }
+}
+export class TrainingFieldUpdateClass implements TrainingField {
+  id: any;
+  endTime: string;
+  organizationTrainingDepartmentId: string;
+  processingStatus: string;
+  startTime: string;
+  targetSet: string;
+  trainingContent: string;
+  trainingDuration: string;
+  trainingTypeId: number;
+  constructor() {
+    this.id = '';
+    this.endTime = '';
+    this.organizationTrainingDepartmentId = '';
+    this.processingStatus = '';
+    this.startTime = '';
+    this.targetSet = '';
+    this.trainingContent = '';
+    this.trainingDuration = '';
+    this.trainingTypeId = null;
+  }
+}
+
+export interface ExamRuleField {
+  startTime: string; // 考试开始时间
+  endTime: string; // 考试结束时间
+  duration: number; // 考试时长
+  test_paper_name: string; // 考试名称
+}
+export class ExamRuleFieldClass implements ExamRuleField{
+  duration: number;
+  endTime: string;
+  startTime: string;
+  // tslint:disable-next-line:variable-name
+  test_paper_name: string;
 }
 
 // 获取公司人员查询参数接口

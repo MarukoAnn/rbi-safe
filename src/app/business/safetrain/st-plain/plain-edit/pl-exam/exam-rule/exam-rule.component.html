@@ -1,0 +1,103 @@
+<div class="exam-rule">
+  <div class="ui-g ui-fluid" style="width: 50%;position: relative">
+    <!--考试开始时间-->
+    <div class="ui-g-12 ui-md-12">
+      <label class="ui-g-3 ui-md-3 label">
+        <span>考试开始时间：</span>
+      </label>
+      <div class="ui-g-9 ui-md-9 input">
+        <p-calendar
+          [disabled]="ruleDisabled"
+          #calendarStart
+          placeholder="点击选择时间......"
+          [locale]="ruleEs" [(ngModel)]="ruleOperateField.startTime"
+          dateFormat="yy-mm-dd"
+          dataType="string"
+          [monthNavigator]="true"
+          [yearNavigator]="true"
+          [showTime]="true"
+          yearRange="2017:2030">
+          <p-footer>
+            <button pButton type="button" label="确定" class="ui-button-warning" (click)="calendarStart.hideOverlay()"></button>
+          </p-footer>
+        </p-calendar>
+      </div>
+    </div>
+    <!--考试结束时间-->
+    <div class="ui-g-12 ui-md-12">
+      <label class="ui-g-3 ui-md-3 label">
+        <span>考试结束时间：</span>
+      </label>
+      <div class="ui-g-9 ui-md-9 input">
+        <p-calendar
+          [disabled]="ruleDisabled"
+          #calendarEnd
+          placeholder="点击选择时间......"
+          [locale]="ruleEs" [(ngModel)]="ruleOperateField.endTime"
+          dateFormat="yy-mm-dd"
+          dataType="string"
+          [monthNavigator]="true"
+          [yearNavigator]="true"
+          [showTime]="true"
+          hourFormat="24"
+          yearRange="2017:2030">
+          <p-footer>
+            <button pButton type="button" label="确定" class="ui-button-warning" (click)="calendarEnd.hideOverlay()"></button>
+          </p-footer>
+        </p-calendar>
+      </div>
+    </div>
+    <!--考试时长-->
+    <div class="ui-g-12 ui-md-12">
+      <label class="ui-g-3 ui-md-3 label">
+        <span>考试时长：</span>
+      </label>
+      <div class="ui-g-9 ui-md-9 input">
+        <input
+          [disabled]="ruleDisabled"
+          type="number" pInputText placeholder="请填写考试时长"
+          name="title" #title="ngModel"
+          required [(ngModel)]="ruleOperateField.duration">
+        <div *ngIf="title.invalid && (title.dirty || title.touched)" class="text-danger mt-2">
+          <div *ngIf="title.errors.required">
+            考试时长必须填写
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--考试名称-->
+    <div class="ui-g-12 ui-md-12">
+      <label class="ui-g-3 ui-md-3 label">
+        <span>考试名称：</span>
+      </label>
+      <div class="ui-g-9 ui-md-9 input">
+        <input
+          [disabled]="ruleDisabled"
+          type="number" pInputText name="duration"
+          #duration="ngModel" required placeholder="请填写考试名称"
+          [(ngModel)]="ruleOperateField.test_paper_name">
+        <div *ngIf="duration.invalid && (duration.dirty || duration.touched)" class="text-danger mt-2">
+          <div *ngIf="duration.errors.required">
+            考试名称必须填写
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--提交-->
+  <div class="text-center">
+    <button
+      pButton label="编辑" class="ui-button-rounded ui-button-pink mr-3"
+      [disabled]="!ruleDisabled"
+      (click)="ruleDisabled = false"
+    >
+    </button>
+    <button
+      pButton label="保存"
+      class="ui-button-rounded"
+      [disabled]="ruleDisabled"
+      (click)="ruleDisabled = true"
+    >
+    </button>
+  </div>
+</div>

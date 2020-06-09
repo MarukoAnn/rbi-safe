@@ -49,6 +49,9 @@ import {StCompletedExamComponent} from './st-online-exam/st-completed-exam/st-co
 import {StNoExamComponent} from './st-online-exam/st-no-exam/st-no-exam.component';
 import {PtProcessedComponent} from './st-plain/plain-list/pt-processed/pt-processed.component';
 import {PtUnprocessedComponent} from './st-plain/plain-list/pt-unprocessed/pt-unprocessed.component';
+import { ExamRuleComponent } from './st-plain/plain-edit/pl-exam/exam-rule/exam-rule.component';
+import { ExamTopicComponent } from './st-plain/plain-edit/pl-exam/exam-topic/exam-topic.component';
+import { ExamPreviewComponent } from './st-plain/plain-edit/pl-exam/exam-preview/exam-preview.component';
 
 @NgModule({
   declarations: [
@@ -79,7 +82,10 @@ import {PtUnprocessedComponent} from './st-plain/plain-list/pt-unprocessed/pt-un
     AptitudeCertificateComponent,
     LevelEducationCardComponent,
     StCompletedExamComponent,
-    StNoExamComponent
+    StNoExamComponent,
+    ExamRuleComponent,
+    ExamTopicComponent,
+    ExamPreviewComponent
   ],
   imports: [
     CommonModule,

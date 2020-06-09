@@ -1,8 +1,10 @@
-import {Component, OnInit} from '@angular/core';
-import {EveryCategory, OrgTree, PageOption, TableHeader, TrainingField, TrainingFieldAddClass} from '../../../../../common/public/Api';
-import {Es, orgInitializeTree} from '../../../../../common/public/contents';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {OrgTree, PageOption, TableHeader, TrainingField, TrainingFieldUpdateClass} from '../../../../../common/public/Api';
+import {Es, objectCopy, orgInitializeTree} from '../../../../../common/public/contents';
 import {GlobalService} from '../../../../../common/services/global.service';
 import {SafetrainService} from '../../../../../common/services/safetrain.service';
+import {ActivatedRoute } from '@angular/router';
+import {LocalStorageService} from '../../../../../common/services/local-storage.service';
 
 @Component({
   selector: 'app-pl-input',
@@ -10,14 +12,15 @@ import {SafetrainService} from '../../../../../common/services/safetrain.service
   styleUrls: ['./pl-input.component.scss']
 })
 export class PlInputComponent implements OnInit {
+  @Output() nextChange: EventEmitter<any> = new EventEmitter<any>();
   public plInputDropdownOptions: any; // 下拉配置项
   public plInputDropdownSelected: any; // 下拉选择
   public plInputOrgTree: OrgTree[] = []; // 树配置项
   public plInputOrgTreeSelect: OrgTree = {}; // 树选择
-  public plInputOperateField: TrainingField = new TrainingFieldAddClass(); // 操作字段
+  public plInputOperateUpdateField: TrainingField = new TrainingFieldUpdateClass(); // 操作字段
   public plInputOperateModal: boolean = false; // 模态框
   public plInputOperateFlag: any ; // 操作标识
-  public plInputEs: any = Es;
+  public plInputEs: any = Es; // 时间选择器语言本地化
   public plInputPageOption: PageOption = {
     pageSize: 8, // 默认显示多少条
     totalRecord: null // 总条数
@@ -37,6 +40,8 @@ export class PlInputComponent implements OnInit {
   constructor(
     private globalSrv: GlobalService,
     private safeSrv: SafetrainService,
+    private routeInfo: ActivatedRoute,
+    private localSrv: LocalStorageService
   ) { }
   ngOnInit() {
     this.plInputDataInit();
@@ -55,6 +60,16 @@ export class PlInputComponent implements OnInit {
     );
     // 初始化公司人员
     this.plInputCompanyDataInit(this.plInputNowPage, this.plInputPageOption.pageSize);
+    // 初始化表单数据
+    this.routeInfo.queryParams.subscribe(
+      (params) => {
+        if (params.id) {
+          this.safeSrv.getReportsInfo({id: params.id}).subscribe((res) => {
+            this.plInputOperateUpdateField = objectCopy(Object.assign({}, new TrainingFieldUpdateClass()), res.data);
+          });
+        }
+      }
+    );
   }
 
   //  公司人员分页
@@ -71,10 +86,11 @@ export class PlInputComponent implements OnInit {
       // 添加操作初始化
       case 'add':
         if (this.plInputDropdownSelected && this.plInputOrgTreeSelect && this.plInputTableSelect) {
-          this.plInputOperateField.trainingTypeId = this.plInputDropdownSelected.id;
-          this.plInputOperateField.organizationTrainingDepartmentId = this.plInputOrgTreeSelect.id;
-          this.plInputOperateField.targetSet = this.plInputTableSelect.map((res) => res.id).join(',');
-          this.safeSrv.addReportsInfo(this.plInputOperateField).subscribe(() => this.plInputOperateField = new TrainingFieldAddClass());
+          this.plInputOperateUpdateField.trainingTypeId = this.plInputDropdownSelected.id;
+          this.plInputOperateUpdateField.organizationTrainingDepartmentId = this.plInputOrgTreeSelect.id;
+          this.plInputOperateUpdateField.targetSet = this.plInputTableSelect.map((res) => res.id).join(',');
+          this.nextChange.emit({activeIndex: 1});
+          this.localSrv.setObject('safeTrainingNeeds', this.plInputOperateUpdateField);
           break;
         }
         window.alert('请把参数填写完整');

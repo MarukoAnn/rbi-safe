@@ -1,1 +1,20 @@
-<p>pl-exam works!</p>
+<div class="pl-exam">
+  <header class="header pl-3">
+    <p class="mr-4" [ngClass]="{'active': traTabActiveIndex === 0}" (click)="traTabActiveIndex=0">考试规则设置</p>
+    <p class="ml-4" [ngClass]="{'active': traTabActiveIndex === 1}" (click)="traTabActiveIndex=1">考试题目设置</p>
+    <p class="ml-4" [ngClass]="{'active': traTabActiveIndex === 2}" (click)="traTabActiveIndex=2">预览考试题目</p>
+  </header>
+  <div class="tab pl-5 pr-5">
+    <p-tabView [activeIndex]="traTabActiveIndex">
+      <p-tabPanel>
+        <app-exam-rule></app-exam-rule>
+      </p-tabPanel>
+      <p-tabPanel>
+        <app-exam-topic></app-exam-topic>
+      </p-tabPanel>
+      <p-tabPanel>
+        <app-exam-preview></app-exam-preview>
+      </p-tabPanel>
+    </p-tabView>
+  </div>
+</div>

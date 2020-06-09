@@ -8,7 +8,7 @@ import {MenuItem} from 'primeng/api';
 })
 export class PlainEditComponent implements OnInit {
   public items: MenuItem[];
-  public activeIndex = 1;
+  public activeIndex = 2;
   constructor() {
   }
 
@@ -17,30 +17,30 @@ export class PlainEditComponent implements OnInit {
       {
       label: '培训计划基础设置',
       command: (event: any) => {
-        this.activeIndex = 0;
+        // this.activeIndex = 0;
       }
     },
       {
         label: '培训内容设置',
         command: (event: any) => {
-          this.activeIndex = 1;
+          // this.activeIndex = 1;
         }
       },
       {
         label: '考试项目设置',
         command: (event: any) => {
-          this.activeIndex = 2;
+          // this.activeIndex = 2;
         }
       },
       {
         label: '发布计划',
         command: (event: any) => {
-          this.activeIndex = 3;
+          // this.activeIndex = 3;
         }
       }
     ];
   }
   onTabChange(event) {
-    console.log(event);
+    this.activeIndex = event.activeIndex;
   }
 }

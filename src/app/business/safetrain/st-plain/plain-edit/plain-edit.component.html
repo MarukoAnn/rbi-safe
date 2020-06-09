@@ -8,23 +8,23 @@
   <!--计步器-->
   <div class="steps pt-3 pb-3">
     <div class="box">
-      <p-steps [model]="items" [readonly]="false" [(activeIndex)]="activeIndex"></p-steps>
+      <p-steps [model]="items" [readonly]="true" [(activeIndex)]="activeIndex"></p-steps>
     </div>
   </div>
   <!--tab切换-->
   <div class="tab pt-3">
-    <p-tabView (onClose)="onTabChange($event)" [activeIndex]="activeIndex">
+    <p-tabView [activeIndex]="activeIndex">
       <!--培训计划-->
-      <p-tabPanel header="培训计划" >
-        <app-pl-input></app-pl-input>
+      <p-tabPanel>
+        <app-pl-input (nextChange)="onTabChange($event)"></app-pl-input>
       </p-tabPanel>
       <!--培训内容-->
       <p-tabPanel>
-        <app-pl-train></app-pl-train>
+        <app-pl-train (nextChange)="onTabChange($event)" (previousChange)="onTabChange($event)"></app-pl-train>
       </p-tabPanel>
       <!--考试项目-->
       <p-tabPanel>
-        <app-pl-exam></app-pl-exam>
+        <app-pl-exam (nextChange)="onTabChange($event)" (previousChange)="onTabChange($event)"></app-pl-exam>
       </p-tabPanel>
       <!--项目发布-->
       <p-tabPanel>
