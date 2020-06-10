@@ -40,6 +40,7 @@ export class StNoExamComponent implements OnInit {
   public pageNo: number = 1;
   public id: number;
   public time: number;
+  public personnelTrainingRecordId: number;
   constructor(
     private stOnlineExamSrv: StOnlineExamService,
     private router: Router
@@ -64,13 +65,12 @@ export class StNoExamComponent implements OnInit {
     });
   }
   public  clickEvent(e): void {
-      console.log(e);
       this.pageNo = e;
       this.initNoExamData();
   }
   // 确认开始考试
   public  startExamClick(): void {
-    this.router.navigate(['/home/strain/exam/tasking'], {queryParams: {id: this.id, time: this.time}});
+    this.router.navigate(['/home/strain/exam/tasking'], {queryParams: {id: this.id, time: this.time, personnelTrainingRecordId: this.personnelTrainingRecordId}});
   }
 
  // 点击开始考试
@@ -78,6 +78,7 @@ export class StNoExamComponent implements OnInit {
     // console.log(e.id);
     this.id = e.id;
     this.time = e.duration;
+    this.personnelTrainingRecordId = e.personnelTrainingRecordId;
     this.startExamNoticeModel = true;
   }
 }

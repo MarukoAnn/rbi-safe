@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {CommonModule, DatePipe} from '@angular/common';
 import { StDemandRoutingModule } from './st-demand-routing.module';
 import { DemandReportComponent } from './demand-report/demand-report.component';
 import {StDemandComponent} from './st-demand.component';
@@ -42,5 +42,6 @@ import {CalendarModule, InputTextareaModule, ScrollPanelModule, TooltipModule, T
     TreeModule,
     TooltipModule
   ],
+  providers: [DatePipe]
 })
 export class StDemandModule { }

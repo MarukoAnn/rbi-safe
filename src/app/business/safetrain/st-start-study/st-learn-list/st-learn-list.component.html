@@ -1,0 +1,10 @@
+<div class="st-learn-list">
+  <p-tabView [activeIndex]="index">
+    <p-tabPanel [header]="'我的培训计划(' + noExamNum + ')'">
+      <app-st-learn-myplan></app-st-learn-myplan>
+    </p-tabPanel>
+    <p-tabPanel header="培训内容库">
+      <app-st-learn-library></app-st-learn-library>
+    </p-tabPanel>
+  </p-tabView>
+</div>

@@ -40,7 +40,7 @@ export class TroubleNoticeComponent implements OnInit {
     this.addNotice = this.fb.group({
       correctorId: new FormControl('', Validators.required),
       hidDangerCode: new FormControl(this.code, Validators.required),
-      rectificationOpinions: new FormControl({value: rectificationOpinion, disabled: rectificationOpinion}, Validators.required),
+      rectificationOpinions: new FormControl({value: rectificationOpinion, disabled: rectificationOpinion !== 'null'}, Validators.required),
       specifiedRectificationTime: new FormControl({value: this.time, disabled: this.time}, Validators.required),
     });
     this.getCorrector();
@@ -55,9 +55,10 @@ export class TroubleNoticeComponent implements OnInit {
       // console.log(123);
     if (this.addNotice.valid){
       // this.formData.append('hidDangerCode', this.code);
+      console.log(this.addNotice.value);
       const subMitDta = JSON.parse(JSON.stringify(this.addNotice.value));
-      subMitDta.requiredCompletionTime = this.datePipe.transform(subMitDta.requiredCompletionTime, 'yyyy-MM-dd');
-      subMitDta.specifiedRectificationTime = this.datePipe.transform(subMitDta.specifiedRectificationTime, 'yyyy-MM-dd');
+      subMitDta.rectificationOpinions =  subMitDta.rectificationOpinions ? subMitDta.rectificationOpinions : this.localSrv.get('rectificationOpinions');
+      subMitDta.specifiedRectificationTime = subMitDta.specifiedRectificationTime ? this.datePipe.transform(subMitDta.specifiedRectificationTime, 'yyyy-MM-dd') : this.time;
       this.toolSrv.setConfirmation('下发整改', '通知整改', () => {
         this.troubleSrv.issuedNoticeToRectify(subMitDta).subscribe(value => {
           this.addNotice.reset();
