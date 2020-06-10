@@ -52,4 +52,10 @@
       margin-top: 1vh;
     }
   }
+  .modal{
+    /deep/ .ui-table-summary{
+      background-color: unset;
+      border: unset;
+    }
+  }
 }
