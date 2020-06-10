@@ -47,6 +47,7 @@ export class StCompletedExamComponent implements OnInit {
         this.pageOption = {pageSize: res.data.pageSize, totalRecord: res.data.totalRecord};
         if (res.data.contents){
           this.completedExamContent = res.data.contents.map(v => {
+            v.processingStatus = '已完成';
             v.operating = '详情';
             return v;
           });

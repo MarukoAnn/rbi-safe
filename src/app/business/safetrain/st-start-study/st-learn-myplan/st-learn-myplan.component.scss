@@ -1,0 +1,32 @@
+.st-learn-myplan{
+  margin-top: 4vh;
+  .learn-item{
+    //border: 1px solid #;
+    box-shadow: 0 0 5px #8D8E96;
+    border-radius: 6px;
+    padding: 1vh 20px;
+    .header {
+      padding: 2vh 0;
+      display: flex;
+      font-size: 20px;
+      justify-content: space-between;
+      .title {
+        font-weight: 600;
+        font-family: "微软雅黑 Light";
+      }
+      i {
+        font-size: 20px;
+        color: #CDD1D7;
+      }
+    }
+    .content{
+      margin-top: 3vh;
+      padding: 2vh 0;
+      display: flex;
+      justify-content: space-between;
+    }
+    .progressBar{
+      padding: 1vh 0;
+    }
+  }
+}

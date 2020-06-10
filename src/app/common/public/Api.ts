@@ -517,9 +517,9 @@ export class LevelFourEducationDetail implements MYLevelFourEducationInfo{
 export interface Principoal {
   id?: any;
   safeAdministratorId?: any;
-  oneTrainingTime?: any;
-  twoTrainingTime?: any;
-  threeTrainingTime?: any;
+  oneTrainingTime?: any; // 培训时间1
+  twoTrainingTime?: any; // 培训时间2
+  threeTrainingTime?: any; // 培训时间3
   reasonForHandling?: any;
 }
 
@@ -542,5 +542,25 @@ export class ReviewPrincipoal implements Principoal{
     this.oneTrainingTime = '';
     this.twoTrainingTime = '';
     this.threeTrainingTime = '';
+  }
+}
+
+export interface CompleteExam {
+  personnelTrainingRecordId?: any;
+  safeAnswerRecordList?: SafeAnswerRecord[];
+}
+export interface SafeAnswerRecord {
+  answerResults?: any;
+  rightKey?: any;
+  score?: any;
+  testUestionsId?: any;
+  testPapreId?: any;
+}
+
+export class CommpleteExamData implements CompleteExam{
+  personnelTrainingRecordId: any;
+  safeAnswerRecordList: SafeAnswerRecord[];
+  constructor() {
+    this.safeAnswerRecordList = []
   }
 }

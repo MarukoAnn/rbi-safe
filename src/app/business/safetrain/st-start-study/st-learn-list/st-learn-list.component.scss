@@ -1,0 +1,28 @@
+.st-learn-list {
+  width: 100%;
+  height: 100%;
+  background: #fff;
+  padding: 1vh 2vw;
+  .no-exam{
+    margin-top: 1vh;
+  }
+
+  ::ng-deep .ui-table .ui-table-thead>tr >th{
+    border: 0;
+
+  }
+  ::ng-deep .ui-table .ui-table-tbody>tr >td{
+    border-bottom: 1px solid #EDEDED;
+    border-top: 0;
+    border-left: 0;
+    border-right: 0;
+  }
+
+  ::ng-deep .ui-tabview .ui-tabview-panels{
+    border: 0;
+    padding: 0;
+  }
+  ::ng-deep .ui-tabview.ui-tabview-top .ui-state-default:active{
+    border: 0;
+  }
+}

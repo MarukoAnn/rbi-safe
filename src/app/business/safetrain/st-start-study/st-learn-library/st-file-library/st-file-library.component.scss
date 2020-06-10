@@ -1,0 +1,24 @@
+.st-file-library{
+  margin-top: 1vh;
+  .file-body{
+    .item {
+      border: 1px solid #E1E3E7;
+      padding: 1vh;
+      text-align: left;
+      margin-bottom: 1vh;
+    }
+    //隐藏滚动条
+    ::ng-deep .custombar .ui-scrollpanel-bar {
+      background-color: rgba(0, 0, 0, 0);
+      transition: background-color .3s;
+    }
+    ::ng-deep .custombar .ui-scrollpanel-content{
+      padding: 0 1px 18px 0;
+    }
+  }
+  .learn-pagination{
+    position: absolute;
+    bottom: 8vh;
+    right: 4vw;
+  }
+}

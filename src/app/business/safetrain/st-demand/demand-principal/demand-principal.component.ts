@@ -13,6 +13,7 @@ import {DemandService} from '../../../../common/services/demand.service';
 import {GlobalService} from '../../../../common/services/global.service';
 import {PublicMethodService} from '../../../../common/public/public-method.service';
 import {Es} from '../../../../common/public/contents';
+import {DatePipe} from '@angular/common';
 
 @Component({
   selector: 'app-demand-principal',
@@ -45,6 +46,7 @@ export class DemandPrincipalComponent implements OnInit {
     private demandSrv: DemandService,
     private globalSrv: GlobalService,
     private toolSrv: PublicMethodService,
+    private datePipe: DatePipe,
   ) {
     this.principalDataInit(this.principalNowPage, this.principalPageOption.pageSize);
   }
@@ -68,6 +70,7 @@ export class DemandPrincipalComponent implements OnInit {
       this.principalOperateModal = false;
       this.reviewPrincipoal = new ReviewPrincipoal();
       this.canclePrincipoal = new CanclePrincipoal();
+      this.reviewPrincipoalCopy = new ReviewPrincipoal();
       this.principalDataInit(this.principalNowPage, this.principalPageOption.pageSize);
     });
   }
@@ -111,7 +114,16 @@ export class DemandPrincipalComponent implements OnInit {
           break;
         case 'review':
           this.toolSrv.setConfirmation('完成复审', '完成复审', () => {
-            this.principalHttpOperate(this.demandSrv.principalReveiewToPass(this.reviewPrincipoal));
+            const list = ['twoTrainingTime', 'threeTrainingTime', 'oneTrainingTime'];
+            list.forEach(val => {
+              if (this.reviewPrincipoal[val]){
+                console.log(this.reviewPrincipoal[val][0]);
+                this.reviewPrincipoal[val][0] = this.datePipe.transform(this.reviewPrincipoal[val][0], 'yyyy-MM-dd');
+                this.reviewPrincipoal[val][1] = this.datePipe.transform( this.reviewPrincipoal[val][1], 'yyyy-MM-dd');
+                this.reviewPrincipoalCopy[val] = this.reviewPrincipoal[val][0] + '至' + this.reviewPrincipoal[val][1];
+              }
+            });
+            this.principalHttpOperate(this.demandSrv.principalReveiewToPass(this.reviewPrincipoalCopy));
           });
           break;
       }

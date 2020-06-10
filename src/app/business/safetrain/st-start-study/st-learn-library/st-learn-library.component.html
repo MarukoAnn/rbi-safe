@@ -1,0 +1,25 @@
+<div class="st-learn-library">
+  <div class="st-learn-search">
+    <span>内容库类别：</span>
+    <p-dropdown [options]="libraryTypeOption"  dropdownIcon="pi pi-caret-down" [(ngModel)]="libraryType" (onChange)="changeLibraryTypeName($event)"></p-dropdown>
+  </div>
+  <div class="learn-body">
+    <div class="tab">
+      <div *ngFor="let item of arcTabItem;let i=index" class="tab-list">
+        <a (click)="arcTabItemClick(i)" class="item-content">
+          <span [ngStyle]="{color: item.item.ftcolor}">{{item.item.label}}</span>
+          <span [ngStyle]="{background: item.item.bgc}" class="line"></span>
+        </a>
+      </div>
+    </div>
+    <div class="tabitem-body">
+      <div *ngIf="arcActiveIndex === 0">
+         <app-st-file-library [fileType]="libraryType" [fileTypeName]="libraryTypeName"></app-st-file-library>
+      </div>
+      <div *ngIf="arcActiveIndex === 1">
+        <app-st-video-library [videType]="libraryType" [videTypeName]="libraryTypeName"></app-st-video-library>
+      </div>
+    </div>
+  </div>
+
+</div>

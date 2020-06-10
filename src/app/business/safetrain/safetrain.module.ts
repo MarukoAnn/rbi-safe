@@ -28,7 +28,7 @@ import {
   ScrollPanelModule,
   StepsModule,
   TabViewModule, TooltipModule,
-  TreeModule, CardModule
+  TreeModule, CardModule, ProgressBarModule
 } from 'primeng/primeng';
 import {StArchivesComponent} from './st-archives/st-archives.component';
 import {ArchivesSpecialComponent} from './st-archives/archives-special/archives-special.component';
@@ -54,6 +54,12 @@ import { StExamListComponent } from './st-online-exam/st-exam-list/st-exam-list.
 import { ExamRuleComponent } from './st-plain/plain-edit/pl-exam/exam-rule/exam-rule.component';
 import { ExamTopicComponent } from './st-plain/plain-edit/pl-exam/exam-topic/exam-topic.component';
 import { ExamPreviewComponent } from './st-plain/plain-edit/pl-exam/exam-preview/exam-preview.component';
+import { StStartStudyComponent } from './st-start-study/st-start-study.component';
+import { StLearnListComponent } from './st-start-study/st-learn-list/st-learn-list.component';
+import { StLearnMyplanComponent } from './st-start-study/st-learn-myplan/st-learn-myplan.component';
+import { StLearnLibraryComponent } from './st-start-study/st-learn-library/st-learn-library.component';
+import { StFileLibraryComponent } from './st-start-study/st-learn-library/st-file-library/st-file-library.component';
+import { StVideoLibraryComponent } from './st-start-study/st-learn-library/st-video-library/st-video-library.component';
 
 @NgModule({
   declarations: [
@@ -90,7 +96,13 @@ import { ExamPreviewComponent } from './st-plain/plain-edit/pl-exam/exam-preview
     ExamPreviewComponent,
     StNoExamComponent,
     StTakingExamComponent,
-    StExamListComponent
+    StExamListComponent,
+    StStartStudyComponent,
+    StLearnListComponent,
+    StLearnMyplanComponent,
+    StLearnLibraryComponent,
+    StFileLibraryComponent,
+    StVideoLibraryComponent
   ],
   imports: [
     CommonModule,
@@ -116,6 +128,7 @@ import { ExamPreviewComponent } from './st-plain/plain-edit/pl-exam/exam-preview
     CheckboxModule,
     TooltipModule,
     CardModule,
+    ProgressBarModule
   ],
   providers: []
 })
