@@ -7,6 +7,7 @@ import {GlobalService} from '../../../../common/services/global.service';
 import {DatePipe} from '@angular/common';
 import {PublicMethodService} from '../../../../common/public/public-method.service';
 import {UploadImageComponent} from '../../../../common/components/upload-image/upload-image.component';
+import {LocalStorageService} from '../../../../common/services/local-storage.service';
 
 @Component({
   selector: 'app-trouble-detail',
@@ -39,6 +40,7 @@ export class TroubleDetailComponent implements OnInit {
   public revieLabelText: string = '整改评估';
   public isDownLoadStatus: boolean = false;
   public btnList: Array<object> = [];
+  public rectificationNoticeAnnex: string;
   public hidTypeList: Array<object> = [
     {label: '人', value: 1, name: 'hidTypePerson'},
     {label: '管理', value: 1, name: 'hidTypeManage'},
@@ -51,6 +53,7 @@ export class TroubleDetailComponent implements OnInit {
     private fb: FormBuilder,
     private troubleSrv: TroubleProcessService,
     private globalSrv: GlobalService,
+    private localSrv: LocalStorageService,
     private datePipe: DatePipe,
     private toolSrv: PublicMethodService,
     private router: Router,
@@ -75,6 +78,7 @@ export class TroubleDetailComponent implements OnInit {
       organizationName: new FormControl({value: '', disabled: true}, Validators.required),
       beforeImg: new FormControl({value: '', disabled: true}, Validators.required), // 排查前图片
       hidType: new FormControl({value: '', disabled: true}, Validators.required),
+      rectificationOpinions: new FormControl({value: '', disabled: true}),
       // 处理的
       governanceFunds: new FormControl({value: '', disabled: false}), // 处理资金
       completionTime: new FormControl({value: '', disabled: false}), // 完成时间
@@ -85,7 +89,6 @@ export class TroubleDetailComponent implements OnInit {
     });
     this.globalSrv.getHidConfigData({data: [{settingType: 'HID_GRADE'}, {settingType: 'HID_GRAE'}]}).subscribe(val => {
       this.hidFradeOption = setDrapdownOptionList(val.data.HID_GRADE);
-      console.log(this.hidFradeOption);
       this.getTroubleDetail();
     });
   }
@@ -98,18 +101,21 @@ export class TroubleDetailComponent implements OnInit {
       // this.addReport.setControl('ifDeal', new FormControl({value: '', disabled: true}, Validators.required));
 
       const list = ['troubleshootingTime', 'ifControlMeasures', 'hidDangerContent', 'hidDangerGrade', 'ifRectificationPlan',
-        'ifDeal', 'organizationId', 'organizationName', 'className', 'companyName', 'workshopName', 'factoryName'];
+        'ifDeal', 'organizationId', 'organizationName', 'className', 'companyName', 'workshopName', 'factoryName', 'rectificationOpinions'];
       setValueToFromValue(list, res.data.hidDangerDO, this.addReport);
       // 隐患类型
       this.specifiedRectificationTime = res.data.hidDangerDO['specifiedRectificationTime'];
+      this.rectificationNoticeAnnex = res.data.hidDangerDO['rectificationNoticeAnnex'];
       const typeList = [];
       this.hidTypeList.forEach(val => {
         if (res.data.hidDangerDO[val['name']] === 1){
           typeList.push(val['label']);
         }
+        this.localSrv.set('rectificationOpinions', res.data.hidDangerDO['rectificationOpinions']);
       });
       this.addReport.patchValue({hidType: typeList});
       // 处理的图片
+      console.log(this.addReport.value);
       res.data.beforImgs.forEach(val => {
         this.ImageOption.files.push(val.beforePicture);
       });
@@ -174,6 +180,7 @@ export class TroubleDetailComponent implements OnInit {
       case '审核通过': this.showReViewDialog = true; this.revieLabelText = '整改评估'; break;
       case '审核不通过': this.showReViewDialog = true; this.revieLabelText = '审核原因'; break;
       case '上报处理': this.submitReportToSuperiorClick(); break;
+      case '查看责令通知书': this.downLoadFileClick(); break;
     }
   }
 
@@ -240,6 +247,16 @@ export class TroubleDetailComponent implements OnInit {
         // this.getTroubleDetail();
       });
     });
+  }
+
+  // 查看责令通知书
+  public  downLoadFileClick(): void {
+      console.log(this.rectificationNoticeAnnex);
+      if (this.rectificationNoticeAnnex){
+        window.open(this.rectificationNoticeAnnex);
+      }else {
+        this.toolSrv.setToast('error', '操作失败', '文件不存在');
+      }
   }
 
   // 重置数据

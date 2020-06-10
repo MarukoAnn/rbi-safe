@@ -12,6 +12,8 @@ import {StOnlineExamComponent} from './st-online-exam/st-online-exam.component';
 import {DailyRecordComponent} from './st-mytrain-file/daily-record/daily-record.component';
 import {AptitudeCertificateComponent} from './st-mytrain-file/aptitude-certificate/aptitude-certificate.component';
 import {LevelEducationCardComponent} from './st-mytrain-file/level-education-card/level-education-card.component';
+import {StTakingExamComponent} from './st-online-exam/st-taking-exam/st-taking-exam.component';
+import {StExamListComponent} from './st-online-exam/st-exam-list/st-exam-list.component';
 
 
 const routes: Routes = [
@@ -33,10 +35,9 @@ const routes: Routes = [
       {path: 'contentset', component: StContentSetingComponent},
       {path: 'mytrainfile', component: StMytrainFileComponent},
       {path: 'exam', component: StOnlineExamComponent, children: [
-          {path: '', redirectTo: 'record', pathMatch: 'full'},
-          {path: 'record', component: DailyRecordComponent},
-          {path: 'certificate', component: AptitudeCertificateComponent},
-          {path: 'level', component: LevelEducationCardComponent},
+          {path: '',  redirectTo: 'list', pathMatch: 'full'},
+          {path: 'list', component: StExamListComponent},
+          {path: 'tasking', component: StTakingExamComponent},
         ]},
     ]
   }

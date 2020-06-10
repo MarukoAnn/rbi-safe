@@ -23,4 +23,7 @@
       </ng-template>
     </p-table>
   </div>
+  <div class="daily-record-pagination">
+    <app-pagination [option]="pageOption" (clickEvent)="clickEvent($event)"></app-pagination>
+  </div>
 </div>

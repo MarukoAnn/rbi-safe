@@ -24,6 +24,13 @@
       }
     }
   }
+  .pagination {
+    //margin-bottom: 4vh;
+  }
+  ::ng-deep .ui-dialog .ui-widget-content {
+    background: #f0f0f0;
+    overflow: visible !important;
+  }
 }
 
 

@@ -481,3 +481,66 @@ export interface CompanyPersonParams {
   idCardNo?: string; // 根据身份证号查询
   position?: string; // 根据所在职位查询
 }
+
+export interface MYLevelFourEducationInfo {
+  id?: any;
+  entryTime?: any; // 入场时间
+  organizationName?: any;
+  workType?: any; // 工种
+  jobNature?: any; //
+  companyEducationTime?: any; // 公司教育时间
+  companyFraction?: any; // 公司级成绩
+  factoryEducationTime?: any;
+  factoryFraction?: any;
+  workshopEducationTime?: any;
+  workshopFraction?: any;
+  classEducationTime?: any;
+  classFraction?: any;
+  operatingStaff?: any;
+}
+export class LevelFourEducationDetail implements MYLevelFourEducationInfo{
+  entryTime?: any; // 入场时间
+  organizationName?: any;
+  workType?: any; // 工种
+  jobNature?: any; //
+  companyEducationTime?: any; // 公司教育时间
+  companyFraction?: any; // 公司级成绩
+  factoryEducationTime?: any;
+  factoryFraction?: any;
+  workshopEducationTime?: any;
+  workshopFraction?: any;
+  classEducationTime?: any;
+  classFraction?: any;
+  operatingStaff?: any;
+}
+
+export interface Principoal {
+  id?: any;
+  safeAdministratorId?: any;
+  oneTrainingTime?: any;
+  twoTrainingTime?: any;
+  threeTrainingTime?: any;
+  reasonForHandling?: any;
+}
+
+export class CanclePrincipoal implements Principoal{
+  id: any;
+  reasonForHandling: any;
+  constructor() {
+    this.reasonForHandling = '';
+  }
+}
+export class ReviewPrincipoal implements Principoal{
+  id: any;
+  safeAdministratorId: any;
+  oneTrainingTime: any;
+  twoTrainingTime: any;
+  threeTrainingTime: any;
+  constructor() {
+    this.id = '';
+    this.safeAdministratorId = '';
+    this.oneTrainingTime = '';
+    this.twoTrainingTime = '';
+    this.threeTrainingTime = '';
+  }
+}
