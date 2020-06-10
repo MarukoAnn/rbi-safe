@@ -28,7 +28,7 @@
       </p-tabPanel>
       <!--项目发布-->
       <p-tabPanel>
-        <app-pl-release></app-pl-release>
+        <app-pl-release (previousChange)="onTabChange($event)"></app-pl-release>
       </p-tabPanel>
     </p-tabView>
   </div>

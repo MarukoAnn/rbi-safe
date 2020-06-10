@@ -75,7 +75,7 @@
           [disabled]="ruleDisabled"
           type="text" pInputText name="duration"
           #duration="ngModel" required placeholder="请填写考试名称"
-          [(ngModel)]="ruleOperateField.test_paper_name">
+          [(ngModel)]="ruleOperateField.testPaperName">
         <div *ngIf="duration.invalid && (duration.dirty || duration.touched)" class="text-danger mt-2">
           <div *ngIf="duration.errors.required">
             考试名称必须填写

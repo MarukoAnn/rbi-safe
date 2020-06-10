@@ -61,7 +61,7 @@ export class PlTrainComponent implements OnInit {
     this.trainAddVideoList = arr.filter((res) => res.resourceType === '视频');
     arr.forEach((res) => {
       if (res) {
-        this.trainOperateField.push(res.id);
+        this.trainOperateField.push({trainingMaterialsId: res.id});
       }
     });
     this.localSrv.setObject('safeDataPlanList', this.trainOperateField);

@@ -54,6 +54,7 @@ import { StExamListComponent } from './st-online-exam/st-exam-list/st-exam-list.
 import { ExamRuleComponent } from './st-plain/plain-edit/pl-exam/exam-rule/exam-rule.component';
 import { ExamTopicComponent } from './st-plain/plain-edit/pl-exam/exam-topic/exam-topic.component';
 import { ExamPreviewComponent } from './st-plain/plain-edit/pl-exam/exam-preview/exam-preview.component';
+import {TopicModule} from '../../common/components/topic/topic.module';
 
 @NgModule({
   declarations: [
@@ -116,6 +117,7 @@ import { ExamPreviewComponent } from './st-plain/plain-edit/pl-exam/exam-preview
     CheckboxModule,
     TooltipModule,
     CardModule,
+    TopicModule
   ],
   providers: []
 })

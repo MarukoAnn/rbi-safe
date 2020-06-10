@@ -8,7 +8,7 @@ import {MenuItem} from 'primeng/api';
 })
 export class PlainEditComponent implements OnInit {
   public items: MenuItem[];
-  public activeIndex = 2;
+  public activeIndex = 3;
   constructor() {
   }
 

@@ -34,22 +34,17 @@
     }
   }
   .content{
-    padding: 2px 0 0 10px;
+    padding: 0 0 0 10px;
     height: 64vh;
-    .input{
-      height: 4vh;
-      .ui-inputtext{
-        height: 100%;
-        width: 100%;
-        text-align: center;
-      }
-      .ui-inputtext::placeholder{
-        text-align: center;
-      }
-    }
     .topic{
-      height: 57vh;
-      margin-top: 1vh;
+      height: 64vh;
+      .remind{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        border: 1px dashed #CACED5;
+      }
     }
   }
   .modal{

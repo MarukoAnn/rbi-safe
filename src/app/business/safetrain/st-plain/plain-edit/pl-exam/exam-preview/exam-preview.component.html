@@ -1,1 +1,14 @@
-<p>exam-preview works!</p>
+<div class="exam-preview">
+  <div class="title text-center pt-2 pb-2">
+    <h4 class="text-gray">{{previewTitle}}</h4>
+  </div>
+  <div class="content mt-1">
+    <p-scrollPanel [style]="{height:'54vh'}">
+      <app-topic *ngFor="let item of previewList" [topicListData]="item" [optionCtrlAble]="false" [optionHidden]="false"></app-topic>
+    </p-scrollPanel>
+  </div>
+  <div class="footer text-center">
+    <button pButton label="上一步" class="ui-button-rounded ui-button-darkPrimary" (click)="previewOperate('previous')"></button>
+    <button pButton label="下一步" class="ui-button-rounded ml-5" (click)="previewOperate('next')"></button>
+  </div>
+</div>
