@@ -21,7 +21,7 @@ export class StInstitutionComponent implements OnInit {
   }
   // 打开文件
   public  openFile(item): void {
-    window.open(`http://view.officeapps.live.com/op/view.aspx?src=http://${item.filePath}`);
+    window.open(item.filePath);
   }
 
   // 搜索文件

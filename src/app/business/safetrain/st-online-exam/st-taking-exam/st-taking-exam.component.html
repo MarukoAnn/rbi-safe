@@ -1,97 +1,110 @@
-<div class="st-taking-exam" (click)="examClick($event)">
-  <div class="taking-header">
-    <div></div>
-    <h3 class="text-center">正在考试</h3>
-    <div class="exam-clock">
-      <span>倒计时</span>
-      <span>{{countdownClock}}</span>
+<div style="width: 100vw; height: 100vh; position: absolute; top: 0;left: 0; z-index: 1000;">
+  <div class="st-taking-exam">
+    <div class="taking-header">
+      <div></div>
+      <h3 class="text-center">正在考试</h3>
+      <div class="exam-clock">
+        <span>倒计时</span>
+        <span>{{countdownClock}}</span>
+      </div>
     </div>
-  </div>
-  <div class="exam-body">
-    <div class="exam-paper-header">
-      <span>{{paperTitle}}</span>
-    </div>
-    <div class="exam-paper-question">
-      <p-scrollPanel  [style]="{height: '70vh', width: '100%'}" styleClass="custombar">
-        <div *ngIf="singleChoiceQuestions">
-          <h3 class="m-2">单选题:</h3>
-          <div class="paper-question-item" *ngFor="let item of  singleChoiceQuestions; let singleindex= index">
-            <div class="question-title">
-              <span>{{item.subject}}?</span>
-              <span>{{item?.score}}分</span>
-            </div>
-            <div class="question-select"
-                 *ngFor="let selItem of item?.safeTestQuestionOptionsList;
+    <div class="exam-body">
+      <div class="exam-paper-header">
+        <span>{{paperTitle}}</span>
+      </div>
+      <div class="exam-paper-question">
+        <p-scrollPanel  [style]="{height: '70vh', width: '100%'}" styleClass="custombar">
+          <div *ngIf="singleChoiceQuestions.length  !== 0">
+            <h3 class="m-2" *ngIf="singleChoiceQuestions">单选题:</h3>
+            <div class="paper-question-item" *ngFor="let item of  singleChoiceQuestions; let singleindex= index">
+              <div class="question-title">
+                <span>{{item.subject}}?</span>
+                <span>{{item?.score}}分</span>
+              </div>
+              <div class="question-select"
+                   *ngFor="let selItem of item?.safeTestQuestionOptionsList;
                   let i=index">
-              <p-radioButton
-                [name]="'singlename' + singleindex"
-                [value]="i+1"
-                [label]="selItem.option"
-                [(ngModel)]="commpleteExamData.safeAnswerRecordList[singleindex].answerResults"
-              ></p-radioButton>
+                <p-radioButton
+                  [name]="'singlename' + singleindex"
+                  [value]="i+1"
+                  [label]="selItem.option"
+                  [(ngModel)]="commpleteExamData.safeAnswerRecordList[singleindex].answerResults"
+                ></p-radioButton>
+              </div>
             </div>
           </div>
-        </div>
-        <div *ngIf="multipleChoiceQuestions">
-          <h3 class="m-2">多选题:</h3>
-          <div class="paper-question-item" *ngFor="let item of  multipleChoiceQuestions;let mulIndex = index">
-            <div class="question-title">
-              <span>{{item.subject}}?</span>
-              <span>{{item?.score}}分</span>
-            </div>
-            <div class="question-select"
-                 *ngFor="let selItem of item?.safeTestQuestionOptionsList;
+          <div *ngIf="multipleChoiceQuestions.length  !== 0">
+            <h3 class="m-2">多选题:</h3>
+            <div class="paper-question-item" *ngFor="let item of  multipleChoiceQuestions;let mulIndex = index">
+              <div class="question-title">
+                <span>{{item.subject}}?</span>
+                <span>{{item?.score}}分</span>
+              </div>
+              <div class="question-select"
+                   *ngFor="let selItem of item?.safeTestQuestionOptionsList;
                  let i=index">
-              <p-checkbox
-                [name]="'multiplename'+ mulIndex"
-                [value]="i+1"
-                [label]="selItem.option"
-                [(ngModel)]="commpleteExamData.safeAnswerRecordList[this.singleChoiceQuestions.length + mulIndex].answerResults"
-              ></p-checkbox>
+                <p-checkbox
+                  [name]="'multiplename'+ mulIndex"
+                  [value]="i+1"
+                  [label]="selItem.option"
+                  [(ngModel)]="commpleteExamData.safeAnswerRecordList[this.singleChoiceQuestions.length + mulIndex].answerResults"
+                ></p-checkbox>
+              </div>
             </div>
           </div>
-        </div>
-        <div *ngIf="judgmentQuestions">
-          <h3 class="m-2">判断题:</h3>
-          <div class="paper-question-item" *ngFor="let item of  judgmentQuestions; let judgIndex = index">
-            <div class="question-title">
-              <span>{{item.subject}}?</span>
-              <span>{{item?.score}}分</span>
-            </div>
-            <div class="question-select"
-                 *ngFor="let selItem of item?.safeTestQuestionOptionsList;
+          <div *ngIf="judgmentQuestions.length !== 0">
+            <h3 class="m-2">判断题:</h3>
+            <div class="paper-question-item" *ngFor="let item of  judgmentQuestions; let judgIndex = index">
+              <div class="question-title">
+                <span>{{item.subject}}?</span>
+                <span>{{item?.score}}分</span>
+              </div>
+              <div class="question-select"
+                   *ngFor="let selItem of item?.safeTestQuestionOptionsList;
                  let i=index">
-              <p-radioButton
-                [name]="'judgmentname' + judgIndex"
-                [value]="i+1"
-                [label]="selItem.option"
-                [(ngModel)]="commpleteExamData.safeAnswerRecordList[this.singleChoiceQuestions.length + this.judgmentQuestions.length+ judgIndex].answerResults"
-              ></p-radioButton>
+                <p-radioButton
+                  [name]="'judgmentname' + judgIndex"
+                  [value]="i+1"
+                  [label]="selItem.option"
+                  [(ngModel)]="commpleteExamData.safeAnswerRecordList[this.singleChoiceQuestions.length + this.judgmentQuestions.length+ judgIndex].answerResults"
+                ></p-radioButton>
+              </div>
             </div>
           </div>
-        </div>
-        <div *ngIf="completion">
-          <h3 class="m-2">填空题:</h3>
-          <div class="paper-question-item" *ngFor="let item of  completion; let comIndex = index">
-            <div class="question-title">
-              <span>{{item.subject}}?</span>
-              <!--              <span style="flex: 6">{{item.subject}}</span>-->
-              <span>{{item?.score}}分</span>
-            </div>
-            <div class="question-select"
-                 *ngFor="let selItem of item?.rightKey.split('#');
+          <div *ngIf="completion.length  !== 0">
+            <h3 class="m-2">填空题:</h3>
+            <div class="paper-question-item" *ngFor="let item of  completion; let comIndex = index">
+              <div class="question-title">
+                <span>{{item.subject}}?</span>
+                <!--              <span style="flex: 6">{{item.subject}}</span>-->
+                <span>{{item?.score}}分</span>
+              </div>
+              <div class="question-select"
+                   *ngFor="let selItem of item?.rightKey.split('#');
                  let i=index">
-              <input
-                type="text"
-                pInputText
-                placeholder="请输入答案" [(ngModel)]="commpleteExamData.safeAnswerRecordList[this.singleChoiceQuestions.length + this.multipleChoiceQuestions.length + this.judgmentQuestions.length + comIndex].answerResults[i]"/>
+                <input
+                  type="text"
+                  pInputText
+                  placeholder="请输入答案" [(ngModel)]="commpleteExamData.safeAnswerRecordList[this.singleChoiceQuestions.length + this.multipleChoiceQuestions.length + this.judgmentQuestions.length + comIndex].answerResults[i]"/>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="m-3 text-center">
-          <button pButton  type="button" label="完成考试"  class="ui-button-rounded" (click)="submitPaperClik()"></button>
-        </div>
-      </p-scrollPanel>
+          <div class="m-3 text-center">
+            <button pButton  type="button" label="完成考试"  class="ui-button-rounded" (click)="submitPaperClik()"></button>
+          </div>
+        </p-scrollPanel>
+      </div>
     </div>
+    <p-dialog header="交卷提醒" [(visible)]="examWarnDialog" [style]="{width: '20vw'}" [baseZIndex]="10000" [modal]="true" [closable]="false">
+      考试时间已到，请立即交卷
+      <p-footer style="display: flex;justify-content: center">
+        <button type="button" pButton (click)="submitPaper()" label="提交"></button>
+        <!--      <button type="button" pButton icon="pi pi-times" (click)="displayBasic=false" label="No" class="ui-button-secondary"></button>-->
+      </p-footer>
+    </p-dialog>
   </div>
 </div>
+
+
+
+

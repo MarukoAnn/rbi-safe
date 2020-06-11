@@ -578,4 +578,6 @@ body .ui-button.ui-state-default.ui-button-outlinePrimary:hover{
 body .ui-button.text-left{
   text-align: left;
 }
-
+::ng-deep .ui-tabview-panel  {
+  z-index: 100;
+}

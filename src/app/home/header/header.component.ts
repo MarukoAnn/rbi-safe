@@ -15,7 +15,7 @@ export class HeaderComponent implements OnInit {
   public username: string = '';
   public logoWidth = 10;
   public showNotice = false;
-  public headerSideBarShow: boolean = true;
+  public headerSideBarShow: boolean = false;
   constructor(
     private localSrv: LocalStorageService
   ) { }
@@ -33,7 +33,8 @@ export class HeaderComponent implements OnInit {
     this.outer.emit(this.logoWidth);
   }
   public  showNoticeClick(): void {
-      this.showNotice = !this.showNotice;
+      // this.showNotice = !this.showNotice;
+      this.headerSideBarShow = !this.headerSideBarShow;
   }
   public setClick(): void {
     this.outEvent.emit('true');

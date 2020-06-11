@@ -4,6 +4,7 @@ import {ActionReducer} from '@ngrx/store';
 import {ActivatedRoute, Router} from '@angular/router';
 import {PublicMethodService} from '../../../../common/public/public-method.service';
 import {CommpleteExamData} from '../../../../common/public/Api';
+import {ConfirmationService} from 'primeng/api';
 
 @Component({
   selector: 'app-st-taking-exam',
@@ -14,7 +15,7 @@ export class StTakingExamComponent implements OnInit {
 
   public paperId: number;
   public paparTime: number;
-  public countdownClock: any;
+  public countdownClock: any = '00:00:00';
   public paperTitle: string = '';
   public singleChoiceQuestions: Array<object> = [];
   public multipleChoiceQuestions: Array<object> = [];
@@ -22,10 +23,12 @@ export class StTakingExamComponent implements OnInit {
   public completion: Array<object> = [];
   public commpleteExamData: CommpleteExamData = new CommpleteExamData();
   public commpleteExamDataCopy: CommpleteExamData = new CommpleteExamData();
+  public examWarnDialog: boolean = false;
   constructor(
     private stOnlineExamSrv: StOnlineExamService,
     private route: ActivatedRoute,
     private router: Router,
+    private confirmationService: ConfirmationService,
     private toolSrv: PublicMethodService,
   ) { }
 
@@ -68,7 +71,7 @@ export class StTakingExamComponent implements OnInit {
             m = 0;
             s = 0;
             clearInterval(timeOclock);
-            this.submitPaperClik();
+            this.examWarnDialog = true;
           }else {
             m = 59;
             h = h - 1;
@@ -89,20 +92,7 @@ export class StTakingExamComponent implements OnInit {
  // 交卷
   public  submitPaperClik(): void {
      this.toolSrv.setConfirmation('交卷', '交卷', () => {
-       this.commpleteExamDataCopy = JSON.parse(JSON.stringify(this.commpleteExamData));
-       this.commpleteExamDataCopy.safeAnswerRecordList.forEach(val => {
-         if (Array.isArray(val.answerResults)){
-          val.answerResults = val.answerResults.join('#');
-         }else {
-           val.answerResults =  val.answerResults.toString();
-         }
-       });
-       this.stOnlineExamSrv.completeExamInfo(this.commpleteExamDataCopy).subscribe(val => {
-         this.toolSrv.setToast('success', '提交成功', '考试已结束');
-         window.history.back();
-         // window.navigator.bac
-         // this.router.
-       });
+       this.submitPaper();
      });
   }
 
@@ -112,8 +102,20 @@ export class StTakingExamComponent implements OnInit {
        this.commpleteExamData.safeAnswerRecordList.push({rightKey: val.rightKey, score: val.score, testPapreId: val.testPapreId, testUestionsId: val.id, answerResults: val.subjectType === 4 ? [] : ''});
      });
   }
-
-  public  examClick(e): void {
-
+  public  submitPaper(): void {
+    this.commpleteExamDataCopy = JSON.parse(JSON.stringify(this.commpleteExamData));
+    this.commpleteExamDataCopy.safeAnswerRecordList.forEach(val => {
+      if (Array.isArray(val.answerResults)){
+        val.answerResults = val.answerResults.join('#');
+      }else {
+        val.answerResults =  val.answerResults.toString();
+      }
+    });
+    this.stOnlineExamSrv.completeExamInfo(this.commpleteExamDataCopy).subscribe(val => {
+      this.toolSrv.setToast('success', '提交成功', '考试已结束');
+      window.history.back();
+      // window.navigator.bac
+      // this.router.
+    });
   }
 }

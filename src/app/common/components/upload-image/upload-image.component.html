@@ -11,6 +11,8 @@
     <i class="iconfont iconbaseline-add_circle-24px" style="position: absolute;top: -10px;font-size: 40px;right: -10px;color: #3B86FF;" (click)="delItemImg(i)"  *ngIf="this.ImageOption.showUploadIcon"></i>
   </div>
   <p-dialog header="图片详细" [(visible)]="showImageDiaog">
-    <img [src]="ImgUrl" alt="" style="max-width: 60vw">
+    <div>
+      <img [src]="ImgUrl" alt="" style="max-height: 80vh;max-width: 60vw">
+    </div>
   </p-dialog>
 </div>
