@@ -141,17 +141,19 @@
       [(selection)]="plInputTableSelect"
       [value]="plInputTableData" [columns]="plInputTableHeader"
       [scrollable]="true" scrollHeight="50vh"
+      dataKey="id"
     >
       <ng-template pTemplate="header" let-columns>
         <tr>
           <th style="width: 3em">
-            #
+            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
           </th>
           <th *ngFor="let col of columns">
             {{col.header}}
           </th>
         </tr>
       </ng-template>
+      <!--<ng-template pTemplate="caption"></ng-template>-->
       <ng-template pTemplate="body" let-rowData let-columns="columns">
         <tr>
           <td style="width: 3em">

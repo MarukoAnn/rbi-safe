@@ -35,9 +35,9 @@ export class PlInputComponent implements OnInit {
   ]; // 表头字段
   public plInputTableData: any[]; // 表体数据
   public plInputTableSelect: any[]; // 表体数据选择
-  public plInputTableSelectName: any = '请选择受训单位人员'; // 表体数据选择名字
-  public plInputDropdownPlaceholder: string = '请选择培训类别';
-  public plInputOrgTreeSelectLabel: string = '点击选择单位';
+  public plInputTableSelectName: any = '请选择受训单位人员'; // 受训人员label
+  public plInputDropdownPlaceholder: string = '请选择培训类别'; // 培训类别label
+  public plInputOrgTreeSelectLabel: string = '点击选择单位'; // 组织单位label
   public plInputNowPage: number = 1; // 当前页
   constructor(
     private globalSrv: GlobalService,
@@ -70,6 +70,7 @@ export class PlInputComponent implements OnInit {
             this.plInputOperateUpdateField = objectCopy(Object.assign({}, new TrainingFieldUpdateClass()), res.data);
             this.plInputDropdownPlaceholder = res.data.trainingTypeName;
             this.plInputOrgTreeSelectLabel = res.data.organizationName;
+            this.plInputTableSelectName = res.data.targetNameSet.join(',');
           });
         }
       }
@@ -109,6 +110,9 @@ export class PlInputComponent implements OnInit {
         if (this.plInputTableSelect) {
           this.plInputTableSelectName = this.plInputTableSelect.map((res) => res.name).join(',');
         }
+        break;
+      // 筛选搜索
+      case 'search':
         break;
     }
   }

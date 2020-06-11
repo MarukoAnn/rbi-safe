@@ -15,7 +15,7 @@ export class HeaderComponent implements OnInit {
   public username: string = '';
   public logoWidth = 10;
   public showNotice = false;
-  public headerSideBarShow: boolean = true;
+  public headerSideBarShow: boolean = false;
   constructor(
     private localSrv: LocalStorageService
   ) { }

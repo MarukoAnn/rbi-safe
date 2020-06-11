@@ -21,7 +21,7 @@
       <span></span>
     </div>
     <!-- 用户   -->
-    <div class="header-userinfo">
+    <div class="header-userinfo" (click)="headerSideBarShow=true">
       <span>{{username}}</span>
       <i class="fa fa-angle-down"></i>
       <img src="../../../assets/image/ic_header.jpeg" alt="">
@@ -31,7 +31,4 @@
     <div class="notice-badge"></div>
     <app-notice></app-notice>
   </div>
- <!-- <div class="menu">
-    <p-sidebar [(visible)]="headerSideBarShow" position="right"></p-sidebar>
-  </div>-->
 </div>

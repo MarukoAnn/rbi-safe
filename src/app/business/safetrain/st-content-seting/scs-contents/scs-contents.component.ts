@@ -99,12 +99,6 @@ export class ScsContentsComponent implements OnInit {
         }
         this.contentsSearchOperate();
         break;
-      // 搜索重置
-      case 'reset':
-        if ( !this.contentsClassifySelected) {
-          this.contentsDataInit(this.contentsNowPage = 1, this.contentsPageOption.pageSize);
-        }
-        break;
     }
   }
 
