@@ -247,4 +247,11 @@ export class SafetrainService {
   public getTopicInfo(params?: {}): Observable<any> {
     return this.http.post(`/safeSubject/getSafeSubjectByPageAndSubjectStoreId`, params);
   }
+
+  /**
+   * 考试发布
+   */
+  public addExamInfo(params: any): Observable<any> {
+    return this.http.post(`/handlingRequirements`, params);
+  }
 }

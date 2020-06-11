@@ -27,8 +27,10 @@
         <app-pl-exam (nextChange)="onTabChange($event)" (previousChange)="onTabChange($event)"></app-pl-exam>
       </p-tabPanel>
       <!--项目发布-->
-      <p-tabPanel>
-        <app-pl-release (previousChange)="onTabChange($event)"></app-pl-release>
+      <p-tabPanel [cache]="false">
+        <ng-template pTemplate="content">
+          <app-pl-release (previousChange)="onTabChange($event)"></app-pl-release>
+        </ng-template>
       </p-tabPanel>
     </p-tabView>
   </div>
