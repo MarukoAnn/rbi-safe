@@ -26,5 +26,4 @@ import {SidebarModule} from 'primeng/primeng';
     SidebarModule
   ]
 })
-export class HomeModule {
-}
+export class HomeModule { }

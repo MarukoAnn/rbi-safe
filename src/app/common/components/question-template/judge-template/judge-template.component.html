@@ -4,7 +4,7 @@
     <input type="text" pInputText style="width: 10%;text-align: right" [(ngModel)]="score" class="m-2" (change)="changeIpnutSelect()"/>分
     <div *ngFor="let i of judgeList;let index = index"  style="line-height: 4vh"  class="ui-g-12 ui-md-12 p-1">
       <div class="ui-g-1 ui-md-1">
-        <p-radioButton name="groupname" [value]="i.value" [(ngModel)]="rightKey" (focus)="changeIpnutSelect()"></p-radioButton>
+        <p-radioButton name="groupname" [value]="i.value" [(ngModel)]="rightKey" (onFocus)="changeIpnutSelect()"></p-radioButton>
       </div>
       <div class="ui-g-9 ui-md-9" >
         <input type="text" pInputText  [(ngModel)]="i.label" (focus)="i.check = true" (change)="changeIpnutSelect()"/>

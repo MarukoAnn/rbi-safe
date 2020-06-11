@@ -31,7 +31,9 @@ export class StFileLibraryComponent implements OnInit, OnChanges {
     });
   }
   ngOnChanges(changes: SimpleChanges): void {
-    this.initLearnFileLibraryData();
+    setTimeout(() => {
+      this.initLearnFileLibraryData();
+    }, 100);
   }
   // 打开文件
   public  openFileClick(e): void {

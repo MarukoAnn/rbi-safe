@@ -32,8 +32,8 @@ export class RadioTemplateComponent implements OnInit {
   ngOnInit() {
   }
   public  delRadioItem(index): void {
-    this.setData();
     this.RedioList.splice(index, 1);
+    this.setData();
     this.questionEvent.emit(this.radioTemplate);
   }
 
@@ -43,7 +43,7 @@ export class RadioTemplateComponent implements OnInit {
 
   public  changeIpnutSelect(): void {
     this.setData();
-    console.log(this.radioTemplate);
+
     this.questionEvent.emit(this.radioTemplate);
   }
   // 设置数据

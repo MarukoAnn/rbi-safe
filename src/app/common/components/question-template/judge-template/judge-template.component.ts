@@ -36,6 +36,7 @@ export class JudgeTemplateComponent implements OnInit {
   }
   // 设置数据
   public setData(): void {
+    console.log(this.rightKey);
     const list = [];
     const indexList = [];
     this.judgeList.forEach((val, index) => {

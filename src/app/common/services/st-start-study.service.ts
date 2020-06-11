@@ -24,4 +24,13 @@ export class StStartStudyService {
   public getStudyFindLibraryType(pamars): Observable<any> {
     return this.http.post(`/training/findType`, pamars);
   }
+  // 获取我的计划
+  public  getMyPlanPageInfo(pamars): Observable<any> {
+    return this.http.post(`/getLearningInformation`, pamars);
+  }
+
+  // 获取我的计划
+  public  getMyPlanInfoById(pamars): Observable<any> {
+    return this.http.post(`/getLearningContentById`, pamars);
+  }
 }

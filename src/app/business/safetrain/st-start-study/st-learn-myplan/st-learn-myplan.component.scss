@@ -1,10 +1,11 @@
 .st-learn-myplan{
-  margin-top: 4vh;
+   margin-top: 4vh;
   .learn-item{
     //border: 1px solid #;
     box-shadow: 0 0 5px #8D8E96;
     border-radius: 6px;
     padding: 1vh 20px;
+    margin: 1vw 1vw;
     .header {
       padding: 2vh 0;
       display: flex;
@@ -28,5 +29,10 @@
     .progressBar{
       padding: 1vh 0;
     }
+  }
+  .learn-pagination{
+    position: absolute;
+    bottom: 8vh;
+    right: 4vw;
   }
 }

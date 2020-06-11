@@ -16,6 +16,7 @@ import {StTakingExamComponent} from './st-online-exam/st-taking-exam/st-taking-e
 import {StExamListComponent} from './st-online-exam/st-exam-list/st-exam-list.component';
 import {StStartStudyComponent} from './st-start-study/st-start-study.component';
 import {StLearnListComponent} from './st-start-study/st-learn-list/st-learn-list.component';
+import {StMyplanDetailComponent} from './st-start-study/st-learn-myplan/st-myplan-detail/st-myplan-detail.component';
 
 
 const routes: Routes = [
@@ -44,6 +45,7 @@ const routes: Routes = [
       {path: 'learn', component: StStartStudyComponent, children: [
           {path: '',  redirectTo: 'list', pathMatch: 'full'},
           {path: 'list', component: StLearnListComponent},
+          {path: 'detail', component: StMyplanDetailComponent},
         ]},
     ]
   }
