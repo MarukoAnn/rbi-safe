@@ -44,12 +44,15 @@ export class PlReleaseComponent implements OnInit {
     this.safeTestQuestionsList.forEach((res) => {
       const exam = objectCopy(Object.assign({}, new TopicExamClass(), {safeTestQuestionOptionsList: []}), res.safeSubject);
       exam.safeTestQuestionOptionsList = [];
-      if (res.safeSubjectOptionList.length && res.safeSubject.subjectType !== 4) {
-        res.safeSubjectOptionList.forEach((item) => {
-          exam.safeTestQuestionOptionsList.push(objectCopy(Object.assign({}, new TopicExamOptionClass()), item));
-        });
-      } else {
-        exam.safeTestQuestionOptionsList = null;
+      if (res.safeSubjectOptionList !== null) {
+        if (res.safeSubjectOptionList.length && res.safeSubject.subjectType !== 4) {
+          res.safeSubjectOptionList.forEach((item) => {
+            exam.safeTestQuestionOptionsList.push(objectCopy(Object.assign({}, new TopicExamOptionClass()), item));
+          });
+        }
+        else {
+          exam.safeTestQuestionOptionsList = null;
+        }
       }
       TopicExam.push(exam);
     });

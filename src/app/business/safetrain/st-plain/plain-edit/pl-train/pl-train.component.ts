@@ -75,7 +75,10 @@ export class PlTrainComponent implements OnInit {
       value: this.trainClassifySelected.id
     };
     this.safeSrv.searchScsContentsInfo(searchField).subscribe((res) => {
-      this.trainTableData = res.data.contents;
+      this.trainTableData = res.data.contents.map((item) => {
+        item.active = 0;
+        return item;
+      });
       this.trainPageOption.totalRecord = res.data.totalRecord;
     });
   }

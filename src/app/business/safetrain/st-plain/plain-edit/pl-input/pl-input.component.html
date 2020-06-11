@@ -21,7 +21,7 @@
       </label>
       <div class="ui-g-9 ui-md-9 input">
         <p-dropdown
-          placeholder="请选择培训类别"
+          [placeholder]="plInputDropdownPlaceholder"
           [options]="plInputDropdownOptions" [(ngModel)]="plInputDropdownSelected"
           optionLabel="trainingTypeName" dropdownIcon="fa fa-caret-down">
         </p-dropdown>
@@ -68,7 +68,7 @@
       </label>
       <div class="ui-g-9 ui-md-9 input orgButton">
         <button
-          pButton type="button" [label]="plInputOrgTreeSelect.label?plInputOrgTreeSelect.label:'点击选择单位'"
+          pButton type="button" [label]="plInputOrgTreeSelect.label?plInputOrgTreeSelect.label:plInputOrgTreeSelectLabel"
           class="ui-button-white text-left" (click)="plInputOperate(plInputOperateFlag = 'tree')">
         </button>
       </div>

@@ -29,13 +29,15 @@ export class PlInputComponent implements OnInit {
     {field: 'name', header: '姓名'},
     {field: 'employeeNumber', header: '员工号'},
     {field: 'idCardNo', header: '身份证'},
-    {field: 'gender', header: '性别'},
-    {field: 'position', header: '所在岗位'},
-    {field: 'degreeOfEducation', header: '文化程度'},
+    {field: 'factoryName', header: '厂矿'},
+    {field: 'workshopName', header: '车间'},
+    {field: 'teamName', header: '班组'},
   ]; // 表头字段
   public plInputTableData: any[]; // 表体数据
   public plInputTableSelect: any[]; // 表体数据选择
   public plInputTableSelectName: any = '请选择受训单位人员'; // 表体数据选择名字
+  public plInputDropdownPlaceholder: string = '请选择培训类别';
+  public plInputOrgTreeSelectLabel: string = '点击选择单位';
   public plInputNowPage: number = 1; // 当前页
   constructor(
     private globalSrv: GlobalService,
@@ -66,6 +68,8 @@ export class PlInputComponent implements OnInit {
         if (params.id) {
           this.safeSrv.getReportsInfo({id: params.id}).subscribe((res) => {
             this.plInputOperateUpdateField = objectCopy(Object.assign({}, new TrainingFieldUpdateClass()), res.data);
+            this.plInputDropdownPlaceholder = res.data.trainingTypeName;
+            this.plInputOrgTreeSelectLabel = res.data.organizationName;
           });
         }
       }
@@ -89,12 +93,10 @@ export class PlInputComponent implements OnInit {
           this.plInputOperateUpdateField.trainingTypeId = this.plInputDropdownSelected.id;
           this.plInputOperateUpdateField.organizationTrainingDepartmentId = this.plInputOrgTreeSelect.id;
           this.plInputOperateUpdateField.targetSet = this.plInputTableSelect.map((res) => res.id).join(',');
-          this.nextChange.emit({activeIndex: 1});
-          this.plInputOperateUpdateField.processingStatus = '2';
-          this.localSrv.setObject('safeTrainingNeeds', this.plInputOperateUpdateField);
-          break;
         }
-        window.alert('请把参数填写完整');
+        this.nextChange.emit({activeIndex: 1});
+        this.plInputOperateUpdateField.processingStatus = '2';
+        this.localSrv.setObject('safeTrainingNeeds', this.plInputOperateUpdateField);
         break;
       case 'tree':
         this.plInputOperateModal = true;

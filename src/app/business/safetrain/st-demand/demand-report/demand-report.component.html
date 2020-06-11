@@ -125,6 +125,7 @@
   </div>
   <!--弹窗-->
   <p-dialog
+    [modal]="true"
     [(visible)]="reportOperateModal" [blockScroll]="true"
     [contentStyle]="{width: reportOperateFlag === 'strain'?'50vw':'30vw',height: '30vh'}">
     <p-header>{{reportOperateFlag === 'strain'?'请选择受训单位人员':'请选择组织培训单位'}}</p-header>
