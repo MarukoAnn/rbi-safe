@@ -12,8 +12,7 @@
       <i class="fa fa-search"></i>
     </div>
     <i class="iconfont iconOutline setting" (click)="setClick()"></i>
-<!--    <div class="header-notice" (click)="showNoticeClick()">-->
-    <div class="header-notice">
+    <div class="header-notice" (click)="showNoticeClick()">
       <i class="iconfont iconNotificationIcon"></i>
       <span></span>
     </div>
@@ -22,21 +21,14 @@
       <span></span>
     </div>
     <!-- 用户   -->
-    <div class="header-userinfo">
+    <div class="header-userinfo" (click)="headerSideBarShow=true">
       <span>{{username}}</span>
       <i class="fa fa-angle-down"></i>
       <img src="../../../assets/image/ic_header.jpeg" alt="">
     </div>
   </div>
-<!--  <div class="notice-dialog" *ngIf="showNotice">-->
-<!--    <div class="notice-badge"></div>-->
-<!--    -->
-<!--  </div>-->
-
-
-  <!-- <div class="menu">
-   </div>-->
+  <div class="notice-dialog" *ngIf="showNotice">
+    <div class="notice-badge"></div>
+    <app-notice></app-notice>
+  </div>
 </div>
-<!--<p-sidebar [(visible)]="headerSideBarShow" position="right" appendTo="icon">-->
-<!--  <app-notice></app-notice>-->
-<!--</p-sidebar>-->

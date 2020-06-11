@@ -23,6 +23,12 @@
       padding: 0.429em;
     }
   }
+  /deep/ .ui-table-caption{
+    background-color: unset;
+    border: unset;
+    text-align: left;
+    padding: 0.571em 0;
+  }
   /deep/ .ui-table-summary{
     background-color: unset;
     border: unset;

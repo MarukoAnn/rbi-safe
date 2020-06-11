@@ -7,11 +7,10 @@
         placeholder="请选择分类..."
         [options]="contentsClassifyOptions"
         [(ngModel)]="contentsClassifySelected"
-        (onChange)="contentsOperate(contentsOperateFlag = 'reset')"
+        (onChange)="contentsOperate(contentsOperateFlag = 'search')"
         optionLabel="contentCategoryName"
         dropdownIcon="fa fa-caret-down">
       </p-dropdown>
-      <button pButton type="button" label="搜索" (click)="contentsOperate(contentsOperateFlag = 'search')"></button>
     </div>
     <div class="button">
       <button
