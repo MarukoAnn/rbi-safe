@@ -1,6 +1,6 @@
 <div class="plain-list pl-3 pr-3">
   <!-- 新增 -->
-  <div class="title" [routerLink]="['../edit']">
+  <div class="title">
     <div class="btn">
       <span>+</span>
       <span>新增教育培训计划</span>
@@ -9,7 +9,7 @@
   <div class="tab">
     <p-tabView>
       <!-- 待处理 -->
-      <p-tabPanel [header]="'待处理培训计划('+this.data.length+')'">
+      <p-tabPanel [header]="'待处理培训计划'">
         <div style="height: 76vh">
           <app-pt-unprocessed></app-pt-unprocessed>
         </div>

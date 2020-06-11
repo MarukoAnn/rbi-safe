@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {PageOption, ProgramField, ProgramFieldClass, TableHeader} from '../../../../../common/public/Api';
 import {SafetrainService} from '../../../../../common/services/safetrain.service';
-import {Observable} from 'rxjs';
-import {objectCopy} from '../../../../../common/public/contents';
 
 @Component({
   selector: 'app-pt-processed',
@@ -15,10 +13,10 @@ export class PtProcessedComponent implements OnInit {
     totalRecord: null // 总条数
   }; // 分页组件配置
   public processedTableHeader: TableHeader[] = [
-    {field: 'name', header: '姓名'},
     {field: 'trainingTypeName', header: '培训类型名称'},
     {field: 'trainingContent', header: '培训内容'},
     {field: 'proposedTime', header: '提报时间'},
+    {field: 'name', header: '提报人'},
   ]; // 表头字段
   public processedTableData: any[]; // 表体数据
   public processedNowPage: number = 1; // 当前页
@@ -37,15 +35,6 @@ export class PtProcessedComponent implements OnInit {
     this.safeSrv.getProgramList({pageNo, pageSize, processingStatus: 0}).subscribe((res) => {
       this.processedTableData = res.data.contents;
       this.processedPageOption.totalRecord = res.data.totalRecord;
-    });
-  }
-
-  // 角色操作代理请求函数
-  private processedHttpOperate(test: Observable<any>) {
-    test.subscribe(() => {
-      // 操作成功后重新初始化数据列表
-      this.processedOperateModal = false;
-      this.processedDataInit(this.processedNowPage, this.processedPageOption.pageSize);
     });
   }
 

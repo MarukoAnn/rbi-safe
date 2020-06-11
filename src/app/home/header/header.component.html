@@ -1,23 +1,23 @@
-<div class="header" >
+<div class="header">
   <div class="header-title" (click)="logoClick()" [ngStyle]="{width: logoWidth + 'vw'}">
     <div *ngIf="logoWidth !== 3">安全生产信息化系统</div>
     <i class="iconfont iconzu381" *ngIf="logoWidth === 3"></i>
   </div>
   <div class="header-right">
     <!-- 搜索框-->
-    <div  class="search_input">
+    <div class="search_input">
       <div class="ui-inputgroup">
-        <input type="text" pInputText  />
+        <input type="text" pInputText/>
       </div>
       <i class="fa fa-search"></i>
     </div>
     <i class="iconfont iconOutline setting" (click)="setClick()"></i>
     <div class="header-notice" (click)="showNoticeClick()">
       <i class="iconfont iconNotificationIcon"></i>
-      <span ></span>
+      <span></span>
     </div>
     <!-- 线-->
-    <div class="header_line" >
+    <div class="header_line">
       <span></span>
     </div>
     <!-- 用户   -->
@@ -27,9 +27,13 @@
       <img src="../../../assets/image/ic_header.jpeg" alt="">
     </div>
   </div>
-
   <div class="notice-dialog" *ngIf="showNotice">
     <div class="notice-badge"></div>
-    <app-notice ></app-notice>
+    <app-notice></app-notice>
   </div>
+ <!-- <div class="menu">
+    <p-sidebar [(visible)]="headerSideBarShow" position="right">
+
+    </p-sidebar>
+  </div>-->
 </div>

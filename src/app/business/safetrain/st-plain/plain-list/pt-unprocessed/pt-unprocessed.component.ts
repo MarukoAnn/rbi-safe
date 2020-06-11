@@ -13,10 +13,10 @@ export class PtUnprocessedComponent implements OnInit {
     totalRecord: null // 总条数
   }; // 分页组件配置
   public unprocessedTableHeader: TableHeader[] = [
-    {field: 'name', header: '姓名'},
     {field: 'trainingTypeName', header: '培训类型名称'},
     {field: 'trainingContent', header: '培训内容'},
     {field: 'proposedTime', header: '提报时间'},
+    {field: 'name', header: '提报人'},
   ]; // 表头字段
   public unprocessedTableData: any[]; // 表体数据
   public unprocessedNowPage: number = 1; // 当前页
