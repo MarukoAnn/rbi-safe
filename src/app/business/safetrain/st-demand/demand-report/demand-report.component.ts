@@ -24,11 +24,11 @@ export class DemandReportComponent implements OnInit {
   }; // 分页组件配置
   public reportTableHeader: TableHeader[] = [
     {field: 'name', header: '姓名'},
-    {field: 'employeeNumber', header: '员工号'},
+    // {field: 'employeeNumber', header: '员工号'},
     {field: 'idCardNo', header: '身份证'},
-    {field: 'gender', header: '性别'},
-    {field: 'position', header: '所在岗位'},
-    {field: 'degreeOfEducation', header: '文化程度'},
+    {field: 'factoryName', header: '厂矿'},
+    {field: 'workshopName', header: '车间'},
+    {field: 'teamName', header: '班组'},
   ]; // 表头字段
   public reportTableData: any[]; // 表体数据
   public reportTableSelect: any[]; // 表体数据选择
@@ -64,6 +64,7 @@ export class DemandReportComponent implements OnInit {
   //  公司人员分页
   private reportCompanyDataInit(pageNo, pageSize) {
     this.globalSrv.publicGetCompanyPerson({pageNo, pageSize}).subscribe((res) => {
+      console.log(res);
       this.reportTableData = res.data.contents;
       this.reportPageOption.totalRecord = res.data.totalRecord;
     });
