@@ -32,8 +32,8 @@ export class CheckboxTemplateComponent implements OnInit {
   ngOnInit() {
   }
   public  delRadioItem(index): void {
-    this.setData();
     this.checkBoxList.splice(index, 1);
+    this.setData();
     this.questionEvent.emit(this.radioTemplate);
   }
 

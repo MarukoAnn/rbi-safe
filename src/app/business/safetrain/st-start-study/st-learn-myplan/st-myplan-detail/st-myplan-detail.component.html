@@ -1,0 +1,34 @@
+<div class="st-myplan-detail">
+  <div class="st-myplan-detail-title">
+    <span class="h5" (click)="backPreviouClick()">我的培训计划</span>
+    <i class="fa fa-angle-right h4 pl-2 pr-2"></i>
+    <span class="h5">{{title}}</span>
+  </div>
+  <div class="start-exam">
+    <button pButton style="background: #63DCAF; color: #fff;border: 0" type="button" icon="iconfont iconbaseline-play_circle_filled-24px" label="模拟考试" iconPos="right" class="ui-button-rounded"></button>
+  </div>
+  <div class="content">
+    <p-scrollPanel [style]="{width: '100%', height: '70vh'}">
+      <div class="myplan-file ui-g-12">
+        <div style="font-size: 16px; padding: 1vh 0">培训资料</div>
+        <div class="item ui-g-12 ui-g-12" *ngFor="let item of fileContent" (click)="openFileClick(item)">
+          <span>{{item?.resourceName}}</span>
+        </div>
+      </div>
+      <div class="myplan-video ui-g-12">
+        <div class="p-2" style="font-size: 16px">培训视频</div>
+        <div class="ui-g-4 ui-md-4" *ngFor="let item of videoContent">
+          <div class="item">
+            <video style="width: 100%" height="200" controls="controls">
+              <source [src]="item?.resourcePath" type="video/mp4" />
+            </video>
+            <div>
+              <span>{{item.resourceName}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </p-scrollPanel>
+
+  </div>
+</div>

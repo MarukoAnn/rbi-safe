@@ -8,6 +8,7 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import {InputTextModule} from 'primeng/inputtext';
 import {NoticeModule} from '../common/components/notice/notice.module';
 import {FormsModule} from '@angular/forms';
+import {SidebarModule} from 'primeng/primeng';
 
 
 @NgModule({
@@ -18,6 +19,7 @@ import {FormsModule} from '@angular/forms';
         InputTextModule,
         NoticeModule,
         FormsModule,
+        SidebarModule
     ]
 })
 export class HomeModule { }

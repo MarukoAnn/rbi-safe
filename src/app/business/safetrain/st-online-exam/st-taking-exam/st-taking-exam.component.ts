@@ -112,4 +112,8 @@ export class StTakingExamComponent implements OnInit {
        this.commpleteExamData.safeAnswerRecordList.push({rightKey: val.rightKey, score: val.score, testPapreId: val.testPapreId, testUestionsId: val.id, answerResults: val.subjectType === 4 ? [] : ''});
      });
   }
+
+  public  examClick(e): void {
+
+  }
 }

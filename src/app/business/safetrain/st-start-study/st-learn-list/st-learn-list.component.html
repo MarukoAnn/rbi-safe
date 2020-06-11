@@ -1,10 +1,23 @@
 <div class="st-learn-list">
-  <p-tabView [activeIndex]="index">
-    <p-tabPanel [header]="'我的培训计划(' + noExamNum + ')'">
-      <app-st-learn-myplan></app-st-learn-myplan>
-    </p-tabPanel>
-    <p-tabPanel header="培训内容库">
-      <app-st-learn-library></app-st-learn-library>
-    </p-tabPanel>
-  </p-tabView>
+<!--  <p-tabView [activeIndex]="index">-->
+<!--    <p-tabPanel [header]="'我的培训计划(' + noExamNum + ')'">-->
+<!--      <app-st-learn-myplan (eventEmit)="getLength($event)"></app-st-learn-myplan>-->
+<!--    </p-tabPanel>-->
+<!--    <p-tabPanel header="培训内容库">-->
+<!--      <app-st-learn-library></app-st-learn-library>-->
+<!--    </p-tabPanel>-->
+<!--  </p-tabView>-->
+  <div class="tab">
+    <div *ngFor="let item of arcTabItem;let i=index" class="tab-list">
+      <a (click)="arcTabItemClick(i)" class="item-content">
+        <span [ngStyle]="{color: item.item.ftcolor}" *ngIf="i === 0">{{item.item.label}}({{noExamNum}})</span>
+        <span [ngStyle]="{color: item.item.ftcolor}" *ngIf="i !== 0">{{item.item.label}}</span>
+        <span [ngStyle]="{background: item.item.bgc}" class="line"></span>
+      </a>
+    </div>
+  </div>
+  <div class="st-learn-content">
+    <app-st-learn-myplan (eventEmit)="getLength($event)" *ngIf="arcActiveIndex === 0"></app-st-learn-myplan>
+    <app-st-learn-library *ngIf="arcActiveIndex === 1"></app-st-learn-library>
+  </div>
 </div>

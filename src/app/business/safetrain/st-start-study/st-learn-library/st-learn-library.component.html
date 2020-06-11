@@ -13,13 +13,9 @@
       </div>
     </div>
     <div class="tabitem-body">
-      <div *ngIf="arcActiveIndex === 0">
-         <app-st-file-library [fileType]="libraryType" [fileTypeName]="libraryTypeName"></app-st-file-library>
-      </div>
-      <div *ngIf="arcActiveIndex === 1">
-        <app-st-video-library [videType]="libraryType" [videTypeName]="libraryTypeName"></app-st-video-library>
-      </div>
-    </div>
+      <app-st-file-library [fileType]="libraryType" [fileTypeName]="libraryTypeName" *ngIf="arcActiveIndex === 0"></app-st-file-library>
+      <app-st-video-library [videType]="libraryType" [videTypeName]="libraryTypeName" *ngIf="arcActiveIndex === 1"></app-st-video-library>
+  </div>
   </div>
 
 </div>

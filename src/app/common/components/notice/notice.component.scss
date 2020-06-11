@@ -65,13 +65,14 @@
       letter-spacing: 4px;
     }
   }
+  //隐藏滚动条
+  ::ng-deep .ui-scrollpanel-bar {
+    //background-color: rgba(0, 0, 0, 0);
+    //transition: background-color .3s;
+    display: none;
+  }
+  ::ng-deep .ui-scrollpanel-content{
+    padding-right: 0;
+  }
 }
-//隐藏滚动条
-::ng-deep .ui-scrollpanel-bar {
-  //background-color: rgba(0, 0, 0, 0);
-  //transition: background-color .3s;
-  display: none;
-}
-::ng-deep .ui-scrollpanel-content{
-  padding-right: 0;
-}
+

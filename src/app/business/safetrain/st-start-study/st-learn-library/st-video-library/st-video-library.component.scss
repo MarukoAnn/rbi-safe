@@ -3,16 +3,16 @@
   .video-body{
     .item {
       border: 1px solid #E1E3E7;
-      padding: 1vh;
+      padding: 2vh 0;
       text-align: left;
       margin-bottom: 1vh;
     }
     //隐藏滚动条
-    ::ng-deep .custombar .ui-scrollpanel-bar {
+    ::ng-deep .ui-scrollpanel-bar {
       background-color: rgba(0, 0, 0, 0);
       transition: background-color .3s;
     }
-    ::ng-deep .custombar .ui-scrollpanel-content{
+    ::ng-deep .ui-scrollpanel-content{
       padding: 0 1px 18px 0;
     }
   }

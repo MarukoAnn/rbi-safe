@@ -1,0 +1,41 @@
+.st-myplan-detail {
+  color: #888891;
+  .st-myplan-detail-title{
+    padding: 2vh 0;
+    border-bottom: 2px solid #EDEDED;
+    span, i{
+      color: #85898F;
+    }
+  }
+  .start-exam {
+    padding: 1vh 0;
+    display: flex;
+    justify-content: flex-end;
+  }
+  .content {
+    //text-align: center;
+    padding: 0 6vw;
+    margin: 0 auto;
+    .myplan-file{
+      padding: 1vh 0.8vw;
+    }
+
+    .myplan-video{
+      margin-top: 6vh;
+    }
+    .item {
+      border: 1px solid #E1E3E7;
+      padding: 1vh;
+      text-align: left;
+      margin-bottom: 1vh;
+    }
+    //隐藏滚动条
+    ::ng-deep .ui-scrollpanel-bar {
+      background-color: rgba(0, 0, 0, 0);
+      transition: background-color .3s;
+    }
+    ::ng-deep .ui-scrollpanel-content{
+      padding: 0 1px 18px 0;
+    }
+  }
+}
