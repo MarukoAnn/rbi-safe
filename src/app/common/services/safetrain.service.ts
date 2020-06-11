@@ -239,4 +239,19 @@ export class SafetrainService {
   public delScsQuestionSortInfo(params?: {}): Observable<any> {
     return this.http.post(`/deleteSubjectStoreName`, params);
   }
+
+  /**
+   * 根据题库类型获取题库
+   * @param params
+   */
+  public getTopicInfo(params?: {}): Observable<any> {
+    return this.http.post(`/safeSubject/getSafeSubjectByPageAndSubjectStoreId`, params);
+  }
+
+  /**
+   * 考试发布
+   */
+  public addExamInfo(params: any): Observable<any> {
+    return this.http.post(`/handlingRequirements`, params);
+  }
 }

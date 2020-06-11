@@ -461,14 +461,13 @@ export interface ExamRuleField {
   startTime: string; // 考试开始时间
   endTime: string; // 考试结束时间
   duration: number; // 考试时长
-  test_paper_name: string; // 考试名称
+  testPaperName: string; // 考试名称
 }
 export class ExamRuleFieldClass implements ExamRuleField{
   duration: number;
   endTime: string;
   startTime: string;
-  // tslint:disable-next-line:variable-name
-  test_paper_name: string;
+  testPaperName: string;
 }
 
 // 获取公司人员查询参数接口
@@ -542,6 +541,55 @@ export class ReviewPrincipoal implements Principoal{
     this.oneTrainingTime = '';
     this.twoTrainingTime = '';
     this.threeTrainingTime = '';
+  }
+}
+
+/**
+ * 题库接口
+ */
+
+// 题型
+export interface Topic {
+  id?: any;
+  subjectType: number; // 题库类型，1单选，2多选，3判断，4填空
+  subject: string;  // 题目标题
+  rightKey: string; // 正确答案索引
+  subjectStoreId?: any; // 所属题库ID
+  subjectStoreName?: string; // 所属题库题目
+  score: any; // 题目分值
+}
+// 题型答案
+export interface TopicAnswer {
+  id?: any;
+  subjectId?: any; // 所属题目ID
+  option: any; // 答案选项文字标题
+  order: any; // 排序
+}
+// 组合提醒
+export interface TopicFields {
+  safeSubject: Topic;
+  safeSubjectOptionList: TopicAnswer[];
+}
+// 考试题目
+export class TopicExamClass implements Topic{
+  rightKey: string;
+  score: any;
+  subject: string;
+  subjectType: number;
+  constructor() {
+    this.rightKey = '';
+    this.score = null;
+    this.subject = '';
+    this.subjectType = null;
+  }
+}
+// 考试题题目选项
+export class TopicExamOptionClass implements TopicAnswer{
+  option: any;
+  order: any;
+  constructor() {
+    this.option = null;
+    this.order = null;
   }
 }
 

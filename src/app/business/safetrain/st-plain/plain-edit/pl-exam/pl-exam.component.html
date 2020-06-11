@@ -12,8 +12,13 @@
       <p-tabPanel>
         <app-exam-topic></app-exam-topic>
       </p-tabPanel>
-      <p-tabPanel>
-        <app-exam-preview></app-exam-preview>
+      <p-tabPanel [cache]="false">
+        <ng-template pTemplate="content">
+          <app-exam-preview
+            (previousChange)="plExamOperate('previous', $event)"
+            (nextChange)="plExamOperate('next', $event)">
+          </app-exam-preview>
+        </ng-template>
       </p-tabPanel>
     </p-tabView>
   </div>

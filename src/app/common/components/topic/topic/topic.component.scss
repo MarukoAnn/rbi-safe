@@ -1,0 +1,24 @@
+.topic {
+  .paper-question-item {
+    margin-top: 8px;
+    border: 1px solid #DDE0E4;
+    padding: 6px 12px;
+    .question-title {
+      display: flex;
+      align-items: center;
+    }
+    .question-toggle{
+      cursor: pointer;
+      i{
+        transition: all 0.3s ease-in;
+      }
+      .toggles{
+        transform: rotateZ(180deg);
+      }
+    }
+    .question-select {
+      margin: 0.6vh 1vw;
+      line-height: 4vh;
+    }
+  }
+}

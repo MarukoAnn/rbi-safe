@@ -60,6 +60,7 @@ import { StLearnMyplanComponent } from './st-start-study/st-learn-myplan/st-lear
 import { StLearnLibraryComponent } from './st-start-study/st-learn-library/st-learn-library.component';
 import { StFileLibraryComponent } from './st-start-study/st-learn-library/st-file-library/st-file-library.component';
 import { StVideoLibraryComponent } from './st-start-study/st-learn-library/st-video-library/st-video-library.component';
+import {TopicModule} from '../../common/components/topic/topic.module';
 
 @NgModule({
   declarations: [
@@ -128,7 +129,8 @@ import { StVideoLibraryComponent } from './st-start-study/st-learn-library/st-vi
     CheckboxModule,
     TooltipModule,
     CardModule,
-    ProgressBarModule
+    ProgressBarModule,
+    TopicModule
   ],
   providers: []
 })

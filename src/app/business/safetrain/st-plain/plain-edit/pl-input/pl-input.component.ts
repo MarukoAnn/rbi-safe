@@ -90,6 +90,7 @@ export class PlInputComponent implements OnInit {
           this.plInputOperateUpdateField.organizationTrainingDepartmentId = this.plInputOrgTreeSelect.id;
           this.plInputOperateUpdateField.targetSet = this.plInputTableSelect.map((res) => res.id).join(',');
           this.nextChange.emit({activeIndex: 1});
+          this.plInputOperateUpdateField.processingStatus = '2';
           this.localSrv.setObject('safeTrainingNeeds', this.plInputOperateUpdateField);
           break;
         }

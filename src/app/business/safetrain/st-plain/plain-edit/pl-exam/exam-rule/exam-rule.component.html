@@ -73,9 +73,9 @@
       <div class="ui-g-9 ui-md-9 input">
         <input
           [disabled]="ruleDisabled"
-          type="number" pInputText name="duration"
+          type="text" pInputText name="duration"
           #duration="ngModel" required placeholder="请填写考试名称"
-          [(ngModel)]="ruleOperateField.test_paper_name">
+          [(ngModel)]="ruleOperateField.testPaperName">
         <div *ngIf="duration.invalid && (duration.dirty || duration.touched)" class="text-danger mt-2">
           <div *ngIf="duration.errors.required">
             考试名称必须填写
@@ -89,14 +89,14 @@
     <button
       pButton label="编辑" class="ui-button-rounded ui-button-pink mr-3"
       [disabled]="!ruleDisabled"
-      (click)="ruleDisabled = false"
+      (click)="ruleDisabled = false;"
     >
     </button>
     <button
       pButton label="保存"
       class="ui-button-rounded"
       [disabled]="ruleDisabled"
-      (click)="ruleDisabled = true"
+      (click)="ruleDisabled = true;ruleOperate(ruleOperateFlag = 'save')"
     >
     </button>
   </div>

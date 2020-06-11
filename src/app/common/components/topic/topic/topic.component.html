@@ -1,0 +1,95 @@
+<div class="topic" [ngSwitch]="topicListData.safeSubject.subjectType">
+  <ng-container *ngSwitchCase="1">
+    <div class="paper-question-item">
+      <div class="question-title">
+        <span style="flex: 13">{{topicListData.safeSubject.subject}}</span>
+        <span style="flex: 1;">{{topicListData.safeSubject?.score}}分</span>
+        <span style="flex: 3;" class="m-2 text-gray">单选题</span>
+        <span
+          style="flex: 1;height: 100%;font-size: 20px;cursor: pointer"
+          (click)="topicOperate(topicOperateFlag = 'del', topicListData.safeSubject.id)"
+          class="text-center"
+          *ngIf="delable">
+          <i class="fa fa-trash-o" aria-hidden="true"></i>
+        </span>
+      </div>
+      <div class="question-toggle text-gray" *ngIf="optionCtrlAble" (click)="optionHidden = !optionHidden">
+        <span>显示详情</span>
+        <i class="fa fa-angle-down ml-1" aria-hidden="true" [ngClass]="{'toggles': !optionHidden}"></i>
+      </div>
+      <div class="question-select" *ngFor="let selItem of topicListData?.safeSubjectOptionList; let i=index" [hidden]="optionHidden">
+        <p-radioButton name="groupname" [value]="i+1" [label]="selItem.option" disabled></p-radioButton>
+      </div>
+    </div>
+  </ng-container>
+  <ng-container *ngSwitchCase="2">
+    <div class="paper-question-item">
+      <div class="question-title">
+        <span style="flex: 13">{{topicListData.safeSubject.subject}}</span>
+        <span style="flex: 1;">{{topicListData.safeSubject?.score}}分</span>
+        <span style="flex: 3;" class="m-2 text-gray">多选题</span>
+        <span
+          style="flex: 1;height: 100%;font-size: 20px;cursor: pointer"
+          (click)="topicOperate(topicOperateFlag = 'del', topicListData.safeSubject.id)"
+          class="text-center"
+          *ngIf="delable">
+          <i class="fa fa-trash-o" aria-hidden="true"></i>
+        </span>
+      </div>
+      <div class="question-toggle text-gray" *ngIf="optionCtrlAble"  (click)="optionHidden = !optionHidden">
+        <span>显示详情</span>
+        <i class="fa fa-angle-down ml-1" aria-hidden="true" [ngClass]="{'toggles': !optionHidden}"></i>
+      </div>
+      <div class="question-select" *ngFor="let selItem of topicListData?.safeSubjectOptionList; let i=index" [hidden]="optionHidden">
+        <p-radioButton name="groupname" [value]="i+1" [label]="selItem.option" [disabled]="true"></p-radioButton>
+      </div>
+    </div>
+  </ng-container>
+  <ng-container *ngSwitchCase="3">
+    <div class="paper-question-item">
+      <div class="question-title">
+        <span style="flex: 13">{{topicListData.safeSubject.subject}}</span>
+        <span style="flex: 1;">{{topicListData.safeSubject?.score}}分</span>
+        <span style="flex: 3;" class="m-2 text-gray">判断题</span>
+        <span
+          style="flex: 1;height: 100%;font-size: 20px;cursor: pointer"
+          (click)="topicOperate(topicOperateFlag = 'del', topicListData.safeSubject.id)"
+          class="text-center"
+          *ngIf="delable">
+          <i class="fa fa-trash-o" aria-hidden="true"></i>
+        </span>
+      </div>
+      <div class="question-toggle text-gray" *ngIf="optionCtrlAble"  (click)="optionHidden = !optionHidden">
+        <span>显示详情</span>
+        <i class="fa fa-angle-down ml-1" aria-hidden="true" [ngClass]="{'toggles': !optionHidden}"></i>
+      </div>
+      <div class="question-select" *ngFor="let selItem of topicListData?.safeSubjectOptionList; let i=index" [hidden]="optionHidden">
+        <p-radioButton name="groupname" [value]="i+1" [label]="selItem.option" disabled></p-radioButton>
+      </div>
+    </div>
+  </ng-container>
+  <ng-container *ngSwitchCase="4">
+    <div class="paper-question-item">
+      <div class="question-title">
+        <span style="flex: 13">{{topicListData.safeSubject.subject}}</span>
+        <span style="flex: 1;">{{topicListData.safeSubject?.score}}分</span>
+        <span style="flex: 3;" class="m-2 text-gray">填空题</span>
+        <span
+          style="flex: 1;height: 100%;font-size: 20px;cursor: pointer"
+          (click)="topicOperate(topicOperateFlag = 'del', topicListData.safeSubject.id)"
+          class="text-center"
+          *ngIf="delable">
+          <i class="fa fa-trash-o" aria-hidden="true"></i>
+        </span>
+      </div>
+      <div class="question-toggle text-gray" *ngIf="optionCtrlAble"  (click)="optionHidden = !optionHidden">
+        <span>显示详情</span>
+        <i class="fa fa-angle-down ml-1" aria-hidden="true" [ngClass]="{'toggles': !optionHidden}"></i>
+      </div>
+      <div class="question-select" *ngFor="let selItem of topicListData.safeSubject?.rightKey.split('#'); let i=index" [hidden]="optionHidden">
+        <input type="text" pInputText placeholder="请输入答案" style="width: 14vw;border: 1px solid #CACED5" disabled />
+      </div>
+    </div>
+  </ng-container>
+</div>
+

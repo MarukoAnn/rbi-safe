@@ -14,4 +14,16 @@ export class PlExamComponent implements OnInit {
   ngOnInit() {
   }
 
+  // 操作
+  public plExamOperate(flag: string, id?: any) {
+    switch (flag) {
+      case 'previous':
+        this.previousChange.emit(id);
+        break;
+      // 下一步
+      case 'next':
+        this.previousChange.emit(id);
+        break;
+    }
+  }
 }

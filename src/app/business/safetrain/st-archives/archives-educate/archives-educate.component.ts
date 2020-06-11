@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import {AddEducateFieldClass, EducateField, PageOption, TableHeader, UpdateEducateFieldClass} from '../../../../common/public/Api';
 import {SafetrainService} from '../../../../common/services/safetrain.service';
 import {Observable} from 'rxjs';
-import {objectCopy} from '../../../../common/public/contents';
 
 @Component({
   selector: 'app-archives-educate',
