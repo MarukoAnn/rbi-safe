@@ -1,141 +1,64 @@
 .header {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 6vh;
-  background: var(--header-bgc);
-  background: -moz-linear-gradient(-206deg, var(--header-bgc) 5%, var(--header-bgc) 100%);
-  background: -webkit-linear-gradient(-206deg, var(--header-bgc) 5%, var(--header-bgc) 100%);
-  background: linear-gradient(-206deg, var(--header-bgc) 5%, var(-bgc-them) 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr= var(--header-bgc), endColorstr= var(--header-bgc), GradientType=1);
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  cursor: pointer;
   display: flex;
+  background-color: #226AD5;
+  height: 100%;
   justify-content: space-between;
   align-items: center;
-  .header-title {
-    background: var(--header-title-bgc);
+  .title {
+    background-color: #1E5EBE;
     height: 100%;
     line-height: 6vh;
-    text-align: center;
-    color: #F9FAFD;
-    font-family: "微软雅黑 Light";
-    font-size: 16px;
-    font-weight: 600;
+
+    span {
+      font-weight: 600;
+    }
   }
-  .header-right{
-    margin: auto 0;
-    .search_input {
-      position: relative;
-      display: inline-block;
-      margin: 0 1vw;
-      input {
-        border-radius: 20px;
-        color: #8D8E96;
-        height: 3vh;
-      }
-      i {
-        position: absolute;
-        right: 12px;
-        bottom: 0.8vh;
-        color: #C3D1D9;
-      }
-
+  .user-info {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    .user, .pancel {
+      height: 100%;
+      display: flex;
+      align-items: center;
     }
-    .setting {
-      color: #F8F8F8;
-      font-size: 16px;
-    }
-
-    .header-notice {
-      position: relative;
-      display: inline-block;
-      margin: 0 1vw;
-      i {
-        color: #F8F8F8;
-        font-size: 16px;
-      }
-      span{
-        display: inline-block;
-        width: 14px;
-        height: 14px;
-        border-radius: 50%;
-        background: #FAB450;
-        border: 2px solid #226AD5;
-        text-align: center;
-        font-size: 10px;
-        position: absolute;
-        left: 8px;
-        top: -4px;
-        color: #E7EDF5
-      }
-    }
-    .header_line {
-      padding: 1px;
-      display: inline-block;
-      position: relative;
-      height: 3vh;
-      margin-right: 1vw;
-      span {
-        position: absolute;
-        width: 1px;
+    .pancel {
+      .setting, .remind {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
         height: 100%;
-        top: 1vh;
-        background: #9AB7E6;
-        display: inline-block;
+      }
+      .remind {
+        border-right: 1px solid #FFFFFF;
+        position: relative;
+        .bage {
+          position: absolute;
+          top: -5px;
+          right: 11px;
+          display: inline-block;
+          width: 10px;
+          height: 10px;
+          border-radius: 50%;
+          background-color: #FFCB85;
+        }
       }
     }
-    .header-userinfo {
-      display: inline-block;
-      height: 6vh;
-      line-height: 6vh;
-      span {
-        color: #fff;
-      }
-      i {
-        color: #F8F8F8;
-        font-size: 20px;
-        margin: 0 1vw;
-      }
+    .user {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
       img {
-        width: 40px;
-        border-radius: 50%;
-        vertical-align:middle;
-        margin-right: 1vw;
-        margin-top: -3px;
+        height: 5vh;
+        border-radius: 50%
       }
     }
-
   }
-  //.notice-dialog {
-  //  position: fixed;
-  //  right: 1vw;
-  //  top: 6vh;
-  //  z-index: 99999;
-  //  .notice-badge {
-  //    position: absolute;
-  //    width: 15px;
-  //    height: 15px;
-  //    //margin-left: 13.4vw;
-  //    right: 9.4vw;
-  //    margin-top: -5px;
-  //    background: #fff;
-  //    transform: rotate(45deg);
-  //    -webkit-transform:rotate(45deg);
-  //    -moz-transform:rotate(45deg);
-  //    -ms-transform:rotate(45deg);
-  //    -o-transform:rotate(45deg);
-  //  }
-  //}
-}
-
-@media screen and(max-width: 1200px){
-  .header{
-    .header-title{
-      width: 5vw !important;
+  .sidebar {
+    position: absolute;
+    /deep/ .ui-sidebar-right{
+      top: 6vh;
+      padding: 0;
     }
   }
 }

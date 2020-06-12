@@ -1,9 +1,17 @@
 .home {
   margin: 0;
   padding: 0;
+  height: auto;
+  .header{
+    height: 6vh;
+    position: absolute;
+    width: 100vw;
+    top: 0;
+    right: 0;
+    bottom: 0;
+  }
   .home-main{
-    margin-top: 6vh;
-    z-index: 0;
+
   }
 }
 @media screen and (max-width: 1200px){

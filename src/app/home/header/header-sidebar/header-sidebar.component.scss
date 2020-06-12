@@ -1,0 +1,36 @@
+.header-sidebar{
+  .user{
+    font-weight: 600;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .avatar{
+      flex: 2;
+      display: flex;
+      justify-content: center;
+      img{
+        width: 70px;
+        height: 70px;
+        border-radius: 50%;
+      }
+    }
+    .usrinfo{
+      flex: 3;
+    }
+  }
+  .button{
+    button{
+      width: 100%
+    }
+  }
+  .row{
+    width: 100%;
+    display: flex;
+    flex: 1;
+    justify-content: space-between;
+    font-weight: 600;
+  }
+  .ac-border {
+    border-bottom: 1px solid #EDEDED;
+  }
+}
