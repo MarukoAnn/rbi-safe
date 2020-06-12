@@ -1,34 +1,35 @@
 <div class="header">
-  <div class="header-title" (click)="logoClick()" [ngStyle]="{width: logoWidth + 'vw'}">
-    <div *ngIf="logoWidth !== 3">安全生产信息化系统</div>
+  <div class="title pl-3 pr-3 text-light" (click)="logoClick()" [ngStyle]="{width: logoWidth + 'vw'}">
+    <span class="h6" *ngIf="logoWidth !== 3">安全生产信息化系统</span>
     <i class="iconfont iconzu381" *ngIf="logoWidth === 3"></i>
   </div>
-  <div class="header-right">
-    <!-- 搜索框-->
-    <div class="search_input">
-      <div class="ui-inputgroup">
-        <input type="text" pInputText/>
-      </div>
-      <i class="fa fa-search"></i>
+  <div class="user-info">
+    <div class="ui-inputgroup">
+      <input type="text" pInputText placeholder="搜索"/>
+      <button pButton type="button" icon="pi pi-search" class="ui-button-pink"></button>
     </div>
-    <i class="iconfont iconOutline setting" (click)="setClick()"></i>
-    <div class="header-notice" (click)="showNoticeClick()">
-      <i class="iconfont iconNotificationIcon"></i>
-      <span></span>
+    <div class="pancel pt-3 pb-3 text-light">
+      <span class="setting pl-3 pr-3">
+        <i class="iconfont iconOutline setting" (click)="setClick()"></i>
+      </span>
+      <span (click)="showNoticeClick()" class="remind pl-3 pr-3">
+        <i class="iconfont iconNotificationIcon"></i>
+        <span class="bage"></span>
+      </span>
     </div>
-    <!-- 线-->
-    <div class="header_line">
-      <span></span>
-    </div>
-    <!-- 用户   -->
-    <div class="header-userinfo" (click)="headerSideBarShow=true">
-      <span>{{username}}</span>
-      <i class="fa fa-angle-down"></i>
+    <div class="user pl-3 pr-3 text-light" (click)="headerSideBarShow=true">
+      <span class="mr-3">{{username}}</span>
       <img src="../../../assets/image/ic_header.jpeg" alt="">
     </div>
   </div>
-  <div class="notice-dialog" *ngIf="showNotice">
-    <div class="notice-badge"></div>
-    <app-notice></app-notice>
+  <div class="sidebar">
+    <p-sidebar
+      [modal]="true"
+      [blockScroll]="true"
+      [(visible)]="headerSideBarShow"
+      [showCloseIcon]="false"
+      position="right">
+      <app-header-sidebar></app-header-sidebar>
+    </p-sidebar>
   </div>
 </div>
