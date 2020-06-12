@@ -110,26 +110,26 @@
     }
 
   }
-  .notice-dialog {
-    position: fixed;
-    right: 1vw;
-    top: 6vh;
-    z-index: 99999;
-    .notice-badge {
-      position: absolute;
-      width: 15px;
-      height: 15px;
-      //margin-left: 13.4vw;
-      right: 9.4vw;
-      margin-top: -5px;
-      background: #fff;
-      transform: rotate(45deg);
-      -webkit-transform:rotate(45deg);
-      -moz-transform:rotate(45deg);
-      -ms-transform:rotate(45deg);
-      -o-transform:rotate(45deg);
-    }
-  }
+  //.notice-dialog {
+  //  position: fixed;
+  //  right: 1vw;
+  //  top: 6vh;
+  //  z-index: 99999;
+  //  .notice-badge {
+  //    position: absolute;
+  //    width: 15px;
+  //    height: 15px;
+  //    //margin-left: 13.4vw;
+  //    right: 9.4vw;
+  //    margin-top: -5px;
+  //    background: #fff;
+  //    transform: rotate(45deg);
+  //    -webkit-transform:rotate(45deg);
+  //    -moz-transform:rotate(45deg);
+  //    -ms-transform:rotate(45deg);
+  //    -o-transform:rotate(45deg);
+  //  }
+  //}
 }
 
 @media screen and(max-width: 1200px){

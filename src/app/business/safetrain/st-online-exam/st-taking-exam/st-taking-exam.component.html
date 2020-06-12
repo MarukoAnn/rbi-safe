@@ -1,4 +1,4 @@
-<div style="width: 100vw; height: 100vh; position: absolute; top: 0;left: 0; z-index: 1000;">
+<div style="width: 100vw; height: 100vh; position: absolute; top: 0;left: 0; z-index: 1000; background: rgba(80,80,80,0.7)">
   <div class="st-taking-exam">
     <div class="taking-header">
       <div></div>
@@ -100,6 +100,13 @@
       <p-footer style="display: flex;justify-content: center">
         <button type="button" pButton (click)="submitPaper()" label="提交"></button>
         <!--      <button type="button" pButton icon="pi pi-times" (click)="displayBasic=false" label="No" class="ui-button-secondary"></button>-->
+      </p-footer>
+    </p-dialog>
+    <p-dialog header="退出提醒" [(visible)]="moveDialog" [style]="{width: '20vw'}"   [closable]="false">
+      您的考试正在进行, 您确定要离开吗? 您离开考试记录会作废。
+      <p-footer style="display: flex;justify-content: center">
+        <button type="button" pButton (click)="leaveClick()" label="确认"></button>
+        <button type="button" pButton icon="pi pi-times" (click)="moveDialog=false"  label="取消" class="ui-button-secondary"></button>
       </p-footer>
     </p-dialog>
   </div>
