@@ -1,0 +1,126 @@
+<div class="rk-archive">
+  <div class="rk-archive-title">
+     <span>
+       重大危险源档案
+     </span>
+  </div>
+  <div class="rk-archive-header">
+    <div class="rk-archive-search">
+      <div class="ui-inputgroup" >
+        <input type="text" pInputText  placeholder="搜索"/>
+        <button pButton type="button" icon="pi pi-search" class="ui-button-warn" (click)="searchDataClick()"></button>
+      </div>
+    </div>
+    <div class="rk-archive-button">
+      <button pButton type="button" label="文件导入" class="ui-button-rounded" (click)="importArchiveFileClick()"></button>
+      <button pButton type="button" label="文件导出" class="ui-button-rounded" (click)="exportArchiveFileClick()"></button>
+    </div>
+  </div>
+  <div class="rk-archive-table">
+    <p-table [columns]="rkArchiveTitle" [value]="rkArchiveContent" scrollHeight="50vh">
+      <ng-template pTemplate="header" let-columns>
+        <tr [ngStyle]="table.tableheader" class="text-center" style="height: 5vh">
+          <th *ngFor="let col of columns">
+            {{col.header}}
+          </th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-rowData let-columns="columns">
+        <tr [ngStyle]="table.tableContent[0]">
+          <td *ngFor="let col of columns.slice(0, columns.length -1)" class="text-center" style="height: 5vh;color: #5E5F6B;">
+            {{rowData[col.field]}}
+          </td>
+          <td  class="text-center" style="height: 5vh"  *ngFor="let col of columns.slice(columns.length -1 ,  columns.length)">
+            <button pButton type="button" label="编辑" class="ui-button-rounded" style="margin: 4px;background: #3B86FF" (click)="editRiskArchiveClcik(rowData)"></button>
+<!--            <button pButton type="button" label="删除" class="ui-button-rounded" style="background: #FF8A9A;border: 0"></button>-->
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+  <div class="pagination">
+    <app-pagination [option]="principalPageOption" (clickEvent)="archivePageEvent($event)"></app-pagination>
+  </div>
+  <p-dialog header="信息编辑" [(visible)]="showEditArchiveDialog" [style]="{width: '800px'}">
+    <form [formGroup]="editArchive">
+      <div class="ui-g ui-md ui-fiuld">
+        <div class="ui-g-6 ui-md-6" style="line-height: 3vh;">
+          <div class="ui-g-4 ui-md-4 right">
+            <span style="color: #FF8A9A">*</span>危险源名称：
+          </div>
+          <div class="ui-g-8 ui-md-8 dialog-input">
+            <input pInputText type="text" formControlName="seriousDangerName" placeholder="请输入危险源名称"/>
+          </div>
+        </div>
+        <div class="ui-g-6 ui-md-6" style="line-height: 3vh;">
+          <div class="ui-g-4 ui-md-4 right">
+            <span style="color: #FF8A9A">*</span>危险源位置：
+          </div>
+          <div class="ui-g-8 ui-md-8 dialog-input">
+            <input pInputText type="text" formControlName="seriousDangerLocation" placeholder="请输入危险源位置"/>
+          </div>
+        </div>
+        <div class="ui-g-6 ui-md-6" style="line-height: 3vh;">
+          <div class="ui-g-4 ui-md-4 right">
+            <span style="color: #FF8A9A">*</span>危险因素：
+          </div>
+          <div class="ui-g-8 ui-md-8 dialog-input">
+            <input pInputText type="text" formControlName="seriousDangerElement" placeholder="请输入危险源主要控制措施"/>
+          </div>
+        </div>
+        <div class="ui-g-6 ui-md-6" style="line-height: 3vh;">
+          <div class="ui-g-4 ui-md-4 right">
+            <span style="color: #FF8A9A">*</span>主要控制措施：
+          </div>
+          <div class="ui-g-8 ui-md-8 dialog-input">
+            <input pInputText type="text" formControlName="seriousDangerLocation" placeholder="请输入危险源主要控制措施"/>
+          </div>
+        </div>
+        <div class="ui-g-6 ui-md-6" style="line-height: 3vh;">
+          <div class="ui-g-4 ui-md-4 right">
+            <span style="color: #FF8A9A">*</span>危险源管控状态：
+          </div>
+          <div class="ui-g-8 ui-md-8 dialog-input">
+            <input pInputText type="text" formControlName="seriousDangerStatus" placeholder="请输入危险源管控状态"/>
+          </div>
+        </div>
+        <div class="ui-g-6 ui-md-6" style="line-height: 3vh;">
+          <div class="ui-g-4 ui-md-4 right">
+            <span style="color: #FF8A9A">*</span>危险源管控周期：
+          </div>
+          <div class="ui-g-8 ui-md-8 dialog-input">
+            <input pInputText type="text" formControlName="seriousDangerCycle" placeholder="请输入危险源管控周期"/>
+          </div>
+        </div>
+        <div class="ui-g-6 ui-md-6" style="line-height: 3vh;">
+          <div class="ui-g-4 ui-md-4 right">
+            <span style="color: #FF8A9A">*</span>危险源主要负责人：
+          </div>
+          <div class="ui-g-8 ui-md-8 dialog-input">
+            <input pInputText type="text" formControlName="seriousDangerPrincipal" placeholder="请输入危险源主要负责人"/>
+          </div>
+        </div>
+        <div class="ui-g-6 ui-md-6" style="line-height: 3vh;">
+          <div class="ui-g-4 ui-md-4 right">
+            <span style="color: #FF8A9A">*</span>危险源最近管控时间：
+          </div>
+          <div class="ui-g-8 ui-md-8 dialog-input">
+            <p-calendar formControlName="seriousDangerTime" [style]="{width: '100%'}" placeholder="请选择危险源最近管控时间..." [monthNavigator]="true" [yearNavigator]="true" dateFormat="yy-mm-dd"  yearRange="1990:2200" [locale]="esDate"></p-calendar>
+          </div>
+        </div>
+        <div class="ui-g-6 ui-md-6" style="line-height: 3vh;">
+          <div class="ui-g-4 ui-md-4 right">
+            <span style="color: #FF8A9A">*</span>危险源图片路径：
+          </div>
+          <div class="ui-g-8 ui-md-8 dialog-input">
+            <input pInputText type="text" formControlName="seriousDangerPicture" placeholder="请输入危险源图片路径"/>
+          </div>
+        </div>
+      </div>
+    </form>
+    <p-footer>
+      <button class="dialog-btn" (click)="showEditArchiveDialog = false;">取消</button>
+      <button class="dialog-btn" (click)="sureEditArchiveClick()">确认选择</button>
+    </p-footer>
+  </p-dialog>
+</div>

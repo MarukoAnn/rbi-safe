@@ -56,10 +56,10 @@ export class ShootReportComponent implements OnInit {
   ngOnInit() {
     this.addReport = this.fb.group({
       troubleshootingTime: new FormControl('', Validators.required), // 排查时间
-      ifControlMeasures: new FormControl('无', Validators.required), // 控制措施
+      // ifControlMeasures: new FormControl('无', Validators.required), // 控制措施
       hidDangerContent: new FormControl('', Validators.required), // 隐患内容
       hidDangerGrade: new FormControl('', Validators.required), // 	隐患等级
-      ifRectificationPlan: new FormControl('无', Validators.required), // 整改方案
+      // ifRectificationPlan: new FormControl('无', Validators.required), // 整改方案
       ifDeal: new FormControl('否', Validators.required), // 是否处理
       organizationId: new FormControl('', Validators.required),
       organizationName: new FormControl('', Validators.required),

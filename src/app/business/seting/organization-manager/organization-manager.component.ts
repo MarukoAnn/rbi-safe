@@ -64,7 +64,6 @@ export class OrganizationManagerComponent implements OnInit {
       id: new FormControl(''),
       name: new FormControl('', Validators.required),
     });
-    this.getOrgazationTreeInfo();
   }
 
   initOrgazitonInfo() {
@@ -137,7 +136,8 @@ export class OrganizationManagerComponent implements OnInit {
   }
   // 显示添加弹窗
   public  showAddOrgazitionClick(): void {
-     this.showAddOrgazationDialog = true;
+    this.getOrgazationTreeInfo();
+    this.showAddOrgazationDialog = true;
   }
 
   // 删除数据

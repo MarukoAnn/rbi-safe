@@ -55,22 +55,22 @@
                         dateFormat="yy-mm-dd" yearRange="1700:2200" [locale]="esDate" formControlName="troubleshootingTime" ></p-calendar>
           </div>
         </div>
-        <div class="ui-g-12 ui-md-12" style="line-height: 3vh">
-          <div class="ui-g-1 ui-md-1 right">
-            <label><span style="color: #FF8A9A">*</span>整改方案:</label>
-          </div>
-          <div class="ui-g-2 ui-md-2 dialog-input">
-            <p-radioButton name="groupnamep" value="有" label="有"  [ngStyle]="{paddingRight: '2vw'}" formControlName="ifRectificationPlan"></p-radioButton>
-            <p-radioButton name="groupnamep" value="无" label="无" formControlName="ifRectificationPlan"></p-radioButton>
-          </div>
-          <div class="ui-g-1 ui-md-1 right">
-            <label><span style="color: #FF8A9A">*</span>控制措施:</label>
-          </div>
-          <div class="ui-g-2 ui-md-2 dialog-input">
-            <p-radioButton name="groupnames" value="有" label="有"  [ngStyle]="{paddingRight: '2vw'}" formControlName="ifControlMeasures"></p-radioButton>
-            <p-radioButton name="groupnames" value="无" label="无" formControlName="ifControlMeasures"></p-radioButton>
-          </div>
-        </div>
+<!--        <div class="ui-g-12 ui-md-12" style="line-height: 3vh">-->
+<!--          <div class="ui-g-1 ui-md-1 right">-->
+<!--            <label><span style="color: #FF8A9A">*</span>整改方案:</label>-->
+<!--          </div>-->
+<!--          <div class="ui-g-2 ui-md-2 dialog-input">-->
+<!--            <p-radioButton name="groupnamep" value="有" label="有"  [ngStyle]="{paddingRight: '2vw'}" formControlName="ifRectificationPlan"></p-radioButton>-->
+<!--            <p-radioButton name="groupnamep" value="无" label="无" formControlName="ifRectificationPlan"></p-radioButton>-->
+<!--          </div>-->
+<!--          <div class="ui-g-1 ui-md-1 right">-->
+<!--            <label><span style="color: #FF8A9A">*</span>控制措施:</label>-->
+<!--          </div>-->
+<!--          <div class="ui-g-2 ui-md-2 dialog-input">-->
+<!--            <p-radioButton name="groupnames" value="有" label="有"  [ngStyle]="{paddingRight: '2vw'}" formControlName="ifControlMeasures"></p-radioButton>-->
+<!--            <p-radioButton name="groupnames" value="无" label="无" formControlName="ifControlMeasures"></p-radioButton>-->
+<!--          </div>-->
+<!--        </div>-->
         <div class="ui-md-12 ui-g-12"  style="line-height: 4vh">
           <div class="ui-g-1 ui-md-1 right">
             <label><span style="color: #FF8A9A">*</span>隐患类型:</label>
@@ -100,6 +100,14 @@
           </div>
           <div class="ui-g-10 ui-md-10">
             <textarea [rows]="5" [cols]="30" pInputTextarea autoResize="autoResize" style="border: 1px solid #D2D6DB" formControlName="hidDangerContent"></textarea>
+          </div>
+        </div>
+        <div class="ui-md-12 ui-g-12" *ngIf="processingStatus === '6'">
+          <div class="ui-g-1 ui-md-1 right">
+            <label ><span style="color: #FF8A9A">*</span>审核原因:</label>
+          </div>
+          <div class="ui-g-10 ui-md-10">
+            <textarea [rows]="5" [cols]="30" pInputTextarea autoResize="autoResize" style="border: 1px solid #D2D6DB" formControlName="rectificationEvaluate"></textarea>
           </div>
         </div>
         <div class="ui-md-12 ui-g-12">

@@ -40,6 +40,8 @@ export class TroubleDetailComponent implements OnInit {
   public revieLabelText: string = '整改评估';
   public isDownLoadStatus: boolean = false;
   public btnList: Array<object> = [];
+  public btnTotalList: Array<object> = [];
+  public processingStatus: string = '0'; // 6 为审核不通过
   public rectificationNoticeAnnex: string;
   public hidTypeList: Array<object> = [
     {label: '人', value: 1, name: 'hidTypePerson'},
@@ -69,15 +71,16 @@ export class TroubleDetailComponent implements OnInit {
       workshopName: new FormControl({value: '', disabled: true}, Validators.required), // 车间名字
       className: new FormControl({value: '', disabled: true}, Validators.required), // 班主名称
       factoryName: new FormControl({value: '', disabled: true}, Validators.required), // 工厂名称
-      ifControlMeasures: new FormControl({value: '', disabled: true}, Validators.required), // 控制措施
+      // ifControlMeasures: new FormControl({value: '', disabled: true}, Validators.required), // 控制措施
       hidDangerContent: new FormControl({value: '', disabled: true}, Validators.required), // 隐患内容
       hidDangerGrade: new FormControl({value: '', disabled: true}, Validators.required), // 	隐患等级
-      ifRectificationPlan: new FormControl({value: '', disabled: true}, Validators.required), // 整改方案
+      // ifRectificationPlan: new FormControl({value: '', disabled: true}, Validators.required), // 整改方案
       ifDeal: new FormControl({value: '', disabled: false}, Validators.required), // 是否处理
       organizationId: new FormControl({value: '', disabled: true}, Validators.required),
       organizationName: new FormControl({value: '', disabled: true}, Validators.required),
       beforeImg: new FormControl({value: '', disabled: true}, Validators.required), // 排查前图片
       hidType: new FormControl({value: '', disabled: true}, Validators.required),
+      rectificationEvaluate: new FormControl({value: '', disabled: true}),
       rectificationOpinions: new FormControl({value: '', disabled: true}),
       // 处理的
       governanceFunds: new FormControl({value: '', disabled: false}), // 处理资金
@@ -95,31 +98,32 @@ export class TroubleDetailComponent implements OnInit {
   // 获取详情数据
   public  getTroubleDetail(): void {
     this.troubleSrv.getTroubleDetailByCode({hidDangerCode: this.code}).subscribe(res => {
-      console.log(res);
-      this.btnList = res.data.botton;
-      // this.addReport.
-      // this.addReport.setControl('ifDeal', new FormControl({value: '', disabled: true}, Validators.required));
-
-      const list = ['troubleshootingTime', 'ifControlMeasures', 'hidDangerContent', 'hidDangerGrade', 'ifRectificationPlan',
-        'ifDeal', 'organizationId', 'organizationName', 'className', 'companyName', 'workshopName', 'factoryName', 'rectificationOpinions'];
+      this.btnTotalList = res.data.botton;
+      this.processingStatus = res.data.hidDangerDO.processingStatus;
+      const list = ['troubleshootingTime',  'hidDangerContent', 'hidDangerGrade',
+        'ifDeal', 'organizationId', 'organizationName', 'className', 'companyName', 'workshopName', 'factoryName',
+        'rectificationOpinions', 'rectificationEvaluate'];
       setValueToFromValue(list, res.data.hidDangerDO, this.addReport);
       // 隐患类型
-      this.specifiedRectificationTime = res.data.hidDangerDO['specifiedRectificationTime'];
-      this.rectificationNoticeAnnex = res.data.hidDangerDO['rectificationNoticeAnnex'];
+      this.specifiedRectificationTime = res.data.hidDangerDO.specifiedRectificationTime;
       const typeList = [];
       this.hidTypeList.forEach(val => {
-        if (res.data.hidDangerDO[val['name']] === 1){
-          typeList.push(val['label']);
+        // @ts-ignore
+        if (res.data.hidDangerDO[val.name] === 1){
+          // @ts-ignore
+          typeList.push(val.label);
         }
-        this.localSrv.set('rectificationOpinions', res.data.hidDangerDO['rectificationOpinions']);
+        this.localSrv.set('rectificationOpinions', res.data.hidDangerDO.rectificationOpinions);
       });
       this.addReport.patchValue({hidType: typeList});
       // 处理的图片
-      console.log(this.addReport.value);
+      // console.log(this.addReport.value);
       res.data.beforImgs.forEach(val => {
         this.ImageOption.files.push(val.beforePicture);
       });
-      if (this.addReport.value['ifDeal'] === '是'){
+      if (this.addReport.value.ifDeal === '是'){
+        this.btnList = [];
+        this.btnList.push({botton: '完成整改'});
         this.isHandle = true;
         this.isDownLoadStatus = true;
         res.data.afterImgs.forEach(v => {
@@ -129,20 +133,27 @@ export class TroubleDetailComponent implements OnInit {
         const lists = ['governanceFunds', 'completionTime', 'completionSituation'];
         setValueToFromValue(lists, res.data.hidDangerDO, this.addReport);
         this.setFileInfo(res.data.hidDangerDO);
+      }else {
+        this.btnTotalList.forEach(val => {
+          // @ts-ignore
+          if (val.botton !== '完成整改'){
+            this.btnList.push(val);
+          }
+        });
       }
     });
   }
 
   public  setFileInfo(data): void {
-    this.addPlanFile = data['rectificationPlan'];
-    this.addReportFile = data['acceptanceReport'];
+    this.addPlanFile = data.rectificationPlan;
+    this.addReportFile = data.acceptanceReport;
     // 截取文件名称
-    this.addReport.patchValue({report: data['acceptanceReport'] ?
-        data['acceptanceReport'].slice(data['acceptanceReport'].lastIndexOf('/') + 1,
-          data['acceptanceReport'].length)  : '' });
-    this.addReport.patchValue({plan: data['rectificationPlan'] ?
-        data['rectificationPlan'].slice(data['rectificationPlan'].lastIndexOf('/') + 1,
-          data['rectificationPlan'].length) : ''});
+    this.addReport.patchValue({report: data.acceptanceReport ?
+        data.acceptanceReport.slice(data.acceptanceReport.lastIndexOf('/') + 1,
+          data.acceptanceReport.length)  : '' });
+    this.addReport.patchValue({plan: data.rectificationPlan ?
+        data.rectificationPlan.slice(data.rectificationPlan.lastIndexOf('/') + 1,
+          data.rectificationPlan.length) : ''});
   }
   // 返回上一级
   public backPreviouClick(): void {
@@ -150,8 +161,20 @@ export class TroubleDetailComponent implements OnInit {
   }
   // 判断是否处理
   public  selectHandleType(e): void {
+    this.btnList = [];
+
     this.isHandle = e === 1;
-    const paraList = ['governanceFunds', 'completionTime', 'completionSituation', 'afterImg',];
+    if (e === 1){
+      this.btnList.push({botton: '完成整改'});
+    }else {
+      this.btnTotalList.forEach(val => {
+        // @ts-ignore
+        if (val.botton !== '完成整改'){
+          this.btnList.push(val);
+        }
+      });
+    }
+    const paraList = ['governanceFunds', 'completionTime', 'completionSituation', 'afterImg'];
     if ( e === 1){
       // 如果是处理 则设置处理的参数未必填
       paraList.forEach(val => {
@@ -251,7 +274,6 @@ export class TroubleDetailComponent implements OnInit {
 
   // 查看责令通知书
   public  downLoadFileClick(): void {
-      console.log(this.rectificationNoticeAnnex);
       if (this.rectificationNoticeAnnex){
         window.open(this.rectificationNoticeAnnex);
       }else {

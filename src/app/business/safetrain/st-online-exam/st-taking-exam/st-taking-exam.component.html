@@ -105,7 +105,7 @@
     <p-dialog header="退出提醒" [(visible)]="moveDialog" [style]="{width: '20vw'}"   [closable]="false">
       您的考试正在进行, 您确定要离开吗? 您离开考试记录会作废。
       <p-footer style="display: flex;justify-content: center">
-        <button type="button" pButton (click)="leaveClick()" label="确认"></button>
+        <button type="button" pButton label="确认"></button>
         <button type="button" pButton icon="pi pi-times" (click)="moveDialog=false"  label="取消" class="ui-button-secondary"></button>
       </p-footer>
     </p-dialog>

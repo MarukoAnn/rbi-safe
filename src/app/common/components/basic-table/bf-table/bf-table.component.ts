@@ -3,7 +3,7 @@ import {Component, Input, OnInit} from '@angular/core';
 @Component({
   selector: 'app-bf-table',
   templateUrl: './bf-table.component.html',
-  styleUrls: ['./bf-table.component.less']
+  styleUrls: ['./bf-table.component.scss']
 })
 export class BfTableComponent implements OnInit {
   @Input()

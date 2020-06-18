@@ -57,12 +57,12 @@ export class SidebarComponent implements OnInit {
       bgc: '#226AD5',
       label: '重大危险源管理',
       lefticon: 'fa-angle-down',
-      link: '/home/strain2/institu2',
+      link: '/home/risk/discern',
       children: [
         {item: {label: '重大危险源现状分析', bgc: '#D1E0F7', ftcolor: '#4F88DE'}, link: '', isHas: true},
         {item: {label: '重大危险源管理制度', bgc: '#fff', ftcolor: '#8E8E8E'}, link: '', isHas: true},
-        {item: {label: '重大危险源识别', bgc: '#fff', ftcolor: '#8E8E8E'}, link: '', isHas: true},
-        {item: {label: '重大危险源档案', bgc: '#fff', ftcolor: '#8E8E8E'}, link: '', isHas: true},
+        {item: {label: '重大危险源识别', bgc: '#fff', ftcolor: '#8E8E8E'}, link: '/home/risk/discern', isHas: true},
+        {item: {label: '重大危险源档案', bgc: '#fff', ftcolor: '#8E8E8E'}, link: '/home/risk/archive', isHas: true},
       ]
     },
     {
