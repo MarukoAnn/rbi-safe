@@ -27,7 +27,7 @@
       </ng-template>
       <ng-template pTemplate="body" let-rowData let-columns="columns" let-rowIndex="rowIndex">
         <tr>
-          <td>{{rowIndex}}</td>
+          <td>{{rowIndex + 1}}</td>
           <td *ngFor="let col of columns">
             {{rowData[col.field]}}
           </td>
@@ -122,6 +122,15 @@
               </label>
               <div class="ui-g-8 ui-md-8 input">
                 <input type="text" pInputText placeholder="请填写发证日期，格式如：2020-01-01" [(ngModel)]="specialOperateField.dateOfIssue">
+              </div>
+            </div>
+            <!--工种年限-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>工种年限：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <input type="text" pInputText placeholder="请填写发证日期，格式如：2020-01-01" [(ngModel)]="specialOperateField.yearsOfWork">
               </div>
             </div>
             <!--复审年限-->
@@ -255,7 +264,6 @@
                 <textarea [rows]="5" [cols]="30" [(ngModel)]="specialOperateField.remarks" pInputTextarea autoResize="autoResize" placeholder="请填写备注"></textarea>
               </div>
             </div>
-
           </div>
         </p-scrollPanel>
       </div>

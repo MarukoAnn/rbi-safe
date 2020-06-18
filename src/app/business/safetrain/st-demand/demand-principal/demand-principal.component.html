@@ -6,9 +6,12 @@
       <button pButton type="button" icon="pi pi-search" class="ui-button-warn"></button>
     </div>
     <div class="button">
-<!--      <button pButton type="button" label="新增台账" class="ui-button-rounded" (click)="educateOperate(educateOperateFlag = 'add')"></button>-->
-      <!--      <button pButton type="button" label="文件导入" class="ui-button-rounded ui-button-darkPrimary ml-2 mr-2"></button>-->
-      <button pButton type="button" label="文件导出" class="ui-button-rounded ui-button-pink ml-2 mr-2"></button>
+      <p-dropdown
+        placeholder="选择导出复审人员名单"
+        [options]="reviewDropdownOptions"
+        (onChange)="principalOperate('export', $event)"
+        dropdownIcon="fa fa-caret-down">
+      </p-dropdown>
     </div>
   </div>
   <div class="content">

@@ -8,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
 export class StContentSetingComponent implements OnInit {
   public arcTabItem = [
     {item: {label: '培训内容', ftcolor: '#4F88DE', bgc: '#4F88DE'}},
+    {item: {label: '培训内容库分类', ftcolor: '#B3B3B3', bgc: '#EDEDED'}},
     {item: {label: '培训题库', ftcolor: '#B3B3B3', bgc: '#EDEDED'}},
     {item: {label: '题库分类', ftcolor: '#B3B3B3', bgc: '#EDEDED'}},
   ];
@@ -15,7 +16,7 @@ export class StContentSetingComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.arcTabItemClick(1);
+    this.arcTabItemClick(0);
   }
   public arcTabItemClick(index): void {
     this.arcActiveIndex = index;

@@ -10,7 +10,7 @@ export class DemandService {
   constructor(private http: HttpClient) { }
 
   /**
-   * 复审名单列表获取
+   * 特种人员信息列表获取
    * @param params
    */
   public getReviewList(params: any): Observable<any> {
@@ -18,7 +18,7 @@ export class DemandService {
   }
 
   /**
-   * 更新特种人员信息
+   * 特种人员信息更新
    * @param params
    */
   public updateArchivesInfo(params: any): Observable<any> {
@@ -26,15 +26,21 @@ export class DemandService {
   }
 
   /**
-   * 处理特种人员复审信息
+   * 特种人员复审信息处理
    * @param params
    */
   public handleReviewInfo(params: any): Observable<any> {
     return this.http.post(`/handleSpecialReview`, params);
   }
 
-  /*-----------------------------------------------------------------------------------------*/
-  //  主要负责人/安全生产管理员模块
+  /**
+   * 特种人员复审名单导出
+   * @param params
+   */
+  public exportReviewInfo(params: {completionStatus: null}): Observable<any> {
+    return this.http.post(`/exportSpecialReview`, params);
+  }
+
   /**
    * 分页查询
    * @param params
@@ -58,5 +64,13 @@ export class DemandService {
    */
   public principalReveiewToPass(params: any): Observable<any> {
     return this.http.post(`/administratorReview/review`, params);
+  }
+
+  /**
+   * 管理员人员复审名单导出
+   * @param params
+   */
+  public exportPrincipalInfo(params: {completionStatus: null}): Observable<any> {
+    return this.http.post(`/administratorReview/exportAdminstratorReview`, params);
   }
 }

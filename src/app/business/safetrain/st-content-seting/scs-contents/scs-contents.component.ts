@@ -42,7 +42,7 @@ export class ScsContentsComponent implements OnInit {
       this.contentsClassifyOptions = res.data;
     });
   }
- // 数据初始化
+  // 数据初始化
   private contentsDataInit(pageNo, pageSize) {
     this.safeSrv.getScsContentsList({pageNo, pageSize}).subscribe((res) => {
       this.contentsTableData = res.data.contents;

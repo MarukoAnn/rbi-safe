@@ -50,7 +50,7 @@
     <!--考试时长-->
     <div class="ui-g-12 ui-md-12">
       <label class="ui-g-3 ui-md-3 label">
-        <span>考试时长：</span>
+        <span>考试时长（分钟）：</span>
       </label>
       <div class="ui-g-9 ui-md-9 input">
         <input
@@ -78,6 +78,25 @@
           [(ngModel)]="ruleOperateField.testPaperName">
         <div *ngIf="duration.invalid && (duration.dirty || duration.touched)" class="text-danger mt-2">
           <div *ngIf="duration.errors.required">
+            考试名称必须填写
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--考试须知-->
+    <div class="ui-g-12 ui-md-12">
+      <label class="ui-g-3 ui-md-3 label">
+        <span>考试名称：</span>
+      </label>
+      <div class="ui-g-9 ui-md-9 input">
+        <textarea
+          name="examNotes"
+          #examNotes="ngModel"
+          pInputTextarea [(ngModel)]="ruleOperateField.examNotes"
+          [disabled]="ruleDisabled"
+          required placeholder="请填写考试须知"></textarea>
+        <div *ngIf="examNotes.invalid && (examNotes.dirty || examNotes.touched)" class="text-danger mt-2">
+          <div *ngIf="examNotes.errors.required">
             考试名称必须填写
           </div>
         </div>

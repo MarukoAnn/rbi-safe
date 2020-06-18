@@ -62,6 +62,7 @@ import { StFileLibraryComponent } from './st-start-study/st-learn-library/st-fil
 import { StVideoLibraryComponent } from './st-start-study/st-learn-library/st-video-library/st-video-library.component';
 import {TopicModule} from '../../common/components/topic/topic.module';
 import { StMyplanDetailComponent } from './st-start-study/st-learn-myplan/st-myplan-detail/st-myplan-detail.component';
+import { ScsContentsTypeComponent } from './st-content-seting/scs-contents-type/scs-contents-type.component';
 
 @NgModule({
   declarations: [
@@ -105,7 +106,8 @@ import { StMyplanDetailComponent } from './st-start-study/st-learn-myplan/st-myp
     StLearnLibraryComponent,
     StFileLibraryComponent,
     StVideoLibraryComponent,
-    StMyplanDetailComponent
+    StMyplanDetailComponent,
+    ScsContentsTypeComponent
   ],
   imports: [
     CommonModule,
