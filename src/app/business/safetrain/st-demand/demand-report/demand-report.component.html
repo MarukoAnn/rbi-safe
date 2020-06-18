@@ -47,11 +47,11 @@
     <!--培训时长-->
     <div class="ui-g-12 ui-md-12">
       <label class="ui-g-3 ui-md-3 label">
-        <span>培训时长：</span>
+        <span>培训时长（学时）：</span>
       </label>
       <div class="ui-g-9 ui-md-9 input">
         <input
-          type="number" pInputText name="duration"
+          type="text" pInputText name="duration"
           #duration="ngModel" required placeholder="请填写培训时长"
           [(ngModel)]="reportOperateField.trainingDuration">
         <div *ngIf="duration.invalid && (duration.dirty || duration.touched)" class="text-danger mt-2">

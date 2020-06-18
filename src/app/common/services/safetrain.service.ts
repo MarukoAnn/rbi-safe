@@ -93,6 +93,46 @@ export class SafetrainService {
   }
 
   /**
+   * 培训内容分类列表获取
+   * @param params
+   */
+  public getScsContentsTypeList(params: any): Observable<any> {
+    return this.http.post(`/category/findByPage`, params);
+  }
+
+  /**
+   * 培训内容分类添加
+   * @param params
+   */
+  public addScsContentsTypeInfo(params: any): Observable<any> {
+    return this.http.post(`/category/add`, params);
+  }
+
+  /**
+   * 培训内容分类修改
+   * @param params
+   */
+  public updateScsContentsTypeInfo(params: any): Observable<any> {
+    return this.http.post(`/category/update`, params);
+  }
+
+  /**
+   * 培训内容分类删除
+   * @param params
+   */
+  public delScsContentsTypeInfo(params: any): Observable<any> {
+    return this.http.post(`/category/deleteById`, params);
+  }
+
+  /**
+   * 培训内容分类按分类名称查询
+   * @param params
+   */
+  public searchScsContentsTypeInfo(params: {pageNo: 1, pageSize: 10, contentCategoryName: null}): Observable<any> {
+    return this.http.post(`/category/findByContentCategoryName`, params);
+  }
+
+  /**
    * 教育培训台账列表获取
    * @param params
    */

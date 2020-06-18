@@ -104,7 +104,6 @@ export class ScsQuestionComponent implements OnInit {
     this.questionContent = [];
     this.safeSrv.queryScsQuestionPageInfo({pageNo: this.pageNo, pageSize: 10}).subscribe(
       val => {
-         console.log(val);
          this.pageOption = {
            totalRecord: val.data.totalRecord,
            pageSize: val.data.pageSize

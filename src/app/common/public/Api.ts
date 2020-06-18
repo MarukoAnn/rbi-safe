@@ -107,6 +107,7 @@ export interface SpecialField {
   actualResults: string; // 实际成绩
   operationCertificateNo: string; // 操作证号
   dateOfIssue: string; // 发证日期
+  yearsOfWork: string; // 工种年限
   oneReviewResults?: string; // 第一次复审成绩
   oneReviewTime?: string; // 第一次复审时间
   towReviewResults?: string; // 第二次复审成绩
@@ -123,6 +124,7 @@ export interface SpecialField {
   validityPeriod: number; // 复审年限，默认为3
 }
 export class SpecialFieldClass implements SpecialField {
+  yearsOfWork: string = '';
   typeOfWork: string = '';
   actualResults: string = '';
   dateOfIssue: string = '';
@@ -150,30 +152,6 @@ export class SpecialFieldClass implements SpecialField {
   constructor() {
   }
 }
-export const SpecialFieldText = {
-  idCardNo: ['身份证', 'text'],
-  dCardNo: ['工种', 'text'],
-  operationItems: ['操作项目', 'text'],
-  workingYears: ['本工种工龄', 'text'],
-  theoreticalAchievements: ['理论成绩', 'text'],
-  actualResults: ['实际成绩', 'text'],
-  operationCertificateNo: ['操作证号', 'text'],
-  dateOfIssue: ['发证日期', 'text'],
-  oneReviewResults: ['第一次复审成绩', 'text'],
-  oneReviewTime: ['第一次复审时间', 'text'],
-  towReviewResults: ['第二次复审成绩', 'text'],
-  towReviewTime: ['第二次复审时间', 'text'],
-  threeReviewResults: ['第三次复审成绩', 'text'],
-  threeReviewTime: ['第三次复审时间', 'text'],
-  fourReviewResults: ['第四次复审成绩', 'text'],
-  fourReviewTime: ['第四次复审时间', 'text'],
-  fiveReviewResults: ['第五次复审成绩', 'text'],
-  fiveReviewTime: ['第五次复审时间', 'text'],
-  sixReviewResults: ['第六次复审成绩', 'text'],
-  sixReviewTime: ['第六次复审时间', 'text'],
-  remarks: ['备注', 'textarea'],
-  validityPeriod: ['复审年限', 'number'],
-};
 
 // 表头部数据接口
 export interface TableHeader {
@@ -462,8 +440,10 @@ export interface ExamRuleField {
   endTime: string; // 考试结束时间
   duration: number; // 考试时长
   testPaperName: string; // 考试名称
+  examNotes: string; // 考试须知
 }
 export class ExamRuleFieldClass implements ExamRuleField{
+  examNotes: string;
   duration: number;
   endTime: string;
   startTime: string;
@@ -609,6 +589,23 @@ export class CommpleteExamData implements CompleteExam{
   personnelTrainingRecordId: any;
   safeAnswerRecordList: SafeAnswerRecord[];
   constructor() {
-    this.safeAnswerRecordList = []
+    this.safeAnswerRecordList = [];
   }
+}
+
+/**
+ * 培训内容库分类
+ */
+export interface ScsContentType {
+  id?: any;
+  contentCategoryName: string; // 内容分类名称
+  idt?: string; // 添加时间
+  udt?: string; // 修改时间
+}
+export class AddScsContentTypeClass implements ScsContentType {
+  contentCategoryName: string = '';
+}
+export class UpdateScsContentTypeClass implements ScsContentType {
+  id: any = null;
+  contentCategoryName: string = '';
 }

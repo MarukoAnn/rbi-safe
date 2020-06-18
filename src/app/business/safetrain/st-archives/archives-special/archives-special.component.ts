@@ -19,11 +19,11 @@ export class ArchivesSpecialComponent implements OnInit {
     {field: 'typeOfWork', header: '工种名称'},
     {field: 'gender', header: '性别'},
     {field: 'degreeOfEducation', header: '文化程度'},
-    {field: 'dateOfIssue', header: '发证日期'},
+    {field: 'yearsOfWork', header: '工种年限'},
   ]; // 表头字段
   public specialTableData: any[]; // 表体数据
   public specialNowPage: number = 1; // 当前页
-  public specialOperateFlag: 'update' | 'save' | 'del' | 'add' ; // 操作标识
+  public specialOperateFlag: any ; // 操作标识
   public specialOperateField: SpecialField = new SpecialFieldClass(); // 操作字段
   public specialOperateModal: boolean = false; // 模态框
   constructor(

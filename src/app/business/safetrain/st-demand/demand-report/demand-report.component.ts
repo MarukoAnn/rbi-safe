@@ -64,7 +64,6 @@ export class DemandReportComponent implements OnInit {
   //  公司人员分页
   private reportCompanyDataInit(pageNo, pageSize) {
     this.globalSrv.publicGetCompanyPerson({pageNo, pageSize}).subscribe((res) => {
-      console.log(res);
       this.reportTableData = res.data.contents;
       this.reportPageOption.totalRecord = res.data.totalRecord;
     });

@@ -28,6 +28,11 @@ export class DemandReviewComponent implements OnInit {
   public reviewOperateFieldCopy: SpecialField = new SpecialFieldClass(); // 状态判断用
   public reviewOperateModal: boolean = false; // 模态框
   public reviewInfoHandle: ReviewInfo = new ReviewInfoClass(); // 取消复审相关处理信息
+  public reviewDropdownOptions: any = [
+    {label: '复审进行中 ', value: 1},
+    {label: '复审已拒绝 ', value: 2},
+    {label: '复审已完成', value: 3},
+  ]; // 下拉配置项
   constructor(
     private demandSrv: DemandService,
     private globalSrv: GlobalService,
@@ -83,9 +88,11 @@ export class DemandReviewComponent implements OnInit {
         }
         this.reviewHttpOperate(this.demandSrv.handleReviewInfo(this.reviewInfoHandle));
         break;
-      // 删除操作
-      case 'del':
-        console.log('暂时不做');
+      // 导出操作
+      case 'export':
+        this.demandSrv.exportReviewInfo({completionStatus: item.value}).subscribe((res) => {
+          window.open(res.data);
+        });
         break;
     }
   }

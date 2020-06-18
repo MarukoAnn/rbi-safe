@@ -42,6 +42,11 @@ export class DemandPrincipalComponent implements OnInit {
   public reviewPrincipoalCopy: ReviewPrincipoal = new ReviewPrincipoal(); // 取消操作
   public principalOperateModal: boolean = false; // 模态框
   public esDate: object = Es;
+  public reviewDropdownOptions: any = [
+    {label: '复审进行中 ', value: 1},
+    {label: '复审已拒绝 ', value: 2},
+    {label: '复审已完成', value: 3},
+  ]; // 下拉配置项
   constructor(
     private demandSrv: DemandService,
     private globalSrv: GlobalService,
@@ -57,7 +62,6 @@ export class DemandPrincipalComponent implements OnInit {
   // 数据初始化
   private principalDataInit(pageNo, pageSize) {
     this.demandSrv.getPrincipalPageInfo({pageNo, pageSize}).subscribe((res) => {
-      console.log(res);
       this.principalTableData = res.data.contents;
       this.principalPageOption.totalRecord = res.data.totalRecord;
     });
@@ -85,7 +89,6 @@ export class DemandPrincipalComponent implements OnInit {
         break;
       // 审核
       case 'review':
-        console.log(123);
         this.principalOperateModal = true;
         for (let key in this.reviewPrincipoal){
           if (key !== 'id' && key !== 'safeAdministratorId'){
@@ -99,7 +102,12 @@ export class DemandPrincipalComponent implements OnInit {
           }
           this.reviewPrincipoalCopy = Object.assign({}, this.reviewPrincipoal);
         }
-        console.log(this.reviewPrincipoal);
+        break;
+      // 导出复审人员名单
+      case 'export':
+        this.demandSrv.exportPrincipalInfo({completionStatus: item.value}).subscribe((res) => {
+          window.open(res.data);
+        });
         break;
     }
   }
