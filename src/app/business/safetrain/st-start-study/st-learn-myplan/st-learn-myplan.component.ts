@@ -13,7 +13,7 @@ export class StLearnMyplanComponent implements OnInit {
   public myPlanList: Array<object> = [];
   public pageOption: PageOption = {
     totalRecord: 10,
-    pageSize: 10
+    pageSize: 6
   };
   @Output()
   public eventEmit: EventEmitter<any> = new EventEmitter<any>();
@@ -26,11 +26,11 @@ export class StLearnMyplanComponent implements OnInit {
   }
 
   public  initMyPlanData(): void {
-    this.stStudySrv.getMyPlanPageInfo({pageNo: this.pageNo, pageSize: 10}).subscribe(res => {
+    this.stStudySrv.getMyPlanPageInfo({pageNo: this.pageNo, pageSize: 6}).subscribe(res => {
       console.log(res);
       this.myPlanList = res.data.contents;
       this.pageOption.totalRecord = res.data.totalRecord;
-      this.eventEmit.emit(this.myPlanList.length);
+      this.eventEmit.emit(res.data.totalRecord);
     });
   }
   public  clickEvent(e): void {

@@ -24,14 +24,14 @@ export class StNoExamComponent implements OnInit {
     pageSize: 10
   };
   public noExamTitle: Array<object>  = [
-    { field: 'id', header: '试卷id' },
+    // { field: 'id', header: '试卷id' },
     { field: 'testPaperName', header: '试卷名称' },
     { field: 'processingStatus', header: '完成状态' },
     { field: 'testResults', header: '考试结果' },
     { field: 'startTime', header: '开始考试时间' },
     { field: 'endTime', header: '结束考试时间' },
     { field: 'duration', header: '考试时长' },
-    { field: 'personnelTrainingRecordId', header: '人员培训记录id' },
+    // { field: 'personnelTrainingRecordId', header: '人员培训记录id' },
     // { field: 'result', header: '培训结果' },
     { field: 'operating', header: '操作' },
   ];
@@ -39,7 +39,6 @@ export class StNoExamComponent implements OnInit {
   public themeSub: Subscription;
   public pageNo: number = 1;
   public id: number;
-  public time: number;
   public personnelTrainingRecordId: number;
   constructor(
     private stOnlineExamSrv: StOnlineExamService,
@@ -52,7 +51,7 @@ export class StNoExamComponent implements OnInit {
 
   public  initNoExamData(): void {
     this.stOnlineExamSrv.getOnlineExamOPageInfo({pageSize: 10, pageNo: this.pageNo, processingStatus: 1}).subscribe(res => {
-      console.log(res);
+      // console.log(res);
       this.pageOption = {pageSize: res.data.pageSize, totalRecord: res.data.totalRecord};
       if (res.data.contents){
         this.noExamContent = res.data.contents.map(v => {
@@ -60,7 +59,7 @@ export class StNoExamComponent implements OnInit {
           v.operating = '开始考试';
           return v;
         });
-        this.eventNum.emit(this.noExamContent.length);
+        this.eventNum.emit(res.data.totalRecord);
       }
     });
   }
@@ -70,15 +69,22 @@ export class StNoExamComponent implements OnInit {
   }
   // 确认开始考试
   public  startExamClick(): void {
-    this.router.navigate(['/home/strain/exam/tasking'], {queryParams: {id: this.id, time: this.time, personnelTrainingRecordId: this.personnelTrainingRecordId}});
+    this.router.navigate(['/home/strain/exam/tasking'], {queryParams: {id: this.id, personnelTrainingRecordId: this.personnelTrainingRecordId}});
   }
 
  // 点击开始考试
   public  showNoticeModelClick(e): void {
     // console.log(e.id);
     this.id = e.id;
-    this.time = e.duration;
     this.personnelTrainingRecordId = e.personnelTrainingRecordId;
     this.startExamNoticeModel = true;
+  }
+
+  public judgeTimeIsOrInPeriod(beginDateStr, endDateStr): boolean {
+    // tslint:disable-next-line:one-variable-per-declaration
+    const curDate = new Date(),
+          beginDate = new Date(beginDateStr),
+          endDate = new Date(endDateStr);
+    return curDate >= beginDate && curDate <= endDate;
   }
 }

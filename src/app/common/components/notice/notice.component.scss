@@ -6,7 +6,7 @@
   display: flex;
   box-shadow: 0 0 4px #B4B4B4;
   flex-direction: column;
-  //z-index: 99999;
+  z-index: 99999;
   .notice-title {
     flex: 2;
     display: flex;
@@ -19,7 +19,8 @@
   }
   .notice-body{
     flex: 8;
-    background: #FAFAFA;
+    background: #fff;
+
     .notice-item {
       display: flex;
       height: 6vh;

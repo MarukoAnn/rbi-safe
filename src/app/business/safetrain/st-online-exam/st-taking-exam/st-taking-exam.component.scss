@@ -1,6 +1,13 @@
 .st-taking-exam {
-  height: 100%;
+  background: #fff;
+  border-radius: 2px;
+  width: auto;
+  height: 91vh;
+  margin: 7.6vh 1vw 0.6vh 19vw;
+  padding: 1vh 2vw;
+  z-index: 99999;
   .taking-header{
+    z-index: 9999;
     display: flex;
     padding: 2vh 0;
     align-items: center;

@@ -61,13 +61,13 @@ export class PublicMethodService {
 
   public  setConfirmationWarn(title, message, callback: (...args: any[]) => any): void {
     this.confirmationService.confirm({
-      message: `${message}？`,
+      message: `${message}`,
       header: `${title}`,
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
-        callback();
       },
       reject: () => {
+        callback();
       }
     });
   }

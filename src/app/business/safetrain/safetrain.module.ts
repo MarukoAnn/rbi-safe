@@ -18,17 +18,17 @@ import {BasicTableModule} from '../../common/components/basic-table/basic-table.
 import {InputTextModule} from 'primeng/inputtext';
 import {ButtonModule} from 'primeng/button';
 import {
-  CalendarModule,
-  CheckboxModule,
-  DialogModule,
-  DropdownModule,
-  FileUploadModule,
-  InputTextareaModule,
-  RadioButtonModule,
-  ScrollPanelModule,
-  StepsModule,
-  TabViewModule, TooltipModule,
-  TreeModule, CardModule, ProgressBarModule
+    CalendarModule,
+    CheckboxModule,
+    DialogModule,
+    DropdownModule,
+    FileUploadModule,
+    InputTextareaModule,
+    RadioButtonModule,
+    ScrollPanelModule,
+    StepsModule,
+    TabViewModule, TooltipModule,
+    TreeModule, CardModule, ProgressBarModule, ConfirmDialogModule
 } from 'primeng/primeng';
 import {StArchivesComponent} from './st-archives/st-archives.component';
 import {ArchivesSpecialComponent} from './st-archives/archives-special/archives-special.component';
@@ -109,33 +109,34 @@ import { ScsContentsTypeComponent } from './st-content-seting/scs-contents-type/
     StMyplanDetailComponent,
     ScsContentsTypeComponent
   ],
-  imports: [
-    CommonModule,
-    SafetrainRoutingModule,
-    InputTextModule,
-    ButtonModule,
-    BasicTableModule,
-    ScrollPanelModule,
-    StDemandModule,
-    PaginationModule,
-    StepsModule,
-    TabViewModule,
-    DropdownModule,
-    CalendarModule,
-    FormsModule,
-    DialogModule,
-    TreeModule,
-    TableModule,
-    RadioButtonModule,
-    InputTextareaModule,
-    FileUploadModule,
-    QuestionTemplateModule,
-    CheckboxModule,
-    TooltipModule,
-    CardModule,
-    ProgressBarModule,
-    TopicModule
-  ],
+    imports: [
+        CommonModule,
+        SafetrainRoutingModule,
+        InputTextModule,
+        ButtonModule,
+        BasicTableModule,
+        ScrollPanelModule,
+        StDemandModule,
+        PaginationModule,
+        StepsModule,
+        TabViewModule,
+        DropdownModule,
+        CalendarModule,
+        FormsModule,
+        DialogModule,
+        TreeModule,
+        TableModule,
+        RadioButtonModule,
+        InputTextareaModule,
+        FileUploadModule,
+        QuestionTemplateModule,
+        CheckboxModule,
+        TooltipModule,
+        CardModule,
+        ProgressBarModule,
+        TopicModule,
+        ConfirmDialogModule
+    ],
   providers: []
 })
 export class SafetrainModule {
