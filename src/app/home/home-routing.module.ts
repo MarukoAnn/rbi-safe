@@ -33,6 +33,11 @@ const routes: Routes = [
       path: 'risk',
       loadChildren: () => import('../business/bigrisk/bigrisk.module').then(m => m.BigriskModule),
       data: {preload: true}
+    },
+    {
+      path: 'strisk',
+      loadChildren: () => import('../business/security-risk/security-risk.module').then(m => m.SecurityRiskModule),
+      data: {preload: true}
     }
   ]}
 ];

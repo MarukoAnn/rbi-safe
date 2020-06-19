@@ -44,12 +44,12 @@ export class SidebarComponent implements OnInit {
       bgc: '#226AD5',
       label: '安全风险管控',
       lefticon: 'fa-angle-down',
-      link: '/home/strain1/institu1',
+      link: '/home/strisk/manager',
       children: [
         {item: {label: '风险分级管控现状', bgc: '#D1E0F7', ftcolor: '#4F88DE'}, link: '', isHas: true},
         {item: {label: '风险分级管控制度', bgc: '#fff', ftcolor: '#8E8E8E'}, link: '', isHas: true},
-        {item: {label: '风险管理',  bgc: '#fff', ftcolor: '#8E8E8E'}, link: '', isHas: true},
-        {item: {label: '风险档案',  bgc: '#fff', ftcolor: '#8E8E8E'}, link: '', isHas: true},
+        {item: {label: '风险管理',  bgc: '#fff', ftcolor: '#8E8E8E'}, link: '/home/strisk/manager', isHas: true},
+        {item: {label: '风险档案',  bgc: '#fff', ftcolor: '#8E8E8E'}, link:  '/home/strisk/archive', isHas: true},
       ]
     },
     {

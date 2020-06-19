@@ -14,42 +14,41 @@
           <div class="ui-g-4 ui-md-4 dialog-input">
             <input pInputText type="text" placeholder="请输入重大危险源名称"  formControlName="seriousDangerName"/>
           </div>
-        </div>
-<!--        <div class="ui-g-12 ui-md-12"  style="line-height: 4vh">-->
-<!--          <div class="ui-g-1 ui-md-1 right">-->
-<!--            <label><span style="color: #FF8A9A">*</span>排查时间:</label>-->
-<!--          </div>-->
-<!--          <div class="ui-g-4 ui-md-4 dialog-input">-->
-<!--            <p-calendar [style]="{width: '100%'}" placeholder="请选择排查时间" [monthNavigator]="true" [yearNavigator]="true"-->
-<!--                        dateFormat="yy-mm-dd" yearRange="1990:2200" [locale]="esDate" formControlName="troubleshootingTime"></p-calendar>-->
-<!--          </div>-->
-<!--        </div>-->
-        <div class="ui-g-12 ui-md-12" style="line-height: 3vh">
           <div class="ui-g-1 ui-md-1 right">
             <label><span style="color: #FF8A9A">*</span>重大危险源所在位置:</label>
           </div>
           <div class="ui-g-4 ui-md-4 dialog-input">
             <input pInputText type="text" placeholder="请输入重大危险源所在位置"  formControlName="seriousDangerLocation"/>
           </div>
+        </div>
+        <div class="ui-g-12 ui-md-12" style="line-height: 3vh">
+
           <div class="ui-g-1 ui-md-1 right">
             <label><span style="color: #FF8A9A">*</span>危险因素:</label>
           </div>
           <div class="ui-g-4 ui-md-4 dialog-input">
             <input pInputText type="text" placeholder="请输入危险因素"  formControlName="seriousDangerElement"/>
           </div>
-        </div>
-        <div class="ui-g-12 ui-md-12" style="line-height: 3vh">
           <div class="ui-g-1 ui-md-1 right">
             <label><span style="color: #FF8A9A">*</span>危险源主要控制措施:</label>
           </div>
           <div class="ui-g-4 ui-md-4 dialog-input">
-            <input pInputText type="text" placeholder="请输入危险源主要控制措施"  formControlName="seriousDangerStatus"/>
+            <input pInputText type="text" placeholder="请输入危险源主要控制措施"  formControlName="seriousDangerMeasure"/>
           </div>
+        </div>
+        <div class="ui-g-12 ui-md-12" style="line-height: 3vh">
+
           <div class="ui-g-1 ui-md-1 right">
             <label><span style="color: #FF8A9A">*</span>危险源管控状态:</label>
           </div>
           <div class="ui-g-4 ui-md-4 dialog-input">
-            <input pInputText type="text" placeholder="请输入危险源管控状态"  formControlName="seriousDangerCycle"/>
+            <input pInputText type="text" placeholder="请输入危险源管控状态"  formControlName="seriousDangerStatus"/>
+          </div>
+          <div class="ui-g-1 ui-md-1 right">
+            <label><span style="color: #FF8A9A">*</span>危险源管控周期:</label>
+          </div>
+          <div class="ui-g-4 ui-md-4 dialog-input">
+            <input pInputText type="text" placeholder="请输入危险源管控周期"  formControlName="seriousDangerCycle"/>
           </div>
         </div>
         <div class="ui-g-12 ui-md-12" style="line-height: 3vh">
@@ -63,8 +62,8 @@
             <label><span style="color: #FF8A9A">*</span>危险源最近管控时间:</label>
           </div>
           <div class="ui-g-4 ui-md-4 dialog-input">
-            <input pInputText type="text" placeholder="请输入危险源最近管控时间"  formControlName="seriousDangerTime"/>
-          </div>
+            <p-calendar formControlName="seriousDangerTime" [style]="{width: '100%'}" placeholder="请选择危险源最近管控时间..." [monthNavigator]="true" [yearNavigator]="true" dateFormat="yy-mm-dd"  yearRange="1700:2200" [locale]="esDate"></p-calendar>
+        </div>
         </div>
           <div class="ui-g-1 ui-md-1 right">
             <label ><span style="color: #FF8A9A">*</span>危险源图片路径:</label>
@@ -74,5 +73,9 @@
           </div>
         </div>
     </form>
+  </div>
+  <div class="rk-discern-fotter">
+    <button pButton type="button" label="提交" class="ui-button-rounded" (click)="submitClcik()"></button>
+<!--    <button pButton type="button" label="批量上传" class="ui-button-rounded"></button>-->
   </div>
 </div>

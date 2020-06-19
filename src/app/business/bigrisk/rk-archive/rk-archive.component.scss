@@ -3,7 +3,7 @@
   height: 100%;
   background: #fff;
   padding: 1vh 2vw;
-  margin: 0 2vw;
+  //margin: 0 2vw;
   .rk-archive-title{
     height: 6vh;
     border-bottom: 2px solid #EDEDED;
@@ -178,4 +178,10 @@
     border: 0;
     margin-left: 2vw;
   }
+  @media screen and (min-width: 40.063em) {
+    ::ng-deep .ui-g-1{
+      width: 14.333%;
+    }
+  }
 }
+

@@ -17,6 +17,12 @@ export class RkArchiveComponent implements OnInit {
       {background: '#FFFFFF', color: '#9899A0'}],
     detailBtn: ['#3B86FF', '#FF8A9A']
   };
+  public ImageOption = {
+    files: [],
+    showUploadIcon: true
+  };
+  public seriousDangerName: string = '';  // 重大危险源名称
+  public filePathList: Array<any> = [];
   public showEditArchiveDialog: boolean = false;
   public rkArchiveTitle: Array<object>  = [
     // { field: 'id', header: '序号' },
@@ -70,9 +76,20 @@ export class RkArchiveComponent implements OnInit {
     });
 
   }
+  public  selectImageFile(e): void {
+
+  }
   // 条件搜索
   public  searchDataClick(): void {
-
+    if (this.seriousDangerName !== ''){
+       this.archiveSrv.searchRiskArchivesDataByName({seriousDangerName: this.seriousDangerName, pageNo: this.archivePageNo, pageSize: 10}).subscribe(val => {
+         this.rkArchiveContent = val.data.contents;
+         this.principalPageOption.totalRecord = val.data.totalRecord;
+       });
+    }else {
+      // this.initRkArchiveData();
+      this.toolSrv.setToast('error', '操作错误', '请输入重大危险源的名称');
+    }
   }
  // 导入文件
   public  importArchiveFileClick(): void {
@@ -85,21 +102,32 @@ export class RkArchiveComponent implements OnInit {
 
   // 分页点击事件
   public  archivePageEvent(e): void {
+      console.log(e);
       this.archivePageNo = e;
       this.initRkArchiveData();
   }
   // 显示修改重大危险源档案
   public  editRiskArchiveClcik(data): void {
-    this.showEditArchiveDialog = true;
-    const List = ['seriousDangerName', 'seriousDangerLocation', 'seriousDangerElement', 'id',
-      'seriousDangerMeasure', 'seriousDangerCycle', 'seriousDangerPrincipal', 'seriousDangerTime',
-      'seriousDangerPicture'];
-    const a = {};
-    List.forEach(val => {
-      a[val] = data[val];
-      this.editArchive.patchValue(a);
+    console.log(data);
+    this.archiveSrv.searchRiskArchivesInfoById({id: data.id}).subscribe(val => {
+      console.log(val);
+      this.showEditArchiveDialog = true;
+      const List = ['seriousDangerName', 'seriousDangerLocation', 'seriousDangerElement', 'id',
+        'seriousDangerMeasure', 'seriousDangerCycle', 'seriousDangerPrincipal', 'seriousDangerTime'];
+      const a = {};
+      List.forEach(v => {
+        a[v] = val.data.seriousDanger[v];
+        this.editArchive.patchValue(a);
+      });
+      const filePathlist = [];
+      val.data.seriousDangerPictureList.forEach(res => {
+        filePathlist.push(res.seriousDangerPicturePath);
+      });
+      this.ImageOption = {
+        files: filePathlist,
+        showUploadIcon: true
+      };
     });
-    console.log(this.editArchive);
   }
  // 确定修改
  public  sureEditArchiveClick(): void {

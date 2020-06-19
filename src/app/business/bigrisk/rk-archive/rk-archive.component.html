@@ -7,7 +7,7 @@
   <div class="rk-archive-header">
     <div class="rk-archive-search">
       <div class="ui-inputgroup" >
-        <input type="text" pInputText  placeholder="搜索"/>
+        <input type="text" pInputText  placeholder="搜索" [(ngModel)]="seriousDangerName"/>
         <button pButton type="button" icon="pi pi-search" class="ui-button-warn" (click)="searchDataClick()"></button>
       </div>
     </div>
@@ -108,12 +108,12 @@
             <p-calendar formControlName="seriousDangerTime" [style]="{width: '100%'}" placeholder="请选择危险源最近管控时间..." [monthNavigator]="true" [yearNavigator]="true" dateFormat="yy-mm-dd"  yearRange="1990:2200" [locale]="esDate"></p-calendar>
           </div>
         </div>
-        <div class="ui-g-6 ui-md-6" style="line-height: 3vh;">
-          <div class="ui-g-4 ui-md-4 right">
+        <div class="ui-g-12 ui-md-12" style="line-height: 3vh;">
+          <div class="ui-g-2 ui-md-2 right">
             <span style="color: #FF8A9A">*</span>危险源图片路径：
           </div>
-          <div class="ui-g-8 ui-md-8 dialog-input">
-            <input pInputText type="text" formControlName="seriousDangerPicture" placeholder="请输入危险源图片路径"/>
+          <div class="ui-g-10 ui-md-10">
+            <app-upload-image (selectFile)="selectImageFile($event)" #upimg [ImageOption]="this.ImageOption"></app-upload-image>
           </div>
         </div>
       </div>

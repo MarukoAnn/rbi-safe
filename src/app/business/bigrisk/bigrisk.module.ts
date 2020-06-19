@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {CommonModule, DatePipe} from '@angular/common';
 
 import { BigriskRoutingModule } from './bigrisk-routing.module';
 import { RiskComponent } from './risk/risk.component';
@@ -58,6 +58,7 @@ import {UploadImageModule} from '../../common/components/upload-image/upload-ima
     MessageModule,
     TableModule,
     UploadImageModule,
-  ]
+  ],
+  providers: [DatePipe]
 })
 export class BigriskModule { }

@@ -25,10 +25,24 @@ export class BigRiskService {
   public updateRiskArchivesData(params: any): Observable<any> {
     return this.http.post(`/seriousDanger/updateSeriousDanger`, params);
   }
-
-  /*-----------------------------------重大危险源是被------------------------------------*/
   /**
-   * 更新重大危险源档案
+   * 搜索重大危险源
+   * @param params
+   */
+  public searchRiskArchivesDataByName(params: any): Observable<any> {
+    return this.http.post(`/seriousDanger/findSeriousDangerByPageAndName`, params);
+  }
+  /**
+   * 根据id 查询重大危险源的详细信息
+   * @param params
+   */
+  public searchRiskArchivesInfoById(params: any): Observable<any> {
+    return this.http.post(`/seriousDanger/findSeriousDangerByID`, params);
+  }
+
+  /*-----------------------------------重大危险源识别------------------------------------*/
+  /**
+   * 添加重大危险源档案
    * @param params
    */
   public addRiskDiscernData(params: any): Observable<any> {
