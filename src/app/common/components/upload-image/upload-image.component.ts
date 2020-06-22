@@ -4,6 +4,8 @@ import {DialogService} from 'primeng/api';
 interface ImageOption {
   files: any[];
   showUploadIcon: boolean;
+  imgUrls: any[];
+  type: string;
 }
 
 @Component({
@@ -19,7 +21,9 @@ export class UploadImageComponent implements OnInit, OnChanges{
   @Input()
   public ImageOption: ImageOption = {
     files: [],
-    showUploadIcon: true
+    imgUrls: [],
+    showUploadIcon: true,
+    type: ''
   };
   public filePath = [];
   public showImageDiaog: boolean;
@@ -30,7 +34,7 @@ export class UploadImageComponent implements OnInit, OnChanges{
   ngOnInit() {
   }
   public  selectImage(e): void {
-    this.filePath = [];
+    this.filePath = this.ImageOption.imgUrls;
     for (let j = 0; j < e.target.files.length; j++){
       this.ImageOption.files.push(e.target.files[j]);
     }
@@ -38,19 +42,18 @@ export class UploadImageComponent implements OnInit, OnChanges{
       const reader = new FileReader();
       reader.readAsDataURL(this.ImageOption.files[i]);
       reader.onload = (re) => {
-        // console.log(re.target['result']);
         this.filePath.push(re.target['result']);
       };
     }
-    this.selectFile.emit(this.ImageOption.files);
+    this.selectFile.emit({value: this.ImageOption, type: 'add'});
   }
   // 重置函数
   public clearImage(): void {
-    this.ImageOption.files = this.filePath = [];
+    this.ImageOption.files = this.filePath = this.ImageOption.imgUrls = [] ;
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.filePath = this.ImageOption.files;
+    this.filePath = this.ImageOption.imgUrls;
     console.log(this.filePath);
   }
   public  imgClick(e): void {
@@ -58,10 +61,15 @@ export class UploadImageComponent implements OnInit, OnChanges{
     this.ImgUrl = e;
       // console.log(e);
   }
-  public  delItemImg(i): void {
+  public  delItemImg(url, i): void {
+    if (url.startsWith('http://139.9.153.27/')){
       this.filePath.splice(i, 1);
-      this.ImageOption.files.splice(i, 1);
-      this.selectFile.emit(this.ImageOption.files);
+      // this.ImageOption.imgUrls.splice(i, 1);
+    }else {
+      this.filePath.splice(i, 1);
+      this.ImageOption.files.splice( i - this.ImageOption.imgUrls.length , 1);
+    }
+    this.selectFile.emit({value: this.ImageOption, type: 'del'});
   }
 }
 

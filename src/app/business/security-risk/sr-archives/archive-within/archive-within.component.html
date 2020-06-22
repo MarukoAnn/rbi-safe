@@ -1,0 +1,274 @@
+<div class="archive-within">
+  <div class="archive-within-header">
+    <div class="archive-within-search">
+      <p-dropdown [options]="searchTypeOption" [(ngModel)]="selectType" dropdownIcon="pi pi-caret-down" ></p-dropdown>
+
+      <div class="ui-inputgroup" >
+        <input type="text" pInputText  placeholder="搜索" [(ngModel)]="seriousDangerName"/>
+        <button pButton type="button" icon="pi pi-search" class="ui-button-warn" (click)="searchDataClick()"></button>
+      </div>
+    </div>
+    <div class="archive-within-button">
+<!--      <button pButton type="button" label="文件导入" class="ui-button-rounded" (click)="importArchiveFileClick()"></button>-->
+<!--      <button pButton type="button" label="文件导出" class="ui-button-rounded" (click)="exportArchiveFileClick()"></button>-->
+    </div>
+  </div>
+  <div class="archive-within-table">
+    <p-table [columns]="rkArchiveTitle" [value]="rkArchiveContent" scrollHeight="40vh" [scrollable]="true">
+      <ng-template pTemplate="header" let-columns>
+        <tr [ngStyle]="table.tableheader" class="text-center" style="height: 5vh">
+          <th rowspan="2" *ngFor="let col of columns.slice(0, 16)">
+            {{col.header}}
+          </th>
+          <th colspan="4">风险等级分析</th>
+          <th rowspan="2" *ngFor="let col of columns.slice(20, columns.length)">
+            {{col.header}}
+          </th>
+        </tr>
+        <tr>
+          <th *ngFor="let col of columns.slice(16, 20)">
+            {{col.header}}
+          </th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-rowData let-columns="columns">
+        <tr [ngStyle]="table.tableContent[0]">
+          <td *ngFor="let col of columns.slice(0, columns.length -1)" class="text-center" style="height: 5vh;color: #5E5F6B;word-wrap: break-word">
+            {{rowData[col.field]}}
+          </td>
+          <td style="margin: 0 auto"  *ngFor="let col of columns.slice(columns.length -1 ,  columns.length)">
+            <button  style="background: #3B86FF;border: 0;padding: 10px;border-radius: 10px;color: #fff" (click)="editRiskArchiveClcik(rowData)">编辑</button>
+            <!--            <button pButton type="button" label="删除" class="ui-button-rounded" style="background: #FF8A9A;border: 0"></button>-->
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+  <div class="pagination">
+    <app-pagination [option]="principalPageOption" (clickEvent)="archivePageEvent($event)"></app-pagination>
+  </div>
+  <p-dialog header="信息编辑" [(visible)]="showEditArchiveDialog" [style]="{width: '900px'}">
+    <p-scrollPanel [style]="{width: '100%', height: '60vh'}">
+      <form [formGroup]="editWithinArchive">
+        <div class="ui-g ui-md ui-fiuld">
+          <div class="ui-g-6 ui-md-6" style="line-height: 3vh;">
+            <div class="ui-g-4 ui-md-4 right">
+              <span style="color: #FF8A9A">*</span>单位：
+            </div>
+            <div class="ui-g-8 ui-md-8 dialog-input">
+              <input pInputText type="text" formControlName="organizationName" (click)="treeDialog = true;getOrgTreeData()" placeholder="请输入危险源名称"/>
+            </div>
+          </div>
+          <div class="ui-g-6 ui-md-6" style="line-height: 3vh;">
+            <div class="ui-g-4 ui-md-4 right">
+              <span style="color: #FF8A9A">*</span>工种：
+            </div>
+            <div class="ui-g-8 ui-md-8 dialog-input">
+              <input pInputText type="text" formControlName="workType" placeholder="请输入工种"/>
+            </div>
+          </div>
+          <div class="ui-g-6 ui-md-6" style="line-height: 3vh;">
+            <div class="ui-g-4 ui-md-4 right">
+              <span style="color: #FF8A9A">*</span>作业或任务：
+            </div>
+            <div class="ui-g-8 ui-md-8 dialog-input">
+              <input pInputText type="text" formControlName="taskCode" placeholder="请输入作业或任务"/>
+            </div>
+          </div>
+          <div class="ui-g-6 ui-md-6" style="line-height: 3vh;">
+            <div class="ui-g-4 ui-md-4 right">
+              <span style="color: #FF8A9A">*</span>步骤：
+            </div>
+            <div class="ui-g-8 ui-md-8 dialog-input">
+              <input pInputText type="text" formControlName="step" placeholder="请输入步骤"/>
+            </div>
+          </div>
+          <div class="ui-g-6 ui-md-6" style="line-height: 3vh;">
+            <div class="ui-g-4 ui-md-4 right">
+              <span style="color: #FF8A9A">*</span>编号：
+            </div>
+            <div class="ui-g-8 ui-md-8 dialog-input">
+              <input pInputText type="text" formControlName="code" placeholder="请输入步骤"/>
+            </div>
+          </div>
+          <div class="ui-g-6 ui-md-6" style="line-height: 3vh;">
+            <div class="ui-g-4 ui-md-4 right">
+              <span style="color: #FF8A9A">*</span>危害名称：
+            </div>
+            <div class="ui-g-8 ui-md-8 dialog-input">
+              <input pInputText type="text" formControlName="harmName" placeholder="请输入危害名称"/>
+            </div>
+          </div>
+          <div class="ui-g-6 ui-md-6" style="line-height: 3vh;">
+            <div class="ui-g-4 ui-md-4 right">
+              <span style="color: #FF8A9A">*</span>危害种类：
+            </div>
+            <div class="ui-g-8 ui-md-8 dialog-input">
+              <p-dropdown dropdownIcon="pi pi-caret-down" placeholder="请选择危害种类" [options]="riskKindOption" formControlName="harmKind"></p-dropdown>
+            </div>
+          </div>
+          <div class="ui-g-6 ui-md-6" style="line-height: 3vh;">
+            <div class="ui-g-4 ui-md-4 right">
+              <span style="color: #FF8A9A">*</span>危害描述：
+            </div>
+            <div class="ui-g-8 ui-md-8 dialog-input">
+              <textarea [rows]="2" [cols]="10" pInputTextarea  placeholder="请输入危害描述"  style="border: 1px solid #D2D6DB" formControlName="harmDescription"></textarea>
+            </div>
+          </div>
+          <div class="ui-g-6 ui-md-6" style="line-height: 3vh;">
+            <div class="ui-g-4 ui-md-4 right">
+              <span style="color: #FF8A9A">*</span>风险描述：
+            </div>
+            <div class="ui-g-8 ui-md-8 dialog-input">
+              <textarea [rows]="2" [cols]="10" pInputTextarea placeholder="请输入风险描述"  style="border: 1px solid #D2D6DB" formControlName="riskDescription"></textarea>
+            </div>
+          </div>
+          <div class="ui-g-6 ui-md-6" style="line-height: 3vh;">
+            <div class="ui-g-4 ui-md-4 right">
+              <span style="color: #FF8A9A">*</span>风险种类：
+            </div>
+            <div class="ui-g-8 ui-md-8 dialog-input">
+              <input pInputText type="text" formControlName="riskKind" placeholder="请输入危害名称"/>
+            </div>
+          </div>
+          <div class="ui-g-6 ui-md-6" style="line-height: 3vh;">
+            <div class="ui-g-4 ui-md-4 right">
+              <span style="color: #FF8A9A">*</span>风险范畴：
+            </div>
+            <div class="ui-g-8 ui-md-8 dialog-input">
+              <p-dropdown dropdownIcon="pi pi-caret-down" placeholder="请选择危害种类" [options]="riskCategoryOption" formControlName="riskCategory"></p-dropdown>
+            </div>
+          </div>
+          <div class="ui-g-6 ui-md-6" style="line-height: 3vh;">
+            <div class="ui-g-4 ui-md-4 right">
+              <span style="color: #FF8A9A">*</span>现有控制措施：
+            </div>
+            <div class="ui-g-8 ui-md-8 dialog-input">
+              <input pInputText type="text" placeholder="请输入现有控制措施" formControlName="controlMeasures"/>
+            </div>
+          </div>
+          <div class="ui-g-6 ui-md-6" style="line-height: 3vh;">
+            <div class="ui-g-4 ui-md-4 right">
+              <span style="color: #FF8A9A">*</span>评估时间：
+            </div>
+            <div class="ui-g-8 ui-md-8 dialog-input">
+              <p-calendar [style]="{width: '100%'}" placeholder="请选择评估时间" [monthNavigator]="true" [yearNavigator]="true"
+                          dateFormat="yy-mm-dd" yearRange="1900:2200" [locale]="esDate" formControlName="evaluateTime"></p-calendar>
+            </div>
+          </div>
+          <div class="ui-g-6 ui-md-6" style="line-height: 3vh;">
+            <div class="ui-g-4 ui-md-4 right">
+              <span style="color: #FF8A9A">*</span>后果：
+            </div>
+            <div class="ui-g-8 ui-md-8 dialog-input">
+              <input pInputText type="number" placeholder="请输入后果" formControlName="consequence" (blur)="calcRiskValue()"/>
+            </div>
+          </div>
+          <div class="ui-g-6 ui-md-6" style="line-height: 3vh;">
+            <div class="ui-g-4 ui-md-4 right">
+              <span style="color: #FF8A9A">*</span>暴露：
+            </div>
+            <div class="ui-g-8 ui-md-8 dialog-input">
+              <input pInputText type="number" placeholder="请输入暴露" formControlName="expose" (blur)="calcRiskValue()"/>
+            </div>
+          </div>
+          <div class="ui-g-6 ui-md-6" style="line-height: 3vh;">
+            <div class="ui-g-4 ui-md-4 right">
+              <span style="color: #FF8A9A">*</span>可能性：
+            </div>
+            <div class="ui-g-8 ui-md-8 dialog-input">
+              <input pInputText type="number" placeholder="请输入可能性" formControlName="possibility" (blur)="calcRiskValue()"/>
+            </div>
+          </div>
+          <div class="ui-g-6 ui-md-6" style="line-height: 3vh;">
+            <div class="ui-g-4 ui-md-4 right">
+              <span style="color: #FF8A9A">*</span>风险值：
+            </div>
+            <div class="ui-g-8 ui-md-8 dialog-input">
+              <input pInputText type="number" placeholder="请输入风险值" disabled formControlName="riskValue"/>
+            </div>
+          </div>
+          <div class="ui-g-6 ui-md-6" style="line-height: 3vh;">
+            <div class="ui-g-4 ui-md-4 right">
+              <span style="color: #FF8A9A">*</span>风险等级：
+            </div>
+            <div class="ui-g-8 ui-md-8 dialog-input">
+              <input pInputText type="text" placeholder="请输入风险等级" disabled formControlName="riskGrad"/>
+            </div>
+          </div>
+          <div class="ui-g-6 ui-md-6" style="line-height: 3vh;">
+            <div class="ui-g-4 ui-md-4 right">
+              <span style="color: #FF8A9A">*</span>建议采取的控制措施：
+            </div>
+            <div class="ui-g-8 ui-md-8 dialog-input">
+              <input pInputText type="text" placeholder="请输入建议采取的控制措施" formControlName="adviceMeasures"/>
+            </div>
+          </div>
+          <div class="ui-g-6 ui-md-6" style="line-height: 3vh;">
+            <div class="ui-g-4 ui-md-4 right">
+              <span style="color: #FF8A9A">*</span>控制措施的有效性：
+            </div>
+            <div class="ui-g-8 ui-md-8 dialog-input">
+              <input pInputText type="number" formControlName="measuresEffective" placeholder="请输入控制措施的有效性" (blur)="calcMeasuresResult()"/>
+            </div>
+          </div>
+          <div class="ui-g-6 ui-md-6" style="line-height: 3vh;">
+            <div class="ui-g-4 ui-md-4 right">
+              <span style="color: #FF8A9A">*</span>措施成本：
+            </div>
+            <div class="ui-g-8 ui-md-8 dialog-input">
+              <input pInputText type="number" formControlName="measuresCost" placeholder="请输入措施成本" (blur)="calcMeasuresResult()"/>
+            </div>
+          </div>
+          <div class="ui-g-6 ui-md-6" style="line-height: 3vh;">
+            <div class="ui-g-4 ui-md-4 right">
+              <span style="color: #FF8A9A">*</span>控制措施判断结果：
+            </div>
+            <div class="ui-g-8 ui-md-8 dialog-input">
+              <input pInputText type="text" placeholder="请输入控制措施判断结果" disabled formControlName="measuresResult"/>
+            </div>
+          </div>
+          <div class="ui-g-6 ui-md-6" style="line-height: 3vh;">
+            <div class="ui-g-4 ui-md-4 right">
+              <span style="color: #FF8A9A">*</span>控制措施判断结果：
+            </div>
+            <div class="ui-g-8 ui-md-8 dialog-input">
+              <p-radioButton name="groupnamep" value="是" label="是"  [ngStyle]="{paddingRight: '2vw'}" formControlName="measuresUse"></p-radioButton>
+              <p-radioButton name="groupnamep" value="否" label="否" formControlName="measuresUse"></p-radioButton>
+            </div>
+          </div>
+          <div class="ui-g-12 ui-md-12" style="line-height: 3vh;">
+            <div class="ui-g-2 ui-md-2 right">
+              <span style="color: #FF8A9A">*</span>风险情况：
+            </div>
+            <div class="ui-g-10 ui-md-10">
+              <app-upload-image (selectFile)="selectImageFile($event)" #upimg [ImageOption]="ImageOption"></app-upload-image>
+            </div>
+          </div>
+        </div>
+      </form>
+    </p-scrollPanel>
+    <p-footer>
+      <button class="dialog-btn" (click)="showEditArchiveDialog = false;initArchiveWithinData()">取消</button>
+      <button class="dialog-btn" (click)="sureEditArchiveClick()">确认选择</button>
+    </p-footer>
+  </p-dialog>
+  <!--组织树结构-->
+  <p-dialog [(visible)]="treeDialog" [responsive]="true" showEffect="fade" [modal]= false [maximizable]="false" [baseZIndex]="10000" [width]="350" [height]="400">
+    <div class="ui-g ui-fluid">
+      <div class="ui-g-12">
+        <p-scrollPanel [style]="{width: '100%', height: '250px'}">
+          <p-tree
+            [value]="OrgTrees"
+            [(selection)]="OrgTree"
+            selectionMode="single">
+          </p-tree>
+        </p-scrollPanel>
+      </div>
+    </div>
+    <p-footer>
+      <button  style="width: 4vw;padding: 4px 0"  (click)="treeDialog = false">取消</button>
+      <button  style="width: 6vw;border: 0;color: #fff;padding: 4px 0"   (click)="dataTreeSureClick()" >确认选择</button>
+    </p-footer>
+  </p-dialog>
+</div>

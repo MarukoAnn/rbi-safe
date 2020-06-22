@@ -1,1 +1,18 @@
-<p>sr-archives works!</p>
+<div class="sr-archives">
+  <p-scrollPanel [style]="{height: '100%'}">
+    <div class="tabMenu">
+      <div class="tab-item" *ngFor="let item of tabitem">
+        <a class="item-content" (click)="tabItemClick(item)">
+          <span [ngStyle]="{color: item.item.ftcolor}">{{item.item.label}}</span>
+          <span  [ngStyle]="{background: item.item.bgc}" class="line"></span>
+        </a>
+      </div>
+    </div>
+    <div class="sr-archives-body">
+      <app-archive-within *ngIf="simbol === 'within'"></app-archive-within>
+      <app-archive-outside *ngIf="simbol === 'outside'"></app-archive-outside>
+      <app-archive-big-risk *ngIf="simbol === 'bigrisk'"></app-archive-big-risk>
+    </div>
+  </p-scrollPanel>
+</div>
+

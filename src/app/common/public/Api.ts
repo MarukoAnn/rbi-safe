@@ -1,4 +1,5 @@
 //  日常培训类别接口
+
 export interface EveryCategory {
   name: string;
   value: string;
@@ -609,3 +610,4 @@ export class UpdateScsContentTypeClass implements ScsContentType {
   id: any = null;
   contentCategoryName: string = '';
 }
+

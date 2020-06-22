@@ -26,13 +26,15 @@ import {
 } from 'primeng/primeng';
 import {TableModule} from 'primeng/table';
 import {UploadImageModule} from '../../common/components/upload-image/upload-image.module';
+import { RkInstitutionComponent } from './rk-institution/rk-institution.component';
 
 
 @NgModule({
   declarations: [
     RiskComponent,
     RkArchiveComponent,
-    RkDiscernComponent
+    RkDiscernComponent,
+    RkInstitutionComponent
   ],
   imports: [
     CommonModule,

@@ -76,10 +76,10 @@ export class ShootReportComponent implements OnInit {
     this.initShootReportData();
   }
 
-  // 初始化珊瑚色
+  // 初始化下拉框信息
   public  initShootReportData(): void {
     this.getOrgTreeData();
-    this.globalSrv.getHidConfigData({data: [{settingType: 'HID_GRADE'}, {settingType: 'HID_GRAE'}]}).subscribe(val => {
+    this.globalSrv.getHidConfigData({data: [{settingType: 'HID_GRADE'}]}).subscribe(val => {
         this.hidFradeOption = setDrapdownOptionList(val.data.HID_GRADE);
       });
   }

@@ -17,7 +17,7 @@
     </div>
   </div>
   <div class="rk-archive-table">
-    <p-table [columns]="rkArchiveTitle" [value]="rkArchiveContent" scrollHeight="50vh">
+    <p-table [columns]="rkArchiveTitle" [value]="rkArchiveContent" scrollHeight="50vh" [scrollable]="true">
       <ng-template pTemplate="header" let-columns>
         <tr [ngStyle]="table.tableheader" class="text-center" style="height: 5vh">
           <th *ngFor="let col of columns">

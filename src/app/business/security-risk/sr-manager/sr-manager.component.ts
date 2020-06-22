@@ -6,13 +6,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./sr-manager.component.scss']
 })
 export class SrManagerComponent implements OnInit {
-
-
   public tabitem = [
-    {item: {label: '区域内', ftcolor: '#4F88DE', bgc: '#4F88DE'}, simbol: 'widthin'},
+    {item: {label: '区域内', ftcolor: '#4F88DE', bgc: '#4F88DE'}, simbol: 'within'},
     {item: {label: '区域外', ftcolor: '#B3B3B3', bgc: '#EDEDED'}, simbol: 'outside'},
   ];
-  public simbol = 'report';
+  public simbol = 'within';
   constructor() { }
 
   ngOnInit() {
