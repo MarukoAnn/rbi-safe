@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {PublicMethodService} from '../../../common/public/public-method.service';
 import {BigRiskService} from '../../../common/services/big-risk.service';
 import {PageOption} from '../../../common/public/Api';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {Es} from '../../../common/public/contents';
+import {Es, setImageToFromData} from '../../../common/public/contents';
+import {UploadImageComponent} from '../../../common/components/upload-image/upload-image.component';
 
 @Component({
   selector: 'app-rk-archive',
@@ -11,6 +12,8 @@ import {Es} from '../../../common/public/contents';
   styleUrls: ['./rk-archive.component.scss']
 })
 export class RkArchiveComponent implements OnInit {
+  // @ts-ignore
+  @ViewChild('upimg') ImageClear: UploadImageComponent;
   public table = {
     tableheader: {background: '#F5F6FA', color: '#C3C3C5'},
     tableContent: [
@@ -19,6 +22,7 @@ export class RkArchiveComponent implements OnInit {
   };
   public ImageOption = {
     files: [],
+    imgUrls: [],
     showUploadIcon: true
   };
   public seriousDangerName: string = '';  // 重大危险源名称
@@ -44,6 +48,8 @@ export class RkArchiveComponent implements OnInit {
     totalRecord: ''
   };
   public esDate = Es;
+  public delids: any = [];
+  public imgFilePath: any = [];
   constructor(
     private toolSrv: PublicMethodService,
     private archiveSrv: BigRiskService,
@@ -62,7 +68,7 @@ export class RkArchiveComponent implements OnInit {
         seriousDangerCycle: new FormControl('', Validators.required),
         seriousDangerPrincipal: new FormControl('', Validators.required),
         seriousDangerTime: new FormControl('', Validators.required),
-        seriousDangerPicture: new FormControl('', Validators.required),
+        seriousDangerPicture: new FormControl(''),
       }
     );
   }
@@ -77,7 +83,27 @@ export class RkArchiveComponent implements OnInit {
 
   }
   public  selectImageFile(e): void {
-
+    console.log(e);
+    if (e.type === 'add'){
+      this.editArchive.patchValue({seriousDangerPicture: e.value.files});
+    }else {
+      let imgid = '';
+      if (this.imgFilePath.length !== 0){
+        this.imgFilePath.forEach((val, index) => {
+          if (e.value.imgUrls.length !== 0){
+            if (e.value.imgUrls.includes(val.seriousDangerPicturePath)){
+              imgid = val.id;
+              this.imgFilePath.splice(index, 1);
+            }
+          }else {
+            imgid = this.imgFilePath[0].id;
+            this.imgFilePath = [];
+          }
+        });
+        this.delids.push(imgid);
+        // console.log(imgid);
+      }
+    }
   }
   // 条件搜索
   public  searchDataClick(): void {
@@ -109,28 +135,58 @@ export class RkArchiveComponent implements OnInit {
   // 显示修改重大危险源档案
   public  editRiskArchiveClcik(data): void {
     console.log(data);
-    this.archiveSrv.searchRiskArchivesInfoById({id: data.id}).subscribe(val => {
-      console.log(val);
-      this.showEditArchiveDialog = true;
-      const List = ['seriousDangerName', 'seriousDangerLocation', 'seriousDangerElement', 'id',
-        'seriousDangerMeasure', 'seriousDangerCycle', 'seriousDangerPrincipal', 'seriousDangerTime'];
+    this.showEditArchiveDialog = true;
+    for (const key in  JSON.parse(JSON.stringify(this.editArchive.value))){
       const a = {};
-      List.forEach(v => {
-        a[v] = val.data.seriousDanger[v];
-        this.editArchive.patchValue(a);
-      });
-      const filePathlist = [];
-      val.data.seriousDangerPictureList.forEach(res => {
-        filePathlist.push(res.seriousDangerPicturePath);
-      });
-      this.ImageOption = {
-        files: filePathlist,
-        showUploadIcon: true
-      };
+      a[key] = data[key];
+      this.editArchive.patchValue(a);
+    }
+    const filePathlist = [];
+    data.seriousDangerPictureList.forEach(res => {
+      filePathlist.push(res.seriousDangerPicturePath);
     });
+    this.imgFilePath = data.seriousDangerPictureList;
+    this.ImageOption = {
+      files: [],
+      imgUrls: filePathlist,
+      showUploadIcon: true
+    };
   }
  // 确定修改
  public  sureEditArchiveClick(): void {
-
+    // if (this.editArchive.value.)
+     console.log(this.editArchive.value);
+     if (this.editArchive.valid){
+       this.toolSrv.setConfirmation('修改', '修改', () => {
+         const data = JSON.parse(JSON.stringify(this.editArchive.value));
+         const formData = new FormData();
+         if (data.seriousDangerPicture !== '' && data.seriousDangerPicture !== undefined){
+           setImageToFromData(this.editArchive, 'seriousDangerPicture', formData);
+         }
+         for (const key in data){
+           formData.append(key, data[key]);
+         }
+         if (this.delids.length !== 0){
+           this.delids.forEach(v => {
+             formData.append('pictureId', v);
+           });
+         }else {
+           formData.append('pictureId', '');
+         }
+         this.archiveSrv.updateRiskArchivesData(formData).subscribe(val => {
+           this.resetData();
+           this.initRkArchiveData();
+         });
+       });
+     }else {
+       this.toolSrv.setToast('error', '操作错误', '数据未填写完整');
+     }
+ }
+ public  resetData(): void {
+     this.delids = [];
+     this.imgFilePath = [];
+     this.editArchive.reset();
+     this.showEditArchiveDialog = false;
+     this.ImageClear.clearImage();
  }
 }

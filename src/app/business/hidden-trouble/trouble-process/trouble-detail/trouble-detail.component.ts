@@ -22,11 +22,13 @@ export class TroubleDetailComponent implements OnInit {
   public treeDialog: boolean;
   public ImageOption = {
     files: [],
-    showUploadIcon: false
+    showUploadIcon: false,
+    imgUrls: []
   };
   public ImageOptionAfter = {
     files: [],
-    showUploadIcon: true
+    showUploadIcon: true,
+    imgUrls: []
   };
   public rectificationEvaluate: string = ''; // 审核通过内容
   public showReViewDialog: boolean = false;
@@ -98,7 +100,7 @@ export class TroubleDetailComponent implements OnInit {
   // 获取详情数据
   public  getTroubleDetail(): void {
     this.troubleSrv.getTroubleDetailByCode({hidDangerCode: this.code}).subscribe(res => {
-      this.btnTotalList = res.data.botton;
+      this.btnList = this.btnTotalList = res.data.botton;
       this.processingStatus = res.data.hidDangerDO.processingStatus;
       const list = ['troubleshootingTime',  'hidDangerContent', 'hidDangerGrade',
         'ifDeal', 'organizationId', 'organizationName', 'className', 'companyName', 'workshopName', 'factoryName',
@@ -119,28 +121,35 @@ export class TroubleDetailComponent implements OnInit {
       // 处理的图片
       // console.log(this.addReport.value);
       res.data.beforImgs.forEach(val => {
-        this.ImageOption.files.push(val.beforePicture);
+        this.ImageOption.imgUrls.push(val.beforePicture);
       });
       if (this.addReport.value.ifDeal === '是'){
-        this.btnList = [];
-        this.btnList.push({botton: '完成整改'});
+        // if(res.hidDangerDO.processingStatus === '4') {
+        //   this.btnList = [];
+        //   this.btnList.push({botton: '完成整改'});
+        // }else {
+        //   this.btnTotalList.forEach(val => {
+        //     this.btnList.push(val);
+        //   });
+        // }
         this.isHandle = true;
         this.isDownLoadStatus = true;
         res.data.afterImgs.forEach(v => {
-          this.ImageOptionAfter.files.push(v.afterPicture);
+          this.ImageOptionAfter.imgUrls.push(v.afterPicture);
         });
         this.ImageOptionAfter.showUploadIcon = false;
         const lists = ['governanceFunds', 'completionTime', 'completionSituation'];
         setValueToFromValue(lists, res.data.hidDangerDO, this.addReport);
         this.setFileInfo(res.data.hidDangerDO);
-      }else {
-        this.btnTotalList.forEach(val => {
-          // @ts-ignore
-          if (val.botton !== '完成整改'){
-            this.btnList.push(val);
-          }
-        });
       }
+      // else {
+      //   this.btnTotalList.forEach(val => {
+      //     // @ts-ignore
+      //     if (val.botton !== '完成整改'){
+      //       this.btnList.push(val);
+      //     }
+      //   });
+      // }
     });
   }
 
@@ -190,7 +199,7 @@ export class TroubleDetailComponent implements OnInit {
 
   // 选择图片文件
   public  selectImageFile(e, data): void {
-    this.imageFiles = e;
+    this.imageFiles = e.value.files;
     const formVaue = {};
     formVaue[data] =  this.imageFiles;
     this.addReport.patchValue(formVaue);

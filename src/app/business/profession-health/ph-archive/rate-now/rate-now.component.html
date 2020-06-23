@@ -1,0 +1,96 @@
+<div class="rate-now">
+  <div class="rate-now-header">
+    <div class="rate-now-search">
+    </div>
+    <div class="rate-now-button">
+      <button pButton type="button" label="新增" class="ui-button-rounded" (click)="showEditRegularTestDialog = true"></button>
+      <button pButton type="button" label="批量删除" class="ui-button-rounded" (click)="delMoreRegularTestClick()"></button>
+    </div>
+  </div>
+  <div class="rate-now-table">
+    <p-table [columns]="dailyTestTitle" [value]="dailyTestContent" scrollHeight="50vh" [scrollable]="true" [(selection)]="RegularTestSelect">
+      <ng-template pTemplate="header" let-columns>
+        <tr [ngStyle]="table.tableheader" class="text-center" style="height: 5vh">
+          <th style="width: 3em">
+            <p-tableHeaderCheckbox ></p-tableHeaderCheckbox>
+          </th>
+          <th *ngFor="let col of columns">
+            {{col.header}}
+          </th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-rowData let-columns="columns">
+        <tr [ngStyle]="table.tableContent[0]">
+          <td style="width: 3em">
+            <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
+          </td>
+          <td *ngFor="let col of columns.slice(0, columns.length -1)" class="text-center" style="height: 5vh;color: #5E5F6B;word-wrap: break-word">
+            {{rowData[col.field]}}
+          </td>
+          <td  class="text-center" style="height: 5vh"  *ngFor="let col of columns.slice(columns.length -1 ,  columns.length)">
+            <button pButton type="button" label="编辑" class="ui-button-rounded" style="margin: 4px;background: #3B86FF" (click)="editRiskArchiveClcik(rowData)"></button>
+            <button pButton type="button" label="删除" class="ui-button-rounded" style="background: #FF8A9A;border: 0" (click)="delRegularTestClick(rowData)"></button>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+  <div class="pagination">
+    <app-pagination [option]="dailyPageOption" (clickEvent)="archivePageEvent($event)"></app-pagination>
+  </div>
+  <p-dialog header="信息" [(visible)]="showEditRegularTestDialog" [style]="{width: '800px'}">
+    <form [formGroup]="editRegularTest">
+      <div class="ui-g ui-md ui-fiuld">
+        <div class="ui-g-6 ui-md-6 center">
+          <div class="ui-g-4 ui-md-4 right">
+            <span style="color: #FF8A9A">*</span>时间：
+          </div>
+          <div class="ui-g-8 ui-md-8 dialog-input">
+            <p-calendar formControlName="time" [style]="{width: '100%'}" placeholder="请选择时间..." [monthNavigator]="true" [yearNavigator]="true" dateFormat="yy-mm-dd"  yearRange="1990:2200" [locale]="esDate"></p-calendar>
+          </div>
+        </div>
+        <div class="ui-g-6 ui-md-6 center">
+          <div class="ui-g-4 ui-md-4 right">
+            <span style="color: #FF8A9A">*</span>检测机构：
+          </div>
+          <div class="ui-g-8 ui-md-8 dialog-input">
+            <input pInputText type="text" formControlName="evaluationOrganization" placeholder="请输入检测机构"/>
+          </div>
+        </div>
+        <div class="ui-g-6 ui-md-6 center">
+          <div class="ui-g-4 ui-md-4 right">
+            <span style="color: #FF8A9A">*</span>检测项目：
+          </div>
+          <div class="ui-g-8 ui-md-8 dialog-input">
+            <input pInputText type="text" formControlName="evaluationProject" placeholder="请输入检测项目"/>
+          </div>
+        </div>
+
+        <div class="ui-g-6 ui-md-6 center">
+          <div class="ui-g-4 ui-md-4 right">
+            <span style="color: #FF8A9A">*</span>检测结论：
+          </div>
+          <div class="ui-g-8 ui-md-8 dialog-input">
+            <input pInputText type="text" formControlName="evaluationResult" placeholder="请输入检测结论"/>
+          </div>
+        </div>
+        <div class="ui-g-6 ui-md-6 center">
+          <div class="ui-g-4 ui-md-4 right">
+            <span style="color: #FF8A9A">*</span>附件：
+          </div>
+          <div class="ui-g-8 ui-md-8 dialog-input">
+            <div class="ui-inputgroup" style="position: relative">
+              <input type="text" pInputText placeholder="请选择通知书附件" formControlName="file" disabled>
+              <button pButton type="button" icon="pi pi-folder" class="ui-button-warn" style="background: #F8F8F8;border: 1px solid #E0E3E7;border-left: 0;color: #E0E3E7"></button>
+              <input type="file" style="position: absolute;width: 35px;right: 0;height: 34px;opacity: 0" (change)="selectFile($event)">
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+    <p-footer>
+      <button class="dialog-btn" (click)="showEditRegularTestDialog = false;">取消</button>
+      <button class="dialog-btn" (click)="sureEditRegularTestClick()">确认选择</button>
+    </p-footer>
+  </p-dialog>
+</div>

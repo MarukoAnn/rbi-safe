@@ -135,7 +135,6 @@ export class ArchiveWithinComponent implements OnInit {
   // 初始化分页数据
   public initArchiveWithinData(): void {
     this.secRiskSrv.queryArchiveWithinPageData({pageNo: this.archivePageNo, pageSize: 10}).subscribe(val => {
-      console.log(val);
       this.rkArchiveContent = val.data.contents.map(v => {
         v.harmKind = setVlaueToLabel(this.riskKindOption, v.harmKind);
         v.riskCategory = setVlaueToLabel(this.riskCategoryOption, v.riskCategory);
@@ -147,7 +146,6 @@ export class ArchiveWithinComponent implements OnInit {
   }
 
   public selectImageFile(e): void {
-     console.log(e);
      if (e.type === 'add'){
        this.editWithinArchive.patchValue({picture: e.value.files});
      }else {
@@ -197,7 +195,6 @@ export class ArchiveWithinComponent implements OnInit {
 
   // 显示修改重大危险源档案
   public editRiskArchiveClcik(data): void {
-    console.log(data);
     this.showEditArchiveDialog = true;
     const a = {};
     for (const key in JSON.parse(JSON.stringify(this.editWithinArchive.value))){

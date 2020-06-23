@@ -17,8 +17,10 @@ export class RkDiscernComponent implements OnInit {
   public addDiscern: FormGroup;
   public ImageOption = {
     files: [],
-    showUploadIcon: true
+    showUploadIcon: true,
+    imgUrls: []
   };
+  // public imageList: any[] =[];
   public esDate = Es;
   constructor(
     private fb: FormBuilder,
@@ -43,7 +45,7 @@ export class RkDiscernComponent implements OnInit {
 
   // 选择图片
   public  selectImageFile(e): void {
-      this.addDiscern.patchValue({seriousDangerPicture: e});
+    this.addDiscern.patchValue({seriousDangerPicture: e.value.files});
   }
   // 提交
   public  submitClcik(): void {

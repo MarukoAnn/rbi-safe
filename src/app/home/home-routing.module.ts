@@ -38,9 +38,13 @@ const routes: Routes = [
       path: 'strisk',
       loadChildren: () => import('../business/security-risk/security-risk.module').then(m => m.SecurityRiskModule),
       data: {preload: true}
+    },
+    {
+      path: 'health',
+      loadChildren: () => import('../business/profession-health/profession-health.module').then(m => m.ProfessionHealthModule),
+      data: {preload: true}
     }
-  ]}
-];
+] }];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

@@ -6,6 +6,7 @@ import {GlobalService} from '../../../../common/services/global.service';
 import {SecurityRiskService} from '../../../../common/services/security-risk.service';
 import {PublicMethodService} from '../../../../common/public/public-method.service';
 import {DatePipe} from '@angular/common';
+import {AddSRRisk} from '../../../../common/public/Api';
 
 @Component({
   selector: 'app-area-outside',
@@ -21,11 +22,13 @@ export class AreaOutsideComponent implements OnInit {
   public OrgTrees: any;
   public OrgTree: any;
   public esDate: any = Es;
+  public addOutside: AddSRRisk = new AddSRRisk();
   public riskKindOption: Array<object> = [];
   public riskCategoryOption: Array<object> = [];
   public ImageOption = {
     files: [],
-    showUploadIcon: true
+    showUploadIcon: true,
+    imgUrls: []
   };
   constructor(
     private fb: FormBuilder,
@@ -36,34 +39,11 @@ export class AreaOutsideComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.addOutsideRisk = this.fb.group({
-      organizationName: new FormControl('', Validators.required),
-      organizationId: new FormControl('', Validators.required),
-      code: new FormControl('', Validators.required),
-      taskCode: new FormControl('', Validators.required), // 作业或者任务
-      workType: new FormControl('', Validators.required), // 工种
-      step: new FormControl('', Validators.required), // 步骤
-      harmName: new FormControl('', Validators.required), // 危害名称
-      harmKind: new FormControl('', Validators.required), // 危害种类
-      harmDescription: new FormControl('', Validators.required), // 危害及相关描述
-      riskDescription: new FormControl('', Validators.required), // 风险描述
-      riskKind: new FormControl('', Validators.required), // 风险种类
-      riskCategory: new FormControl('', Validators.required), // 粉线范畴
-      exposeInfo: new FormControl('', Validators.required), // 风险暴露人员  设备信息
-      controlMeasures: new FormControl('', Validators.required), // 	现有控制措施
-      consequence: new FormControl('', Validators.required), // 后果
-      expose: new FormControl('', Validators.required), // 暴露
-      possibility: new FormControl('', Validators.required), // 可能性
-      riskValue: new FormControl('', Validators.required), // 风险值
-      riskGrad: new FormControl('', Validators.required), // 风险等级
-      adviceMeasures: new FormControl('', Validators.required), // 建议采取措施
-      measuresEffective: new FormControl('', Validators.required), // 控制措施的有效性
-      measuresCost: new FormControl('', Validators.required), // 措施成本
-      measuresResult: new FormControl('', Validators.required), // 控制措施判断结果
-      measuresUse: new FormControl('', Validators.required), // 措施的采纳 选择（单选） 是 否
-      evaluateTime: new FormControl('', Validators.required), // 评估时间
-      picture: new FormControl('', Validators.required), // 图片文件 最大六张
-    });
+    const data = {};
+    for (const key in this.addOutside){
+      data[key] =  new FormControl('', Validators.required);
+    }
+    this.addOutsideRisk = this.fb.group(data);
     this.initRiskAreaWidtinData();
   }
   // 初始化下拉框信息
@@ -84,7 +64,7 @@ export class AreaOutsideComponent implements OnInit {
     });
   }
   public selectImageFile(e): void {
-    this.addOutsideRisk.patchValue({picture: e});
+    this.addOutsideRisk.patchValue({picture:  e.value.files});
     // console.log(e);
   }
 

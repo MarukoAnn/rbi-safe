@@ -18,7 +18,8 @@ export class ShootRectifyComponent implements OnInit {
   @ViewChild('upimg') ImageClear: UploadImageComponent;
   public ImageOption = {
     files: [],
-    showUploadIcon: true
+    showUploadIcon: true,
+    imgUrls: []
   };
   public noticeFile: File;
   // @ts-ignore
@@ -84,7 +85,7 @@ export class ShootRectifyComponent implements OnInit {
   }
   // 选择文件
   public  selectImageFile(e): void {
-    this.imageFiles = e;
+    this.imageFiles = e.value.files;
     this.addRectify.patchValue({beforeImg: this.imageFiles});
   }
 

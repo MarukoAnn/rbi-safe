@@ -19,11 +19,13 @@ export class ArchivesDetailComponent implements OnInit {
   public addReport: FormGroup;
   public ImageOption = {
     files: [],
-    showUploadIcon: false
+    showUploadIcon: false,
+    imgUrls: []
   };
   public ImageOptionAfter = {
     files: [],
-    showUploadIcon: true
+    showUploadIcon: true,
+    imgUrls: []
   };
   public hidTypeList: Array<object> = [
     {label: '人', value: 1, name: 'hidTypePerson'},
@@ -101,13 +103,13 @@ export class ArchivesDetailComponent implements OnInit {
         });
         this.addReport.patchValue({hidType: typeList});
          // 处理的图片
-        val.data.beforImgs.forEach(val => {
-           this.ImageOption.files.push(val.beforePicture);
+        val.data.beforImgs.forEach(v => {
+           this.ImageOption.imgUrls.push(v.beforePicture);
         });
        if (this.addReport.value['ifDeal'] === '是'){
          this.isHandle = true;
          val.data.afterImgs.forEach(v => {
-           this.ImageOptionAfter.files.push(v.afterPicture);
+           this.ImageOptionAfter.imgUrls.push(v.afterPicture);
          });
          this.ImageOptionAfter.showUploadIcon = false;
          const lists = ['governanceFunds', 'completionTime', 'completionSituation', 'rectificationEvaluate'];

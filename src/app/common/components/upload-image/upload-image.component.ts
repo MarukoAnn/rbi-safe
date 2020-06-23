@@ -34,13 +34,12 @@ export class UploadImageComponent implements OnInit, OnChanges{
   ngOnInit() {
   }
   public  selectImage(e): void {
-    this.filePath = this.ImageOption.imgUrls;
     for (let j = 0; j < e.target.files.length; j++){
       this.ImageOption.files.push(e.target.files[j]);
     }
-    for (let i = 0; i < this.ImageOption.files.length; i++){
+    for (let i = 0; i < e.target.files.length; i++){
       const reader = new FileReader();
-      reader.readAsDataURL(this.ImageOption.files[i]);
+      reader.readAsDataURL(e.target.files[i]);
       reader.onload = (re) => {
         this.filePath.push(re.target['result']);
       };
@@ -54,7 +53,6 @@ export class UploadImageComponent implements OnInit, OnChanges{
 
   ngOnChanges(changes: SimpleChanges): void {
     this.filePath = this.ImageOption.imgUrls;
-    console.log(this.filePath);
   }
   public  imgClick(e): void {
     this.showImageDiaog = true;

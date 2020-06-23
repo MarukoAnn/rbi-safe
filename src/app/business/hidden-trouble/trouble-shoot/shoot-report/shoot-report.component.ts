@@ -21,7 +21,8 @@ export class ShootReportComponent implements OnInit {
   public esDate: any = Es;
   public ImageOption = {
     files: [],
-    showUploadIcon: true
+    showUploadIcon: true,
+    imgUrls: []
   };
   public ImageOptionAfter = {
     files: [],
@@ -94,7 +95,7 @@ export class ShootReportComponent implements OnInit {
   }
   // 选择图片文件
   public  selectImageFile(e, data): void {
-     this.imageFiles = e;
+     this.imageFiles = e.value.files;
      const formVaue = {};
      formVaue[data] =  this.imageFiles;
      this.addReport.patchValue(formVaue);

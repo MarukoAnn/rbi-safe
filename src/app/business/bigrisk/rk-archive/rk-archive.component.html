@@ -113,13 +113,13 @@
             <span style="color: #FF8A9A">*</span>危险源图片路径：
           </div>
           <div class="ui-g-10 ui-md-10">
-            <app-upload-image (selectFile)="selectImageFile($event)" #upimg [ImageOption]="this.ImageOption"></app-upload-image>
+            <app-upload-image (selectFile)="selectImageFile($event)" #upimg [ImageOption]="ImageOption"></app-upload-image>
           </div>
         </div>
       </div>
     </form>
     <p-footer>
-      <button class="dialog-btn" (click)="showEditArchiveDialog = false;">取消</button>
+      <button class="dialog-btn" (click)="showEditArchiveDialog = false;resetData()">取消</button>
       <button class="dialog-btn" (click)="sureEditArchiveClick()">确认选择</button>
     </p-footer>
   </p-dialog>
