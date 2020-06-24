@@ -1,0 +1,30 @@
+<div class="ph-institution">
+  <div class="header">
+    <div class="title p-4">
+      <span class="text-gray h3">职业健康规则制度</span>
+    </div>
+    <div class="search p-4">
+      <div class="ph-institution-search">
+        <div class="ui-inputgroup" >
+          <input type="text" pInputText  placeholder="搜索" [(ngModel)]="searchData"/>
+          <button pButton type="button" icon="pi pi-search" class="ui-button-warn" (click)="searchDataClick()"></button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="content">
+    <div class="list">
+      <p-scrollPanel [style]="{width: '100%', height: '74vh'}">
+        <div class="ph-institution-item" *ngFor="let item of itemData" (click)="openFile(item)">
+          <div class="ph-institution-item-title">
+            <h2>{{item.num}}</h2>
+            <div class="ph-institution-content">
+              <p>{{item.label}}</p>
+              <p>最近编辑时间：{{item.time}}</p>
+            </div>
+          </div>
+        </div>
+      </p-scrollPanel>
+    </div>
+  </div>
+</div>

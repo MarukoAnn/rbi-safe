@@ -1,0 +1,18 @@
+<div class="ph-archive">
+  <p-scrollPanel [style]="{height: '100%'}">
+    <div class="tabMenu">
+      <div class="tab-item" *ngFor="let item of tabitem">
+        <a class="item-content" (click)="tabItemClick(item)">
+          <span [ngStyle]="{color: item.item.ftcolor}">{{item.item.label}}</span>
+          <span  [ngStyle]="{background: item.item.bgc}" class="line"></span>
+        </a>
+      </div>
+    </div>
+    <div class="ph-archive-body">
+      <app-daily-test *ngIf="simbol === 'daily'"></app-daily-test>
+      <app-regular-test *ngIf="simbol === 'regular'"></app-regular-test>
+      <app-rate-now *ngIf="simbol === 'rate'"></app-rate-now>
+    </div>
+  </p-scrollPanel>
+</div>
+

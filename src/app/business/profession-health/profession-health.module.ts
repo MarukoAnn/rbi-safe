@@ -22,10 +22,11 @@ import { RateNowComponent } from './ph-archive/rate-now/rate-now.component';
 import {TableModule} from 'primeng/table';
 import {PaginationModule} from '../../common/components/pagination/pagination.module';
 import { PrHygieneComponent } from './ph-manager/pr-hygiene/pr-hygiene.component';
+import { PrDiseaseComponent } from './ph-manager/pr-disease/pr-disease.component';
 
 
 @NgModule({
-  declarations: [ProfessionHealthComponent, PhInstitutionComponent, PhManagerComponent, PhArchiveComponent, DailyTestComponent, RegularTestComponent, RateNowComponent, PrHygieneComponent],
+  declarations: [ProfessionHealthComponent, PhInstitutionComponent, PhManagerComponent, PhArchiveComponent, DailyTestComponent, RegularTestComponent, RateNowComponent, PrHygieneComponent, PrDiseaseComponent],
   imports: [
     CommonModule,
     ProfessionHealthRoutingModule,

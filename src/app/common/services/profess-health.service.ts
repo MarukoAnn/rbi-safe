@@ -173,4 +173,45 @@ export class ProfessHealthService {
     return this.http.post(`/health_project/delete`, pamars);
   }
 
+
+
+
+
+
+  /**
+   * 职业病防护措施台账
+   * 分页查询
+   * @param pamars
+   */
+  public  getDiseasePageData(pamars): Observable<any> {
+    return this.http.post(`/diseaseFactors/findByPage`, pamars);
+  }
+
+  /**
+   * 职业病防护措施台账
+   * 添加
+   * @param pamars
+   */
+  public  addDiseaseData(pamars): Observable<any> {
+    return this.http.post(`/diseaseFactors/add`, pamars);
+  }
+
+  /**
+   * 职业病防护措施台账
+   * 更新
+   * @param pamars
+   */
+  public  updateDiseaseData(pamars): Observable<any> {
+    return this.http.post(`/diseaseFactors/update`, pamars);
+  }
+  /**
+   * 职业病防护措施台账
+   * 删除
+   * @param pamars
+   */
+  public  delDiseaseData(pamars): Observable<any> {
+    return this.http.post(`/diseaseFactors/delete`, pamars);
+  }
+
+
 }

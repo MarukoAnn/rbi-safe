@@ -1,0 +1,187 @@
+<div class="pr-hygiene">
+  <div class="pr-hygiene-header">
+    <div class="pr-hygiene-search">
+    </div>
+    <div class="pr-hygiene-button">
+      <button pButton type="button" label="新增" class="ui-button-rounded" (click)="showeditHygieneDialog = true"></button>
+      <button pButton type="button" label="批量删除" class="ui-button-rounded" (click)="delMoreDialyTestClick()"></button>
+    </div>
+  </div>
+  <div class="pr-hygiene-table">
+    <p-table [columns]="hygieneTitle" [value]="hygieneContent" scrollHeight="50vh" [scrollable]="true" [(selection)]="dialyTestSelect">
+      <ng-template pTemplate="header" let-columns>
+        <tr [ngStyle]="table.tableheader" class="text-center" style="height: 5vh">
+          <th style="width: 3em">
+            <p-tableHeaderCheckbox ></p-tableHeaderCheckbox>
+          </th>
+          <th *ngFor="let col of columns">
+            {{col.header}}
+          </th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-rowData let-columns="columns" let-rowIndex="rowIndex">
+        <tr [ngStyle]="table.tableContent[0]">
+          <td style="width: 3em">
+            <p-tableCheckbox [value]="rowData" ></p-tableCheckbox>
+          </td>
+          <td *ngFor="let col of columns.slice(0, columns.length -1)" class="text-center" style="height: 5vh;color: #5E5F6B;">
+            {{rowData[col.field]}}
+          </td>
+          <td  class="text-center" style="height: 5vh"  *ngFor="let col of columns.slice(columns.length -1 ,  columns.length)">
+            <button pButton type="button" label="编辑" class="ui-button-rounded" style="margin: 4px;background: #3B86FF" (click)="editRiskArchiveClcik(rowData)"></button>
+<!--            <button pButton type="button" label="删除" class="ui-button-rounded" style="background: #FF8A9A;border: 0" (click)="delDialyTestClick(rowData)"></button>-->
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+  <div class="pagination">
+    <app-pagination [option]="dailyPageOption" (clickEvent)="archivePageEvent($event)"></app-pagination>
+  </div>
+  <p-dialog header="信息" [(visible)]="showeditHygieneDialog" [style]="{width: '800px'}">
+    <form [formGroup]="editHygiene">
+      <div class="ui-g ui-md ui-fiuld">
+        <div class="ui-g-6 ui-md-6 center">
+          <div class="ui-g-4 ui-md-4 right">
+            <span style="color: #FF8A9A">*</span>项目名称：
+          </div>
+          <div class="ui-g-8 ui-md-8 dialog-input">
+            <input pInputText type="text" formControlName="healthProjectName" placeholder="请输入项目名称"/>
+          </div>
+        </div>
+        <div class="ui-g-6 ui-md-6 center">
+          <div class="ui-g-4 ui-md-4 right">
+            <span style="color: #FF8A9A">*</span>项目类型：
+          </div>
+          <div class="ui-g-8 ui-md-8 dialog-input">
+            <input pInputText type="text" formControlName="healthProjectType" placeholder="请输入项目类型"/>
+          </div>
+        </div>
+        <div class="ui-g-6 ui-md-6 center">
+          <div class="ui-g-4 ui-md-4 right">
+            <span style="color: #FF8A9A">*</span>项目投资：
+          </div>
+          <div class="ui-g-8 ui-md-8 dialog-input">
+            <input pInputText type="text" formControlName="healthProjectInvestment" placeholder="请输入项目投资"/>
+          </div>
+        </div>
+        <div class="ui-g-6 ui-md-6 center">
+          <div class="ui-g-4 ui-md-4 right">
+            <span style="color: #FF8A9A">*</span>项目建设工期：
+          </div>
+          <div class="ui-g-8 ui-md-8 dialog-input">
+            <input pInputText type="text" formControlName="healthProjectDuration" placeholder="请输入项目建设工期"/>
+          </div>
+        </div>
+        <div class="ui-g-6 ui-md-6 center">
+          <div class="ui-g-4 ui-md-4 right">
+            <span style="color: #FF8A9A">*</span>存在主要职业病危害因素：
+          </div>
+          <div class="ui-g-8 ui-md-8 dialog-input">
+            <input pInputText type="text" formControlName="healthProjectDanger" placeholder="请输入存在主要职业病危害因素"/>
+          </div>
+        </div>
+        <div class="ui-g-6 ui-md-6 center">
+          <div class="ui-g-4 ui-md-4 right">
+            <span style="color: #FF8A9A">*</span>预评价时间：
+          </div>
+          <div class="ui-g-8 ui-md-8 dialog-input">
+            <p-calendar formControlName="healthProjectEvaluateTime" [style]="{width: '100%'}" placeholder="请选择预评价时间..." [monthNavigator]="true" [yearNavigator]="true" dateFormat="yy-mm-dd"  yearRange="1990:2200" [locale]="esDate"></p-calendar>
+          </div>
+        </div>
+        <div class="ui-g-6 ui-md-6 center">
+          <div class="ui-g-4 ui-md-4 right">
+            <span style="color: #FF8A9A">*</span>预评价单位：
+          </div>
+          <div class="ui-g-8 ui-md-8 dialog-input">
+            <input pInputText type="text" formControlName="healthProjectEvaluateOrganization" placeholder="请输入预评价单位"/>
+          </div>
+        </div>
+        <div class="ui-g-6 ui-md-6 center">
+          <div class="ui-g-4 ui-md-4 right">
+            <span style="color: #FF8A9A">*</span>预评价结论：
+          </div>
+          <div class="ui-g-8 ui-md-8 dialog-input">
+            <input pInputText type="text" formControlName="healthProjectEvaluateConclusion" placeholder="请输入预评价结论"/>
+          </div>
+        </div>
+        <div class="ui-g-6 ui-md-6 center">
+          <div class="ui-g-4 ui-md-4 right">
+            <span style="color: #FF8A9A">*</span>设施设计时间：
+          </div>
+          <div class="ui-g-8 ui-md-8 dialog-input">
+            <p-calendar formControlName="healthProjectDesignTime" [style]="{width: '100%'}" placeholder="请选择设施设计时间" [monthNavigator]="true" [yearNavigator]="true" dateFormat="yy-mm-dd"  yearRange="1990:2200" [locale]="esDate"></p-calendar>
+          </div>
+        </div>
+        <div class="ui-g-6 ui-md-6 center">
+          <div class="ui-g-4 ui-md-4 right">
+            <span style="color: #FF8A9A">*</span>设施设计单位：
+          </div>
+          <div class="ui-g-8 ui-md-8 dialog-input">
+            <input pInputText type="text" formControlName="healthProjectDesignOrganization" placeholder="请输入设施设计单位"/>
+          </div>
+        </div>
+        <div class="ui-g-6 ui-md-6 center">
+          <div class="ui-g-4 ui-md-4 right">
+            <span style="color: #FF8A9A">*</span>设施设计结论：
+          </div>
+          <div class="ui-g-8 ui-md-8 dialog-input">
+            <input pInputText type="text" formControlName="healthProjectDesignConclusion" placeholder="请输入设施设计结论"/>
+          </div>
+        </div>
+        <div class="ui-g-6 ui-md-6 center">
+          <div class="ui-g-4 ui-md-4 right">
+            <span style="color: #FF8A9A">*</span>竣工验收时间：
+          </div>
+          <div class="ui-g-8 ui-md-8 dialog-input">
+            <p-calendar formControlName="healthProjectCheckTime" [style]="{width: '100%'}" placeholder="请选择竣工验收时间" [monthNavigator]="true" [yearNavigator]="true" dateFormat="yy-mm-dd"  yearRange="1990:2200" [locale]="esDate"></p-calendar>
+          </div>
+        </div>
+        <div class="ui-g-6 ui-md-6 center">
+          <div class="ui-g-4 ui-md-4 right">
+            <span style="color: #FF8A9A">*</span>竣工验收单位：
+          </div>
+          <div class="ui-g-8 ui-md-8 dialog-input">
+            <input pInputText type="text" formControlName="healthProjectCheckOrganization" placeholder="请输入竣工验收单位"/>
+          </div>
+        </div>
+        <div class="ui-g-6 ui-md-6 center">
+          <div class="ui-g-4 ui-md-4 right">
+            <span style="color: #FF8A9A">*</span>竣工验收结论：
+          </div>
+          <div class="ui-g-8 ui-md-8 dialog-input">
+            <input pInputText type="text" formControlName="healthProjectCheckConclusion" placeholder="请输入竣工验收结论"/>
+          </div>
+        </div>
+        <div class="ui-g-6 ui-md-6 center">
+          <div class="ui-g-4 ui-md-4 right">
+            <span style="color: #FF8A9A">*</span>控制效果评价时间：
+          </div>
+          <div class="ui-g-8 ui-md-8 dialog-input">
+            <p-calendar formControlName="healthProjectResultTime" [style]="{width: '100%'}" placeholder="请选择控制效果评价时间" [monthNavigator]="true" [yearNavigator]="true" dateFormat="yy-mm-dd"  yearRange="1900:2200" [locale]="esDate"></p-calendar>
+          </div>
+        </div>
+        <div class="ui-g-6 ui-md-6 center">
+          <div class="ui-g-4 ui-md-4 right">
+            <span style="color: #FF8A9A">*</span>控制效果评价单位：
+          </div>
+          <div class="ui-g-8 ui-md-8 dialog-input">
+            <input pInputText type="text" formControlName="healthProjectResultOrganization" placeholder="请输入控制效果评价单位"/>
+          </div>
+        </div>
+        <div class="ui-g-6 ui-md-6 center">
+          <div class="ui-g-4 ui-md-4 right">
+            <span style="color: #FF8A9A">*</span>控制效果评价结论：
+          </div>
+          <div class="ui-g-8 ui-md-8 dialog-input">
+            <input pInputText type="text" formControlName="healthProjectResultConclusion" placeholder="请输入控制效果评价结论"/>
+          </div>
+        </div>
+      </div>
+    </form>
+    <p-footer>
+      <button class="dialog-btn" (click)="showeditHygieneDialog = false;">取消</button>
+      <button class="dialog-btn" (click)="sureeditHygieneClick()">确认选择</button>
+    </p-footer>
+  </p-dialog>
+</div>
