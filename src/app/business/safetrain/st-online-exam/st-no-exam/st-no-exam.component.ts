@@ -36,6 +36,7 @@ export class StNoExamComponent implements OnInit {
     { field: 'operating', header: '操作' },
   ];
   public noExamContent: Array<object> = [];
+  public content: any;
   public themeSub: Subscription;
   public pageNo: number = 1;
   public id: number;
@@ -77,6 +78,7 @@ export class StNoExamComponent implements OnInit {
     // console.log(e.id);
     this.id = e.id;
     this.personnelTrainingRecordId = e.personnelTrainingRecordId;
+    this.content = e.examNotes;
     this.startExamNoticeModel = true;
   }
 

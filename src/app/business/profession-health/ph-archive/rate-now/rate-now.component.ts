@@ -25,9 +25,9 @@ export class RateNowComponent implements OnInit {
   public showEditRegularTestDialog: boolean = false;
   public dailyTestTitle: Array<object>  = [
     { field: 'time', header: '时间' },
-    { field: 'evaluationOrganization', header: '检测机构' },
-    { field: 'evaluationProject', header: '检测项目' },
-    { field: 'evaluationResult', header: '检测结论' },
+    { field: 'evaluationOrganization', header: '评价机构' },
+    { field: 'evaluationProject', header: '评价项目' },
+    { field: 'evaluationResult', header: '评价结论' },
     { field: 'annex', header: '附件' },
     { field: 'operating', header: '操作' },
   ];

@@ -1,0 +1,123 @@
+<div class="pr-disease-status">
+  <div class="pr-disease-status-header">
+    <div class="pr-disease-status-search">
+    </div>
+    <div class="pr-disease-status-button">
+      <button pButton type="button" label="新增" class="ui-button-rounded" (click)="showeditDiseaseStatusDialog = true"></button>
+      <button pButton type="button" label="批量删除" class="ui-button-rounded" (click)="delMoreDialyTestClick()"></button>
+    </div>
+  </div>
+  <div class="pr-disease-status-table">
+    <p-table [columns]="diseaseStatusTitle" [value]="diseaseStatusContent" scrollHeight="50vh" [scrollable]="true" [(selection)]="diseaseStatusSelect">
+      <ng-template pTemplate="header" let-columns>
+        <tr [ngStyle]="table.tableheader" class="text-center" style="height: 5vh">
+          <th style="width: 3em">
+            <p-tableHeaderCheckbox ></p-tableHeaderCheckbox>
+          </th>
+          <th *ngFor="let col of columns">
+            {{col.header}}
+          </th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-rowData let-columns="columns" let-rowIndex="rowIndex">
+        <tr [ngStyle]="table.tableContent[0]">
+          <td style="width: 3em">
+            <p-tableCheckbox [value]="rowData" ></p-tableCheckbox>
+          </td>
+          <td *ngFor="let col of columns.slice(0, columns.length -1)" class="text-center" style="height: 5vh;color: #5E5F6B;">
+            {{rowData[col.field]}}
+          </td>
+          <td  class="text-center" style="height: 5vh"  *ngFor="let col of columns.slice(columns.length -1 ,  columns.length)">
+            <button pButton type="button" label="编辑" class="ui-button-rounded" style="margin: 4px;background: #3B86FF" (click)="editDiseaseStatusClcik(rowData)"></button>
+            <button pButton type="button" label="删除" class="ui-button-rounded" style="background: #FF8A9A;border: 0" (click)="delDialyTestClick(rowData)"></button>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+  <div class="pagination">
+    <app-pagination [option]="diseaseStatusPageOption" (clickEvent)="diseaseStatusPageEvent($event)"></app-pagination>
+  </div>
+  <p-dialog header="信息" [(visible)]="showeditDiseaseStatusDialog" [style]="{width: '800px'}">
+    <form [formGroup]="editDiseaseStatus">
+      <div class="ui-g ui-md ui-fiuld">
+        <div class="ui-g-6 ui-md-6 center">
+          <div class="ui-g-4 ui-md-4 right">
+            <span style="color: #FF8A9A">*</span>车间名称：
+          </div>
+          <div class="ui-g-8 ui-md-8 dialog-input">
+            <input pInputText type="text" formControlName="healthMaintainWorkshop" placeholder="请输入车间名称"/>
+          </div>
+        </div>
+        <div class="ui-g-6 ui-md-6 center">
+          <div class="ui-g-4 ui-md-4 right">
+            <span style="color: #FF8A9A">*</span>防护设备名称：
+          </div>
+          <div class="ui-g-8 ui-md-8 dialog-input">
+            <input pInputText type="text" formControlName="healthMaintainName" placeholder="请输入防护设备名称"/>
+          </div>
+        </div>
+        <div class="ui-g-6 ui-md-6 center">
+          <div class="ui-g-4 ui-md-4 right">
+            <span style="color: #FF8A9A">*</span>型号：
+          </div>
+          <div class="ui-g-8 ui-md-8 dialog-input">
+            <input pInputText type="text" formControlName="healthMaintainType" placeholder="请输入型号"/>
+          </div>
+        </div>
+        <div class="ui-g-6 ui-md-6 center">
+          <div class="ui-g-4 ui-md-4 right">
+            <span style="color: #FF8A9A">*</span>安装时间：
+          </div>
+          <div class="ui-g-8 ui-md-8 dialog-input">
+            <p-calendar formControlName="healthMaintainTime" [style]="{width: '100%'}" placeholder="请选择安装时间" [monthNavigator]="true" [yearNavigator]="true" dateFormat="yy-mm-dd"  yearRange="1900:2200" [locale]="esDate"></p-calendar>
+          </div>
+        </div>
+        <div class="ui-g-6 ui-md-6 center">
+          <div class="ui-g-4 ui-md-4 right">
+            <span style="color: #FF8A9A">*</span>安装位置：
+          </div>
+          <div class="ui-g-8 ui-md-8 dialog-input">
+            <input pInputText type="text" formControlName="healthMaintainLocation" placeholder="请输入安装位置"/>
+          </div>
+        </div>
+        <div class="ui-g-6 ui-md-6 center">
+          <div class="ui-g-4 ui-md-4 right">
+            <span style="color: #FF8A9A">*</span>产害设备名称：
+          </div>
+          <div class="ui-g-8 ui-md-8 dialog-input">
+            <input pInputText type="text" formControlName="healthMaintainDangerName" placeholder="请输入产害设备名称"/>
+          </div>
+        </div>
+        <div class="ui-g-6 ui-md-6 center">
+          <div class="ui-g-4 ui-md-4 right">
+            <span style="color: #FF8A9A">*</span>防护设备运行状况：
+          </div>
+          <div class="ui-g-8 ui-md-8 dialog-input">
+            <input pInputText type="text" formControlName="healthMaintainSituation" placeholder="请输入防护设备运行状况"/>
+          </div>
+        </div>
+        <div class="ui-g-6 ui-md-6 center">
+          <div class="ui-g-4 ui-md-4 right">
+            <span style="color: #FF8A9A">*</span>防护设备失效原因：
+          </div>
+          <div class="ui-g-8 ui-md-8 dialog-input">
+            <input pInputText type="text" formControlName="healthMaintainCause" placeholder="请输入防护设备失效原因"/>
+          </div>
+        </div>
+        <div class="ui-g-6 ui-md-6 center">
+          <div class="ui-g-4 ui-md-4 right">
+            <span style="color: #FF8A9A">*</span>备注：
+          </div>
+          <div class="ui-g-8 ui-md-8 dialog-input">
+            <textarea [rows]="2" [cols]="10" pInputTextarea placeholder="请输入备注"  style="border: 1px solid #D2D6DB" formControlName="healthMaintainRemark"></textarea>
+          </div>
+        </div>
+      </div>
+    </form>
+    <p-footer>
+      <button class="dialog-btn" (click)="showeditDiseaseStatusDialog = false;clearData()">取消</button>
+      <button class="dialog-btn" (click)="showeditDiseaseStatusClick()">确认选择</button>
+    </p-footer>
+  </p-dialog>
+</div>

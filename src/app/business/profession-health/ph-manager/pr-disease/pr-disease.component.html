@@ -1,1 +1,163 @@
-<p>pr-disease works!</p>
+<div class="pr-disease">
+  <div class="pr-disease-header">
+    <div class="pr-disease-search">
+    </div>
+    <div class="pr-disease-button">
+      <button pButton type="button" label="新增" class="ui-button-rounded" (click)="showeditDiseaseDialog = true"></button>
+      <button pButton type="button" label="批量删除" class="ui-button-rounded" (click)="delMoreDialyTestClick()"></button>
+    </div>
+  </div>
+  <div class="pr-disease-table">
+    <p-table [columns]="dieaseTitle" [value]="dieaseContent" scrollHeight="50vh" [scrollable]="true" [(selection)]="diseaseSelect">
+      <ng-template pTemplate="header" let-columns>
+        <tr [ngStyle]="table.tableheader" class="text-center" style="height: 5vh">
+          <th style="width: 3em">
+            <p-tableHeaderCheckbox ></p-tableHeaderCheckbox>
+          </th>
+          <th *ngFor="let col of columns">
+            {{col.header}}
+          </th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-rowData let-columns="columns" let-rowIndex="rowIndex">
+        <tr [ngStyle]="table.tableContent[0]">
+          <td style="width: 3em">
+            <p-tableCheckbox [value]="rowData" ></p-tableCheckbox>
+          </td>
+          <td *ngFor="let col of columns.slice(0, columns.length -1)" class="text-center" style="height: 5vh;color: #5E5F6B;">
+            {{rowData[col.field]}}
+          </td>
+          <td  class="text-center" style="height: 5vh"  *ngFor="let col of columns.slice(columns.length -1 ,  columns.length)">
+            <button pButton type="button" label="编辑" class="ui-button-rounded" style="margin: 4px;background: #3B86FF" (click)="editRiskArchiveClcik(rowData)"></button>
+            <button pButton type="button" label="删除" class="ui-button-rounded" style="background: #FF8A9A;border: 0" (click)="delDialyTestClick(rowData)"></button>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+  <div class="pagination">
+    <app-pagination [option]="diseasePageOption" (clickEvent)="archivePageEvent($event)"></app-pagination>
+  </div>
+  <p-dialog header="信息" [(visible)]="showeditDiseaseDialog" [style]="{width: '800px'}">
+    <form [formGroup]="editDisease">
+      <div class="ui-g ui-md ui-fiuld">
+        <div class="ui-g-6 ui-md-6 center">
+          <div class="ui-g-4 ui-md-4 right">
+            <span style="color: #FF8A9A">*</span>职业病危害因素：
+          </div>
+          <div class="ui-g-8 ui-md-8 dialog-input">
+            <input pInputText type="text" formControlName="factor" placeholder="请输入职业病危害因素"/>
+          </div>
+        </div>
+        <div class="ui-g-6 ui-md-6 center">
+          <div class="ui-g-4 ui-md-4 right">
+            <span style="color: #FF8A9A">*</span>总人数：
+          </div>
+          <div class="ui-g-8 ui-md-8 dialog-input">
+            <input pInputText type="text" formControlName="totalNum" placeholder="请输入总人数"/>
+          </div>
+        </div>
+        <div class="ui-g-6 ui-md-6 center">
+          <div class="ui-g-4 ui-md-4 right">
+            <span style="color: #FF8A9A">*</span>女工数：
+          </div>
+          <div class="ui-g-8 ui-md-8 dialog-input">
+            <input pInputText type="text" formControlName="womenNum" placeholder="请输入女工数"/>
+          </div>
+        </div>
+        <div class="ui-g-6 ui-md-6 center">
+          <div class="ui-g-4 ui-md-4 right">
+            <span style="color: #FF8A9A">*</span>职业卫生培训人数：
+          </div>
+          <div class="ui-g-8 ui-md-8 dialog-input">
+            <input pInputText type="text" formControlName="trainingNum" placeholder="请输入项职业卫生培训人数"/>
+          </div>
+        </div>
+        <div class="ui-g-6 ui-md-6 center">
+          <div class="ui-g-4 ui-md-4 right">
+            <span style="color: #FF8A9A">*</span>体检人数：
+          </div>
+          <div class="ui-g-8 ui-md-8 dialog-input">
+            <input pInputText type="text" formControlName="medicalExaminationNum" placeholder="请输入体检人数"/>
+          </div>
+        </div>
+        <div class="ui-g-6 ui-md-6 center">
+          <div class="ui-g-4 ui-md-4 right">
+            <span style="color: #FF8A9A">*</span>职业病人数：
+          </div>
+          <div class="ui-g-8 ui-md-8 dialog-input">
+            <input pInputText type="text" formControlName="occDiseaseNum" placeholder="请输入职业病人数"/>
+          </div>
+        </div>
+        <div class="ui-g-6 ui-md-6 center">
+          <div class="ui-g-4 ui-md-4 right">
+            <span style="color: #FF8A9A">*</span>调离刚位人数：
+          </div>
+          <div class="ui-g-8 ui-md-8 dialog-input">
+            <input pInputText type="text" formControlName="demobilizedNum" placeholder="请输入调离刚位人数"/>
+          </div>
+        </div>
+        <div class="ui-g-6 ui-md-6 center">
+          <div class="ui-g-4 ui-md-4 right">
+            <span style="color: #FF8A9A">*</span>填表人：
+          </div>
+          <div class="ui-g-8 ui-md-8 dialog-input">
+            <input pInputText type="text" formControlName="writer" placeholder="请输入填表人"/>
+          </div>
+        </div>
+        <div class="ui-g-6 ui-md-6 center">
+          <div class="ui-g-4 ui-md-4 right">
+            <span style="color: #FF8A9A">*</span>填表部门：
+          </div>
+          <div class="ui-g-8 ui-md-8 dialog-input">
+            <input pInputText type="text" formControlName="writeDepartment" placeholder="请输入填表部门"/>
+          </div>
+        </div>
+        <div class="ui-g-6 ui-md-6 center">
+          <div class="ui-g-4 ui-md-4 right">
+            <span style="color: #FF8A9A">*</span>填表时间：
+          </div>
+          <div class="ui-g-8 ui-md-8 dialog-input">
+            <p-calendar formControlName="writeTime" [style]="{width: '100%'}" placeholder="请选择填表时间" [monthNavigator]="true" [yearNavigator]="true" dateFormat="yy-mm-dd"  yearRange="1990:2200" [locale]="esDate"></p-calendar>
+          </div>
+        </div>
+        <div class="ui-g-6 ui-md-6 center">
+          <div class="ui-g-4 ui-md-4 right">
+            <span style="color: #FF8A9A">*</span>培训机构：
+          </div>
+          <div class="ui-g-8 ui-md-8 dialog-input">
+            <input pInputText type="text" formControlName="trainingOrganization" placeholder="请输入培训机构"/>
+          </div>
+        </div>
+        <div class="ui-g-6 ui-md-6 center">
+          <div class="ui-g-4 ui-md-4 right">
+            <span style="color: #FF8A9A">*</span>培训时间：
+          </div>
+          <div class="ui-g-8 ui-md-8 dialog-input">
+            <p-calendar formControlName="trainingTime" [style]="{width: '100%'}" placeholder="请选择培训时间" [monthNavigator]="true" [yearNavigator]="true" dateFormat="yy-mm-dd"  yearRange="1900:2200" [locale]="esDate"></p-calendar>
+          </div>
+        </div>
+        <div class="ui-g-6 ui-md-6 center">
+          <div class="ui-g-4 ui-md-4 right">
+            <span style="color: #FF8A9A">*</span>体检机构：
+          </div>
+          <div class="ui-g-8 ui-md-8 dialog-input">
+            <input pInputText type="text" formControlName="medicalExaminationOrganization" placeholder="请输入体检机构"/>
+          </div>
+        </div>
+        <div class="ui-g-6 ui-md-6 center">
+          <div class="ui-g-4 ui-md-4 right">
+            <span style="color: #FF8A9A">*</span>体检时间：
+          </div>
+          <div class="ui-g-8 ui-md-8 dialog-input">
+            <p-calendar formControlName="medicalExaminationTime" [style]="{width: '100%'}" placeholder="请选择体检时间" [monthNavigator]="true" [yearNavigator]="true" dateFormat="yy-mm-dd"  yearRange="1990:2200" [locale]="esDate"></p-calendar>
+          </div>
+        </div>
+      </div>
+    </form>
+    <p-footer>
+      <button class="dialog-btn" (click)="showeditDiseaseDialog = false;clearData()">取消</button>
+      <button class="dialog-btn" (click)="sureeditDiseaseClick()">确认选择</button>
+    </p-footer>
+  </p-dialog>
+</div>

@@ -24,6 +24,7 @@ import {TableModule} from 'primeng/table';
 import {PaginationModule} from '../../common/components/pagination/pagination.module';
 import { ArchiveBigRiskComponent } from './sr-archives/archive-big-risk/archive-big-risk.component';
 import { SrInstitutionComponent } from './sr-institution/sr-institution.component';
+import { SrControlStatusComponent } from './sr-control-status/sr-control-status.component';
 
 
 @NgModule({
@@ -36,7 +37,8 @@ import { SrInstitutionComponent } from './sr-institution/sr-institution.componen
     ArchiveWithinComponent,
     ArchiveOutsideComponent,
     ArchiveBigRiskComponent,
-    SrInstitutionComponent],
+    SrInstitutionComponent,
+    SrControlStatusComponent],
   imports: [
     CommonModule,
     SecurityRiskRoutingModule,

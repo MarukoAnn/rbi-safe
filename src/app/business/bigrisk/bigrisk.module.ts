@@ -27,6 +27,7 @@ import {
 import {TableModule} from 'primeng/table';
 import {UploadImageModule} from '../../common/components/upload-image/upload-image.module';
 import { RkInstitutionComponent } from './rk-institution/rk-institution.component';
+import { RkAnalysisComponent } from './rk-analysis/rk-analysis.component';
 
 
 @NgModule({
@@ -34,7 +35,8 @@ import { RkInstitutionComponent } from './rk-institution/rk-institution.componen
     RiskComponent,
     RkArchiveComponent,
     RkDiscernComponent,
-    RkInstitutionComponent
+    RkInstitutionComponent,
+    RkAnalysisComponent
   ],
   imports: [
     CommonModule,

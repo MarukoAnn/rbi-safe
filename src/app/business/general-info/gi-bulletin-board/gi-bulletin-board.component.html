@@ -1,0 +1,58 @@
+<div class="gi-bulletin-board">
+  <div class="header">
+    <div class="title p-4">
+      <span class="text-gray h3">信息公告栏</span>
+    </div>
+    <div class="search p-4">
+      <div class="gi-bulletin-board-search">
+        <div class="ui-inputgroup" >
+          <input type="text" pInputText  placeholder="搜索" [(ngModel)]="searchData"/>
+          <button pButton type="button" icon="pi pi-search" class="ui-button-warn" (click)="searchDataClick()"></button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="content">
+    <div class="list">
+      <p-scrollPanel [style]="{width: '100%', height: '74vh'}">
+        <div class="gi-bulletin-board-item" *ngFor="let item of itemData" (click)="detailClick(item)">
+          <div class="gi-bulletin-board-item-title">
+            <h2>{{item.num}}</h2>
+            <div class="gi-bulletin-board-content">
+              <p>{{item.title}}</p>
+              <p>最近编辑时间：{{item.time}}</p>
+            </div>
+          </div>
+        </div>
+      </p-scrollPanel>
+    </div>
+  </div>
+  <div class="pagination">
+    <app-pagination [option]="PageOption" (clickEvent)="PageEvent($event)"></app-pagination>
+  </div>
+  <p-dialog header="详细信息" [(visible)]="showDetailDialog" [style]="{width: '800px'}">
+    <div class="ui-g ui-md ui-fiuld">
+      <div class="ui-g-12 ui-md-12 center">
+          <h2>{{detailData.title}}</h2>
+      </div>
+      <div class="ui-g-12 ui-md-12"></div>
+      <div class="ui-g-12 ui-md-12 center">
+          <span>{{detailData.content}}</span>
+      </div>
+      <div class="ui-g-12 ui-md-12"></div>
+      <div class="ui-g-12 ui-md-12 center">
+        <span>附件：</span>
+        <div class=" dialog-input">
+          <div class="ui-inputgroup" style="position: relative">
+            <input type="text" pInputText placeholder="请选择通知书附件"  disabled [(ngModel)]="detailData.file">
+            <button pButton type="button" icon="pi pi-download" class="ui-button-warn" style="background: #F8F8F8;border: 1px solid #E0E3E7;border-left: 0;color: #007AD9" (click)="downFile(detailData.filePath)"></button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p-footer>
+      <button class="dialog-btn" (click)="showDetailDialog = false;">取消</button>
+<!--      <button class="dialog-btn" (click)="sureEditRegularTestClick()">确认选择</button>-->
+    </p-footer>
+  </p-dialog>
+</div>

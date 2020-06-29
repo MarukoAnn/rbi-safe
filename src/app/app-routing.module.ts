@@ -3,12 +3,13 @@ import { Routes, RouterModule } from '@angular/router';
 import {LoginComponent} from './login/login.component';
 import {ErrorComponent} from './error/error.component';
 import {PreloadSelectedModules} from './preload/preload.module';
+import {LoginGuard} from './common/guard/login.guard';
 
 
 const routes: Routes = [
   {path: '', redirectTo: 'login', pathMatch: 'full'},
   {path: 'login', component: LoginComponent},
-  {path: 'home', loadChildren: './home/home.module#HomeModule', data: {preload: true}},
+  {path: 'home', loadChildren: './home/home.module#HomeModule', data: {preload: true}, canActivate: [LoginGuard]},
   {path: 'error', component: ErrorComponent},
   {path: '**', component: ErrorComponent},
 ];

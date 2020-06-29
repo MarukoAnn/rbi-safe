@@ -175,11 +175,158 @@ export class ProfessHealthService {
 
 
 
+  /**
+   * 职业病防护措施台账
+   * 分页查询
+   * @param pamars
+   */
+  public  getDiseaseProtectPageData(pamars): Observable<any> {
+    return this.http.post(`/occHealthEquipment/findOccHealthEquipmentByPage`, pamars);
+  }
+
+  /**
+   * 职业病防护措施台账
+   * 添加
+   * @param pamars
+   */
+  public  addDiseaseProtectData(pamars): Observable<any> {
+    return this.http.post(`/occHealthEquipment/insertOccHealthEquipment`, pamars);
+  }
+
+  /**
+   * 职业病防护措施台账
+   * 更新
+   * @param pamars
+   */
+  public  updateDiseaseProtectData(pamars): Observable<any> {
+    return this.http.post(`/occHealthEquipment/updateOccHealthEquipment`, pamars);
+  }
+  /**
+   * 职业病防护措施台账
+   * 删除
+   * @param pamars
+   */
+  public  delDiseaseProtectData(pamars): Observable<any> {
+    return this.http.post(`/occHealthEquipment/deleteOccHealthEquipment`, pamars);
+  }
 
 
 
   /**
-   * 职业病防护措施台账
+   * 职业病防护设施运行状况台账
+   * 分页查询
+   * @param pamars
+   */
+  public  getDiseaseStatusPageData(pamars): Observable<any> {
+    return this.http.post(`/occHealthMaintain/findOccHealthMaintainByPage`, pamars);
+  }
+
+  /**
+   * 职业病防护设施运行状况台账
+   * 添加
+   * @param pamars
+   */
+  public  addDiseaseStatusData(pamars): Observable<any> {
+    return this.http.post(`/occHealthMaintain/insertOccHealthMaintain`, pamars);
+  }
+
+  /**
+   * 职业病防护设施运行状况台账
+   * 更新
+   * @param pamars
+   */
+  public  updateDiseaseStatusData(pamars): Observable<any> {
+    return this.http.post(`/occHealthMaintain/updateOccHealthMaintain`, pamars);
+  }
+  /**
+   * 职业病防护设施运行状况台账
+   * 删除
+   * @param pamars
+   */
+  public  delDiseaseStatusData(pamars): Observable<any> {
+    return this.http.post(`/occHealthMaintain/deleteOccHealthMaintain`, pamars);
+  }
+
+
+
+  /**
+   * 职业病防护设施运行状况台账
+   * 分页查询
+   * @param pamars
+   */
+  public  getHazardSummaryPageData(pamars): Observable<any> {
+    return this.http.post(`/occHealthEndanger/findOccHealthEndangerByPage`, pamars);
+  }
+
+  /**
+   * 职业病防护设施运行状况台账
+   * 添加
+   * @param pamars
+   */
+  public  addHazardSummaryData(pamars): Observable<any> {
+    return this.http.post(`/occHealthEndanger/insertOccHealthEndanger`, pamars);
+  }
+
+  /**
+   * 职业病防护设施运行状况台账
+   * 更新
+   * @param pamars
+   */
+  public  updateHazardSummaryData(pamars): Observable<any> {
+    return this.http.post(`/occHealthEndanger/updateOccHealthEndanger`, pamars);
+  }
+  /**
+   * 职业病防护设施运行状况台账
+   * 删除
+   * @param pamars
+   */
+  public  delHazardSummaryData(pamars): Observable<any> {
+    return this.http.post(`/occHealthEndanger/deleteOccHealthEndanger`, pamars);
+  }
+
+
+
+
+  /**
+   * 职业病防护设施运行状况台账
+   * 分页查询
+   * @param pamars
+   */
+  public  getHealthCheckPageData(pamars): Observable<any> {
+    return this.http.post(`/healthExamine/findByPage`, pamars);
+  }
+
+  /**
+   * 职业病防护设施运行状况台账
+   * 添加
+   * @param pamars
+   */
+  public  addHealthCheckData(pamars): Observable<any> {
+    return this.http.post(`/healthExamine/add`, pamars);
+  }
+
+  /**
+   * 职业病防护设施运行状况台账
+   * 更新
+   * @param pamars
+   */
+  public  updateHealthCheckData(pamars): Observable<any> {
+    return this.http.post(`/healthExamine/update`, pamars);
+  }
+  /**
+   * 职业病防护设施运行状况台账
+   * 删除
+   * @param pamars
+   */
+  public  delHealthCheckData(pamars): Observable<any> {
+    return this.http.post(`/healthExamine/delete`, pamars);
+  }
+
+
+
+
+  /**
+   * 接触职业病危害因素人员管理情况汇总表
    * 分页查询
    * @param pamars
    */
@@ -188,7 +335,7 @@ export class ProfessHealthService {
   }
 
   /**
-   * 职业病防护措施台账
+   * 接触职业病危害因素人员管理情况汇总表
    * 添加
    * @param pamars
    */
@@ -197,7 +344,7 @@ export class ProfessHealthService {
   }
 
   /**
-   * 职业病防护措施台账
+   * 接触职业病危害因素人员管理情况汇总表
    * 更新
    * @param pamars
    */
@@ -205,7 +352,7 @@ export class ProfessHealthService {
     return this.http.post(`/diseaseFactors/update`, pamars);
   }
   /**
-   * 职业病防护措施台账
+   * 接触职业病危害因素人员管理情况汇总表
    * 删除
    * @param pamars
    */
@@ -214,4 +361,40 @@ export class ProfessHealthService {
   }
 
 
+
+
+  /**
+   * 接触职业病危害因素人员管理情况汇总表
+   * 分页查询
+   * @param pamars
+   */
+  public  getDiseaseEquimentPageData(pamars): Observable<any> {
+    return this.http.post(`/diseaseProtection/findByPage`, pamars);
+  }
+
+  /**
+   * 接触职业病危害因素人员管理情况汇总表
+   * 添加
+   * @param pamars
+   */
+  public  addDiseaseEquimentData(pamars): Observable<any> {
+    return this.http.post(`/diseaseProtection/add`, pamars);
+  }
+
+  /**
+   * 接触职业病危害因素人员管理情况汇总表
+   * 更新
+   * @param pamars
+   */
+  public  updateDiseaseEquimentData(pamars): Observable<any> {
+    return this.http.post(`/diseaseProtection/update`, pamars);
+  }
+  /**
+   * 接触职业病危害因素人员管理情况汇总表
+   * 删除
+   * @param pamars
+   */
+  public  delDiseaseEquimentData(pamars): Observable<any> {
+    return this.http.post(`/diseaseProtection/delete`, pamars);
+  }
 }

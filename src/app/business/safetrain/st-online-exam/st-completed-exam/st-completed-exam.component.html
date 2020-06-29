@@ -20,7 +20,7 @@
             {{rowData[col.field]}}
           </td>
           <td  class="text-center" style="height: 5vh"  *ngFor="let col of columns.slice(columns.length -1 ,  columns.length)">
-            <button pButton  type="button"  [label]="rowData[col.field]"   class="ui-button-rounded"></button>
+            <button pButton  type="button"  [label]="rowData[col.field]"   class="ui-button-rounded" (click)="detailClick(rowData)"></button>
           </td>
         </tr>
       </ng-template>

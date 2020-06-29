@@ -44,9 +44,9 @@ export class SidebarComponent implements OnInit {
       bgc: '#226AD5',
       label: '安全风险管控',
       lefticon: 'fa-angle-down',
-      link: '/home/strisk/manager',
+      link: '/home/strisk/status',
       children: [
-        {item: {label: '风险分级管控现状', bgc: '#D1E0F7', ftcolor: '#4F88DE'}, link: '', isHas: true},
+        {item: {label: '风险分级管控现状', bgc: '#D1E0F7', ftcolor: '#4F88DE'}, link: '/home/strisk/status', isHas: true},
         {item: {label: '风险分级管控制度', bgc: '#fff', ftcolor: '#8E8E8E'}, link: '/home/strisk/institution', isHas: true},
         {item: {label: '风险管理',  bgc: '#fff', ftcolor: '#8E8E8E'}, link: '/home/strisk/manager', isHas: true},
         {item: {label: '风险档案',  bgc: '#fff', ftcolor: '#8E8E8E'}, link:  '/home/strisk/archive', isHas: true},
@@ -57,9 +57,9 @@ export class SidebarComponent implements OnInit {
       bgc: '#226AD5',
       label: '重大危险源管理',
       lefticon: 'fa-angle-down',
-      link: '/home/risk/discern',
+      link: '/home/risk/analysis',
       children: [
-        {item: {label: '重大危险源现状分析', bgc: '#D1E0F7', ftcolor: '#4F88DE'}, link: '', isHas: true},
+        {item: {label: '重大危险源现状分析', bgc: '#D1E0F7', ftcolor: '#4F88DE'}, link: '/home/risk/analysis', isHas: true},
         {item: {label: '重大危险源管理制度', bgc: '#fff', ftcolor: '#8E8E8E'}, link: '/home/risk/institution', isHas: true},
         {item: {label: '重大危险源识别', bgc: '#fff', ftcolor: '#8E8E8E'}, link: '/home/risk/discern', isHas: true},
         {item: {label: '重大危险源档案', bgc: '#fff', ftcolor: '#8E8E8E'}, link: '/home/risk/archive', isHas: true},
@@ -79,7 +79,7 @@ export class SidebarComponent implements OnInit {
         {item: {label: '职业健康规章制度', bgc: '#D1E0F7', ftcolor: '#4F88DE'}, link: '/home/health/phinstitution', isHas: true},
         {item: {label: '职业健康台账管理', bgc: '#fff', ftcolor: '#8E8E8E'}, link: '/home/health/phmanager', isHas: true},
         // {item: {label: '职业病危害项目申报', bgc: '#fff', ftcolor: '#8E8E8E'}, link: '', isHas: true},
-        {item: {label: '职业病危害因素检测与检测评价档案', bgc: '#fff', ftcolor: '#8E8E8E'}, link: '/home/health/pharchive', isHas: true},
+        {item: {label: '职业病危害检测与评价管理', bgc: '#fff', ftcolor: '#8E8E8E'}, link: '/home/health/pharchive', isHas: true},
         // {item: {label: '隐患档案', bgc: '#fff', ftcolor: '#8E8E8E'}, link: '', isHas: true},
       ]
     },
@@ -88,9 +88,9 @@ export class SidebarComponent implements OnInit {
       bgc: '#226AD5',
       label: '一岗双责管理',
       lefticon: 'fa-angle-down',
-       link: '/home/strain1/institu3',
+       link: '/home/double/insitution',
       children: [
-        {item: {label: '一岗双责管理制度', bgc: '#D1E0F7', ftcolor: '#4F88DE'}, link: '', isHas: true},
+        {item: {label: '一岗双责管理制度', bgc: '#D1E0F7', ftcolor: '#4F88DE'}, link: '/home/double/insitution', isHas: true},
         {item: {label: '一岗双责责任清单制定', bgc: '#fff', ftcolor: '#8E8E8E'}, link: '', isHas: true},
         {item: {label: '责任清单档案', bgc: '#fff', ftcolor: '#8E8E8E'}, link: '', isHas: true},
       ]
@@ -105,10 +105,10 @@ export class SidebarComponent implements OnInit {
       children: []
     },
     {
-      icon: {class: 'iconlujing331', fontsize: '16px', color: '#fff'}, bgc: '#226AD5', label: '综合信息', lefticon: 'fa-angle-down', link: '/home/strain2/institu5', children: [
-        {item: {label: '信息公告栏', bgc: '#D1E0F7', ftcolor: '#4F88DE'}, link: '', isHas: true},
-        {item: {label: '生产调度信息展示', bgc: '#fff', ftcolor: '#8E8E8E'}, link: '', isHas: true},
-        {item: {label: '公共信息发布', bgc: '#fff', ftcolor: '#8E8E8E'}, link: '', isHas: true},
+      icon: {class: 'iconlujing331', fontsize: '16px', color: '#fff'}, bgc: '#226AD5', label: '综合信息', lefticon: 'fa-angle-down', link: '/home/genneral/board', children: [
+        {item: {label: '信息公告栏', bgc: '#D1E0F7', ftcolor: '#4F88DE'}, link: '/home/genneral/board', isHas: true},
+        // {item: {label: '生产调度信息展示', bgc: '#fff', ftcolor: '#8E8E8E'}, link: '', isHas: true},
+        {item: {label: '公共信息发布', bgc: '#fff', ftcolor: '#8E8E8E'}, link: '/home/genneral/release', isHas: true},
       ]
     }
   ];

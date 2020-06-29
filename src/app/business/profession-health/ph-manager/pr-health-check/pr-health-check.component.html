@@ -1,0 +1,173 @@
+<div class="pr-health-check">
+  <div class="pr-health-check-header">
+    <div class="pr-health-check-search">
+    </div>
+    <div class="pr-health-check-button">
+      <button pButton type="button" label="新增" class="ui-button-rounded" (click)="showeditHealthCheckDialog = true"></button>
+      <button pButton type="button" label="批量删除" class="ui-button-rounded" (click)="delMoreDialyTestClick()"></button>
+    </div>
+  </div>
+  <div class="pr-health-check-table">
+    <p-table [columns]="HealthCheckTitle" [value]="HealthCheckContent" scrollHeight="50vh" [scrollable]="true" [(selection)]="healthCheckSelect">
+      <ng-template pTemplate="header" let-columns>
+        <tr [ngStyle]="table.tableheader" class="text-center" style="height: 5vh">
+          <th style="width: 3em">
+            <p-tableHeaderCheckbox ></p-tableHeaderCheckbox>
+          </th>
+          <th *ngFor="let col of columns">
+            {{col.header}}
+          </th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-rowData let-columns="columns" let-rowIndex="rowIndex">
+        <tr [ngStyle]="table.tableContent[0]">
+          <td style="width: 3em">
+            <p-tableCheckbox [value]="rowData" ></p-tableCheckbox>
+          </td>
+          <td *ngFor="let col of columns.slice(0, columns.length -1)" class="text-center" style="height: 5vh;color: #5E5F6B;">
+            {{rowData[col.field]}}
+          </td>
+          <td  class="text-center" style="height: 5vh"  *ngFor="let col of columns.slice(columns.length -1 ,  columns.length)">
+            <button pButton type="button" label="编辑" class="ui-button-rounded" style="margin: 4px;background: #3B86FF" (click)="editRiskArchiveClcik(rowData)"></button>
+            <!--            <button pButton type="button" label="删除" class="ui-button-rounded" style="background: #FF8A9A;border: 0" (click)="delDialyTestClick(rowData)"></button>-->
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+  <div class="pagination">
+    <app-pagination [option]="dailyPageOption" (clickEvent)="archivePageEvent($event)"></app-pagination>
+  </div>
+  <p-dialog header="信息" [(visible)]="showeditHealthCheckDialog" [style]="{width: '800px'}">
+    <form [formGroup]="editHealthCheck">
+      <div class="ui-g ui-md ui-fiuld">
+        <div class="ui-g-6 ui-md-6 center">
+          <div class="ui-g-4 ui-md-4 right">
+            <span style="color: #FF8A9A">*</span>组织名称：
+          </div>
+          <div class="ui-g-8 ui-md-8 dialog-input">
+            <input pInputText type="text" formControlName="organization" placeholder="请输入组织名称"/>
+          </div>
+        </div>
+        <div class="ui-g-6 ui-md-6 center">
+          <div class="ui-g-4 ui-md-4 right">
+            <span style="color: #FF8A9A">*</span>单位名称：
+          </div>
+          <div class="ui-g-8 ui-md-8 dialog-input">
+            <input pInputText type="text" formControlName="unitName" placeholder="请输入单位名称"/>
+          </div>
+        </div>
+        <div class="ui-g-6 ui-md-6 center">
+          <div class="ui-g-4 ui-md-4 right">
+            <span style="color: #FF8A9A">*</span>姓名：
+          </div>
+          <div class="ui-g-8 ui-md-8 dialog-input">
+            <input pInputText type="text" formControlName="name" placeholder="请输入姓名"/>
+          </div>
+        </div>
+        <div class="ui-g-6 ui-md-6 center">
+          <div class="ui-g-4 ui-md-4 right">
+            <span style="color: #FF8A9A">*</span>性别：
+          </div>
+          <div class="ui-g-8 ui-md-8 dialog-input">
+            <p-radioButton name="gendername" value="男" label="男"  [ngStyle]="{paddingRight: '2vw'}" formControlName="gender"></p-radioButton>
+            <p-radioButton name="gendername" value="女" label="女" formControlName="gender"></p-radioButton>
+          </div>
+        </div>
+        <div class="ui-g-6 ui-md-6 center">
+          <div class="ui-g-4 ui-md-4 right">
+            <span style="color: #FF8A9A">*</span>年龄：
+          </div>
+          <div class="ui-g-8 ui-md-8 dialog-input">
+            <input pInputText type="text" formControlName="age" placeholder="请输入年龄"/>
+          </div>
+        </div>
+        <div class="ui-g-6 ui-md-6 center">
+          <div class="ui-g-4 ui-md-4 right">
+            <span style="color: #FF8A9A">*</span>婚否：
+          </div>
+          <div class="ui-g-8 ui-md-8 dialog-input">
+            <p-radioButton name="marriagename" value="未婚" label="未婚"  [ngStyle]="{paddingRight: '2vw'}" formControlName="marriage"></p-radioButton>
+            <p-radioButton name="marriagename" value="已婚" label="已婚" formControlName="marriage"></p-radioButton>
+          </div>
+        </div>
+        <div class="ui-g-6 ui-md-6 center">
+          <div class="ui-g-4 ui-md-4 right">
+            <span style="color: #FF8A9A">*</span>电话：
+          </div>
+          <div class="ui-g-8 ui-md-8 dialog-input">
+            <input pInputText type="text" formControlName="phone" placeholder="请输入电话号码"/>
+          </div>
+        </div>
+        <div class="ui-g-6 ui-md-6 center">
+          <div class="ui-g-4 ui-md-4 right">
+            <span style="color: #FF8A9A">*</span>身份证号：
+          </div>
+          <div class="ui-g-8 ui-md-8 dialog-input">
+            <input pInputText type="text" formControlName="idNum" placeholder="请输入身份证号"/>
+          </div>
+        </div>
+        <div class="ui-g-6 ui-md-6 center">
+          <div class="ui-g-4 ui-md-4 right">
+            <span style="color: #FF8A9A">*</span>危害因素：
+          </div>
+          <div class="ui-g-8 ui-md-8 dialog-input">
+            <input pInputText type="text" formControlName="factor" placeholder="请输入危害因素"/>
+          </div>
+        </div>
+        <div class="ui-g-6 ui-md-6 center">
+          <div class="ui-g-4 ui-md-4 right">
+            <span style="color: #FF8A9A">*</span>工种：
+          </div>
+          <div class="ui-g-8 ui-md-8 dialog-input">
+            <input pInputText type="text" formControlName="workType" placeholder="请输入工种"/>
+          </div>
+        </div>
+        <div class="ui-g-6 ui-md-6 center">
+          <div class="ui-g-4 ui-md-4 right">
+            <span style="color: #FF8A9A">*</span>期限：
+          </div>
+          <div class="ui-g-8 ui-md-8 dialog-input">
+            <input pInputText type="text" formControlName="deadline" placeholder="请输入期限"/>
+          </div>
+        </div>
+        <div class="ui-g-6 ui-md-6 center">
+          <div class="ui-g-4 ui-md-4 right">
+            <span style="color: #FF8A9A">*</span>预约日期：
+          </div>
+          <div class="ui-g-8 ui-md-8 dialog-input">
+            <p-calendar formControlName="reserveTime" [style]="{width: '100%'}" placeholder="请选择预约日期" [monthNavigator]="true" [yearNavigator]="true" dateFormat="yy-mm-dd"  yearRange="1990:2200" [locale]="esDate"></p-calendar>
+          </div>
+        </div>
+        <div class="ui-g-6 ui-md-6 center">
+          <div class="ui-g-4 ui-md-4 right">
+            <span style="color: #FF8A9A">*</span>上岗时间：
+          </div>
+          <div class="ui-g-8 ui-md-8 dialog-input">
+            <p-calendar formControlName="workTime" [style]="{width: '100%'}" placeholder="请选择上岗时间" [monthNavigator]="true" [yearNavigator]="true" dateFormat="yy-mm-dd"  yearRange="1990:2200" [locale]="esDate"></p-calendar>
+          </div>
+        </div>
+        <div class="ui-g-6 ui-md-6 center">
+          <div class="ui-g-4 ui-md-4 right">
+            <span style="color: #FF8A9A">*</span>离岗时间：
+          </div>
+          <div class="ui-g-8 ui-md-8 dialog-input">
+            <p-calendar formControlName="leaveTime" [style]="{width: '100%'}" placeholder="请选择离岗时间" [monthNavigator]="true" [yearNavigator]="true" dateFormat="yy-mm-dd"  yearRange="1990:2200" [locale]="esDate"></p-calendar>
+          </div>
+        </div>
+        <div class="ui-g-6 ui-md-6 center">
+          <div class="ui-g-4 ui-md-4 right">
+            <span style="color: #FF8A9A">*</span>备注：
+          </div>
+          <div class="ui-g-8 ui-md-8 dialog-input">
+            <textarea [rows]="2" [cols]="10" pInputTextarea placeholder="请输入备注"  style="border: 1px solid #D2D6DB" formControlName="remark"></textarea>
+          </div>
+        </div>
+      </div>
+    </form>
+    <p-footer>
+      <button class="dialog-btn" (click)="showeditHealthCheckDialog = false;clearData()">取消</button>
+      <button class="dialog-btn" (click)="sureeditHealthCheckClick()">确认选择</button>
+    </p-footer>
+  </p-dialog>
+</div>

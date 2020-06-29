@@ -55,7 +55,13 @@ export class StCompletedExamComponent implements OnInit {
       });
   }
   public  clickEvent(e): void {
+    this.pageNo  = e;
+    this.initCompleteExamData();
+  }
+  public  detailClick(e): void {
     console.log(e);
+
+
   }
 
 }
