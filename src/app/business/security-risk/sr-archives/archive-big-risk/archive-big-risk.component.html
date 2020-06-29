@@ -161,7 +161,7 @@
               <span style="color: #FF8A9A">*</span>后果：
             </div>
             <div class="ui-g-8 ui-md-8 dialog-input">
-              <input pInputText type="number" placeholder="请输入后果" formControlName="consequence"/>
+              <input pInputText type="number" placeholder="请输入后果" formControlName="consequence" (blur)="calcRiskValue()"/>
             </div>
           </div>
           <div class="ui-g-6 ui-md-6" style="line-height: 3vh;">
@@ -169,7 +169,7 @@
               <span style="color: #FF8A9A">*</span>暴露：
             </div>
             <div class="ui-g-8 ui-md-8 dialog-input">
-              <input pInputText type="number" placeholder="请输入暴露" formControlName="expose"/>
+              <input pInputText type="number" placeholder="请输入暴露" formControlName="expose" (blur)="calcRiskValue()"/>
             </div>
           </div>
           <div class="ui-g-6 ui-md-6" style="line-height: 3vh;">
@@ -177,7 +177,7 @@
               <span style="color: #FF8A9A">*</span>可能性：
             </div>
             <div class="ui-g-8 ui-md-8 dialog-input">
-              <input pInputText type="number" placeholder="请输入可能性" formControlName="possibility"/>
+              <input pInputText type="number" placeholder="请输入可能性" formControlName="possibility" (blur)="calcRiskValue()"/>
             </div>
           </div>
           <div class="ui-g-6 ui-md-6" style="line-height: 3vh;">
@@ -185,7 +185,7 @@
               <span style="color: #FF8A9A">*</span>风险值：
             </div>
             <div class="ui-g-8 ui-md-8 dialog-input">
-              <input pInputText type="number" placeholder="请输入风险值" formControlName="riskValue"/>
+              <input pInputText type="number" placeholder="请输入风险值" formControlName="riskValue" disabled/>
             </div>
           </div>
           <div class="ui-g-6 ui-md-6" style="line-height: 3vh;">

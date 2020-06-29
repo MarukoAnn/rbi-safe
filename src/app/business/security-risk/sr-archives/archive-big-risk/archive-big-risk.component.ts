@@ -279,4 +279,21 @@ export class ArchiveBigRiskComponent implements OnInit {
     this.editBigRiskArchive.patchValue({'organizationName': this.OrgTree.label});
     this.editBigRiskArchive.patchValue({'organizationId': this.OrgTree.id});
   }
+  // 计算风险值
+  public  calcRiskValue(): void {
+    if (this.editBigRiskArchive.value.possibility !== '' && this.editBigRiskArchive.value.consequence && this.editBigRiskArchive.value.expose !== ''){
+      this.secRiskSrv.calcRiskValue({consequence: this.editBigRiskArchive.value.consequence, expose: this.editBigRiskArchive.value.expose, possibility: this.editBigRiskArchive.value.possibility}).subscribe(val => {
+        this.editBigRiskArchive.patchValue({riskValue: val.data.riskValue});
+        this.editBigRiskArchive.patchValue({riskGrad: val.data.riskGrad});
+      });
+    }
+  }
+  // 计算措施判断结果
+  public calcMeasuresResult(): void {
+    if (this.editBigRiskArchive.value.riskValue !== '' && this.editBigRiskArchive.value.measuresCost !== '' && this.editBigRiskArchive.value.measuresEffective !== ''){
+      this.secRiskSrv.calcRiskMeasuresResult({riskValue: this.editBigRiskArchive.value.riskValue, measuresCost: this.editBigRiskArchive.value.measuresCost, measuresEffective: this.editBigRiskArchive.value.measuresEffective}).subscribe(val => {
+        this.editBigRiskArchive.patchValue({measuresResult: val.data.measuresResult});
+      });
+    }
+  }
 }

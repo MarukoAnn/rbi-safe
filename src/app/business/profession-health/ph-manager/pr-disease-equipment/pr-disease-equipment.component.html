@@ -1,0 +1,533 @@
+<div class="pr-disease-equipment">
+  <div class="pr-disease-equipment-header">
+    <div class="pr-disease-equipment-search">
+    </div>
+    <div class="pr-disease-equipment-button">
+      <button pButton type="button" label="新增" class="ui-button-rounded" (click)="showeditDiseaseEquimentDialog = true"></button>
+      <button pButton type="button" label="批量删除" class="ui-button-rounded" (click)="delMoreDialyTestClick()"></button>
+    </div>
+  </div>
+  <div class="pr-disease-equipment-table">
+    <p-table [columns]="DiseaseEquimentTitle" [value]="DiseaseEquimentContent" scrollHeight="50vh" [scrollable]="true" [(selection)]="healthCheckSelect">
+      <ng-template pTemplate="header" let-columns>
+        <tr [ngStyle]="table.tableheader" class="text-center" style="height: 5vh">
+          <th style="width: 3em">
+            <p-tableHeaderCheckbox ></p-tableHeaderCheckbox>
+          </th>
+          <th *ngFor="let col of columns">
+            {{col.header}}
+          </th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-rowData let-columns="columns" let-rowIndex="rowIndex">
+        <tr [ngStyle]="table.tableContent[0]">
+          <td style="width: 3em">
+            <p-tableCheckbox [value]="rowData" ></p-tableCheckbox>
+          </td>
+          <td *ngFor="let col of columns.slice(0, columns.length -1)" class="text-center" style="height: 5vh;color: #5E5F6B;">
+            {{rowData[col.field]}}
+          </td>
+          <td  class="text-center" style="height: 5vh"  *ngFor="let col of columns.slice(columns.length -1 ,  columns.length)">
+            <button pButton type="button" label="编辑" class="ui-button-rounded" style="margin: 4px;background: #3B86FF" (click)="editRiskArchiveClcik(rowData)"></button>
+<!--            <button pButton type="button" label="详情" class="ui-button-rounded" style="border: 0" (click)="diseaseEquimentDeatailClick(rowData)"></button>-->
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+  <div class="pagination">
+    <app-pagination [option]="dailyPageOption" (clickEvent)="archivePageEvent($event)"></app-pagination>
+  </div>
+  <p-dialog header="信息" [(visible)]="showeditDiseaseEquimentDialog" [style]="{width: '1000px'}">
+    <p-scrollPanel [style]="{width: '100%', height: '70vh'}">
+      <form [formGroup]="editDiseaseEquiment">
+        <div class="ui-g ui-md ui-fiuld">
+          <div class="ui-g-6 ui-md-6 center">
+            <div class="ui-g-4 ui-md-4 right">
+              <span style="color: #FF8A9A">*</span>单位：
+            </div>
+            <div class="ui-g-8 ui-md-8 dialog-input">
+              <input pInputText type="text" formControlName="unit" placeholder="请输入单位"/>
+            </div>
+          </div>
+          <div class="ui-g-6 ui-md-6 center">
+            <div class="ui-g-4 ui-md-4 right">
+              <span style="color: #FF8A9A">*</span>领用时间：
+            </div>
+            <div class="ui-g-8 ui-md-8 dialog-input">
+              <p-calendar formControlName="receiveTime" [style]="{width: '100%'}" placeholder="请选择领用时间" [monthNavigator]="true" [yearNavigator]="true" dateFormat="yy-mm-dd"  yearRange="1990:2200" [locale]="esDate"></p-calendar>
+            </div>
+          </div>
+          <div class="ui-g-6 ui-md-6 center">
+            <div class="ui-g-4 ui-md-4 right">
+              一般防护服：
+            </div>
+            <div class="ui-g-8 ui-md-8 dialog-input">
+              <input pInputText type="text" formControlName="generalSuit" placeholder="请输入一般防护服"/>
+            </div>
+          </div>
+          <div class="ui-g-6 ui-md-6 center">
+            <div class="ui-g-4 ui-md-4 right">
+              阻燃服：
+            </div>
+            <div class="ui-g-8 ui-md-8 dialog-input">
+              <input pInputText type="text" formControlName="flameSuit" placeholder="请输入阻燃服"/>
+            </div>
+          </div>
+          <div class="ui-g-6 ui-md-6 center">
+            <div class="ui-g-4 ui-md-4 right">
+              防酸碱服：
+            </div>
+            <div class="ui-g-8 ui-md-8 dialog-input">
+              <input pInputText type="text" formControlName="acidBaseSuit" placeholder="请输入防酸碱服"/>
+            </div>
+          </div>
+          <div class="ui-g-6 ui-md-6 center">
+            <div class="ui-g-4 ui-md-4 right">
+              防静电服：
+            </div>
+            <div class="ui-g-8 ui-md-8 dialog-input">
+              <input pInputText type="text" formControlName="staticElectricitySuit" placeholder="请输入防静电服"/>
+            </div>
+          </div>
+          <div class="ui-g-6 ui-md-6 center">
+            <div class="ui-g-4 ui-md-4 right">
+              呢子服：
+            </div>
+            <div class="ui-g-8 ui-md-8 dialog-input">
+              <input pInputText type="text" formControlName="nuziSuit" placeholder="请输入呢子服"/>
+            </div>
+          </div>
+          <div class="ui-g-6 ui-md-6 center">
+            <div class="ui-g-4 ui-md-4 right">
+              榨丝衬衣：
+            </div>
+            <div class="ui-g-8 ui-md-8 dialog-input">
+              <input pInputText type="text" formControlName="silkSuit" placeholder="请输入榨丝衬衣"/>
+            </div>
+          </div>
+          <div class="ui-g-6 ui-md-6 center">
+            <div class="ui-g-4 ui-md-4 right">
+              兰大褂：
+            </div>
+            <div class="ui-g-8 ui-md-8 dialog-input">
+              <input pInputText type="text" formControlName="orchidSuit" placeholder="请输入兰大褂"/>
+            </div>
+          </div>
+          <div class="ui-g-6 ui-md-6 center">
+            <div class="ui-g-4 ui-md-4 right">
+              白大褂：
+            </div>
+            <div class="ui-g-8 ui-md-8 dialog-input">
+              <input pInputText type="text" formControlName="whiteSuit" placeholder="请输入白大褂"/>
+            </div>
+          </div>
+          <div class="ui-g-6 ui-md-6 center">
+            <div class="ui-g-4 ui-md-4 right">
+             白工作服：
+            </div>
+            <div class="ui-g-8 ui-md-8 dialog-input">
+              <input pInputText type="text" formControlName="whiteWorkSuit" placeholder="请输入白工作服"/>
+            </div>
+          </div>
+          <div class="ui-g-6 ui-md-6 center">
+            <div class="ui-g-4 ui-md-4 right">
+              防寒服：
+            </div>
+            <div class="ui-g-8 ui-md-8 dialog-input">
+              <input pInputText type="text" formControlName="winterSuit" placeholder="请输入防寒服"/>
+            </div>
+          </div>
+          <div class="ui-g-6 ui-md-6 center">
+            <div class="ui-g-4 ui-md-4 right">
+              雨衣件：
+            </div>
+            <div class="ui-g-8 ui-md-8 dialog-input">
+              <input pInputText type="text" formControlName="rainSuit" placeholder="请输入雨衣件"/>
+            </div>
+          </div>
+          <div class="ui-g-6 ui-md-6 center">
+            <div class="ui-g-4 ui-md-4 right">
+              雨衣套：
+            </div>
+            <div class="ui-g-8 ui-md-8 dialog-input">
+              <input pInputText type="text" formControlName="aRainSuit" placeholder="请输入雨衣套"/>
+            </div>
+          </div>
+          <div class="ui-g-6 ui-md-6 center">
+            <div class="ui-g-4 ui-md-4 right">
+              一般防护服：
+            </div>
+            <div class="ui-g-8 ui-md-8 dialog-input">
+              <input pInputText type="text" formControlName="generalHat" placeholder="请输入一般防护服"/>
+            </div>
+          </div>
+          <div class="ui-g-6 ui-md-6 center">
+            <div class="ui-g-4 ui-md-4 right">
+              披肩帽：
+            </div>
+            <div class="ui-g-8 ui-md-8 dialog-input">
+              <input pInputText type="text" formControlName="shawlHat" placeholder="请输入披肩帽"/>
+            </div>
+          </div>
+          <div class="ui-g-6 ui-md-6 center">
+            <div class="ui-g-4 ui-md-4 right">
+              白工作帽：
+            </div>
+            <div class="ui-g-8 ui-md-8 dialog-input">
+              <input pInputText type="text" formControlName="whitWorkHat" placeholder="请输入白工作帽"/>
+            </div>
+          </div>
+          <div class="ui-g-6 ui-md-6 center">
+            <div class="ui-g-4 ui-md-4 right">
+              太阳帽：
+            </div>
+            <div class="ui-g-8 ui-md-8 dialog-input">
+              <input pInputText type="text" formControlName="sunHat" placeholder="请输入太阳帽"/>
+            </div>
+          </div>
+          <div class="ui-g-6 ui-md-6 center">
+            <div class="ui-g-4 ui-md-4 right">
+              安全帽：
+            </div>
+            <div class="ui-g-8 ui-md-8 dialog-input">
+              <input pInputText type="text" formControlName="safeHat" placeholder="请输入安全帽"/>
+            </div>
+          </div>
+          <div class="ui-g-6 ui-md-6 center">
+            <div class="ui-g-4 ui-md-4 right">
+              草帽：
+            </div>
+            <div class="ui-g-8 ui-md-8 dialog-input">
+              <input pInputText type="text" formControlName="grassHat" placeholder="请输入草帽"/>
+            </div>
+          </div>
+          <div class="ui-g-6 ui-md-6 center">
+            <div class="ui-g-4 ui-md-4 right">
+             工作皮鞋：
+            </div>
+            <div class="ui-g-8 ui-md-8 dialog-input">
+              <input pInputText type="text" formControlName="workShoes" placeholder="请输入工作皮鞋"/>
+            </div>
+          </div>
+          <div class="ui-g-6 ui-md-6 center">
+            <div class="ui-g-4 ui-md-4 right">
+              绝缘皮鞋：
+            </div>
+            <div class="ui-g-8 ui-md-8 dialog-input">
+              <input pInputText type="text" formControlName="insulationShoes" placeholder="请输入绝缘皮鞋"/>
+            </div>
+          </div>
+          <div class="ui-g-6 ui-md-6 center">
+            <div class="ui-g-4 ui-md-4 right">
+              防砸鞋：
+            </div>
+            <div class="ui-g-8 ui-md-8 dialog-input">
+              <input pInputText type="text" formControlName="antiSmashingShoes" placeholder="请输入防砸鞋"/>
+            </div>
+          </div>
+          <div class="ui-g-6 ui-md-6 center">
+            <div class="ui-g-4 ui-md-4 right">
+              波鞋：
+            </div>
+            <div class="ui-g-8 ui-md-8 dialog-input">
+              <input pInputText type="text" formControlName="waveShoes" placeholder="请输入波鞋"/>
+            </div>
+          </div>
+          <div class="ui-g-6 ui-md-6 center">
+            <div class="ui-g-4 ui-md-4 right">
+              护士鞋：
+            </div>
+            <div class="ui-g-8 ui-md-8 dialog-input">
+              <input pInputText type="text" formControlName="nurseShoes" placeholder="请输入护士鞋"/>
+            </div>
+          </div>
+          <div class="ui-g-6 ui-md-6 center">
+            <div class="ui-g-4 ui-md-4 right">
+              胶鞋：
+            </div>
+            <div class="ui-g-8 ui-md-8 dialog-input">
+              <input pInputText type="text" formControlName="rubberShoes" placeholder="请输入胶鞋"/>
+            </div>
+          </div>
+          <div class="ui-g-6 ui-md-6 center">
+            <div class="ui-g-4 ui-md-4 right">
+              水鞋：
+            </div>
+            <div class="ui-g-8 ui-md-8 dialog-input">
+              <input pInputText type="text" formControlName="waterShoes" placeholder="请输入水鞋"/>
+            </div>
+          </div>
+          <div class="ui-g-6 ui-md-6 center">
+            <div class="ui-g-4 ui-md-4 right">
+              拖鞋：
+            </div>
+            <div class="ui-g-8 ui-md-8 dialog-input">
+              <input pInputText type="text" formControlName="slipperShoes" placeholder="请输入拖鞋"/>
+            </div>
+          </div>
+          <div class="ui-g-6 ui-md-6 center">
+            <div class="ui-g-4 ui-md-4 right">
+              长布手套：
+            </div>
+            <div class="ui-g-8 ui-md-8 dialog-input">
+              <input pInputText type="text" formControlName="longClothGlove" placeholder="请输入长布手套"/>
+            </div>
+          </div>
+          <div class="ui-g-6 ui-md-6 center">
+            <div class="ui-g-4 ui-md-4 right">
+              布手套：
+            </div>
+            <div class="ui-g-8 ui-md-8 dialog-input">
+              <input pInputText type="text" formControlName="clothGlove" placeholder="请输入布手套"/>
+            </div>
+          </div>
+          <div class="ui-g-6 ui-md-6 center">
+            <div class="ui-g-4 ui-md-4 right">
+             线手套：
+            </div>
+            <div class="ui-g-8 ui-md-8 dialog-input">
+              <input pInputText type="text" formControlName="lineGlove" placeholder="请输入线手套"/>
+            </div>
+          </div>
+          <div class="ui-g-6 ui-md-6 center">
+            <div class="ui-g-4 ui-md-4 right">
+             防酸碱手套：
+            </div>
+            <div class="ui-g-8 ui-md-8 dialog-input">
+              <input pInputText type="text" formControlName="acidBaseGlove" placeholder="请输入防酸碱手套"/>
+            </div>
+          </div>
+          <div class="ui-g-6 ui-md-6 center">
+            <div class="ui-g-4 ui-md-4 right">
+              胶手套：
+            </div>
+            <div class="ui-g-8 ui-md-8 dialog-input">
+              <input pInputText type="text" formControlName="rubberGlove" placeholder="请输入胶手套"/>
+            </div>
+          </div>
+          <div class="ui-g-6 ui-md-6 center">
+            <div class="ui-g-4 ui-md-4 right">
+              手闷子：
+            </div>
+            <div class="ui-g-8 ui-md-8 dialog-input">
+              <input pInputText type="text" formControlName="handGlove" placeholder="请输入手闷子"/>
+            </div>
+          </div>
+          <div class="ui-g-6 ui-md-6 center">
+            <div class="ui-g-4 ui-md-4 right">
+              防油手闷子：
+            </div>
+            <div class="ui-g-8 ui-md-8 dialog-input">
+              <input pInputText type="text" formControlName="oilHandGlove" placeholder="请输入防油手闷子"/>
+            </div>
+          </div>
+          <div class="ui-g-6 ui-md-6 center">
+            <div class="ui-g-4 ui-md-4 right">
+              电焊手套：
+            </div>
+            <div class="ui-g-8 ui-md-8 dialog-input">
+              <input pInputText type="text" formControlName="electricWeldingGlove" placeholder="请输入电焊手套"/>
+            </div>
+          </div>
+          <div class="ui-g-6 ui-md-6 center">
+            <div class="ui-g-4 ui-md-4 right">
+              皮布手套：
+            </div>
+            <div class="ui-g-8 ui-md-8 dialog-input">
+              <input pInputText type="text" formControlName="furClothGlove" placeholder="请输入皮布手套"/>
+            </div>
+          </div>
+          <div class="ui-g-6 ui-md-6 center">
+            <div class="ui-g-4 ui-md-4 right">
+              石棉手套：
+            </div>
+            <div class="ui-g-8 ui-md-8 dialog-input">
+              <input pInputText type="text" formControlName="asbestosGlove" placeholder="请输入石棉手套"/>
+            </div>
+          </div>
+          <div class="ui-g-6 ui-md-6 center">
+            <div class="ui-g-4 ui-md-4 right">
+              皮手套：
+            </div>
+            <div class="ui-g-8 ui-md-8 dialog-input">
+              <input pInputText type="text" formControlName="furGlove" placeholder="请输入皮手套"/>
+            </div>
+          </div>
+          <div class="ui-g-6 ui-md-6 center">
+            <div class="ui-g-4 ui-md-4 right">
+              防护眼镜：
+            </div>
+            <div class="ui-g-8 ui-md-8 dialog-input">
+              <input pInputText type="text" formControlName="protectGlasses" placeholder="请输入防护眼镜"/>
+            </div>
+          </div>
+          <div class="ui-g-6 ui-md-6 center">
+            <div class="ui-g-4 ui-md-4 right">
+              有色防眼镜：
+            </div>
+            <div class="ui-g-8 ui-md-8 dialog-input">
+              <input pInputText type="text" formControlName="colorProtectGlasses" placeholder="请输入有色防眼镜"/>
+            </div>
+          </div>
+          <div class="ui-g-6 ui-md-6 center">
+            <div class="ui-g-4 ui-md-4 right">
+              防冲击眼镜：
+            </div>
+            <div class="ui-g-8 ui-md-8 dialog-input">
+              <input pInputText type="text" formControlName="antiImpactGlasses" placeholder="请输入防冲击眼镜"/>
+            </div>
+          </div>
+          <div class="ui-g-6 ui-md-6 center">
+            <div class="ui-g-4 ui-md-4 right">
+              封闭式眼镜：
+            </div>
+            <div class="ui-g-8 ui-md-8 dialog-input">
+              <input pInputText type="text" formControlName="closedGlasses" placeholder="请输入封闭式眼镜"/>
+            </div>
+          </div>
+          <div class="ui-g-6 ui-md-6 center">
+            <div class="ui-g-4 ui-md-4 right">
+              面罩：
+            </div>
+            <div class="ui-g-8 ui-md-8 dialog-input">
+              <input pInputText type="text" formControlName="faceShield" placeholder="请输入面罩"/>
+            </div>
+          </div>
+          <div class="ui-g-6 ui-md-6 center">
+            <div class="ui-g-4 ui-md-4 right">
+              小面罩：
+            </div>
+            <div class="ui-g-8 ui-md-8 dialog-input">
+              <input pInputText type="text" formControlName="littleFaceShield" placeholder="请输入小面罩"/>
+            </div>
+          </div>
+          <div class="ui-g-6 ui-md-6 center">
+            <div class="ui-g-4 ui-md-4 right">
+             电焊镜片：
+            </div>
+            <div class="ui-g-8 ui-md-8 dialog-input">
+              <input pInputText type="text" formControlName="weldingLens" placeholder="请输入电焊镜片"/>
+            </div>
+          </div>
+          <div class="ui-g-6 ui-md-6 center">
+            <div class="ui-g-4 ui-md-4 right">
+              毛巾：
+            </div>
+            <div class="ui-g-8 ui-md-8 dialog-input">
+              <input pInputText type="text" formControlName="towel" placeholder="请输入毛巾"/>
+            </div>
+          </div>
+          <div class="ui-g-6 ui-md-6 center">
+            <div class="ui-g-4 ui-md-4 right">
+              沙口罩：
+            </div>
+            <div class="ui-g-8 ui-md-8 dialog-input">
+              <input pInputText type="text" formControlName="sandMask" placeholder="请输入沙口罩"/>
+            </div>
+          </div>
+          <div class="ui-g-6 ui-md-6 center">
+            <div class="ui-g-4 ui-md-4 right">
+             防尘口罩：
+            </div>
+            <div class="ui-g-8 ui-md-8 dialog-input">
+              <input pInputText type="text" formControlName="dustMask" placeholder="请输入防尘口罩"/>
+            </div>
+          </div>
+          <div class="ui-g-6 ui-md-6 center">
+            <div class="ui-g-4 ui-md-4 right">
+              防毒口罩：
+            </div>
+            <div class="ui-g-8 ui-md-8 dialog-input">
+              <input pInputText type="text" formControlName="poisonMask" placeholder="请输入防毒口罩"/>
+            </div>
+          </div>
+          <div class="ui-g-6 ui-md-6 center">
+            <div class="ui-g-4 ui-md-4 right">
+              猪嘴巴：
+            </div>
+            <div class="ui-g-8 ui-md-8 dialog-input">
+              <input pInputText type="text" formControlName="antigasMask" placeholder="请输入猪嘴巴"/>
+            </div>
+          </div>
+          <div class="ui-g-6 ui-md-6 center">
+            <div class="ui-g-4 ui-md-4 right">
+              洗衣粉：
+            </div>
+            <div class="ui-g-8 ui-md-8 dialog-input">
+              <input pInputText type="text" formControlName="washingPowder" placeholder="请输入洗衣粉"/>
+            </div>
+          </div>
+          <div class="ui-g-6 ui-md-6 center">
+            <div class="ui-g-4 ui-md-4 right">
+              香皂：
+            </div>
+            <div class="ui-g-8 ui-md-8 dialog-input">
+              <input pInputText type="text" formControlName="toiletSoap" placeholder="请输入香皂"/>
+            </div>
+          </div>
+          <div class="ui-g-6 ui-md-6 center">
+            <div class="ui-g-4 ui-md-4 right">
+              肥皂：
+            </div>
+            <div class="ui-g-8 ui-md-8 dialog-input">
+              <input pInputText type="text" formControlName="soap" placeholder="请输入肥皂"/>
+            </div>
+          </div>
+          <div class="ui-g-6 ui-md-6 center">
+            <div class="ui-g-4 ui-md-4 right">
+              护肤用品：
+            </div>
+            <div class="ui-g-8 ui-md-8 dialog-input">
+              <input pInputText type="text" formControlName="skinCare" placeholder="请输入护肤用品"/>
+            </div>
+          </div>
+          <div class="ui-g-6 ui-md-6 center">
+            <div class="ui-g-4 ui-md-4 right">
+              鞋盖：
+            </div>
+            <div class="ui-g-8 ui-md-8 dialog-input">
+              <input pInputText type="text" formControlName="shoeCover" placeholder="请输入鞋盖"/>
+            </div>
+          </div>
+          <div class="ui-g-6 ui-md-6 center">
+            <div class="ui-g-4 ui-md-4 right">
+              帆布袜：
+            </div>
+            <div class="ui-g-8 ui-md-8 dialog-input">
+              <input pInputText type="text" formControlName="canvasSocks" placeholder="请输入帆布袜"/>
+            </div>
+          </div>
+          <div class="ui-g-6 ui-md-6 center">
+            <div class="ui-g-4 ui-md-4 right">
+              围腰：
+            </div>
+            <div class="ui-g-8 ui-md-8 dialog-input">
+              <input pInputText type="text" formControlName="bib" placeholder="请输入围腰"/>
+            </div>
+          </div>
+          <div class="ui-g-6 ui-md-6 center">
+            <div class="ui-g-4 ui-md-4 right">
+              安全带：
+            </div>
+            <div class="ui-g-8 ui-md-8 dialog-input">
+              <input pInputText type="text" formControlName="safetyBelt" placeholder="请输入安全带"/>
+            </div>
+          </div>
+          <div class="ui-g-6 ui-md-6 center">
+            <div class="ui-g-4 ui-md-4 right">
+              袖套：
+            </div>
+            <div class="ui-g-8 ui-md-8 dialog-input">
+              <input pInputText type="text" formControlName="cuff" placeholder="请输入袖套"/>
+            </div>
+          </div>
+        </div>
+      </form>
+    </p-scrollPanel>
+    <p-footer>
+      <button class="dialog-btn" (click)="showeditDiseaseEquimentDialog = false;clearData()">取消</button>
+      <button class="dialog-btn" (click)="sureeditDiseaseEquimentClick()">确认选择</button>
+    </p-footer>
+  </p-dialog>
+</div>

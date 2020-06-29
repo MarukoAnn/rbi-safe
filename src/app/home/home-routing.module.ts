@@ -43,6 +43,16 @@ const routes: Routes = [
       path: 'health',
       loadChildren: () => import('../business/profession-health/profession-health.module').then(m => m.ProfessionHealthModule),
       data: {preload: true}
+    },
+    {
+      path: 'genneral',
+      loadChildren: () => import('../business/general-info/general-info.module').then(m => m.GeneralInfoModule),
+      data: {preload: true}
+    },
+    {
+      path: 'double',
+      loadChildren: () => import('../business/double-responsibily/double-responsibily.module').then(m => m.DoubleResponsibilyModule),
+      data: {preload: true}
     }
 ] }];
 

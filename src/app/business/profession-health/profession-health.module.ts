@@ -12,7 +12,7 @@ import {
   CalendarModule,
   DialogModule,
   InputTextareaModule,
-  InputTextModule,
+  InputTextModule, RadioButtonModule,
   ScrollPanelModule,
   TabViewModule
 } from 'primeng/primeng';
@@ -23,10 +23,15 @@ import {TableModule} from 'primeng/table';
 import {PaginationModule} from '../../common/components/pagination/pagination.module';
 import { PrHygieneComponent } from './ph-manager/pr-hygiene/pr-hygiene.component';
 import { PrDiseaseComponent } from './ph-manager/pr-disease/pr-disease.component';
+import { PrDiseaseProtectComponent } from './ph-manager/pr-disease-protect/pr-disease-protect.component';
+import { PrDiseaseStatusComponent } from './ph-manager/pr-disease-status/pr-disease-status.component';
+import { PrHazardsSummaryComponent } from './ph-manager/pr-hazards-summary/pr-hazards-summary.component';
+import { PrHealthCheckComponent } from './ph-manager/pr-health-check/pr-health-check.component';
+import { PrDiseaseEquipmentComponent } from './ph-manager/pr-disease-equipment/pr-disease-equipment.component';
 
 
 @NgModule({
-  declarations: [ProfessionHealthComponent, PhInstitutionComponent, PhManagerComponent, PhArchiveComponent, DailyTestComponent, RegularTestComponent, RateNowComponent, PrHygieneComponent, PrDiseaseComponent],
+  declarations: [ProfessionHealthComponent, PhInstitutionComponent, PhManagerComponent, PhArchiveComponent, DailyTestComponent, RegularTestComponent, RateNowComponent, PrHygieneComponent, PrDiseaseComponent, PrDiseaseProtectComponent, PrDiseaseStatusComponent, PrHazardsSummaryComponent, PrHealthCheckComponent, PrDiseaseEquipmentComponent],
   imports: [
     CommonModule,
     ProfessionHealthRoutingModule,
@@ -40,7 +45,8 @@ import { PrDiseaseComponent } from './ph-manager/pr-disease/pr-disease.component
     ReactiveFormsModule,
     CalendarModule,
     InputTextareaModule,
-    TabViewModule
+    TabViewModule,
+    RadioButtonModule
   ],
   providers: [DatePipe]
 })

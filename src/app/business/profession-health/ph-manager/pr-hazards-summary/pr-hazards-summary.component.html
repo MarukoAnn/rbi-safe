@@ -1,0 +1,188 @@
+<div class="pr-hazards-summary">
+  <div class="pr-hazards-summary-header">
+    <div class="pr-hazards-summary-search">
+    </div>
+    <div class="pr-hazards-summary-button">
+      <button pButton type="button" label="新增" class="ui-button-rounded" (click)="showEditHazardsSummaryDialog = true"></button>
+      <button pButton type="button" label="批量删除" class="ui-button-rounded" (click)="delMoreHazardsSummaryClick()"></button>
+    </div>
+  </div>
+  <div class="pr-hazards-summary-table">
+    <p-table [columns]="hazardsSummaryTitle" [value]="hazardsSummaryContent" scrollHeight="50vh" [scrollable]="true" [(selection)]="hazardsSummarySelect">
+      <ng-template pTemplate="header" let-columns>
+        <tr [ngStyle]="table.tableheader" class="text-center" style="height: 5vh">
+          <th style="width: 3em">
+            <p-tableHeaderCheckbox ></p-tableHeaderCheckbox>
+          </th>
+          <th *ngFor="let col of columns">
+            {{col.header}}
+          </th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-rowData let-columns="columns" let-rowIndex="rowIndex">
+        <tr [ngStyle]="table.tableContent[0]">
+          <td style="width: 3em">
+            <p-tableCheckbox [value]="rowData" ></p-tableCheckbox>
+          </td>
+          <td *ngFor="let col of columns.slice(0, columns.length -1)" class="text-center" style="height: 5vh;color: #5E5F6B;">
+            {{rowData[col.field]}}
+          </td>
+          <td  class="text-center" style="height: 5vh"  *ngFor="let col of columns.slice(columns.length -1 ,  columns.length)">
+            <button pButton type="button" label="编辑" class="ui-button-rounded" style="margin: 4px;background: #3B86FF" (click)="editRiskArchiveClcik(rowData)"></button>
+            <!--            <button pButton type="button" label="删除" class="ui-button-rounded" style="background: #FF8A9A;border: 0" (click)="delDialyTestClick(rowData)"></button>-->
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+  <div class="pagination">
+    <app-pagination [option]="hazardsSummaryPageOption" (clickEvent)="hazardsSummaryPageEvent($event)"></app-pagination>
+  </div>
+  <p-dialog header="信息" [(visible)]="showEditHazardsSummaryDialog" [style]="{width: '800px'}">
+    <form [formGroup]="editHazardsSummary">
+      <div class="ui-g ui-md ui-fiuld">
+        <div class="ui-g-6 ui-md-6 center">
+          <div class="ui-g-4 ui-md-4 right">
+            <span style="color: #FF8A9A">*</span>职业病危害名称（代码）：
+          </div>
+          <div class="ui-g-8 ui-md-8 dialog-input">
+            <input pInputText type="text" formControlName="healthEndangerName" placeholder="请输入职业病危害名称"/>
+          </div>
+        </div>
+        <div class="ui-g-6 ui-md-6 center">
+          <div class="ui-g-4 ui-md-4 right">
+            <span style="color: #FF8A9A">*</span>作业场所名称：
+          </div>
+          <div class="ui-g-8 ui-md-8 dialog-input">
+            <input pInputText type="text" formControlName="healthEndangerPosition" placeholder="请输入作业场所名称"/>
+          </div>
+        </div>
+        <div class="ui-g-6 ui-md-6 center">
+          <div class="ui-g-4 ui-md-4 right">
+            <span style="color: #FF8A9A">*</span>项目投资：
+          </div>
+          <div class="ui-g-8 ui-md-8 dialog-input">
+            <input pInputText type="text" formControlName="healthEndangerSource" placeholder="请输入职业病危害因素来源"/>
+          </div>
+        </div>
+        <div class="ui-g-6 ui-md-6 center">
+          <div class="ui-g-4 ui-md-4 right">
+            <span style="color: #FF8A9A">*</span>设备状态：
+          </div>
+          <div class="ui-g-8 ui-md-8 dialog-input">
+            <input pInputText type="text" formControlName="healthEndangerStatus" placeholder="请输入设备状态"/>
+          </div>
+        </div>
+        <div class="ui-g-6 ui-md-6 center">
+          <div class="ui-g-4 ui-md-4 right">
+            <span style="color: #FF8A9A">*</span>	操作方式：
+          </div>
+          <div class="ui-g-8 ui-md-8 dialog-input">
+            <input pInputText type="text" formControlName="healthEndangerMode" placeholder="请输入操作方式"/>
+          </div>
+        </div>
+        <div class="ui-g-6 ui-md-6 center">
+          <div class="ui-g-4 ui-md-4 right">
+            <span style="color: #FF8A9A">*</span>是否隔离：
+          </div>
+          <div class="ui-g-8 ui-md-8 dialog-input">
+            <p-radioButton name="groupnamep" value="有" label="有"  [ngStyle]="{paddingRight: '2vw'}" formControlName="healthEndangerInsulate"></p-radioButton>
+            <p-radioButton name="groupnamep" value="无" label="无" formControlName="healthEndangerInsulate"></p-radioButton>
+          </div>
+        </div>
+        <div class="ui-g-6 ui-md-6 center">
+          <div class="ui-g-4 ui-md-4 right">
+            <span style="color: #FF8A9A">*</span>接触职业病危害人数：
+          </div>
+          <div class="ui-g-8 ui-md-8 dialog-input">
+            <input pInputText type="text" formControlName="healthEndangerPeopleNumber" placeholder="请输入接触职业病危害人数"/>
+          </div>
+        </div>
+        <div class="ui-g-6 ui-md-6 center">
+          <div class="ui-g-4 ui-md-4 right">
+            <span style="color: #FF8A9A">*</span>接触职业病危害女工人数：
+          </div>
+          <div class="ui-g-8 ui-md-8 dialog-input">
+            <input pInputText type="text" formControlName="healthEndangerFemaleNumber" placeholder="请输入接触职业病危害女工人数"/>
+          </div>
+        </div>
+        <div class="ui-g-6 ui-md-6 center">
+          <div class="ui-g-4 ui-md-4 right">
+            <span style="color: #FF8A9A">*</span>作业场所强度（浓度）：
+          </div>
+          <div class="ui-g-8 ui-md-8 dialog-input">
+            <input pInputText type="text" formControlName="healthEndangerStrength" placeholder="请输入作业场所强度"/>
+          </div>
+        </div>
+        <div class="ui-g-6 ui-md-6 center">
+          <div class="ui-g-4 ui-md-4 right">
+            <span style="color: #FF8A9A">*</span>工程防护设施名称：
+          </div>
+          <div class="ui-g-8 ui-md-8 dialog-input">
+            <input pInputText type="text" formControlName="healthEndangerEquipment" placeholder="请输入工程防护设施有"/>
+          </div>
+        </div>
+        <div class="ui-g-6 ui-md-6 center">
+          <div class="ui-g-4 ui-md-4 right">
+            <span style="color: #FF8A9A">*</span>个体防护用品名称：
+          </div>
+          <div class="ui-g-8 ui-md-8 dialog-input">
+            <input pInputText type="text" formControlName="healthEndangerGoods" placeholder="请输入个体防护用品名称"/>
+          </div>
+        </div>
+        <div class="ui-g-6 ui-md-6 center">
+          <div class="ui-g-4 ui-md-4 right">
+            <span style="color: #FF8A9A">*</span>填表部门：
+          </div>
+          <div class="ui-g-8 ui-md-8 dialog-input">
+            <input pInputText type="text" formControlName="healthEndangerDepartment" placeholder="请输入填表部门"/>
+          </div>
+        </div>
+        <div class="ui-g-6 ui-md-6 center">
+          <div class="ui-g-4 ui-md-4 right">
+            <span style="color: #FF8A9A">*</span>填表人：
+          </div>
+          <div class="ui-g-8 ui-md-8 dialog-input">
+            <input pInputText type="text" formControlName="healthEndangerOperation" placeholder="请输入填表人"/>
+          </div>
+        </div>
+        <div class="ui-g-6 ui-md-6 center">
+          <div class="ui-g-4 ui-md-4 right">
+            <span style="color: #FF8A9A">*</span>审核人：
+          </div>
+          <div class="ui-g-8 ui-md-8 dialog-input">
+            <input pInputText type="text" formControlName="healthEndangerAuditor" placeholder="请输入审核人"/>
+          </div>
+        </div>
+        <div class="ui-g-6 ui-md-6 center">
+          <div class="ui-g-4 ui-md-4 right">
+            <span style="color: #FF8A9A">*</span>填表时间：
+          </div>
+          <div class="ui-g-8 ui-md-8 dialog-input">
+            <p-calendar formControlName="healthEndangerOperationTime" [style]="{width: '100%'}" placeholder="请选择填表时间..." [monthNavigator]="true" [yearNavigator]="true" dateFormat="yy-mm-dd"  yearRange="1990:2200" [locale]="esDate"></p-calendar>
+          </div>
+        </div>
+        <div class="ui-g-6 ui-md-6 center">
+          <div class="ui-g-4 ui-md-4 right">
+            <span style="color: #FF8A9A">*</span>职业病危害因素检测机构：
+          </div>
+          <div class="ui-g-8 ui-md-8 dialog-input">
+            <input pInputText type="text" formControlName="healthEndangerTest" placeholder="请输入职业病危害因素检测机构"/>
+          </div>
+        </div>
+        <div class="ui-g-6 ui-md-6 center">
+          <div class="ui-g-4 ui-md-4 right">
+            <span style="color: #FF8A9A">*</span>检测时间：
+          </div>
+          <div class="ui-g-8 ui-md-8 dialog-input">
+            <p-calendar formControlName="healthEndangerTestTime" [style]="{width: '100%'}" placeholder="请选择检测时间..." [monthNavigator]="true" [yearNavigator]="true" dateFormat="yy-mm-dd"  yearRange="1990:2200" [locale]="esDate"></p-calendar>
+          </div>
+        </div>
+      </div>
+    </form>
+    <p-footer>
+      <button class="dialog-btn" (click)="showEditHazardsSummaryDialog = false;clearData()">取消</button>
+      <button class="dialog-btn" (click)="sureeditHazardsSummaryClick()">确认选择</button>
+    </p-footer>
+  </p-dialog>
+</div>

@@ -6,10 +6,12 @@ import {SrManagerComponent} from './sr-manager/sr-manager.component';
 import {AreaWithinComponent} from './sr-manager/area-within/area-within.component';
 import {AreaOutsideComponent} from './sr-manager/area-outside/area-outside.component';
 import {SrInstitutionComponent} from './sr-institution/sr-institution.component';
+import {SrControlStatusComponent} from './sr-control-status/sr-control-status.component';
 
 
 const routes: Routes = [
   {path: '', component: SecurityRiskComponent, children: [
+    {path: 'status', component: SrControlStatusComponent},
     {path: 'archive', component: SrArchivesComponent},
     {path: 'manager', component: SrManagerComponent},
     {path: 'institution', component: SrInstitutionComponent},
