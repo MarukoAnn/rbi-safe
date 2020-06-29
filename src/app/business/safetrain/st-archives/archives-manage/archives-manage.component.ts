@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {AddManageFieldClass, ManageField, PageOption, TableHeader, UpdateManageFieldClass} from '../../../../common/public/Api';
 import {SafetrainService} from '../../../../common/services/safetrain.service';
 import {Observable} from 'rxjs';
-import {objectCopy} from '../../../../common/public/contents';
 
 @Component({
   selector: 'app-archives-manage',
@@ -82,6 +81,12 @@ export class ArchivesManageComponent implements OnInit {
         if (window.confirm('您确定需要删除吗？')) {
           this.manageHttpOperate(this.safeSrv.delManageInfo({id: item.id}));
         }
+        break;
+      // 文件导出操作
+      case 'export':
+        this.safeSrv.exportManageInfo().subscribe((res) => {
+          window.open(res.data.path);
+        });
         break;
     }
   }

@@ -4,59 +4,89 @@
       <img src="../../../../assets/image/ic_header.jpeg" alt="头像">
     </div>
     <div class="usrinfo pl-3">
-      <p class="h5">王建国</p>
+      <p class="h5">{{hdPersonInfo.name}}</p>
       <p class="mt-2">
         <i class="fa fa-user-md text-primary" aria-hidden="true"></i>
-        <span class="ml-1 mr-2">班组长</span>
-        <span class="text-gray">10546554</span>
+        <span class="ml-1 mr-2">{{hdPersonInfo.position}}</span>
+        <span class="text-gray">{{hdPersonInfo.employeeNumber}}</span>
       </p>
     </div>
   </div>
   <div class="intro p-3 ac-border">
     <div class="row">
       <p class="pb-2">
-        <span class="text-gray">单位</span>
-        <span class="ml-2">xx单位</span>
+        <span class="text-gray">工种</span>
+        <span class="ml-2">{{hdPersonInfo.workType}}</span>
       </p>
       <p class="pb-2">
-        <span class="text-gray">厂矿</span>
-        <span class="ml-2">xx厂矿</span>
+        <span class="text-gray">学历</span>
+        <span class="ml-2">{{hdPersonInfo.degreeOfEducation}}</span>
       </p>
     </div>
     <div class="row">
       <p class="pb-2">
-        <span class="text-gray">车间</span>
-        <span class="ml-2">xx车间</span>
+        <span class="text-gray">民族</span>
+        <span class="ml-2">{{hdPersonInfo.nation}}</span>
       </p>
       <p class="pb-2">
-        <span class="text-gray">班主</span>
-        <span class="ml-2">xx班主</span>
+        <span class="text-gray">生日</span>
+        <span class="ml-2">{{hdPersonInfo.dateOfBirth}}</span>
       </p>
     </div>
   </div>
   <div class="menu">
     <div class="row ac-border p-3">
+      <span class="text-gray">厂矿名称</span>
+      <span class="ml-2">{{hdPersonInfo.factoryName}}</span>
+    </div>
+    <div class="row ac-border p-3">
+      <span class="text-gray">车间名称</span>
+      <span class="ml-2">{{hdPersonInfo.workshopName}}</span>
+    </div>
+    <div class="row ac-border p-3">
+      <span class="text-gray">班组名称</span>
+      <span class="ml-2">{{hdPersonInfo.teamName}}</span>
+    </div>
+    <div class="row ac-border p-3">
       <span class="text-gray">入厂时间</span>
       <span class="ml-2">2018.06.03</span>
     </div>
-    <div class="row ac-border p-3">
-      <span class="text-gray">所在岗位</span>
-      <span class="ml-2">xx岗位</span>
+    <div class="row ac-border p-3" style="cursor: pointer" (click)="hdSideBarShow = true">
+      <span class="text-gray">我的岗位风险</span>
+      <i class="fa fa-chevron-right ml-2" aria-hidden="true"></i>
     </div>
     <div class="row ac-border p-3">
       <span class="text-gray">岗位性质</span>
-      <span class="ml-2">xxxxxx</span>
-    </div>
-    <div class="row ac-border p-3">
-      <span class="text-gray">我的岗位风险</span>
-      <i class="fa fa-chevron-right ml-2" aria-hidden="true" style="cursor: pointer"></i>
-    </div>
-    <div class="row ac-border p-3">
-      <span class="text-gray">工种</span>
-      <span class="ml-2">xx工种</span>
+      <span class="ml-2">{{hdPersonInfo.jobNature}}</span>
     </div>
   </div>
   <div class="button p-3 text-center" (click)="loginOut()">
     <button pButton class="ui-button-rounded" label="退出账号"></button>
+  </div>
+  <div class="job">
+    <p-sidebar
+      [modal]="true"
+      [blockScroll]="true"
+      [(visible)]="hdSideBarShow"
+      [showCloseIcon]="false"
+      position="right">
+      <div class="job-risk">
+        <header class="header h5 text-center">
+          <span>我的岗位风险</span>
+        </header>
+        <div class="list pl-2 pr-2">
+          <p
+            *ngFor="let item of hdPersonInfo?.harmNameDTOS;let i = index"
+            class="text-secondary pt-2 pb-2"
+            style="border-bottom: 1px solid #DEDEDE;font-size: 10px"
+          >
+            {{(i + 1) + '：' + item.harmName}}
+          </p>
+        </div>
+        <div class="button p-3 text-center" (click)="hdSideBarShow = false">
+          <button pButton class="ui-button-rounded" label="返回个人信息"></button>
+        </div>
+      </div>
+    </p-sidebar>
   </div>
 </div>

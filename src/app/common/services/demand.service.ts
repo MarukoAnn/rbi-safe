@@ -73,4 +73,18 @@ export class DemandService {
   public exportPrincipalInfo(params: {completionStatus: null}): Observable<any> {
     return this.http.post(`/administratorReview/exportAdminstratorReview`, params);
   }
+
+  /**
+   * 获取提前通知时间
+   */
+  public getSpecialDayInfo(params: any = {}): Observable<any> {
+    return this.http.post(`/getSpecialDaySet`, params);
+  }
+
+  /**
+   * 更新提前通知时间
+   */
+  public updateSpecialDayInfo(params?: {}): Observable<any> {
+    return this.http.post(`/updateSpecialDaySet`, params);
+  }
 }
