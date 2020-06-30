@@ -209,7 +209,7 @@ export class SafetrainService {
    * @param params
    */
   public importManageInfo(params: any): Observable<any> {
-    return this.http.post(`training/importAdmin`, params);
+    return this.http.post(`/training/importAdmin`, params);
   }
 
   /**

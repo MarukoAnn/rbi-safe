@@ -15,6 +15,7 @@ export class PtUnprocessedComponent implements OnInit {
   public unprocessedTableHeader: TableHeader[] = [
     {field: 'trainingTypeName', header: '培训类型名称'},
     {field: 'trainingContent', header: '培训内容'},
+    {field: 'processingStatus', header: '处理状态'},
     {field: 'proposedTime', header: '提报时间'},
     {field: 'name', header: '提报人'},
   ]; // 表头字段

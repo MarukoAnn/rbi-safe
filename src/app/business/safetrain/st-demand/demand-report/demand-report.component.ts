@@ -16,6 +16,7 @@ export class DemandReportComponent implements OnInit {
   public reportOrgTreeSelect: OrgTree = {}; // 树选择
   public reportOperateField: TrainingField = new TrainingFieldAddClass(); // 操作字段
   public reportOperateModal: boolean = false; // 模态框
+  public reportOrgTreeModal: boolean = false; // 组织树模态框
   public reportOperateFlag: any ; // 操作标识
   public reportEs: any = Es;
   public reportPageOption: PageOption = {
@@ -24,7 +25,6 @@ export class DemandReportComponent implements OnInit {
   }; // 分页组件配置
   public reportTableHeader: TableHeader[] = [
     {field: 'name', header: '姓名'},
-    // {field: 'employeeNumber', header: '员工号'},
     {field: 'idCardNo', header: '身份证'},
     {field: 'factoryName', header: '厂矿'},
     {field: 'workshopName', header: '车间'},
@@ -62,8 +62,9 @@ export class DemandReportComponent implements OnInit {
   }
 
   //  公司人员分页
-  private reportCompanyDataInit(pageNo, pageSize) {
-    this.globalSrv.publicGetCompanyPerson({pageNo, pageSize}).subscribe((res) => {
+  private reportCompanyDataInit(pageNo, pageSize, organizationIds = '') {
+    const organizationId = organizationIds ? organizationIds : null;
+    this.globalSrv.publicGetCompanyPerson({pageNo, pageSize, organizationId}).subscribe((res) => {
       this.reportTableData = res.data.contents;
       this.reportPageOption.totalRecord = res.data.totalRecord;
     });
@@ -95,12 +96,20 @@ export class DemandReportComponent implements OnInit {
           this.reportTableSelectName = this.reportTableSelect.map((res) => res.name).join(',');
         }
         break;
+      case 'search':
+        this.reportOrgTreeModal = false;
+        this.reportCompanyDataInit(this.reportNowPage = 1, this.reportPageOption.pageSize, this.reportOrgTreeSelect.id);
+        break;
     }
   }
 
   // 分页操作
   public reportPageEvent(page) {
     this.reportNowPage = page;
+    if (this.reportOrgTreeSelect.id) {
+      this.reportCompanyDataInit(this.reportNowPage, this.reportPageOption.pageSize, this.reportOrgTreeSelect.id);
+      return;
+    }
     this.reportCompanyDataInit(page, this.reportPageOption.pageSize);
   }
 }

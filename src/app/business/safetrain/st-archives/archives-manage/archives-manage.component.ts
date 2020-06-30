@@ -25,6 +25,8 @@ export class ArchivesManageComponent implements OnInit {
   public manageOperateFlag: any; // 操作标识
   public manageOperateField: ManageField = new AddManageFieldClass(); // 操作字段
   public manageOperateModal: boolean = false; // 模态框
+  public manageImportField: FormData = new FormData(); // 导入
+  public manageImportFieldModal: boolean = false; // 导入模态框
   constructor(
     private safeSrv: SafetrainService,
   ) {
@@ -87,6 +89,11 @@ export class ArchivesManageComponent implements OnInit {
         this.safeSrv.exportManageInfo().subscribe((res) => {
           window.open(res.data.path);
         });
+        break;
+      // 文件导出操作
+      case 'import':
+        this.manageImportField.append('file', item.files[0]);
+        this.safeSrv.importManageInfo(this.manageImportField).subscribe((res) => {});
         break;
     }
   }
