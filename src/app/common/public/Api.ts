@@ -751,3 +751,48 @@ export class AddOuidSRRisk implements SRRisk{
   taskCode: any;
   workType: any;
 }
+
+// 用户信息接口及实现
+interface HarmNameDTOS {
+  harmName: string;
+}
+export interface PersonInfo {
+  name: string; // 姓名
+  degreeOfEducation: string; // 学历
+  nation: string; // 民族
+  dateOfBirth: string; // 生日
+  position: string; // 所在职位
+  employeeNumber: string; // 员工号
+  factoryName: string; // 厂矿
+  workshopName: string; // 车间
+  teamName: string; // 班组
+  entryTime: string; // 入仓时间
+  jobNature: string; // 岗位性质
+  workType: string; // 工种
+  harmNameDTOS: HarmNameDTOS[]; // 	我的岗位风险
+}
+export class PersonInfoClass implements PersonInfo {
+  harmNameDTOS: HarmNameDTOS[] = [];
+  dateOfBirth: string = '';
+  degreeOfEducation: string = '';
+  nation: string = '';
+  name: string = '';
+  employeeNumber: string = '';
+  entryTime: string = '';
+  factoryName: string = '';
+  jobNature: string = '';
+  position: string = '';
+  teamName: string = '';
+  workType: string = '';
+  workshopName: string = '';
+}
+
+// 提醒过期时间接口及实现
+export interface SpecialDay {
+  id: any;
+  values: number;
+}
+export class SpecialDayClass implements SpecialDay{
+  id: any = null;
+  values: number = null;
+}

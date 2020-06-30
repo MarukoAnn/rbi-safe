@@ -205,6 +205,22 @@ export class SafetrainService {
   }
 
   /**
+   * 主要负责人/安全生产管理员培训台账导出
+   * @param params
+   */
+  public importManageInfo(params: any): Observable<any> {
+    return this.http.post(`training/importAdmin`, params);
+  }
+
+  /**
+   * 主要负责人/安全生产管理员培训台账导出
+   * @param params
+   */
+  public exportManageInfo(params: any = {}): Observable<any> {
+    return this.http.post(`/training/writeAdmin`, params);
+  }
+
+  /**
    * 教育台账分类信息查询
    * @param params
    */

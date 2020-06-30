@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {PageOption, ReviewInfo, ReviewInfoClass, SpecialField, SpecialFieldClass, TableHeader} from '../../../../common/public/Api';
+import {PageOption, ReviewInfo, ReviewInfoClass, SpecialDay, SpecialDayClass, SpecialField, SpecialFieldClass, TableHeader} from '../../../../common/public/Api';
 import {Observable} from 'rxjs';
 import {GlobalService} from '../../../../common/services/global.service';
 import {DemandService} from '../../../../common/services/demand.service';
+import {objectCopy} from '../../../../common/public/contents';
 
 @Component({
   selector: 'app-demand-review',
@@ -21,6 +22,8 @@ export class DemandReviewComponent implements OnInit {
     {field: 'degreeOfEducation', header: '文化程度'},
     {field: 'dateOfIssue', header: '发证日期'},
   ]; // 表头字段
+  public reviewSpecialDay: SpecialDay = new SpecialDayClass(); // 提前通知时间
+  public reviewSpecialDayModal: boolean = false; // 提前通知修改模态框
   public reviewTableData: any[]; // 表体数据
   public reviewNowPage: number = 1; // 当前页
   public reviewOperateFlag: any; // 操作标识
@@ -40,6 +43,9 @@ export class DemandReviewComponent implements OnInit {
 
   ngOnInit() {
     this.reviewDataInit(this.reviewNowPage, this.reviewPageOption.pageSize);
+    this.demandSrv.getSpecialDayInfo().subscribe((res) => {
+      this.reviewSpecialDay = objectCopy(new SpecialDayClass(), res.data);
+    });
   }
   // 数据初始化
   private reviewDataInit(pageNo, pageSize) {
@@ -92,6 +98,12 @@ export class DemandReviewComponent implements OnInit {
       case 'export':
         this.demandSrv.exportReviewInfo({completionStatus: item.value}).subscribe((res) => {
           window.open(res.data);
+        });
+        break;
+      // 提前通知时间修改
+      case 'special':
+        this.demandSrv.updateSpecialDayInfo(this.reviewSpecialDay).subscribe((res) => {
+          this.reviewSpecialDayModal = false;
         });
         break;
     }

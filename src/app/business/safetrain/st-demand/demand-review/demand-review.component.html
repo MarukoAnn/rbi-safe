@@ -5,6 +5,12 @@
       <input type="text" pInputText placeholder="搜索"/>
       <button pButton type="button" icon="pi pi-search" class="ui-button-warn"></button>
     </div>
+    <button
+      pButton
+      label="{{'提前【'+reviewSpecialDay?.values+'】天提醒（点击可修改）'}}"
+      class="ui-button-danger"
+      (click)="reviewSpecialDayModal=true"
+    ></button>
     <div class="button">
       <p-dropdown
         placeholder="选择导出特种人员名单"
@@ -346,6 +352,32 @@
       <p-footer>
         <button pButton label="确定" (click)="reviewOperate(reviewOperateFlag = 'save')"></button>
         <button pButton label="取消" class="ui-button-pink" (click)="reviewOperateModal = false"></button>
+      </p-footer>
+    </p-dialog>
+    <!-- 提前通知修改模态框 -->
+    <p-dialog
+      [modal]="true"
+      [blockScroll]="true"
+      [(visible)]="reviewSpecialDayModal" [style]="{width: '50vw'}"
+    >
+      <p-header>修改提前通知时间</p-header>
+      <div class="ui-g">
+        <!--身份证-->
+        <div class="ui-g-12 ui-md-12">
+          <label class="ui-g-4 ui-md-4 label">
+            <span>请输入时间(<span class="text-danger">只能是正整数</span>)：</span>
+          </label>
+          <div class="ui-g-8 ui-md-8 input">
+            <input
+              type="number" pInputText placeholder="请输入正整数"
+              [(ngModel)]="reviewSpecialDay.values"
+             >
+          </div>
+        </div>
+      </div>
+      <p-footer>
+        <button pButton label="确定" (click)="reviewOperate(reviewOperateFlag = 'special')"></button>
+        <button pButton label="取消" class="ui-button-pink" (click)="reviewSpecialDayModal = false"></button>
       </p-footer>
     </p-dialog>
   </div>

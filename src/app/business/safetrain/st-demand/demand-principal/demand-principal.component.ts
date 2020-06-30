@@ -1,18 +1,15 @@
-import { Component, OnInit } from '@angular/core';
-import {Observable, Subscription} from 'rxjs';
+import {Component, OnInit} from '@angular/core';
+import {Observable} from 'rxjs';
 import {
   CanclePrincipoal,
   PageOption,
-  ReviewInfo,
-  ReviewInfoClass, ReviewPrincipoal,
-  SpecialField,
-  SpecialFieldClass,
+  ReviewPrincipoal, SpecialDay, SpecialDayClass,
   TableHeader
 } from '../../../../common/public/Api';
 import {DemandService} from '../../../../common/services/demand.service';
 import {GlobalService} from '../../../../common/services/global.service';
 import {PublicMethodService} from '../../../../common/public/public-method.service';
-import {Es} from '../../../../common/public/contents';
+import {Es, objectCopy} from '../../../../common/public/contents';
 import {DatePipe} from '@angular/common';
 
 @Component({
@@ -34,6 +31,8 @@ export class DemandPrincipalComponent implements OnInit {
     {field: 'termOfValidity', header: '有效期'},
     {field: 'typeOfCertificate', header: '合格证类型'},
   ]; // 表头字段
+  public principalSpecialDay: SpecialDay = new SpecialDayClass(); // 提前通知时间
+  public principalSpecialDayModal: boolean = false; // 提前通知修改模态框
   public principalTableData: any[]; // 表体数据
   public principalNowPage: number = 1; // 当前页
   public principalOperateFlag: any; // 操作标识
@@ -54,11 +53,15 @@ export class DemandPrincipalComponent implements OnInit {
     private datePipe: DatePipe,
   ) {
     this.principalDataInit(this.principalNowPage, this.principalPageOption.pageSize);
+    this.demandSrv.getSpecialDayInfo().subscribe((res) => {
+      this.principalSpecialDay = objectCopy(new SpecialDayClass(), res.data);
+    });
   }
 
   ngOnInit() {
     this.principalDataInit(this.principalNowPage, this.principalPageOption.pageSize);
   }
+
   // 数据初始化
   private principalDataInit(pageNo, pageSize) {
     this.demandSrv.getPrincipalPageInfo({pageNo, pageSize}).subscribe((res) => {
@@ -90,14 +93,15 @@ export class DemandPrincipalComponent implements OnInit {
       // 审核
       case 'review':
         this.principalOperateModal = true;
-        for (let key in this.reviewPrincipoal){
-          if (key !== 'id' && key !== 'safeAdministratorId'){
-            if (item[key]){
+        // tslint:disable-next-line:forin
+        for (const key in this.reviewPrincipoal) {
+          if (key !== 'id' && key !== 'safeAdministratorId') {
+            if (item[key]) {
               this.reviewPrincipoal[key] = item[key].split('至');
               this.reviewPrincipoal[key][0] = new Date(this.reviewPrincipoal[key][0]);
               this.reviewPrincipoal[key][1] = new Date(this.reviewPrincipoal[key][1]);
             }
-          }else {
+          } else {
             this.reviewPrincipoal[key] = item[key];
           }
           this.reviewPrincipoalCopy = Object.assign({}, this.reviewPrincipoal);
@@ -109,32 +113,39 @@ export class DemandPrincipalComponent implements OnInit {
           window.open(res.data);
         });
         break;
+      // 提前通知时间修改
+      case 'special':
+        this.demandSrv.updateSpecialDayInfo(this.principalSpecialDay).subscribe((res) => {
+          this.principalSpecialDayModal = false;
+        });
+        break;
     }
   }
 
-  public  principalSureOperate(flag: string): void {
-      switch (flag) {
-        case 'cancle': this.canclePrincipoal.reasonForHandling !== '' ?
+  public principalSureOperate(flag: string): void {
+    switch (flag) {
+      case 'cancle':
+        this.canclePrincipoal.reasonForHandling !== '' ?
           this.toolSrv.setConfirmation('取消审核', '取消审核', () => {
-            this.principalHttpOperate( this.demandSrv.canclePrincipalReveiew(this.canclePrincipoal)) ;
+            this.principalHttpOperate(this.demandSrv.canclePrincipalReveiew(this.canclePrincipoal));
           }) :
           this.toolSrv.setToast('error', '操作错误', '请填写取消原因');
-          break;
-        case 'review':
-          this.toolSrv.setConfirmation('完成复审', '完成复审', () => {
-            const list = ['twoTrainingTime', 'threeTrainingTime', 'oneTrainingTime'];
-            list.forEach(val => {
-              if (this.reviewPrincipoal[val]){
-                console.log(this.reviewPrincipoal[val][0]);
-                this.reviewPrincipoal[val][0] = this.datePipe.transform(this.reviewPrincipoal[val][0], 'yyyy-MM-dd');
-                this.reviewPrincipoal[val][1] = this.datePipe.transform( this.reviewPrincipoal[val][1], 'yyyy-MM-dd');
-                this.reviewPrincipoalCopy[val] = this.reviewPrincipoal[val][0] + '至' + this.reviewPrincipoal[val][1];
-              }
-            });
-            this.principalHttpOperate(this.demandSrv.principalReveiewToPass(this.reviewPrincipoalCopy));
+        break;
+      case 'review':
+        this.toolSrv.setConfirmation('完成复审', '完成复审', () => {
+          const list = ['twoTrainingTime', 'threeTrainingTime', 'oneTrainingTime'];
+          list.forEach(val => {
+            if (this.reviewPrincipoal[val]) {
+              console.log(this.reviewPrincipoal[val][0]);
+              this.reviewPrincipoal[val][0] = this.datePipe.transform(this.reviewPrincipoal[val][0], 'yyyy-MM-dd');
+              this.reviewPrincipoal[val][1] = this.datePipe.transform(this.reviewPrincipoal[val][1], 'yyyy-MM-dd');
+              this.reviewPrincipoalCopy[val] = this.reviewPrincipoal[val][0] + '至' + this.reviewPrincipoal[val][1];
+            }
           });
-          break;
-      }
+          this.principalHttpOperate(this.demandSrv.principalReveiewToPass(this.reviewPrincipoalCopy));
+        });
+        break;
+    }
   }
 
   // 分页操作

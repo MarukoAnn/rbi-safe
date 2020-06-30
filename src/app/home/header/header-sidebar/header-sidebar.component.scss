@@ -32,5 +32,16 @@
   }
   .ac-border {
     border-bottom: 1px solid #EDEDED;
+    .row{
+      p{
+        width: 50%;
+      }
+    }
+  }
+  .job {
+    /deep/ .ui-sidebar-right{
+      top: 0;
+      padding: 0;
+    }
   }
 }
