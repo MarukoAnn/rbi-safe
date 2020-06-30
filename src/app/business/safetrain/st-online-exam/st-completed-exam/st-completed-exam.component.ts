@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import {CommpleteExamData, PageOption} from '../../../../common/public/Api';
 import {Subscription} from 'rxjs';
 import {StOnlineExamService} from '../../../../common/services/st-online-exam.service';
-
 @Component({
   selector: 'app-st-completed-exam',
   templateUrl: './st-completed-exam.component.html',
@@ -65,27 +64,31 @@ export class StCompletedExamComponent implements OnInit {
     this.initCompleteExamData();
   }
   public  detailClick(e): void {
-    this.stOnlineExamSrv.getCompleteExamInfoDetail({testPapreId: e.id, trainingPlanId: e.personnelTrainingRecordId}).subscribe(res => {
-      // console.log(res);
+    this.stOnlineExamSrv.getCompleteExamInfoDetail({testPapreId: e.id, personnelTrainingRecordId: e.personnelTrainingRecordId}).subscribe(res => {
+      console.log(res);
       // this.paperTitle = res.data.testPaperName;
       this.singleChoiceQuestions = res.data.singleChoiceQuestions;
       this.multipleChoiceQuestions = res.data.multipleChoiceQuestions;
       this.judgmentQuestions = res.data.judgmentQuestions;
       this.completion = res.data.completion;
       this.setSubMitConpleteData(this.singleChoiceQuestions);
-      this.setSubMitConpleteData(this.multipleChoiceQuestions);
-      this.setSubMitConpleteData(this.judgmentQuestions);
-      this.setSubMitConpleteData(this.completion);
+      // this.setSubMitConpleteData(this.multipleChoiceQuestions);
+      // this.setSubMitConpleteData(this.judgmentQuestions);
+      // this.setSubMitConpleteData(this.completion);
     });
     console.log(this.commpleteExamData);
     this.showDetail = true;
   }
 
   public  setSubMitConpleteData(list: Array<object>): void {
+    console.log(list[1]);
+
     list.forEach(val => {
+      // console.log(val.rightKey);
       // @ts-ignore
-      this.commpleteExamData.safeAnswerRecordList.push({rightKey: val.rightKey.split('#'), score: val.score, testPapreId: val.testPapreId, testUestionsId: val.id, answerResults: val.answerResults ? val.split('#') : ''});
+      this.commpleteExamData.safeAnswerRecordList.push({rightKey: val.rightKey ? val.rightKey.split('#') : '', score: val.score, testPapreId: val.testPapreId, testUestionsId: val.id, answerResults: val.answerResults ? val.split('#') : ''});
     });
+    console.log(this.commpleteExamData);
   }
 
 }
