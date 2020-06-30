@@ -8,7 +8,7 @@ import {Subscription} from 'rxjs';
 })
 export class StExamListComponent implements OnInit {
 
-  public index: number = 0;
+  public index: number = 1;
   public noExamNum: any =  '';
   public themeSub: Subscription;
   ngOnInit() {

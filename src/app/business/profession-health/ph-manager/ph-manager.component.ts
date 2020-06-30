@@ -8,7 +8,7 @@ import {Subscription} from 'rxjs';
 })
 export class PhManagerComponent implements OnInit {
 
-  public index: number = 3;
+  public index: number = 0;
   // public noExamNum: any =  '';
   ngOnInit() {
   }

@@ -65,7 +65,7 @@ export class PrHealthCheckComponent implements OnInit {
         gender: new FormControl('', Validators.required),
         age: new FormControl('', Validators.required),
         marriage: new FormControl('', Validators.required),
-        phone: new FormControl('', Validators.pattern('/^(((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1}))+\\d{8})$/')),
+        phone: new FormControl('', Validators.pattern(/^1[345678]\d{9}$/)),
         idNum: new FormControl('', Validators.required),
         factor: new FormControl('', Validators.required),
         workType: new FormControl('', Validators.required),
@@ -136,6 +136,7 @@ export class PrHealthCheckComponent implements OnInit {
   }
   // 确定修改
   public  sureeditHealthCheckClick(): void {
+    console.log(this.editHealthCheck.value);
     if (this.editHealthCheck.valid){
       const data = JSON.parse(JSON.stringify(this.editHealthCheck.value));
       data.workTime = this.datePipe.transform(data.workTime, 'yyyy-MM-dd');
@@ -157,7 +158,7 @@ export class PrHealthCheckComponent implements OnInit {
         });
       }
     }else {
-      this.toolSrv.setToast('error', '操作错误', '数据未填写完整');
+      this.toolSrv.setToast('error', '操作错误', '数据未填写完整或数据格式类型不对');
     }
   }
 }

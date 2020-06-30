@@ -2,209 +2,186 @@
   <div class="area-outside-body">
     <form [formGroup]="addOutsideRisk">
       <div class="ui-g ui-fluid ui-md">
-        <div class="ui-g-12 ui-md-12 text-center h3">
-          <span>风险辨识</span>
-        </div>
-        <div class="ui-g-12 ui-md-12 center">
-          <div class="ui-g-1 ui-md-1 right">
-            <label><span style="color: #FF8A9A">*</span>单位:</label>
+        <div class="ui-g-12 ui-md-12" style="border: 1px solid #D2D6DB;border-radius: 10px">
+          <div class="ui-g-12 ui-md-12 text-center h3">
+            <span>风险辨识</span>
           </div>
-          <div class="ui-g-4 ui-md-4 dialog-input">
-            <input pInputText type="text" placeholder="请选择单位" (click)="treeDialog = true;getOrgTreeData()" formControlName="organizationName"/>
+          <div class="ui-g-12 ui-md-12 center">
+            <div class="ui-g-1 ui-md-1 right">
+              <label><span style="color: #FF8A9A">*</span>单位:</label>
+            </div>
+            <div class="ui-g-4 ui-md-4 dialog-input">
+              <input pInputText type="text" placeholder="请选择单位" (click)="treeDialog = true;getOrgTreeData()" formControlName="organizationName"/>
+            </div>
+            <div class="ui-g-1 ui-md-1"></div>
+            <div class="ui-g-1 ui-md-1 right">
+              <label><span style="color: #FF8A9A">*</span>危害名称:</label>
+            </div>
+            <div class="ui-g-4 ui-md-4 dialog-input">
+              <input pInputText type="text" placeholder="请输入危害名称" formControlName="harmName"/>
+            </div>
           </div>
+          <div class="ui-g-12 ui-md-12 center">
 
+            <div class="ui-g-1 ui-md-1 right">
+              <label><span style="color: #FF8A9A">*</span>危害种类:</label>
+            </div>
+            <div class="ui-g-4 ui-md-4 dialog-input">
+              <p-dropdown dropdownIcon="pi pi-caret-down" placeholder="请选择危害种类" [options]="riskKindOption" formControlName="harmKind"></p-dropdown>
+            </div>
+            <div class="ui-g-1 ui-md-1"></div>
 
-        </div>
-        <div class="ui-g-12 ui-md-12 center">
-          <div class="ui-g-1 ui-md-1 right">
-            <label><span style="color: #FF8A9A">*</span>工种:</label>
           </div>
-          <div class="ui-g-4 ui-md-4 dialog-input">
-            <input pInputText type="text" placeholder="请输入工种" formControlName="workType"/>
+          <div class="ui-md-12 ui-g-12">
+            <div class="ui-g-1 ui-md-1 right">
+              <label ><span style="color: #FF8A9A">*</span>危害描述:</label>
+            </div>
+            <div class="ui-g-10 ui-md-10">
+              <textarea [rows]="5" [cols]="30" pInputTextarea autoResize="autoResize" style="border: 1px solid #D2D6DB" formControlName="harmDescription"></textarea>
+            </div>
           </div>
-          <div class="ui-g-1 ui-md-1"></div>
-          <div class="ui-g-1 ui-md-1 right">
-            <label><span style="color: #FF8A9A">*</span>作业或任务:</label>
+          <div class="ui-md-12 ui-g-12">
+            <div class="ui-g-1 ui-md-1 right">
+              <label ><span style="color: #FF8A9A">*</span>风险描述:</label>
+            </div>
+            <div class="ui-g-10 ui-md-10">
+              <textarea [rows]="5" [cols]="30" pInputTextarea autoResize="autoResize" style="border: 1px solid #D2D6DB" formControlName="riskDescription"></textarea>
+            </div>
           </div>
-          <div class="ui-g-4 ui-md-4 dialog-input">
-            <input pInputText type="text" placeholder="请输入作业或任务" formControlName="taskCode"/>
+          <div class="ui-g-12 ui-md-12 center">
+            <div class="ui-g-1 ui-md-1 right">
+              <label><span style="color: #FF8A9A">*</span>风险种类:</label>
+            </div>
+            <div class="ui-g-4 ui-md-4 dialog-input">
+              <input pInputText type="text" placeholder="请输入风险种类" formControlName="riskKind"/>
+            </div>
+            <div class="ui-g-1 ui-md-1"></div>
+            <div class="ui-g-1 ui-md-1 right">
+              <label><span style="color: #FF8A9A">*</span>风险范畴:</label>
+            </div>
+            <div class="ui-g-4 ui-md-4 dialog-input">
+              <p-dropdown dropdownIcon="pi pi-caret-down" placeholder="请选择危害种类" [options]="riskCategoryOption" formControlName="riskCategory"></p-dropdown>
+            </div>
           </div>
-
-        </div>
-        <div class="ui-g-12 ui-md-12 center">
-          <div class="ui-g-1 ui-md-1 right">
-            <label><span style="color: #FF8A9A">*</span>步骤:</label>
-          </div>
-          <div class="ui-g-4 ui-md-4 dialog-input">
-            <input pInputText type="text" placeholder="请输入步骤" formControlName="step"/>
-          </div>
-          <div class="ui-g-1 ui-md-1"></div>
-
-          <div class="ui-g-1 ui-md-1 right">
-            <label><span style="color: #FF8A9A">*</span>编号:</label>
-          </div>
-          <div class="ui-g-4 ui-md-4 dialog-input">
-            <input pInputText type="text" placeholder="请输入编号" formControlName="code"/>
-          </div>
-        </div>
-        <div class="ui-g-12 ui-md-12 center">
-          <div class="ui-g-1 ui-md-1 right">
-            <label><span style="color: #FF8A9A">*</span>危害名称:</label>
-          </div>
-          <div class="ui-g-4 ui-md-4 dialog-input">
-            <input pInputText type="text" placeholder="请输入危害名称" formControlName="harmName"/>
-          </div>
-          <div class="ui-g-1 ui-md-1"></div>
-          <div class="ui-g-1 ui-md-1 right">
-            <label><span style="color: #FF8A9A">*</span>危害种类:</label>
-          </div>
-          <div class="ui-g-4 ui-md-4 dialog-input">
-            <p-dropdown dropdownIcon="pi pi-caret-down" placeholder="请选择危害种类" [options]="riskKindOption" formControlName="harmKind"></p-dropdown>
+          <div class="ui-md-12 ui-g-12">
+            <div class="ui-g-1 ui-md-1 right">
+              <label ><span style="color: #FF8A9A">*</span>暴露于风险的人员、设备信息:</label>
+            </div>
+            <div class="ui-g-4 ui-md-4 dialog-input">
+              <input pInputText type="text" placeholder="请输入危害名称" formControlName="exposeInfo"/>
+            </div>
           </div>
         </div>
-        <div class="ui-md-12 ui-g-12">
-          <div class="ui-g-1 ui-md-1 right">
-            <label ><span style="color: #FF8A9A">*</span>危害描述:</label>
+        <div class="ui-g-12 ui-md-12"></div>
+        <div class="ui-g-12 ui-md-12" style="border: 1px solid #D2D6DB;border-radius: 10px">
+          <div class="ui-md-12 ui-g-12 text-center h3">
+            <span>风险评估</span>
           </div>
-          <div class="ui-g-10 ui-md-10">
-            <textarea [rows]="5" [cols]="30" pInputTextarea autoResize="autoResize" style="border: 1px solid #D2D6DB" formControlName="harmDescription"></textarea>
+          <div class="ui-g-12 ui-md-12 center">
+            <div class="ui-g-1 ui-md-1 right">
+              <label><span style="color: #FF8A9A">*</span>现有控制措施:</label>
+            </div>
+            <div class="ui-g-4 ui-md-4 dialog-input">
+              <input pInputText type="text" placeholder="请输入现有控制措施" formControlName="controlMeasures"/>
+            </div>
+            <div class="ui-g-1 ui-md-1"></div>
+            <div class="ui-g-1 ui-md-1 right">
+              <label><span style="color: #FF8A9A">*</span>评估时间:</label>
+            </div>
+            <div class="ui-g-4 ui-md-4 dialog-input">
+              <p-calendar [style]="{width: '100%'}" placeholder="请选择评估时间" [monthNavigator]="true" [yearNavigator]="true"
+                          dateFormat="yy-mm-dd" yearRange="1900:2200" [locale]="esDate" formControlName="evaluateTime"></p-calendar>
+            </div>
           </div>
-        </div>
-        <div class="ui-md-12 ui-g-12">
-          <div class="ui-g-1 ui-md-1 right">
-            <label ><span style="color: #FF8A9A">*</span>风险描述:</label>
+          <div class="ui-g-12 ui-md-12 center">
+            <div class="ui-g-1 ui-md-1 right">
+              <label><span style="color: #FF8A9A">*</span>后果:</label>
+            </div>
+            <div class="ui-g-2 ui-md-2 dialog-input">
+              <p-spinner [step]="0.25" [formatInput]="true"  formControlName="consequence"  placeholder="请输入后果" (onChange)="calcRiskValue()"></p-spinner>
+            </div>
+            <div class="ui-g-1 ui-md-1"></div>
+            <div class="ui-g-1 ui-md-1 right">
+              <label><span style="color: #FF8A9A">*</span>暴露:</label>
+            </div>
+            <div class="ui-g-2 ui-md-2 dialog-input">
+              <p-spinner [step]="0.25" [formatInput]="true"  formControlName="expose"  placeholder="请输入暴露" (onChange)="calcRiskValue()"></p-spinner>
+            </div>
+            <div class="ui-g-1 ui-md-1"></div>
+            <div class="ui-g-1 ui-md-1 right">
+              <label><span style="color: #FF8A9A">*</span>可能性:</label>
+            </div>
+            <div class="ui-g-2 ui-md-2 dialog-input">
+              <p-spinner [step]="0.25" [formatInput]="true"  formControlName="possibility"  placeholder="请输入可能性"  (onChange)="calcRiskValue()"></p-spinner>
+            </div>
           </div>
-          <div class="ui-g-10 ui-md-10">
-            <textarea [rows]="5" [cols]="30" pInputTextarea autoResize="autoResize" style="border: 1px solid #D2D6DB" formControlName="riskDescription"></textarea>
-          </div>
-        </div>
-        <div class="ui-g-12 ui-md-12 center">
-          <div class="ui-g-1 ui-md-1 right">
-            <label><span style="color: #FF8A9A">*</span>风险种类:</label>
-          </div>
-          <div class="ui-g-4 ui-md-4 dialog-input">
-            <input pInputText type="text" placeholder="请输入风险种类" formControlName="riskKind"/>
-          </div>
-          <div class="ui-g-1 ui-md-1"></div>
-          <div class="ui-g-1 ui-md-1 right">
-            <label><span style="color: #FF8A9A">*</span>风险范畴:</label>
-          </div>
-          <div class="ui-g-4 ui-md-4 dialog-input">
-            <p-dropdown dropdownIcon="pi pi-caret-down" placeholder="请选择危害种类" [options]="riskCategoryOption" formControlName="riskCategory"></p-dropdown>
-          </div>
-        </div>
-        <div class="ui-md-12 ui-g-12">
-          <div class="ui-g-1 ui-md-1 right">
-            <label ><span style="color: #FF8A9A">*</span>暴露于风险的人员、设备信息:</label>
-          </div>
-          <div class="ui-g-4 ui-md-4 dialog-input">
-            <input pInputText type="text" placeholder="请输入危害名称" formControlName="exposeInfo"/>
-          </div>
-        </div>
-        <div class="ui-md-12 ui-g-12 text-center h3">
-          <span>风险评估</span>
-        </div>
-        <div class="ui-g-12 ui-md-12 center">
-          <div class="ui-g-1 ui-md-1 right">
-            <label><span style="color: #FF8A9A">*</span>现有控制措施:</label>
-          </div>
-          <div class="ui-g-4 ui-md-4 dialog-input">
-            <input pInputText type="text" placeholder="请输入现有控制措施" formControlName="controlMeasures"/>
-          </div>
-          <div class="ui-g-1 ui-md-1"></div>
-          <div class="ui-g-1 ui-md-1 right">
-            <label><span style="color: #FF8A9A">*</span>评估时间:</label>
-          </div>
-          <div class="ui-g-4 ui-md-4 dialog-input">
-            <p-calendar [style]="{width: '100%'}" placeholder="请选择评估时间" [monthNavigator]="true" [yearNavigator]="true"
-                        dateFormat="yy-mm-dd" yearRange="1900:2200" [locale]="esDate" formControlName="evaluateTime"></p-calendar>
-          </div>
-        </div>
-        <div class="ui-g-12 ui-md-12 center">
-          <div class="ui-g-1 ui-md-1 right">
-            <label><span style="color: #FF8A9A">*</span>后果:</label>
-          </div>
-          <div class="ui-g-2 ui-md-2 dialog-input">
-            <p-spinner [step]="0.25" [formatInput]="true"  formControlName="consequence"  placeholder="请输入后果" (onChange)="calcRiskValue()"></p-spinner>
-          </div>
-          <div class="ui-g-1 ui-md-1"></div>
-          <div class="ui-g-1 ui-md-1 right">
-            <label><span style="color: #FF8A9A">*</span>暴露:</label>
-          </div>
-          <div class="ui-g-2 ui-md-2 dialog-input">
-            <p-spinner [step]="0.25" [formatInput]="true"  formControlName="expose"  placeholder="请输入暴露" (onChange)="calcRiskValue()"></p-spinner>
-          </div>
-          <div class="ui-g-1 ui-md-1"></div>
-          <div class="ui-g-1 ui-md-1 right">
-            <label><span style="color: #FF8A9A">*</span>可能性:</label>
-          </div>
-          <div class="ui-g-2 ui-md-2 dialog-input">
-            <p-spinner [step]="0.25" [formatInput]="true"  formControlName="possibility"  placeholder="请输入可能性"  (onChange)="calcRiskValue()"></p-spinner>
+          <div class="ui-g-12 ui-md-12 center">
+            <div class="ui-g-1 ui-md-1 right">
+              <label><span style="color: #FF8A9A">*</span>风险值:</label>
+            </div>
+            <div class="ui-g-4 ui-md-4 dialog-input">
+              <input pInputText type="text" placeholder="请输入风险值" disabled formControlName="riskValue"/>
+            </div>
+            <div class="ui-g-1 ui-md-1"></div>
+            <div class="ui-g-1 ui-md-1 right">
+              <label><span style="color: #FF8A9A">*</span>风险等级:</label>
+            </div>
+            <div class="ui-g-4 ui-md-4 dialog-input">
+              <input pInputText type="text" placeholder="请输入风险等级" disabled formControlName="riskGrad"/>
+            </div>
           </div>
         </div>
-        <div class="ui-g-12 ui-md-12 center">
-          <div class="ui-g-1 ui-md-1 right">
-            <label><span style="color: #FF8A9A">*</span>风险值:</label>
+        <div class="ui-g-12 ui-md-12"></div>
+        <div class="ui-g-12 ui-md-12" style="border: 1px solid #D2D6DB;border-radius: 10px">
+          <div class="ui-g-12 ui-md-12 text-center h3">
+            <span>风险管控</span>
           </div>
-          <div class="ui-g-4 ui-md-4 dialog-input">
-            <input pInputText type="text" placeholder="请输入风险值" disabled formControlName="riskValue"/>
+          <div class="ui-g-12 ui-md-12 center">
+            <div class="ui-g-1 ui-md-1 right">
+              <label><span style="color: #FF8A9A">*</span>建议采取的控制措施:</label>
+            </div>
+            <div class="ui-g-4 ui-md-4 dialog-input">
+              <input pInputText type="text" placeholder="请输入建议采取的控制措施" formControlName="adviceMeasures"/>
+            </div>
+            <div class="ui-g-1 ui-md-1"></div>
+            <div class="ui-g-1 ui-md-1 right">
+              <label><span style="color: #FF8A9A">*</span>控制措施的有效性:</label>
+            </div>
+            <div class="ui-g-4 ui-md-4 dialog-input">
+              <p-spinner [step]="0.25" [formatInput]="true"  formControlName="measuresEffective"  placeholder="请输入控制措施的有效性" (onChange)="calcMeasuresResult()"></p-spinner>
+            </div>
           </div>
-          <div class="ui-g-1 ui-md-1"></div>
-          <div class="ui-g-1 ui-md-1 right">
-            <label><span style="color: #FF8A9A">*</span>风险等级:</label>
+          <div class="ui-g-12 ui-md-12 center">
+            <div class="ui-g-1 ui-md-1 right">
+              <label><span style="color: #FF8A9A">*</span>措施成本:</label>
+            </div>
+            <div class="ui-g-4 ui-md-4 dialog-input">
+              <p-spinner [step]="0.25" [formatInput]="true"  formControlName="measuresCost"  placeholder="请输入措施成本"  (onChange)="calcMeasuresResult()"></p-spinner>
+            </div>
+            <div class="ui-g-1 ui-md-1"></div>
+            <div class="ui-g-1 ui-md-1 right">
+              <label><span style="color: #FF8A9A">*</span>控制措施判断结果:</label>
+            </div>
+            <div class="ui-g-4 ui-md-4 dialog-input">
+              <input pInputText type="text" placeholder="请输入控制措施判断结果" disabled formControlName="measuresResult"/>
+            </div>
           </div>
-          <div class="ui-g-4 ui-md-4 dialog-input">
-            <input pInputText type="text" placeholder="请输入风险等级" disabled formControlName="riskGrad"/>
+          <div class="ui-g-12 ui-md-12 center">
+            <div class="ui-g-1 ui-md-1 right">
+              <label><span style="color: #FF8A9A">*</span>措施的采纳:</label>
+            </div>
+            <div class="ui-g-4 ui-md-4 dialog-input">
+              <p-radioButton name="groupnamep" value="是" label="是"  [ngStyle]="{paddingRight: '2vw'}" formControlName="measuresUse"></p-radioButton>
+              <p-radioButton name="groupnamep" value="否" label="否" formControlName="measuresUse"></p-radioButton>
+            </div>
           </div>
-        </div>
-        <div class="ui-g-12 ui-md-12 text-center h3">
-          <span>风险管控</span>
-        </div>
-        <div class="ui-g-12 ui-md-12 center">
-          <div class="ui-g-1 ui-md-1 right">
-            <label><span style="color: #FF8A9A">*</span>建议采取的控制措施:</label>
-          </div>
-          <div class="ui-g-4 ui-md-4 dialog-input">
-            <input pInputText type="text" placeholder="请输入建议采取的控制措施" formControlName="adviceMeasures"/>
-          </div>
-          <div class="ui-g-1 ui-md-1"></div>
-          <div class="ui-g-1 ui-md-1 right">
-            <label><span style="color: #FF8A9A">*</span>控制措施的有效性:</label>
-          </div>
-          <div class="ui-g-4 ui-md-4 dialog-input">
-            <p-spinner [step]="0.25" [formatInput]="true"  formControlName="measuresEffective"  placeholder="请输入控制措施的有效性" (onChange)="calcMeasuresResult()"></p-spinner>
-          </div>
-        </div>
-        <div class="ui-g-12 ui-md-12 center">
-          <div class="ui-g-1 ui-md-1 right">
-            <label><span style="color: #FF8A9A">*</span>措施成本:</label>
-          </div>
-          <div class="ui-g-4 ui-md-4 dialog-input">
-            <p-spinner [step]="0.25" [formatInput]="true"  formControlName="measuresCost"  placeholder="请输入措施成本"  (onChange)="calcMeasuresResult()"></p-spinner>
-          </div>
-          <div class="ui-g-1 ui-md-1"></div>
-          <div class="ui-g-1 ui-md-1 right">
-            <label><span style="color: #FF8A9A">*</span>控制措施判断结果:</label>
-          </div>
-          <div class="ui-g-4 ui-md-4 dialog-input">
-            <input pInputText type="text" placeholder="请输入控制措施判断结果" disabled formControlName="measuresResult"/>
-          </div>
-        </div>
-        <div class="ui-g-12 ui-md-12 center">
-          <div class="ui-g-1 ui-md-1 right">
-            <label><span style="color: #FF8A9A">*</span>措施的采纳:</label>
-          </div>
-          <div class="ui-g-4 ui-md-4 dialog-input">
-            <p-radioButton name="groupnamep" value="是" label="是"  [ngStyle]="{paddingRight: '2vw'}" formControlName="measuresUse"></p-radioButton>
-            <p-radioButton name="groupnamep" value="否" label="否" formControlName="measuresUse"></p-radioButton>
-          </div>
-        </div>
-        <div class="ui-md-12 ui-g-12" >
-          <div class="ui-g-1 ui-md-1 right">
-            <label ><span style="color: #FF8A9A">*</span>风险情况:</label>
-          </div>
-          <div class="ui-g-10 ui-md-10">
-            <app-upload-image (selectFile)="selectImageFile($event)" #upimg [ImageOption]="ImageOption"></app-upload-image>
+          <div class="ui-md-12 ui-g-12" >
+            <div class="ui-g-1 ui-md-1 right">
+              <label ><span style="color: #FF8A9A">*</span>风险情况:</label>
+            </div>
+            <div class="ui-g-10 ui-md-10">
+              <app-upload-image (selectFile)="selectImageFile($event)" #upimg [ImageOption]="ImageOption"></app-upload-image>
+            </div>
           </div>
         </div>
       </div>

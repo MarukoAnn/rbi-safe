@@ -91,8 +91,8 @@ export class SidebarComponent implements OnInit {
        link: '/home/double/insitution',
       children: [
         {item: {label: '一岗双责管理制度', bgc: '#D1E0F7', ftcolor: '#4F88DE'}, link: '/home/double/insitution', isHas: true},
-        {item: {label: '一岗双责责任清单制定', bgc: '#fff', ftcolor: '#8E8E8E'}, link: '', isHas: true},
-        {item: {label: '责任清单档案', bgc: '#fff', ftcolor: '#8E8E8E'}, link: '', isHas: true},
+        // {item: {label: '一岗双责责任清单制定', bgc: '#fff', ftcolor: '#8E8E8E'}, link: '', isHas: true},
+        // {item: {label: '责任清单档案', bgc: '#fff', ftcolor: '#8E8E8E'}, link: '', isHas: true},
       ]
     },
     // tslint:disable-next-line:max-line-length
@@ -199,16 +199,22 @@ export class SidebarComponent implements OnInit {
     if (item.children.length !== 0) {
       if ( this.barItem === this.fistItem) {
         item.lefticon = 'fa-angle-right';
+        // this.secItem = this.
+        item.children.forEach(val => {
+          val.item.bgc = '#fff';
+          val.item.ftcolor = '#8E8E8E';
+        });
+        item.children[0].item.bgc = '#D1E0F7';
+        item.children[0].item.ftcolor = '#4F88DE';
       }
     }
     if (this.isSetBar !== 'true') {
       this.setBodyMarginLeft(item.children);
       this.secItem = item.children;
     } else {
+      // this.secItem = item.children;
       if (item.label === '首页') {
         this.isSetBar = 'false';
-        // this.fistItem[0].bgc = '#4E88DE';
-        // this.fistItem[0].icon.color = '#FCCF4F';
         this.fistItem.forEach((value, index) => {
           if (index !== 0) {
             value.icon.color = '#fff';
@@ -292,12 +298,13 @@ export class SidebarComponent implements OnInit {
           }
         } else {
           if (val.link.slice(0,   val.link.lastIndexOf('/')) === this.router.url.slice(0 , this.router.url.lastIndexOf('/'))) {
-            // console.log(val.link.slice(0,  val.link.lastIndexOf('/')));
+            console.log(val.link.slice(0,  val.link.lastIndexOf('/')));
             val.bgc = '#4E88DE';
             val.icon.color = '#FCCF4F';
             this.secItem = val.children;
             this.setBodyMarginLeft(val.children);
             this.secItem.forEach(res => {
+              console.log(res);
               if (res.link.length > 0 ) {
                 if (res.link.slice(res.link.lastIndexOf('/'), res.link.length) === this.router.url.slice(this.router.url.lastIndexOf('/'), this.router.url.length)) {
                   res.item.bgc = '#D1E0F7';

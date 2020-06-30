@@ -3,12 +3,12 @@
     <div class="rate-now-search">
     </div>
     <div class="rate-now-button">
-      <button pButton type="button" label="新增" class="ui-button-rounded" (click)="showEditRegularTestDialog = true"></button>
-      <button pButton type="button" label="批量删除" class="ui-button-rounded" (click)="delMoreRegularTestClick()"></button>
+      <button pButton type="button" label="新增" class="ui-button-rounded" (click)="showeditRateNowDialog = true"></button>
+      <button pButton type="button" label="批量删除" class="ui-button-rounded" (click)="delMoreRateNowClick()"></button>
     </div>
   </div>
   <div class="rate-now-table">
-    <p-table [columns]="dailyTestTitle" [value]="dailyTestContent" scrollHeight="50vh" [scrollable]="true" [(selection)]="RegularTestSelect">
+    <p-table [columns]="dailyTestTitle" [value]="dailyTestContent" scrollHeight="50vh" [scrollable]="true" [(selection)]="RateNowSelect">
       <ng-template pTemplate="header" let-columns>
         <tr [ngStyle]="table.tableheader" class="text-center" style="height: 5vh">
           <th style="width: 3em">
@@ -29,7 +29,7 @@
           </td>
           <td  class="text-center" style="height: 5vh"  *ngFor="let col of columns.slice(columns.length -1 ,  columns.length)">
             <button pButton type="button" label="编辑" class="ui-button-rounded" style="margin: 4px;background: #3B86FF" (click)="editRiskArchiveClcik(rowData)"></button>
-            <button pButton type="button" label="删除" class="ui-button-rounded" style="background: #FF8A9A;border: 0" (click)="delRegularTestClick(rowData)"></button>
+            <button pButton type="button" label="删除" class="ui-button-rounded" style="background: #FF8A9A;border: 0" (click)="delRateNowClick(rowData)"></button>
           </td>
         </tr>
       </ng-template>
@@ -38,8 +38,8 @@
   <div class="pagination">
     <app-pagination [option]="dailyPageOption" (clickEvent)="archivePageEvent($event)"></app-pagination>
   </div>
-  <p-dialog header="信息" [(visible)]="showEditRegularTestDialog" [style]="{width: '800px'}">
-    <form [formGroup]="editRegularTest">
+  <p-dialog header="信息" [(visible)]="showeditRateNowDialog" [style]="{width: '800px'}">
+    <form [formGroup]="editRateNow">
       <div class="ui-g ui-md ui-fiuld">
         <div class="ui-g-6 ui-md-6 center">
           <div class="ui-g-4 ui-md-4 right">
@@ -82,15 +82,16 @@
             <div class="ui-inputgroup" style="position: relative">
               <input type="text" pInputText placeholder="请选择通知书附件" formControlName="file" disabled>
               <button pButton type="button" icon="pi pi-folder" class="ui-button-warn" style="background: #F8F8F8;border: 1px solid #E0E3E7;border-left: 0;color: #E0E3E7"></button>
-              <input type="file" style="position: absolute;width: 35px;right: 0;height: 34px;opacity: 0" (change)="selectFile($event)">
+              <input type="file" style="position: absolute;width: 35px;right: 2.357em;height: 34px;opacity: 0" (change)="selectFile($event)">
+              <button *ngIf="editRateNow.value.file" pButton type="button" icon="pi pi-download" class="ui-button-warn" style="background: #F8F8F8;border: 1px solid #E0E3E7;border-left: 0;color: #3B86FF" (click)="downLoadFile()"></button>
             </div>
           </div>
         </div>
       </div>
     </form>
     <p-footer>
-      <button class="dialog-btn" (click)="showEditRegularTestDialog = false;">取消</button>
-      <button class="dialog-btn" (click)="sureEditRegularTestClick()">确认选择</button>
+      <button class="dialog-btn" (click)="showeditRateNowDialog = false;clearData()">取消</button>
+      <button class="dialog-btn" (click)="sureeditRateNowClick()">确认选择</button>
     </p-footer>
   </p-dialog>
 </div>

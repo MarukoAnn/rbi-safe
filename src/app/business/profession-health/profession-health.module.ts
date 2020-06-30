@@ -8,13 +8,13 @@ import { PhManagerComponent } from './ph-manager/ph-manager.component';
 import { PhArchiveComponent } from './ph-archive/ph-archive.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {
-  ButtonModule,
-  CalendarModule,
-  DialogModule,
-  InputTextareaModule,
-  InputTextModule, RadioButtonModule,
-  ScrollPanelModule,
-  TabViewModule
+    ButtonModule,
+    CalendarModule,
+    DialogModule,
+    InputTextareaModule,
+    InputTextModule, MessageModule, RadioButtonModule,
+    ScrollPanelModule,
+    TabViewModule
 } from 'primeng/primeng';
 import { DailyTestComponent } from './ph-archive/daily-test/daily-test.component';
 import { RegularTestComponent } from './ph-archive/regular-test/regular-test.component';
@@ -32,22 +32,23 @@ import { PrDiseaseEquipmentComponent } from './ph-manager/pr-disease-equipment/p
 
 @NgModule({
   declarations: [ProfessionHealthComponent, PhInstitutionComponent, PhManagerComponent, PhArchiveComponent, DailyTestComponent, RegularTestComponent, RateNowComponent, PrHygieneComponent, PrDiseaseComponent, PrDiseaseProtectComponent, PrDiseaseStatusComponent, PrHazardsSummaryComponent, PrHealthCheckComponent, PrDiseaseEquipmentComponent],
-  imports: [
-    CommonModule,
-    ProfessionHealthRoutingModule,
-    FormsModule,
-    ScrollPanelModule,
-    ButtonModule,
-    InputTextModule,
-    TableModule,
-    PaginationModule,
-    DialogModule,
-    ReactiveFormsModule,
-    CalendarModule,
-    InputTextareaModule,
-    TabViewModule,
-    RadioButtonModule
-  ],
+    imports: [
+        CommonModule,
+        ProfessionHealthRoutingModule,
+        FormsModule,
+        ScrollPanelModule,
+        ButtonModule,
+        InputTextModule,
+        TableModule,
+        PaginationModule,
+        DialogModule,
+        ReactiveFormsModule,
+        CalendarModule,
+        InputTextareaModule,
+        TabViewModule,
+        RadioButtonModule,
+        MessageModule
+    ],
   providers: [DatePipe]
 })
 export class ProfessionHealthModule { }
