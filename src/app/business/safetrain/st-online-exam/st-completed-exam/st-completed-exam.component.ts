@@ -72,21 +72,17 @@ export class StCompletedExamComponent implements OnInit {
       this.judgmentQuestions = res.data.judgmentQuestions;
       this.completion = res.data.completion;
       this.setSubMitConpleteData(this.singleChoiceQuestions);
-      // this.setSubMitConpleteData(this.multipleChoiceQuestions);
-      // this.setSubMitConpleteData(this.judgmentQuestions);
-      // this.setSubMitConpleteData(this.completion);
+      this.setSubMitConpleteData(this.multipleChoiceQuestions);
+      this.setSubMitConpleteData(this.judgmentQuestions);
+      this.setSubMitConpleteData(this.completion);
     });
-    console.log(this.commpleteExamData);
     this.showDetail = true;
   }
 
   public  setSubMitConpleteData(list: Array<object>): void {
-    console.log(list[1]);
-
     list.forEach(val => {
-      // console.log(val.rightKey);
       // @ts-ignore
-      this.commpleteExamData.safeAnswerRecordList.push({rightKey: val.rightKey ? val.rightKey.split('#') : '', score: val.score, testPapreId: val.testPapreId, testUestionsId: val.id, answerResults: val.answerResults ? val.split('#') : ''});
+      this.commpleteExamData.safeAnswerRecordList.push({rightKey: val.rightKey.split('#') , score: val.score, testPapreId: val.testPapreId, testUestionsId: val.id, answerResults: val.answerResults ? val.answerResults.split('#') : ''});
     });
     console.log(this.commpleteExamData);
   }
