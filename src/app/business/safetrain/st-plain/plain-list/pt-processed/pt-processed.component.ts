@@ -16,6 +16,7 @@ export class PtProcessedComponent implements OnInit {
     {field: 'trainingTypeName', header: '培训类型名称'},
     {field: 'trainingContent', header: '培训内容'},
     {field: 'proposedTime', header: '提报时间'},
+    {field: 'processingStatus', header: '处理状态'},
     {field: 'name', header: '提报人'},
   ]; // 表头字段
   public processedTableData: any[]; // 表体数据
@@ -33,6 +34,7 @@ export class PtProcessedComponent implements OnInit {
   // 数据初始化
   private processedDataInit(pageNo, pageSize) {
     this.safeSrv.getProgramList({pageNo, pageSize, processingStatus: 0}).subscribe((res) => {
+      console.log(res.data.contents);
       this.processedTableData = res.data.contents;
       this.processedPageOption.totalRecord = res.data.totalRecord;
     });

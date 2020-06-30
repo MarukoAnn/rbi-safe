@@ -11,7 +11,7 @@ export class StDemandComponent implements OnInit {
     {item: {label: '日常需求填报', ftcolor: '#4F88DE', bgc: '#4F88DE'}, simbol: 'report'},
     {item: {label: '特种人员取证/复审培训', ftcolor: '#B3B3B3', bgc: '#EDEDED'}, simbol: 'review'},
     {item: {label: '主要负责人/安全生产管理员', ftcolor: '#B3B3B3', bgc: '#EDEDED'}, simbol: 'principal'},
-    {item: {label: '历史教育需求记录', ftcolor: '#B3B3B3', bgc: '#EDEDED'},  simbol: 'record'},
+    // {item: {label: '历史教育需求记录', ftcolor: '#B3B3B3', bgc: '#EDEDED'},  simbol: 'record'},
   ];
   public simbol = 'report';
   constructor() { }

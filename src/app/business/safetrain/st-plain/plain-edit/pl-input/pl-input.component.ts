@@ -19,6 +19,7 @@ export class PlInputComponent implements OnInit {
   public plInputOrgTreeSelect: OrgTree = {}; // 树选择
   public plInputOperateUpdateField: TrainingField = new TrainingFieldUpdateClass(); // 操作字段
   public plInputOperateModal: boolean = false; // 模态框
+  public plInputOrgTreeModal: boolean = false; // 组织树模态框
   public plInputOperateFlag: any ; // 操作标识
   public plInputEs: any = Es; // 时间选择器语言本地化
   public plInputPageOption: PageOption = {
@@ -78,8 +79,9 @@ export class PlInputComponent implements OnInit {
   }
 
   //  公司人员分页
-  private plInputCompanyDataInit(pageNo, pageSize) {
-    this.globalSrv.publicGetCompanyPerson({pageNo, pageSize}).subscribe((res) => {
+  private plInputCompanyDataInit(pageNo, pageSize, organizationIds = '') {
+    const organizationId = organizationIds ? organizationIds : null;
+    this.globalSrv.publicGetCompanyPerson({pageNo, pageSize, organizationId}).subscribe((res) => {
       this.plInputTableData = res.data.contents;
       this.plInputPageOption.totalRecord = res.data.totalRecord;
     });
@@ -113,6 +115,8 @@ export class PlInputComponent implements OnInit {
         break;
       // 筛选搜索
       case 'search':
+        this.plInputOrgTreeModal = false;
+        this.plInputCompanyDataInit(this.plInputNowPage = 1, this.plInputPageOption.pageSize, this.plInputOrgTreeSelect.id);
         break;
     }
   }
@@ -120,6 +124,10 @@ export class PlInputComponent implements OnInit {
   // 分页操作
   public plInputPageEvent(page) {
     this.plInputNowPage = page;
+    if (this.plInputOrgTreeSelect.id) {
+      this.plInputCompanyDataInit(this.plInputNowPage, this.plInputPageOption.pageSize, this.plInputOrgTreeSelect.id);
+      return;
+    }
     this.plInputCompanyDataInit(page, this.plInputPageOption.pageSize);
   }
 }
