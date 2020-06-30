@@ -39,6 +39,7 @@ export class RegularTestComponent implements OnInit {
   };
   public esDate = Es;
   public file: any;
+  public pathFile: any;
   constructor(
     private toolSrv: PublicMethodService,
     private phealthSrv: ProfessHealthService,
@@ -113,6 +114,7 @@ export class RegularTestComponent implements OnInit {
       this.editRegularTest.patchValue(a);
     }
     console.log();
+    this.pathFile = data.annex;
     this.editRegularTest.patchValue({'file': data.annex.slice(data.annex.lastIndexOf('/') + 1, data.annex.length)});
     this.showEditRegularTestDialog = true;
   }
@@ -153,5 +155,9 @@ export class RegularTestComponent implements OnInit {
     }else {
       this.toolSrv.setToast('error', '操作错误', '数据未填写完成');
     }
+  }
+  // 下载文件
+  public  downLoadFile(): void {
+    window.open(this.pathFile);
   }
 }

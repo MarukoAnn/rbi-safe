@@ -699,3 +699,55 @@ export class AddSRRisk implements SRRisk{
     this.picture = '';
   }
 }
+export class AddOuidSRRisk implements SRRisk{
+  organizationName: any;
+  organizationId: any;
+  harmName: any;  // 危害名称
+  harmKind: any; // 危害种类
+  harmDescription: any; // 危害及相关描述
+  riskDescription: any; // 风险描述
+  riskKind: any; // 风险种类
+  riskCategory: any; // 粉线范畴
+  exposeInfo: any; // 风险暴露人员  设备信息
+  controlMeasures: any; // 	现有控制措施
+  consequence: any; // 后果
+  expose: any; // 暴露
+  possibility: any; // 可能性
+  riskValue: any; // 风险值
+  riskGrad: any; // 风险等级
+  adviceMeasures: any; // 建议采取措施
+  measuresEffective: any; // 控制措施的有效性
+  measuresCost: any; // 措施成本
+  measuresResult: any; // 控制措施判断结果
+  measuresUse: any; // 措施的采纳 选择（单选） 是 否
+  evaluateTime: any; // 评估时间
+  picture: any; // 图片文件 最大六张
+  constructor() {
+    this.organizationId = '';
+    this.organizationName = '';
+    this.harmName = '';
+    this.harmKind = '';
+    this.harmDescription = '';
+    this.riskDescription = '';
+    this.riskKind = '';
+    this.riskCategory = '';
+    this.exposeInfo = '';
+    this.controlMeasures = '';
+    this.consequence = '';
+    this.expose = '';
+    this.possibility = '';
+    this.riskValue = '';
+    this.riskGrad = '';
+    this.adviceMeasures = '';
+    this.measuresEffective = '';
+    this.measuresCost = '';
+    this.measuresResult = '';
+    this.measuresUse = '';
+    this.evaluateTime = '';
+    this.picture = '';
+  }
+  code: any;
+  step: any;
+  taskCode: any;
+  workType: any;
+}

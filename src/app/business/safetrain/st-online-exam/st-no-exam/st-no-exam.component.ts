@@ -52,11 +52,12 @@ export class StNoExamComponent implements OnInit {
 
   public  initNoExamData(): void {
     this.stOnlineExamSrv.getOnlineExamOPageInfo({pageSize: 10, pageNo: this.pageNo, processingStatus: 1}).subscribe(res => {
-      // console.log(res);
+      console.log(res);
       this.pageOption = {pageSize: res.data.pageSize, totalRecord: res.data.totalRecord};
       if (res.data.contents){
         this.noExamContent = res.data.contents.map(v => {
           v.processingStatus = '未完成';
+          v.duration = v.duration ? v.duration + '分钟' : '';
           v.operating = '开始考试';
           return v;
         });

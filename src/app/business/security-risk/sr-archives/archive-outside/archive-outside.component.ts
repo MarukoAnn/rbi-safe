@@ -54,10 +54,10 @@ export class ArchiveOutsideComponent implements OnInit {
     {field: 'factoryName', header: '厂矿'},
     {field: 'workshopName', header: '车间'},
     {field: 'className', header: '班组'},
-    {field: 'workType', header: '工种'},
-    {field: 'taskCode', header: '作业或任务（编号）'},
-    {field: 'step', header: '步骤'},
-    {field: 'code', header: '编号'},
+    // {field: 'workType', header: '工种'},
+    // {field: 'taskCode', header: '作业或任务（编号）'},
+    // {field: 'step', header: '步骤'},
+    // {field: 'code', header: '编号'},
     {field: 'harmName', header: '危害名称'},
     {field: 'harmKind', header: '危害种类'},
     {field: 'harmDescription', header: '危害及有关信息描述'},
@@ -103,10 +103,10 @@ export class ArchiveOutsideComponent implements OnInit {
       {
         organizationName: new FormControl('', Validators.required),
         organizationId: new FormControl('', Validators.required),
-        code: new FormControl('', Validators.required),
-        taskCode: new FormControl('', Validators.required), // 作业或者任务
-        workType: new FormControl('', Validators.required), // 工种
-        step: new FormControl('', Validators.required), // 步骤
+        // code: new FormControl('', Validators.required),
+        // taskCode: new FormControl('', Validators.required), // 作业或者任务
+        // workType: new FormControl('', Validators.required), // 工种
+        // step: new FormControl('', Validators.required), // 步骤
         harmName: new FormControl('', Validators.required), // 危害名称
         harmKind: new FormControl('', Validators.required), // 危害种类
         harmDescription: new FormControl('', Validators.required), // 危害及相关描述

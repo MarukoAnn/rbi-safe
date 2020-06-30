@@ -20,25 +20,25 @@ export class RateNowComponent implements OnInit {
       {background: '#FFFFFF', color: '#9899A0'}],
     detailBtn: ['#3B86FF', '#FF8A9A']
   };
-  public RegularTestSelect: any = [];
+  public RateNowSelect: any = [];
   public seriousDangerName: string = '';  // 重大危险源名称
-  public showEditRegularTestDialog: boolean = false;
+  public showeditRateNowDialog: boolean = false;
   public dailyTestTitle: Array<object>  = [
     { field: 'time', header: '时间' },
     { field: 'evaluationOrganization', header: '评价机构' },
     { field: 'evaluationProject', header: '评价项目' },
     { field: 'evaluationResult', header: '评价结论' },
-    { field: 'annex', header: '附件' },
     { field: 'operating', header: '操作' },
   ];
   public dailyTestContent: Array<object> = [];
   public archivePageNo: number = 1;
-  public editRegularTest: FormGroup;
+  public editRateNow: FormGroup;
   public dailyPageOption: PageOption = {
     pageSize: 10,
     totalRecord: ''
   };
   public esDate = Es;
+  public pathFile: any;
   public file: any;
   constructor(
     private toolSrv: PublicMethodService,
@@ -48,7 +48,7 @@ export class RateNowComponent implements OnInit {
   ) { }
   ngOnInit() {
     this.initDailyTestData();
-    this.editRegularTest = this.fb.group(
+    this.editRateNow = this.fb.group(
       {
         id: new FormControl(''),
         time: new FormControl('', Validators.required),
@@ -69,17 +69,17 @@ export class RateNowComponent implements OnInit {
 
   }
   // 删除单条数据
-  public  delRegularTestClick(item): void {
+  public  delRateNowClick(item): void {
     this.toolSrv.setConfirmation('删除', '删除这条信息', () => {
       this.delDataRequest([{id: item.id}]);
     });
   }
   // 删除多条数据
-  public  delMoreRegularTestClick(): void {
-    if (this.RegularTestSelect.length > 0){
-      this.toolSrv.setConfirmation('删除', `删除这${this.RegularTestSelect.length}项`, () => {
+  public  delMoreRateNowClick(): void {
+    if (this.RateNowSelect.length > 0){
+      this.toolSrv.setConfirmation('删除', `删除这${this.RateNowSelect.length}项`, () => {
         const data = [];
-        this.RegularTestSelect.forEach(v => {
+        this.RateNowSelect.forEach(v => {
           data.push({id: v.id});
         });
         this.delDataRequest(data);
@@ -98,7 +98,7 @@ export class RateNowComponent implements OnInit {
   // 选择文集
   public  selectFile(e): void {
     this.file = e.target.files[0];
-    this.editRegularTest.patchValue({file: e.target.files[0].name});
+    this.editRateNow.patchValue({file: e.target.files[0].name});
   }
 
   // 分页点击事件
@@ -108,25 +108,25 @@ export class RateNowComponent implements OnInit {
   }
   // 显示修改重大危险源档案
   public  editRiskArchiveClcik(data): void {
-    for (const key in JSON.parse(JSON.stringify(this.editRegularTest.value))) {
+    for (const key in JSON.parse(JSON.stringify(this.editRateNow.value))) {
       const a = {};
       a[key] = data[key];
-      this.editRegularTest.patchValue(a);
+      this.editRateNow.patchValue(a);
     }
-    console.log();
-    this.editRegularTest.patchValue({'file': data.annex.slice(data.annex.lastIndexOf('/') + 1, data.annex.length)});
-    this.showEditRegularTestDialog = true;
+    this.pathFile = data.annex;
+    this.editRateNow.patchValue({'file': data.annex.slice(data.annex.lastIndexOf('/') + 1, data.annex.length)});
+    this.showeditRateNowDialog = true;
   }
   public  clearData(): void {
-    this.showEditRegularTestDialog = false;
+    this.showeditRateNowDialog = false;
     this.file = null;
-    this.RegularTestSelect = [];
-    this.editRegularTest.reset();
+    this.RateNowSelect = [];
+    this.editRateNow.reset();
   }
   // 确定修改
-  public  sureEditRegularTestClick(): void {
-    if (this.editRegularTest.valid){
-      const data = JSON.parse(JSON.stringify(this.editRegularTest.value));
+  public  sureeditRateNowClick(): void {
+    if (this.editRateNow.valid){
+      const data = JSON.parse(JSON.stringify(this.editRateNow.value));
       data.time = this.datePipe.transform(data.time, 'yyyy-MM-dd');
       const formData = new FormData();
       for (const key in data){
@@ -154,6 +154,10 @@ export class RateNowComponent implements OnInit {
     }else {
       this.toolSrv.setToast('error', '操作错误', '数据未填写完成');
     }
+  }
+  // 下载文件
+  public  downLoadFile(): void {
+    window.open(this.pathFile);
   }
 
 }

@@ -70,7 +70,7 @@ export class SecurityRiskService {
    * @param pamars
    */
   public queryArchiveOutSidePageData(pamars): Observable<any> {
-    return this.http.post(`/risk/findInsideByPage`, pamars);
+    return this.http.post(`/risk/findOutsideByPage`, pamars);
   }
 
 

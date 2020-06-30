@@ -6,7 +6,7 @@ import {GlobalService} from '../../../../common/services/global.service';
 import {SecurityRiskService} from '../../../../common/services/security-risk.service';
 import {PublicMethodService} from '../../../../common/public/public-method.service';
 import {DatePipe} from '@angular/common';
-import {AddSRRisk} from '../../../../common/public/Api';
+import {AddOuidSRRisk, AddSRRisk} from '../../../../common/public/Api';
 
 @Component({
   selector: 'app-area-outside',
@@ -22,7 +22,7 @@ export class AreaOutsideComponent implements OnInit {
   public OrgTrees: any;
   public OrgTree: any;
   public esDate: any = Es;
-  public addOutside: AddSRRisk = new AddSRRisk();
+  public addOutside: AddOuidSRRisk = new AddOuidSRRisk();
   public riskKindOption: Array<object> = [];
   public riskCategoryOption: Array<object> = [];
   public ImageOption = {

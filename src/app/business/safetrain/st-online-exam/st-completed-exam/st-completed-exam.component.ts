@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {PageOption} from '../../../../common/public/Api';
+import {CommpleteExamData, PageOption} from '../../../../common/public/Api';
 import {Subscription} from 'rxjs';
 import {StOnlineExamService} from '../../../../common/services/st-online-exam.service';
 
@@ -16,6 +16,12 @@ export class StCompletedExamComponent implements OnInit {
       {background: '#FFFFFF', color: '#9899A0'}],
     detailBtn: ['#3B86FF', '#FF8A9A']
   };
+  public showDetail: any;
+  public singleChoiceQuestions: Array<object> = [];
+  public multipleChoiceQuestions: Array<object> = [];
+  public judgmentQuestions: Array<object> = [];
+  public completion: Array<object> = [];
+  public commpleteExamData: CommpleteExamData = new CommpleteExamData();
   public pageOption: PageOption = {
     totalRecord: 10,
     pageSize: 10
@@ -59,9 +65,27 @@ export class StCompletedExamComponent implements OnInit {
     this.initCompleteExamData();
   }
   public  detailClick(e): void {
-    console.log(e);
+    this.stOnlineExamSrv.getCompleteExamInfoDetail({testPapreId: e.id, trainingPlanId: e.personnelTrainingRecordId}).subscribe(res => {
+      // console.log(res);
+      // this.paperTitle = res.data.testPaperName;
+      this.singleChoiceQuestions = res.data.singleChoiceQuestions;
+      this.multipleChoiceQuestions = res.data.multipleChoiceQuestions;
+      this.judgmentQuestions = res.data.judgmentQuestions;
+      this.completion = res.data.completion;
+      this.setSubMitConpleteData(this.singleChoiceQuestions);
+      this.setSubMitConpleteData(this.multipleChoiceQuestions);
+      this.setSubMitConpleteData(this.judgmentQuestions);
+      this.setSubMitConpleteData(this.completion);
+    });
+    console.log(this.commpleteExamData);
+    this.showDetail = true;
+  }
 
-
+  public  setSubMitConpleteData(list: Array<object>): void {
+    list.forEach(val => {
+      // @ts-ignore
+      this.commpleteExamData.safeAnswerRecordList.push({rightKey: val.rightKey.split('#'), score: val.score, testPapreId: val.testPapreId, testUestionsId: val.id, answerResults: val.answerResults ? val.split('#') : ''});
+    });
   }
 
 }

@@ -29,4 +29,213 @@
   <div class="completed-exam-pagination">
     <app-pagination [option]="pageOption" (clickEvent)="clickEvent($event)"></app-pagination>
   </div>
+  <p-sidebar [(visible)]="showDetail" [fullScreen]="true" [baseZIndex]="10000">
+    <div class="center">
+      <div class="ui-g-12 ui-g-12">
+        <div class="ui-g-6 ui-md-6">
+          <h2>正确答案：</h2>
+          <p-scrollPanel  [style]="{height: '100vh', width: '100%'}" styleClass="custombar">
+            <div class="ui-md-12 ui-g-12 exam-paper-question">
+              <div *ngIf="singleChoiceQuestions.length  !== 0">
+                <h3 class="m-2" *ngIf="singleChoiceQuestions">单选题:</h3>
+                <div class="paper-question-item" *ngFor="let item of  singleChoiceQuestions; let singleindex= index">
+                  <div class="question-title">
+                    <span>{{item.subject}}?</span>
+                    <span>{{item?.score}}分
+                  <i class="pi pi-check" style="margin-left: 1vh;color: #2F9C0A;font-size: 1.4em" *ngIf="item.correct === 1"></i>
+                  <i class="pi pi-times" style="margin-left: 1vh;color: #C92C2C;font-size: 1.4em" *ngIf="item.correct === 0"></i>
+                </span>
+                  </div>
+                  <div class="question-select"
+                       *ngFor="let selItem of item?.safeTestQuestionOptionsList;
+                        let i=index">
+                    <div *ngIf="commpleteExamData.safeAnswerRecordList[singleindex].rightKey === commpleteExamData.safeAnswerRecordList[singleindex].rightKey">
+
+                    </div>
+                    <p-radioButton
+                      [name]="'singlename' + singleindex"
+                      disabled
+                      [value]="i+1"
+                      [label]="selItem.option"
+                      [(ngModel)]="commpleteExamData.safeAnswerRecordList[singleindex].rightKey"
+                    ></p-radioButton>
+                  </div>
+                </div>
+              </div>
+              <div *ngIf="multipleChoiceQuestions.length  !== 0">
+                <h3 class="m-2">多选题:</h3>
+                <div class="paper-question-item" *ngFor="let item of  multipleChoiceQuestions;let mulIndex = index">
+                  <div class="question-title">
+                    <span>{{item.subject}}?</span>
+                    <span>{{item?.score}}分
+                 <i class="pi pi-check" style="margin-left: 1vh;color: #2F9C0A;font-size: 1.4em" *ngIf="item.correct === 1"></i>
+                 <i class="pi pi-times" style="margin-left: 1vh;color: #C92C2C;font-size: 1.4em" *ngIf="item.correct === 0"></i>
+                </span>
+                  </div>
+                  <div class="question-select"
+                       *ngFor="let selItem of item?.safeTestQuestionOptionsList;
+                       let i=index">
+                    <p-checkbox
+                      disabled
+                      [name]="'multiplename'+ mulIndex"
+                      [value]="i+1"
+                      [label]="selItem.option"
+                      [(ngModel)]="commpleteExamData.safeAnswerRecordList[this.singleChoiceQuestions.length + mulIndex].rightKey[i]"
+                    ></p-checkbox>
+                  </div>
+                </div>
+              </div>
+              <div *ngIf="judgmentQuestions.length !== 0">
+                <h3 class="m-2">判断题:</h3>
+                <div class="paper-question-item" *ngFor="let item of  judgmentQuestions; let judgIndex = index">
+                  <div class="question-title">
+                    <span>{{item.subject}}?</span>
+                    <span>{{item?.score}}分
+                <i class="pi pi-check" style="margin-left: 1vh;color: #2F9C0A;font-size: 1.4em" *ngIf="item.correct === 1"></i>
+                 <i class="pi pi-times" style="margin-left: 1vh;color: #C92C2C;font-size: 1.4em" *ngIf="item.correct === 0"></i>
+                </span>
+                  </div>
+                  <div class="question-select"
+                       *ngFor="let selItem of item?.safeTestQuestionOptionsList;
+                       let i=index">
+                    <p-radioButton
+                      disabled
+                      [name]="'judgmentname' + judgIndex"
+                      [value]="i+1"
+                      [label]="selItem.option"
+                      [(ngModel)]="commpleteExamData.safeAnswerRecordList[this.singleChoiceQuestions.length + this.judgmentQuestions.length+ judgIndex].rightKey"
+                    ></p-radioButton>
+                  </div>
+                </div>
+              </div>
+              <div *ngIf="completion.length  !== 0">
+                <h3 class="m-2">填空题:</h3>
+                <div class="paper-question-item" *ngFor="let item of  completion; let comIndex = index">
+                  <div class="question-title">
+                    <span>{{item.subject}}?</span>
+                    <span>{{item?.score}}分
+                 <i class="pi pi-check" style="margin-left: 1vh;color: #2F9C0A;font-size: 1.4em" *ngIf="item.correct === 1"></i>
+                 <i class="pi pi-times" style="margin-left: 1vh;color: #C92C2C;font-size: 1.4em" *ngIf="item.correct === 0"></i>
+                </span>
+                  </div>
+                  <div class="question-select"
+                       *ngFor="let selItem of item?.rightKey.split('#');
+                       let i=index">
+                    <input
+                      disabled
+                      type="text"
+                      pInputText
+                      placeholder="请输入答案" [(ngModel)]="commpleteExamData.safeAnswerRecordList[this.singleChoiceQuestions.length + this.multipleChoiceQuestions.length + this.judgmentQuestions.length + comIndex].rightKey[i]"/>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </p-scrollPanel>
+        </div>
+        <div class="ui-g-6 ui-md-6">
+          <h2>您的答案：</h2>
+          <p-scrollPanel  [style]="{height: '100vh', width: '100%'}" styleClass="custombar">
+            <div class="ui-md-12 ui-g-12 exam-paper-question">
+              <div *ngIf="singleChoiceQuestions.length  !== 0">
+                <h3 class="m-2" *ngIf="singleChoiceQuestions">单选题:</h3>
+                <div class="paper-question-item" *ngFor="let item of  singleChoiceQuestions; let singleindex= index">
+                  <div class="question-title">
+                    <span>{{item.subject}}?</span>
+                    <span>{{item?.score}}分
+                  <i class="pi pi-check" style="margin-left: 1vh;color: #2F9C0A;font-size: 1.4em" *ngIf="item.correct === 1"></i>
+                  <i class="pi pi-times" style="margin-left: 1vh;color: #C92C2C;font-size: 1.4em" *ngIf="item.correct === 0"></i>
+                </span>
+                  </div>
+                  <div class="question-select"
+                       *ngFor="let selItem of item?.safeTestQuestionOptionsList;
+                       let i=index">
+                    <div *ngIf="commpleteExamData.safeAnswerRecordList[singleindex].answerResults">
+
+                    </div>
+                    <p-radioButton
+                      [name]="'single' + singleindex"
+                      disabled
+                      [value]="i+1"
+                      [label]="selItem.option"
+                      [(ngModel)]="commpleteExamData.safeAnswerRecordList[singleindex].answerResults"
+                    ></p-radioButton>
+                  </div>
+                </div>
+              </div>
+              <div *ngIf="multipleChoiceQuestions.length  !== 0">
+                <h3 class="m-2">多选题:</h3>
+                <div class="paper-question-item" *ngFor="let item of  multipleChoiceQuestions;let mulIndex = index">
+                  <div class="question-title">
+                    <span>{{item.subject}}?</span>
+                    <span>{{item?.score}}分
+                 <i class="pi pi-check" style="margin-left: 1vh;color: #2F9C0A;font-size: 1.4em" *ngIf="item.correct === 1"></i>
+                 <i class="pi pi-times" style="margin-left: 1vh;color: #C92C2C;font-size: 1.4em" *ngIf="item.correct === 0"></i>
+                </span>
+                  </div>
+                  <div class="question-select"
+                       *ngFor="let selItem of item?.safeTestQuestionOptionsList;
+                       let i=index">
+                    <p-checkbox
+                      disabled
+                      [name]="'multiple'+ mulIndex"
+                      [value]="i+1"
+                      [label]="selItem.option"
+                      [(ngModel)]="commpleteExamData.safeAnswerRecordList[this.singleChoiceQuestions.length + mulIndex].answerResults[i]"
+                    ></p-checkbox>
+                  </div>
+                </div>
+              </div>
+              <div *ngIf="judgmentQuestions.length !== 0">
+                <h3 class="m-2">判断题:</h3>
+                <div class="paper-question-item" *ngFor="let item of  judgmentQuestions; let judgIndex = index">
+                  <div class="question-title">
+                    <span>{{item.subject}}?</span>
+                    <span>{{item?.score}}分
+                <i class="pi pi-check" style="margin-left: 1vh;color: #2F9C0A;font-size: 1.4em" *ngIf="item.correct === 1"></i>
+                 <i class="pi pi-times" style="margin-left: 1vh;color: #C92C2C;font-size: 1.4em" *ngIf="item.correct === 0"></i>
+                </span>
+                  </div>
+                  <div class="question-select"
+                       *ngFor="let selItem of item?.safeTestQuestionOptionsList;
+                       let i=index">
+                    <p-radioButton
+                      disabled
+                      [name]="'judgment' + judgIndex"
+                      [value]="i+1"
+                      [label]="selItem.option"
+                      [(ngModel)]="commpleteExamData.safeAnswerRecordList[this.singleChoiceQuestions.length + this.judgmentQuestions.length+ judgIndex].answerResults"
+                    ></p-radioButton>
+                  </div>
+                </div>
+              </div>
+              <div *ngIf="completion.length  !== 0">
+                <h3 class="m-2">填空题:</h3>
+                <div class="paper-question-item" *ngFor="let item of  completion; let comIndex = index">
+                  <div class="question-title">
+                    <span>{{item.subject}}?</span>
+                    <span>{{item?.score}}分
+                 <i class="pi pi-check" style="margin-left: 1vh;color: #2F9C0A;font-size: 1.4em" *ngIf="item.correct === 1"></i>
+                 <i class="pi pi-times" style="margin-left: 1vh;color: #C92C2C;font-size: 1.4em" *ngIf="item.correct === 0"></i>
+                </span>
+                  </div>
+                  <div class="question-select"
+                       *ngFor="let selItem of item?.rightKey.split('#');
+                       let i=index">
+                    <input
+                      disabled
+                      type="text"
+                      pInputText
+                      placeholder="请输入答案" [(ngModel)]="commpleteExamData.safeAnswerRecordList[this.singleChoiceQuestions.length + this.multipleChoiceQuestions.length + this.judgmentQuestions.length + comIndex].answerResults[i]"/>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </p-scrollPanel>
+        </div>
+      </div>
+    </div>
+    <h1 style="font-weight:normal">Full Screen Sidebar</h1>
+    <button pButton type="button" (click)="showDetail = false" label="Save" class="ui-button-success"></button>
+    <button pButton type="button" (click)="showDetail = false" label="Cancel" class="ui-button-secondary"></button>
+  </p-sidebar>
 </div>

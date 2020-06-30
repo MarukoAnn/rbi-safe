@@ -11,7 +11,7 @@ export class PhArchiveComponent implements OnInit {
     {item: {label: '定期检测', ftcolor: '#B3B3B3', bgc: '#EDEDED'}, simbol: 'regular'},
     {item: {label: '现状评价', ftcolor: '#B3B3B3', bgc: '#EDEDED'}, simbol: 'rate'},
   ];
-  public simbol = 'rate';
+  public simbol = 'daily';
   constructor() { }
 
   ngOnInit() {
