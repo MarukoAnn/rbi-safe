@@ -584,6 +584,7 @@ export interface CompleteExam {
   safeAnswerRecordList?: SafeAnswerRecord[];
 }
 export interface SafeAnswerRecord {
+  id: any;
   answerResults?: any;
   rightKey?: any;
   score?: any;
@@ -798,4 +799,17 @@ export interface SpecialDay {
 export class SpecialDayClass implements SpecialDay{
   id: any = null;
   values: number = null;
+}
+
+// 提交错题集
+
+export interface HandlePersonalMistakes {
+  id: any;
+  rightKey: any;
+  answerResults: any;
+}
+export class WrongQuestion implements HandlePersonalMistakes{
+  id: any = null;
+  rightKey: any = null;
+  answerResults: any = null;
 }

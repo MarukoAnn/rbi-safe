@@ -1,0 +1,56 @@
+.st-wrong-question {
+  margin-top: 1vh;
+  .header-btn {
+    display: flex;
+    justify-content: flex-end;
+  }
+  .content {
+    margin-top: 1vh;
+    .exam-paper-question {
+      color: #797A84;
+      margin-top: 1vh;
+      margin-bottom: 2vh;
+      padding: 0 6vw;
+      .paper-question-item {
+        margin-top: 8px;
+        border: 1px solid #DDE0E4;
+        padding: 6px 12px;
+        .question-title {
+          display: flex;
+          padding: 1vh;
+          .title-icon{
+            font-size: 12px;
+            background: #4F88DE;
+            color: #fff;
+            padding:0 4px;
+            border-radius: 4px;
+            margin-right: 2px
+          }
+          span:first-child {
+            flex: 12;
+          }
+
+          span:last-child {
+            flex: 2;
+          }
+        }
+
+        .question-select {
+          margin: 0.6vh 1vw;
+          line-height: 4vh;
+
+          input {
+            width: 14vw;
+            border: 1px solid #CACED5;
+          }
+        }
+
+      }
+    }
+  }
+  //.st-wrong-question-pagination{
+  //  position: absolute;
+  //  bottom: 8vh;
+  //  right: 4vw;
+  //}
+}

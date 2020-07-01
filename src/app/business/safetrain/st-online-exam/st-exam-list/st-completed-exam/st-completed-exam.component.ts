@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {CommpleteExamData, PageOption} from '../../../../common/public/Api';
+import {CommpleteExamData, PageOption} from '../../../../../common/public/Api';
 import {Subscription} from 'rxjs';
-import {StOnlineExamService} from '../../../../common/services/st-online-exam.service';
-
+import {StOnlineExamService} from '../../../../../common/services/st-online-exam.service';
 @Component({
   selector: 'app-st-completed-exam',
   templateUrl: './st-completed-exam.component.html',
@@ -49,7 +48,6 @@ export class StCompletedExamComponent implements OnInit {
   }
   public  initCompleteExamData(): void {
       this.stOnlineExamSrv.getOnlineExamOPageInfo({pageSize: 10, pageNo: this.pageNo, processingStatus: 2}).subscribe(res => {
-        console.log(res);
         this.pageOption = {pageSize: res.data.pageSize, totalRecord: res.data.totalRecord};
         if (res.data.contents){
           this.completedExamContent = res.data.contents.map(v => {
@@ -65,9 +63,7 @@ export class StCompletedExamComponent implements OnInit {
     this.initCompleteExamData();
   }
   public  detailClick(e): void {
-    this.stOnlineExamSrv.getCompleteExamInfoDetail({testPapreId: e.id, trainingPlanId: e.personnelTrainingRecordId}).subscribe(res => {
-      // console.log(res);
-      // this.paperTitle = res.data.testPaperName;
+    this.stOnlineExamSrv.getCompleteExamInfoDetail({testPapreId: e.id, personnelTrainingRecordId: e.personnelTrainingRecordId}).subscribe(res => {
       this.singleChoiceQuestions = res.data.singleChoiceQuestions;
       this.multipleChoiceQuestions = res.data.multipleChoiceQuestions;
       this.judgmentQuestions = res.data.judgmentQuestions;
@@ -77,15 +73,15 @@ export class StCompletedExamComponent implements OnInit {
       this.setSubMitConpleteData(this.judgmentQuestions);
       this.setSubMitConpleteData(this.completion);
     });
-    console.log(this.commpleteExamData);
     this.showDetail = true;
   }
 
   public  setSubMitConpleteData(list: Array<object>): void {
     list.forEach(val => {
       // @ts-ignore
-      this.commpleteExamData.safeAnswerRecordList.push({rightKey: val.rightKey.split('#'), score: val.score, testPapreId: val.testPapreId, testUestionsId: val.id, answerResults: val.answerResults ? val.split('#') : ''});
+      this.commpleteExamData.safeAnswerRecordList.push({rightKey: val.rightKey.split('#') , score: val.score, testPapreId: val.testPapreId, testUestionsId: val.id, answerResults: val.answerResults ? val.answerResults.split('#') : ''});
     });
+    console.log(this.commpleteExamData);
   }
 
 }

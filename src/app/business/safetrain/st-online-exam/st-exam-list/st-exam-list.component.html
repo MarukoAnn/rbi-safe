@@ -6,5 +6,8 @@
     <p-tabPanel header="已完成考试">
       <app-st-completed-exam></app-st-completed-exam>
     </p-tabPanel>
+    <p-tabPanel [header]="'错题集('+ noWrongNum +')'">
+      <app-st-wrong-question (NumData)="getWrongLength($event)"></app-st-wrong-question>
+    </p-tabPanel>
   </p-tabView>
 </div>

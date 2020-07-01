@@ -8,8 +8,9 @@ import {Subscription} from 'rxjs';
 })
 export class StExamListComponent implements OnInit {
 
-  public index: number = 1;
-  public noExamNum: any =  '';
+  public index: number = 2;
+  public noExamNum: number =  0;
+  public noWrongNum: number =  0;
   public themeSub: Subscription;
   ngOnInit() {
   }
@@ -21,6 +22,12 @@ export class StExamListComponent implements OnInit {
   public  getLength(e): void {
     setTimeout(() => {
       this.noExamNum = e;
+    }, 10);
+  }
+
+  public  getWrongLength(e): void {
+    setTimeout(() => {
+      this.noWrongNum = e;
     }, 10);
   }
 

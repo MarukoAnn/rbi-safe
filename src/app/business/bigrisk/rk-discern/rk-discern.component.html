@@ -56,6 +56,21 @@
         </div>
         <div class="ui-g-12 ui-md-12" style="line-height: 3vh">
           <div class="ui-g-1 ui-md-1 right">
+            <label><span style="color: #FF8A9A">*</span>危险源管控层级:</label>
+          </div>
+          <div class="ui-g-4 ui-md-4 dialog-input">
+            <input pInputText type="text" placeholder="请输入危险源管控层级"  formControlName="seriousDangerControlLevel"/>
+          </div>
+          <div class="ui-g-1 ui-md-1"></div>
+          <div class="ui-g-1 ui-md-1 right">
+            <label><span style="color: #FF8A9A">*</span>危险源最近管控时间:</label>
+          </div>
+          <div class="ui-g-4 ui-md-4 dialog-input">
+            <input pInputText type="text" placeholder="请请输入危险源最近管控时间"  formControlName="seriousDangerEmergencyMeasure"/>
+          </div>
+        </div>
+        <div class="ui-g-12 ui-md-12" style="line-height: 3vh">
+          <div class="ui-g-1 ui-md-1 right">
             <label><span style="color: #FF8A9A">*</span>危险源主要负责人:</label>
           </div>
           <div class="ui-g-4 ui-md-4 dialog-input">
@@ -67,8 +82,9 @@
           </div>
           <div class="ui-g-4 ui-md-4 dialog-input">
             <p-calendar formControlName="seriousDangerTime" [style]="{width: '100%'}" placeholder="请选择危险源最近管控时间..." [monthNavigator]="true" [yearNavigator]="true" dateFormat="yy-mm-dd"  yearRange="1700:2200" [locale]="esDate"></p-calendar>
+          </div>
         </div>
-        </div>
+
           <div class="ui-g-1 ui-md-1 right">
             <label ><span style="color: #FF8A9A">*</span>危险源图片路径:</label>
           </div>

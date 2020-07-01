@@ -304,7 +304,6 @@ export class SidebarComponent implements OnInit {
             this.secItem = val.children;
             this.setBodyMarginLeft(val.children);
             this.secItem.forEach(res => {
-              console.log(res);
               if (res.link.length > 0 ) {
                 if (res.link.slice(res.link.lastIndexOf('/'), res.link.length) === this.router.url.slice(this.router.url.lastIndexOf('/'), this.router.url.length)) {
                   res.item.bgc = '#D1E0F7';

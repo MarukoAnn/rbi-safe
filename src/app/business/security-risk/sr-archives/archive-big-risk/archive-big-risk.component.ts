@@ -56,6 +56,7 @@ export class ArchiveBigRiskComponent implements OnInit {
     {field: 'workshopName', header: '车间'},
     {field: 'className', header: '班组'},
     {field: 'workType', header: '工种'},
+    {field: 'riskType', header: '区域'},
     {field: 'taskCode', header: '作业或任务（编号）'},
     {field: 'step', header: '步骤'},
     {field: 'code', header: '编号'},
@@ -211,6 +212,7 @@ export class ArchiveBigRiskComponent implements OnInit {
         a[key] = data[key];
         this.editBigRiskArchive.patchValue(a);
       }
+      this.editBigRiskArchive.patchValue({picture: data.img});
       const filePathlist = [];
       this.filePathLists = data.img;
       data.img.forEach(res => {

@@ -75,7 +75,7 @@ export class AreaOutsideComponent implements OnInit {
           const formData = new FormData();
           setImageToFromData(this.addOutsideRisk, 'picture', formData);
           const subData = JSON.parse(JSON.stringify(this.addOutsideRisk.value));
-          this.datePipe.transform(subData.evaluateTime, 'yyyy-MM-dd');
+          subData.evaluateTime = this.datePipe.transform(subData.evaluateTime, 'yyyy-MM-dd');
           for (const key in subData){
             if (key !== 'picture'){
               formData.append(key, subData[key]);

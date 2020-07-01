@@ -17,7 +17,7 @@ export class ShootReportComponent implements OnInit {
   // @ts-ignore
   @ViewChild('upimg') ImageClear: UploadImageComponent;
   // @ts-ignore
-  // @ViewChild('upimgafter') ImageClearAfter: UploadImageComponent;
+  @ViewChild('upimgafter') ImageClearAfter: UploadImageComponent;
   public esDate: any = Es;
   public ImageOption = {
     files: [],
@@ -26,7 +26,8 @@ export class ShootReportComponent implements OnInit {
   };
   public ImageOptionAfter = {
     files: [],
-    showUploadIcon: true
+    showUploadIcon: true,
+    imgUrls: []
   };
   public hidFradeOption: any[] = [];
   public isHandle: boolean = false;
@@ -102,6 +103,7 @@ export class ShootReportComponent implements OnInit {
   }
   // 提交
   public submitClcik(): void {
+    console.log(this.addReport.value);
     if (this.addReport.valid){
       this.formData = new FormData();
       setImageToFromData(this.addReport, 'beforeImg', this.formData);
@@ -142,6 +144,7 @@ export class ShootReportComponent implements OnInit {
     if ( e === 1){
       // 如果是处理 则设置处理的参数未必填
       paraList.forEach(val => {
+        if (val !== 'plan' && val !== 'report')
         this.addReport.controls[val].setValidators(Validators.required);
       });
     }else {

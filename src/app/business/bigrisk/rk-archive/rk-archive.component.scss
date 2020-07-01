@@ -73,6 +73,10 @@
 
   }
   .rk-archive-table {
+    ::ng-deep .ui-table-scrollable-body::-webkit-scrollbar {
+      display: inline;
+      //overflow:hidden
+    }
     ::ng-deep .ui-table .ui-table-thead>tr >th{
       border: 0;
 

@@ -38,7 +38,7 @@ export class ArchiveWithinComponent implements OnInit {
   };
   public selectType: string = '单位';
   public searchTypeOption: Array<any> = [
-    {label: '单位', value: '单位'},
+    // {label: '单位', value: '单位'},
     {label: '工种', value: '工种'},
   ];
   public treeDialog: any;
@@ -127,7 +127,7 @@ export class ArchiveWithinComponent implements OnInit {
         measuresResult: new FormControl('', Validators.required), // 控制措施判断结果
         measuresUse: new FormControl('', Validators.required), // 措施的采纳 选择（单选） 是 否
         evaluateTime: new FormControl('', Validators.required), // 评估时间
-        picture: new FormControl('', Validators.required), // 图片文件 最大六张
+        picture: new FormControl(''), // 图片文件 最大六张
         riskCode: new FormControl('', Validators.required), // 编号
       }
     );
@@ -135,6 +135,7 @@ export class ArchiveWithinComponent implements OnInit {
   // 初始化分页数据
   public initArchiveWithinData(): void {
     this.secRiskSrv.queryArchiveWithinPageData({pageNo: this.archivePageNo, pageSize: 10}).subscribe(val => {
+      console.log(val);
       this.rkArchiveContent = val.data.contents.map(v => {
         v.harmKind = setVlaueToLabel(this.riskKindOption, v.harmKind);
         v.riskCategory = setVlaueToLabel(this.riskCategoryOption, v.riskCategory);
@@ -188,7 +189,6 @@ export class ArchiveWithinComponent implements OnInit {
 
   // 分页点击事件
   public archivePageEvent(e): void {
-    console.log(e);
     this.archivePageNo = e;
     this.initArchiveWithinData();
   }
@@ -210,6 +210,7 @@ export class ArchiveWithinComponent implements OnInit {
         this.editWithinArchive.patchValue(a);
       }
       const filePathlist = [];
+      this.editWithinArchive.patchValue({picture: data.img});
       this.filePathLists = data.img;
       data.img.forEach(res => {
         filePathlist.push(res.picture);
@@ -227,6 +228,7 @@ export class ArchiveWithinComponent implements OnInit {
 
   // 确定修改
   public sureEditArchiveClick(): void {
+    console.log(this.editWithinArchive.value);
     if (this.editWithinArchive.valid){
       if (this.editWithinArchive.value.picture.length <= 6){
         this.toolSrv.setConfirmation('提交', '提交', () => {

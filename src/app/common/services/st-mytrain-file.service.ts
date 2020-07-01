@@ -18,4 +18,9 @@ export class StMytrainFileService {
   public  getSafeFourLevelPageData(): Observable<any> {
      return this.http.post(`/safeFourLevel/findSafeFourLevelByOperatingStaff`, {});
   }
+
+  // 四级HSE教育卡分页
+  public  getCertificalLevelPageData(): Observable<any> {
+    return this.http.post(`/training/findCertificate`, {});
+  }
 }

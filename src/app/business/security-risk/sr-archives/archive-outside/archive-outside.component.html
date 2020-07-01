@@ -33,7 +33,8 @@
       </ng-template>
       <ng-template pTemplate="body" let-rowData let-columns="columns">
         <tr [ngStyle]="table.tableContent[0]">
-          <td *ngFor="let col of columns.slice(0, columns.length -1)" class="text-center" style="height: 5vh;color: #5E5F6B;word-wrap: break-word">
+          <td *ngFor="let col of columns.slice(0, columns.length -1)"
+              style="overflow: hidden;text-overflow: ellipsis;white-space: nowrap;" [pTooltip]="rowData[col.field]">
             {{rowData[col.field]}}
           </td>
           <td style="margin: 0 auto"  *ngFor="let col of columns.slice(columns.length -1 ,  columns.length)">

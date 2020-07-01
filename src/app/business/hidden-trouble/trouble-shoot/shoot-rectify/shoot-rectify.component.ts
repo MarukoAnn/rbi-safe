@@ -49,7 +49,7 @@ export class ShootRectifyComponent implements OnInit {
       hidDangerContent: new FormControl('', Validators.required), // 隐患内容
       hidDangerGrade: new FormControl('', Validators.required), // 	隐患等级
       troubleshootingTime: new FormControl('', Validators.required), // 排查时间
-      rectificationOpinions: new FormControl('', Validators.required), // 整改意见
+      rectificationOpinions: new FormControl(''), // 整改意见
       specifiedRectificationTime: new FormControl('', Validators.required), // 规定整改完成时间
       notice: new FormControl('', Validators.required), // 通知整改附件
       beforeImg: new FormControl('', Validators.required), // 排查前图片

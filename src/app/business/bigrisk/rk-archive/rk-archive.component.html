@@ -12,8 +12,8 @@
       </div>
     </div>
     <div class="rk-archive-button">
-      <button pButton type="button" label="文件导入" class="ui-button-rounded" (click)="importArchiveFileClick()"></button>
-      <button pButton type="button" label="文件导出" class="ui-button-rounded" (click)="exportArchiveFileClick()"></button>
+<!--      <button pButton type="button" label="文件导入" class="ui-button-rounded" (click)="importArchiveFileClick()"></button>-->
+<!--      <button pButton type="button" label="文件导出" class="ui-button-rounded" (click)="exportArchiveFileClick()"></button>-->
     </div>
   </div>
   <div class="rk-archive-table">
@@ -90,6 +90,22 @@
           </div>
           <div class="ui-g-8 ui-md-8 dialog-input">
             <input pInputText type="text" formControlName="seriousDangerCycle" placeholder="请输入危险源管控周期"/>
+          </div>
+        </div>
+        <div class="ui-g-6 ui-md-6" style="line-height: 3vh;">
+          <div class="ui-g-4 ui-md-4 right">
+            <span style="color: #FF8A9A">*</span>危险源管控层级：
+          </div>
+          <div class="ui-g-8 ui-md-8 dialog-input">
+            <input pInputText type="text" formControlName="seriousDangerControlLevel" placeholder="请输入危险源管控层级"/>
+          </div>
+        </div>
+        <div class="ui-g-6 ui-md-6" style="line-height: 3vh;">
+          <div class="ui-g-4 ui-md-4 right">
+            <span style="color: #FF8A9A">*</span>危险源应急措施：
+          </div>
+          <div class="ui-g-8 ui-md-8 dialog-input">
+            <input pInputText type="text" formControlName="seriousDangerEmergencyMeasure" placeholder="请输入危险源应急措施"/>
           </div>
         </div>
         <div class="ui-g-6 ui-md-6" style="line-height: 3vh;">
