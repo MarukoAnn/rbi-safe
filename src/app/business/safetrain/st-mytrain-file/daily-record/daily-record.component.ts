@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {ThemeService} from '../../../../common/public/theme.service';
-import {Subscription} from 'rxjs';
-import {PageOption} from '../../../../common/public/Api';
+import {AddEducateFieldClass, EducateField, PageOption, TableHeader, UpdateEducateFieldClass} from '../../../../common/public/Api';
+import {SafetrainService} from '../../../../common/services/safetrain.service';
+import {Observable} from 'rxjs';
+import {StMytrainFileService} from '../../../../common/services/st-mytrain-file.service';
 
 @Component({
   selector: 'app-daily-record',
@@ -9,46 +10,39 @@ import {PageOption} from '../../../../common/public/Api';
   styleUrls: ['./daily-record.component.scss']
 })
 export class DailyRecordComponent implements OnInit {
-  public pageOption: PageOption = {
-    totalRecord: 10,
-    pageSize: 10
-  };
-  public table = {
-    tableheader: {background: '#F5F6FA', color: '#C3C3C5'},
-    tableContent: [
-      {background: '#FFFFFF', color: '#9899A0'}],
-    detailBtn: ['#3B86FF', '#FF8A9A']
-  };
-  public dailyRectordTitle: Array<object>  = [
-    { field: 'id', header: '序号' },
-    { field: 'name', header: '组织培训单位' },
-    { field: 'plan', header: '教育培训计划' },
-    { field: 'content', header: '日常培训内容' },
-    { field: 'time', header: '培训时间' },
-    { field: 'examTime', header: '考试时间' },
-    { field: 'timeLenght', header: '累计学习时长' },
-    { field: 'score', header: '考试成绩' },
-    { field: 'result', header: '培训结果' },
-    { field: 'operating', header: '操作' },
-  ];
-  public dailyRectordContent: Array<object> = [
-    {id: 1, name: '矿山', plan: '岗位章程', content: '岗位员工安全培训', time: '2020-5-12', examTime: '2020-5-12', timeLenght: '32学时', score: 100, result: '合格', operating: '详情'},
-    {id: 1, name: '矿山', plan: '岗位章程', content: '岗位员工安全培训', time: '2020-5-12', examTime: '2020-5-12', timeLenght: '32学时', score: 100, result: '合格', operating: '详情'},
-    {id: 1, name: '矿山', plan: '岗位章程', content: '岗位员工安全培训', time: '2020-5-12', examTime: '2020-5-12', timeLenght: '32学时', score: 100, result: '合格', operating: '详情'},
-    {id: 1, name: '矿山', plan: '岗位章程', content: '岗位员工安全培训', time: '2020-5-12', examTime: '2020-5-12', timeLenght: '32学时', score: 100, result: '合格', operating: '详情'},
-    {id: 1, name: '矿山', plan: '岗位章程', content: '岗位员工安全培训', time: '2020-5-12', examTime: '2020-5-12', timeLenght: '32学时', score: 100, result: '合格', operating: '详情'},
-    {id: 1, name: '矿山', plan: '岗位章程', content: '岗位员工安全培训', time: '2020-5-12', examTime: '2020-5-12', timeLenght: '32学时', score: 100, result: '合格', operating: '详情'},
-    {id: 1, name: '矿山', plan: '岗位章程', content: '岗位员工安全培训', time: '2020-5-12', examTime: '2020-5-12', timeLenght: '32学时', score: 100, result: '合格', operating: '详情'},
-  ];
-  public themeSub: Subscription;
+  public dailyPageOption: PageOption = {
+    pageSize: 8, // 默认显示多少条
+    totalRecord: null // 总条数
+  }; // 分页组件配置
+  public dailyTableHeader: TableHeader[] = [
+    {field: 'organizationTrainingDepartmentName', header: '组织培训部门名称'},
+    {field: 'trainingTypeName', header: '培训类型名称'},
+    {field: 'trainingContent', header: '培训内容'},
+    {field: 'examinationTime', header: '培训时间'},
+    {field: 'examinationTime', header: '考试时间'},
+    {field: 'testResults', header: '考试成绩'},
+  ]; // 表头字段
+  public dailyTableData: any[]; // 表体数据
+  public dailyNowPage: number = 1; // 当前页
   constructor(
-    private themeSrv: ThemeService,
+    private stMytrainFileSrv: StMytrainFileService
   ) { }
 
   ngOnInit() {
+    this.dailyDataInit(this.dailyNowPage, this.dailyPageOption.pageSize);
   }
-  // 分页点击事件
-  public  clickEvent(e): void {
-      console.log(e);
+
+  // 数据初始化
+  private dailyDataInit(pageNo, pageSize) {
+    this.stMytrainFileSrv.getPersonalTrainingFiles({pageNo, pageSize}).subscribe((res) => {
+      this.dailyTableData = res.data.contents;
+      this.dailyPageOption.totalRecord = res.data.totalRecord;
+    });
+  }
+
+  // 分页操作
+  public dailyPageEvent(page) {
+    this.dailyNowPage = page;
+    this.dailyDataInit(page, this.dailyPageOption.pageSize);
   }
 }

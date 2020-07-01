@@ -1,29 +1,30 @@
 <div class="daily-record">
-  <div class="daily-record-table">
-    <p-table [columns]="dailyRectordTitle" [value]="dailyRectordContent" scrollHeight="50vh">
+  <h2 class="title text-center pt-3 pb-3 text-littleGray">我的日常培训记录</h2>
+  <div class="header pt-2 pb-2"></div>
+  <div class="content">
+    <p-table
+      [value]="dailyTableData" [columns]="dailyTableHeader"
+      [scrollable]="true" scrollHeight="90%"
+    >
       <ng-template pTemplate="header" let-columns>
-        <tr [ngStyle]="table.tableheader" class="text-center" style="height: 5vh">
+        <tr>
+          <th>#</th>
           <th *ngFor="let col of columns">
             {{col.header}}
           </th>
         </tr>
       </ng-template>
-      <ng-template pTemplate="body" let-rowData let-columns="columns">
-        <tr [ngStyle]="table.tableContent[0]">
-          <td *ngFor="let col of columns.slice(0, columns.length -2)" class="text-center" style="height: 5vh;color: #5E5F6B;">
+      <ng-template pTemplate="body" let-rowData let-columns="columns" let-rowIndex="rowIndex">
+        <tr>
+          <td>{{rowIndex + 1}}</td>
+          <td *ngFor="let col of columns" style="overflow: hidden;text-overflow: ellipsis" [pTooltip]="rowData[col.field]">
             {{rowData[col.field]}}
-          </td>
-          <td *ngFor="let col of columns.slice(columns.length -2, columns.length -1)" class="text-center" style="height: 5vh;color: #7BE1BB;font-weight: bold">
-            {{rowData[col.field]}}
-          </td>
-          <td  class="text-center" style="height: 5vh"  *ngFor="let col of columns.slice(columns.length -1 ,  columns.length)">
-            <button pButton type="button" [label]="rowData[col.field]" class="ui-button-rounded"></button>
           </td>
         </tr>
       </ng-template>
     </p-table>
   </div>
-  <div class="daily-record-pagination">
-    <app-pagination [option]="pageOption" (clickEvent)="clickEvent($event)"></app-pagination>
+  <div class="pagination">
+    <app-pagination [option]="dailyPageOption" (clickEvent)="dailyPageEvent($event)"></app-pagination>
   </div>
 </div>

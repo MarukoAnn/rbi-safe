@@ -23,4 +23,11 @@ export class StMytrainFileService {
   public  getCertificalLevelPageData(): Observable<any> {
     return this.http.post(`/training/findCertificate`, {});
   }
+
+  /**
+   * 获取自身培训档案
+   */
+  public  getPersonalTrainingFiles(params: any): Observable<any> {
+    return this.http.post(`/getPersonalTrainingFiles`, params);
+  }
 }
