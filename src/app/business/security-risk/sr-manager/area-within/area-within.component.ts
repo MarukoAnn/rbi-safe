@@ -75,7 +75,7 @@ export class AreaWithinComponent implements OnInit {
           const formData = new FormData();
           setImageToFromData(this.addWithinRisk, 'picture', formData);
           const subData = JSON.parse(JSON.stringify(this.addWithinRisk.value));
-          this.datePipe.transform(subData.evaluateTime, 'yyyy-MM-dd');
+          subData.evaluateTime = this.datePipe.transform(subData.evaluateTime, 'yyyy-MM-dd');
           for (const key in subData){
             if (key !== 'picture'){
               formData.append(key, subData[key]);

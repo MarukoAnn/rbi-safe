@@ -45,8 +45,8 @@ import { StOnlineExamComponent } from './st-online-exam/st-online-exam.component
 import { DailyRecordComponent } from './st-mytrain-file/daily-record/daily-record.component';
 import { AptitudeCertificateComponent } from './st-mytrain-file/aptitude-certificate/aptitude-certificate.component';
 import { LevelEducationCardComponent } from './st-mytrain-file/level-education-card/level-education-card.component';
-import { StCompletedExamComponent } from './st-online-exam/st-completed-exam/st-completed-exam.component';
-import { StNoExamComponent } from './st-online-exam/st-no-exam/st-no-exam.component';
+import { StCompletedExamComponent } from './st-online-exam/st-exam-list/st-completed-exam/st-completed-exam.component';
+import { StNoExamComponent } from './st-online-exam/st-exam-list/st-no-exam/st-no-exam.component';
 import { PtProcessedComponent } from './st-plain/plain-list/pt-processed/pt-processed.component';
 import { PtUnprocessedComponent } from './st-plain/plain-list/pt-unprocessed/pt-unprocessed.component';
 import { StTakingExamComponent } from './st-online-exam/st-taking-exam/st-taking-exam.component';
@@ -63,6 +63,7 @@ import { StVideoLibraryComponent } from './st-start-study/st-learn-library/st-vi
 import {TopicModule} from '../../common/components/topic/topic.module';
 import { StMyplanDetailComponent } from './st-start-study/st-learn-myplan/st-myplan-detail/st-myplan-detail.component';
 import { ScsContentsTypeComponent } from './st-content-seting/scs-contents-type/scs-contents-type.component';
+import {StWrongQuestionComponent} from './st-online-exam/st-exam-list/st-wrong-question/st-wrong-question.component';
 
 @NgModule({
   declarations: [
@@ -107,7 +108,8 @@ import { ScsContentsTypeComponent } from './st-content-seting/scs-contents-type/
     StFileLibraryComponent,
     StVideoLibraryComponent,
     StMyplanDetailComponent,
-    ScsContentsTypeComponent
+    ScsContentsTypeComponent,
+    StWrongQuestionComponent
   ],
     imports: [
       CommonModule,

@@ -1,0 +1,72 @@
+<div class="st-wrong-question">
+  <div class="header-btn">
+    <button pButton type="button" label="提交" class="ui-button-rounded" style="padding: 0 2vw" (click)="submitClick()"></button>
+  </div>
+  <div class="content">
+    <p-scrollPanel  [style]="{height: '76vh', width: '100%'}" styleClass="custombar">
+      <div class="ui-md-12 ui-g-12 exam-paper-question">
+        <div class="paper-question-item" *ngFor="let item of commpleteExamData.safeAnswerRecordList; let singleindex= index">
+          <div class="question-title">
+            <span>
+              <span *ngIf="item.subjectType === 1" class="title-icon">单选</span>
+              <span *ngIf="item.subjectType === 2" class="title-icon">多选</span>
+              <span *ngIf="item.subjectType === 3" class="title-icon">判断</span>
+              <span *ngIf="item.subjectType === 4" class="title-icon">填空</span>
+              {{item.subject}}?</span>
+            <span>{{item?.score}}分</span>
+          </div>
+          <div *ngIf="item.subjectType === 1">
+            <div class="question-select"
+                 *ngFor="let selItem of item?.safeTestQuestionOptionsList;
+                       let i=index">
+              <p-radioButton
+                [name]="'single' + singleindex"
+                [value]="i+1"
+                [label]="selItem.option"
+                [(ngModel)]="item.answerResults[0]"
+              ></p-radioButton>
+            </div>
+          </div>
+          <div *ngIf="item.subjectType === 2">
+            <div class="question-select"
+                 *ngFor="let selItem of item?.safeTestQuestionOptionsList;
+                       let i=index">
+              <p-checkbox
+                [name]="'multiple'+ singleindex"
+                [value]="i+1"
+                [label]="selItem.option"
+                [(ngModel)]="item.answerResults"
+              ></p-checkbox>
+          </div>
+          </div>
+          <div *ngIf="item.subjectType === 3">
+            <div class="question-select"
+                 *ngFor="let selItem of item?.safeTestQuestionOptionsList;
+                       let i=index">
+              <p-radioButton
+                [name]="'judgment' + singleindex"
+                [value]="i+1"
+                [label]="selItem.option"
+                [(ngModel)]="item.answerResults[0]"
+              ></p-radioButton>
+            </div>
+          </div>
+          <div *ngIf="item.subjectType === 4">
+            <div class="question-select"
+                 *ngFor="let selItem of item?.rightKey;
+                       let i=index">
+              <input
+                type="text"
+                pInputText
+                placeholder="请输入答案" [(ngModel)]="item.answerResults[i]"/>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div  *ngIf="commpleteExamData.safeAnswerRecordList.length !== 0">
+        <app-pagination [option]="pageOption" (clickEvent)="clickEvent($event)"></app-pagination>
+
+      </div>
+    </p-scrollPanel>
+  </div>
+</div>

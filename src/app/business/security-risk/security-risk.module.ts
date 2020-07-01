@@ -6,13 +6,13 @@ import { SecurityRiskComponent } from './security-risk/security-risk.component';
 import { SrArchivesComponent } from './sr-archives/sr-archives.component';
 import { SrManagerComponent } from './sr-manager/sr-manager.component';
 import {
-  CalendarModule,
-  CheckboxModule,
-  DialogModule,
-  DropdownModule, InputTextareaModule, InputTextModule,
-  RadioButtonModule,
-  ScrollPanelModule, SpinnerModule,
-  TreeModule
+    CalendarModule,
+    CheckboxModule,
+    DialogModule,
+    DropdownModule, InputTextareaModule, InputTextModule,
+    RadioButtonModule,
+    ScrollPanelModule, SpinnerModule, TooltipModule,
+    TreeModule
 } from 'primeng/primeng';
 import { AreaWithinComponent } from './sr-manager/area-within/area-within.component';
 import { AreaOutsideComponent } from './sr-manager/area-outside/area-outside.component';
@@ -39,25 +39,26 @@ import { SrControlStatusComponent } from './sr-control-status/sr-control-status.
     ArchiveBigRiskComponent,
     SrInstitutionComponent,
     SrControlStatusComponent],
-  imports: [
-    CommonModule,
-    SecurityRiskRoutingModule,
-    ScrollPanelModule,
-    CheckboxModule,
-    DropdownModule,
-    UploadImageModule,
-    RadioButtonModule,
-    CalendarModule,
-    ReactiveFormsModule,
-    DialogModule,
-    TreeModule,
-    InputTextModule,
-    InputTextareaModule,
-    SpinnerModule,
-    FormsModule,
-    TableModule,
-    PaginationModule
-  ],
+    imports: [
+        CommonModule,
+        SecurityRiskRoutingModule,
+        ScrollPanelModule,
+        CheckboxModule,
+        DropdownModule,
+        UploadImageModule,
+        RadioButtonModule,
+        CalendarModule,
+        ReactiveFormsModule,
+        DialogModule,
+        TreeModule,
+        InputTextModule,
+        InputTextareaModule,
+        SpinnerModule,
+        FormsModule,
+        TableModule,
+        PaginationModule,
+        TooltipModule
+    ],
   providers: [DatePipe]
 })
 export class SecurityRiskModule { }

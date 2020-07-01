@@ -37,13 +37,15 @@
     display: flex;
     //justify-content: center;
     align-items: center;
+    margin-bottom: 4vh;
   }
   .exam-paper-question {
     color: #797A84;
     margin-top: 1vh;
     margin-bottom: 2vh;
     padding: 0 6vw;
-    width: 50vw;
+    width: 100%;
+    //width: 50vw;
     .paper-question-item {
       margin-top: 8px;
       border: 1px solid #DDE0E4;
@@ -51,7 +53,8 @@
       width: 100%;
       .question-title {
         display: flex;
-        padding: 1vh;
+        padding: 1vh 1vw 1vh 0;
+
         span:first-child {
           flex: 12;
         }

@@ -16,6 +16,7 @@ export class StTakingExamComponent implements OnInit {
   public paperId: number;
   public paparTime: number;
   public countdownClock: any = '00:00:00';
+  public durationTime: any;
   public paperTitle: string = '';
   public singleChoiceQuestions: Array<object> = [];
   public multipleChoiceQuestions: Array<object> = [];
@@ -45,6 +46,8 @@ export class StTakingExamComponent implements OnInit {
     this.route.queryParams.subscribe(val => {
       this.paperId = val.id;
       // this.paparTime = new Date();
+      this.durationTime = Number(val.time);
+      console.log(this.durationTime);
       this.commpleteExamData.personnelTrainingRecordId = Number(val.personnelTrainingRecordId);
     });
     this.initTaskExamPaperInfo();
@@ -71,10 +74,12 @@ export class StTakingExamComponent implements OnInit {
   public  setCountdown(): void {
     let h: any = Math.floor(this.paparTime / 60 / 60);
     let m: any = (Math.floor(this.paparTime / 60 % 60));
-    let s: any = this.paparTime % 60;
-    h = h < 10 ? '0' + h : h;
-    m = m < 10 ? '0' + m : m;
-    s = s < 10 ? '0' + s : s;
+    let s: any = Number(this.paparTime % 60);
+    console.log(h);
+    // console.log(s);
+    // h = h < 10 ? '0' + h : h;
+    // m = m < 10 ? '0' + m : m;
+    s = s === 0 ? 59 : s;
     const timeOclock = setInterval(() => {
       if (Number(s) === 0){
         if (Number(m) === 0){
@@ -85,8 +90,8 @@ export class StTakingExamComponent implements OnInit {
             clearInterval(timeOclock);
             this.examWarnDialog = true;
           }else {
-            m = 59;
             h = h - 1;
+            m = 59;
           }
           h = h < 10 ? '0' + h : h;
         }else {
@@ -95,7 +100,22 @@ export class StTakingExamComponent implements OnInit {
         }
         m = m < 10 ? '0' + m : m;
       }else {
-        s = Number(s) - 1;
+        if (Number(m) === 0){
+          if (Number(h) === 0){
+            h = 0;
+            m = 0;
+            s = 0;
+            clearInterval(timeOclock);
+            this.examWarnDialog = true;
+          }else {
+            h = h - 1;
+            m = 59;
+          }
+          h = h < 10 ? '0' + h : h;
+        }else {
+          m = m < 10 ? '0' + m : m;
+          s = Number(s) - 1;
+        }
       }
       s = s < 10 ? '0' + s : s;
       this.countdownClock = h + ':' + m + ':' + s;
@@ -127,8 +147,6 @@ export class StTakingExamComponent implements OnInit {
     this.stOnlineExamSrv.completeExamInfo(this.commpleteExamDataCopy).subscribe(val => {
       this.toolSrv.setToast('success', '提交成功', '考试已结束');
       window.history.back();
-      // window.navigator.bac
-      // this.router.
     });
   }
   // 设置时间
@@ -136,12 +154,6 @@ export class StTakingExamComponent implements OnInit {
     const date1 = new Date();  // 开始时间
     const date2 = new Date(endTime);    // 结束时间
     const date3 = date2.getTime() - date1.getTime();  // 时间差的毫秒数
-    this.paparTime = Math.floor(date3 / 1000);
+    this.paparTime = Math.floor(date3 / 1000) > this.durationTime * 60 ? this.durationTime * 60  : Math.floor(date3 / 1000);
   }
-
-  // @HostListener('window:beforeunload', [`$event`])
-  // private beforeUnload(event: Event) {
-  //   console.log(event);
-  //   this.moveDialog = true;
-  // }
 }

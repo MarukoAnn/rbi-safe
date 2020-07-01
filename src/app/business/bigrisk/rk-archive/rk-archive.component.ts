@@ -68,6 +68,8 @@ export class RkArchiveComponent implements OnInit {
         seriousDangerCycle: new FormControl('', Validators.required),
         seriousDangerPrincipal: new FormControl('', Validators.required),
         seriousDangerTime: new FormControl('', Validators.required),
+        seriousDangerEmergencyMeasure: new FormControl('', Validators.required),
+        seriousDangerControlLevel: new FormControl('', Validators.required),
         seriousDangerPicture: new FormControl(''),
       }
     );
@@ -76,14 +78,12 @@ export class RkArchiveComponent implements OnInit {
   // 初始化分页数据
   public  initRkArchiveData(): void {
     this.archiveSrv.getRiskArchivesPageData({pageNo: this.archivePageNo, pageSize: 10}).subscribe(val => {
-      console.log(val);
       this.rkArchiveContent = val.data.contents;
       this.principalPageOption.totalRecord = val.data.totalRecord;
     });
 
   }
   public  selectImageFile(e): void {
-    console.log(e);
     if (e.type === 'add'){
       this.editArchive.patchValue({seriousDangerPicture: e.value.files});
     }else {
@@ -128,13 +128,11 @@ export class RkArchiveComponent implements OnInit {
 
   // 分页点击事件
   public  archivePageEvent(e): void {
-      console.log(e);
       this.archivePageNo = e;
       this.initRkArchiveData();
   }
   // 显示修改重大危险源档案
   public  editRiskArchiveClcik(data): void {
-    console.log(data);
     this.showEditArchiveDialog = true;
     for (const key in  JSON.parse(JSON.stringify(this.editArchive.value))){
       const a = {};
@@ -154,7 +152,6 @@ export class RkArchiveComponent implements OnInit {
   }
  // 确定修改
  public  sureEditArchiveClick(): void {
-    // if (this.editArchive.value.)
      console.log(this.editArchive.value);
      if (this.editArchive.valid){
        this.toolSrv.setConfirmation('修改', '修改', () => {

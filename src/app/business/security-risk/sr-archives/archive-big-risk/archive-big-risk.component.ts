@@ -212,6 +212,7 @@ export class ArchiveBigRiskComponent implements OnInit {
         a[key] = data[key];
         this.editBigRiskArchive.patchValue(a);
       }
+      this.editBigRiskArchive.patchValue({picture: data.img});
       const filePathlist = [];
       this.filePathLists = data.img;
       data.img.forEach(res => {

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {CommpleteExamData, PageOption} from '../../../../common/public/Api';
+import {CommpleteExamData, PageOption} from '../../../../../common/public/Api';
 import {Subscription} from 'rxjs';
-import {StOnlineExamService} from '../../../../common/services/st-online-exam.service';
+import {StOnlineExamService} from '../../../../../common/services/st-online-exam.service';
 @Component({
   selector: 'app-st-completed-exam',
   templateUrl: './st-completed-exam.component.html',
@@ -48,7 +48,6 @@ export class StCompletedExamComponent implements OnInit {
   }
   public  initCompleteExamData(): void {
       this.stOnlineExamSrv.getOnlineExamOPageInfo({pageSize: 10, pageNo: this.pageNo, processingStatus: 2}).subscribe(res => {
-        console.log(res);
         this.pageOption = {pageSize: res.data.pageSize, totalRecord: res.data.totalRecord};
         if (res.data.contents){
           this.completedExamContent = res.data.contents.map(v => {
@@ -65,8 +64,6 @@ export class StCompletedExamComponent implements OnInit {
   }
   public  detailClick(e): void {
     this.stOnlineExamSrv.getCompleteExamInfoDetail({testPapreId: e.id, personnelTrainingRecordId: e.personnelTrainingRecordId}).subscribe(res => {
-      console.log(res);
-      // this.paperTitle = res.data.testPaperName;
       this.singleChoiceQuestions = res.data.singleChoiceQuestions;
       this.multipleChoiceQuestions = res.data.multipleChoiceQuestions;
       this.judgmentQuestions = res.data.judgmentQuestions;

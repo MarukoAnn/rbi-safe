@@ -37,7 +37,7 @@ export class ArchiveOutsideComponent implements OnInit {
   };
   public selectType: string = '单位';
   public searchTypeOption: Array<any> = [
-    {label: '单位', value: '单位'},
+    // {label: '单位', value: '单位'},
     {label: '工种', value: '工种'},
   ];
   public treeDialog: any;
@@ -211,6 +211,7 @@ export class ArchiveOutsideComponent implements OnInit {
         this.editOutSideArchive.patchValue(a);
       }
       const filePathlist = [];
+      this.editOutSideArchive.patchValue({picture: data.img});
       this.filePathLists = data.img;
       data.img.forEach(res => {
         filePathlist.push(res.picture);

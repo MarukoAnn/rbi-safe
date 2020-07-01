@@ -28,4 +28,12 @@ export class StOnlineExamService {
   public  getCompleteExamInfoDetail(pamars): Observable<any>  {
     return this.Http.post(`/getTheExamDetails`, pamars);
   }
+
+/*----------------------------错题集---------------------*/
+  public  getWrongQuestionPageData(pamars): Observable<any>  {
+    return this.Http.post(`/findByPage`, pamars);
+  }
+  public  subWrongQuestion(pamars): Observable<any>  {
+    return this.Http.post(`/handlePersonalMistakes`, pamars);
+  }
 }

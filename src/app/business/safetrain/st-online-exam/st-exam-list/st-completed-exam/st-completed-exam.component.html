@@ -34,7 +34,7 @@
       <div class="ui-g-12 ui-g-12">
         <div class="ui-g-6 ui-md-6">
           <h2>正确答案：</h2>
-          <p-scrollPanel  [style]="{height: '100vh', width: '100%'}" styleClass="custombar">
+          <p-scrollPanel  [style]="{height: '96vh', width: '100%'}" styleClass="custombar">
             <div class="ui-md-12 ui-g-12 exam-paper-question">
               <div *ngIf="singleChoiceQuestions.length  !== 0">
                 <h3 class="m-2" *ngIf="singleChoiceQuestions">单选题:</h3>
@@ -126,7 +126,7 @@
         </div>
         <div class="ui-g-6 ui-md-6">
           <h2>您的答案：</h2>
-          <p-scrollPanel  [style]="{height: '100vh', width: '100%'}" styleClass="custombar">
+          <p-scrollPanel  [style]="{height: '96vh', width: '100%'}" styleClass="custombar">
             <div class="ui-md-12 ui-g-12 exam-paper-question">
               <div *ngIf="singleChoiceQuestions.length  !== 0">
                 <h3 class="m-2" *ngIf="singleChoiceQuestions">单选题:</h3>
@@ -226,8 +226,5 @@
         </div>
       </div>
     </div>
-    <h1 style="font-weight:normal">Full Screen Sidebar</h1>
-    <button pButton type="button" (click)="showDetail = false" label="Save" class="ui-button-success"></button>
-    <button pButton type="button" (click)="showDetail = false" label="Cancel" class="ui-button-secondary"></button>
   </p-sidebar>
 </div>
