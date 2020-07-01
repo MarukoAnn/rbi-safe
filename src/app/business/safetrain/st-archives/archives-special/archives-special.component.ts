@@ -26,6 +26,8 @@ export class ArchivesSpecialComponent implements OnInit {
   public specialOperateFlag: any ; // 操作标识
   public specialOperateField: SpecialField = new SpecialFieldClass(); // 操作字段
   public specialOperateModal: boolean = false; // 模态框
+  public specialImportField: FormData = new FormData(); // 导入
+  public specialImportFieldModal: boolean = false; // 导入模态框
   constructor(
     private safeSrv: SafetrainService,
   ) {
@@ -80,6 +82,19 @@ export class ArchivesSpecialComponent implements OnInit {
       // 删除操作
       case 'del':
         console.log('暂时不做');
+        break;
+      // 文件导出操作
+      case 'export':
+        this.safeSrv.exportArchivesInfo().subscribe((res) => {
+          window.open(res.data.path);
+        });
+        break;
+      // 文件导入操作
+      case 'import':
+        this.specialImportField.append('multipartFiles', item.files[0]);
+        this.safeSrv.importArchivesInfo(this.specialImportField).subscribe((res) => {
+          this.specialImportFieldModal = false;
+        });
         break;
     }
   }

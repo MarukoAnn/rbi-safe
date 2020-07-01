@@ -395,12 +395,15 @@ export interface TrainingField {
   id?: any;
   targetSet: string;
   trainingTypeId: number;
-  trainingContent: string;
-  trainingDuration: string;
-  startTime: string;
-  endTime: string;
+  trainingContent: string; // 培训内容
+  trainingDuration: string; // 培训时长
+  startTime: string; // 培训开始时间
+  endTime: string; // 培训结束时间
   organizationTrainingDepartmentId: string;
-  processingStatus: string;
+  processingStatus: string; // 培训状态
+  targetNameSet?: string[]; // 受训单位人员
+  trainingTypeName?: string; // 日常培训类别名称
+  organizationName?: string; // 组织培训单位
 }
 export class TrainingFieldAddClass implements TrainingField {
   endTime: string;

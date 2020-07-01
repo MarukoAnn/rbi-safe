@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {PageOption, ProgramField, ProgramFieldClass, TableHeader} from '../../../../../common/public/Api';
+import {PageOption, TableHeader, TrainingField, TrainingFieldAddClass} from '../../../../../common/public/Api';
 import {SafetrainService} from '../../../../../common/services/safetrain.service';
 
 @Component({
@@ -22,7 +22,7 @@ export class PtProcessedComponent implements OnInit {
   public processedTableData: any[]; // 表体数据
   public processedNowPage: number = 1; // 当前页
   public processedOperateFlag: any ; // 操作标识
-  public processedOperateField: ProgramField = new ProgramFieldClass(); // 操作字段
+  public processedOperateField: TrainingField; // 操作字段
   public processedOperateModal: boolean = false; // 模态框
   constructor(
     private safeSrv: SafetrainService,
@@ -34,7 +34,6 @@ export class PtProcessedComponent implements OnInit {
   // 数据初始化
   private processedDataInit(pageNo, pageSize) {
     this.safeSrv.getProgramList({pageNo, pageSize, processingStatus: 0}).subscribe((res) => {
-      console.log(res.data.contents);
       this.processedTableData = res.data.contents;
       this.processedPageOption.totalRecord = res.data.totalRecord;
     });
@@ -43,10 +42,13 @@ export class PtProcessedComponent implements OnInit {
   // 特殊台账操作操作
   public processedOperate(flag: string, item?: any) {
     switch (flag) {
-      // 添加操作初始化
+      // 查看详情
       case 'detail':
         this.processedOperateModal = true;
-        this.processedOperateField = Object.assign({}, new ProgramFieldClass());
+        this.safeSrv.getReportsInfo({id: item.id}).subscribe((res) => {
+          console.log(res);
+          this.processedOperateField = res.data;
+        });
         break;
     }
   }

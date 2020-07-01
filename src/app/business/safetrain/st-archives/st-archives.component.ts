@@ -10,7 +10,7 @@ export class StArchivesComponent implements OnInit {
     {item: {label: '四级HSE教育培训台账', ftcolor: '#4F88DE', bgc: '#4F88DE'}, simbol: 'report'},
     {item: {label: '特种作业人员登记台账', ftcolor: '#B3B3B3', bgc: '#EDEDED'}, simbol: 'review'},
     {item: {label: '主要负责人、安全生产管理人员培训台账', ftcolor: '#B3B3B3', bgc: '#EDEDED'}, simbol: 'principal'},
-    // {item: {label: '日常培训台账', ftcolor: '#B3B3B3', bgc: '#EDEDED'}, simbol: 'record'},
+    {item: {label: '日常培训台账', ftcolor: '#B3B3B3', bgc: '#EDEDED'}, simbol: 'record'},
   ];
   public arcActiveIndex: number = 0;
 

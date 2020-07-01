@@ -90,10 +90,12 @@ export class ArchivesManageComponent implements OnInit {
           window.open(res.data.path);
         });
         break;
-      // 文件导出操作
+      // 文件导入操作
       case 'import':
         this.manageImportField.append('file', item.files[0]);
-        this.safeSrv.importManageInfo(this.manageImportField).subscribe((res) => {});
+        this.safeSrv.importManageInfo(this.manageImportField).subscribe((res) => {
+          this.manageImportFieldModal = false;
+        });
         break;
     }
   }

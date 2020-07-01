@@ -37,6 +37,22 @@ export class SafetrainService {
   }
 
   /**
+   * 主要负责人/安全生产管理员培训台账导出
+   * @param params
+   */
+  public importArchivesInfo(params: any): Observable<any> {
+    return this.http.post(`/training/importSpecialTrainings`, params);
+  }
+
+  /**
+   * 主要负责人/安全生产管理员培训台账导出
+   * @param params
+   */
+  public exportArchivesInfo(params: any = {}): Observable<any> {
+    return this.http.post(`/training/writeAdmin`, params);
+  }
+
+  /**
    * 日常需求信息填报新增
    * @param params
    */
