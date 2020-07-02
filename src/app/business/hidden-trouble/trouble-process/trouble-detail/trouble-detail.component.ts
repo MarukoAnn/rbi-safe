@@ -123,6 +123,7 @@ export class TroubleDetailComponent implements OnInit {
       res.data.beforImgs.forEach(val => {
         this.ImageOption.imgUrls.push(val.beforePicture);
       });
+      this.rectificationNoticeAnnex = res.data.hidDangerDO.rectificationNoticeAnnex;
       if (this.addReport.value.ifDeal === '是'){
         // if(res.hidDangerDO.processingStatus === '4') {
         //   this.btnList = [];
