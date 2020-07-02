@@ -22,7 +22,7 @@ export class ArchivesEducateComponent implements OnInit {
   ]; // 表头字段
   public educateTableData: any[]; // 表体数据
   public educateNowPage: number = 1; // 当前页
-  public educateOperateFlag: 'update' | 'save' | 'del' | 'add' ; // 操作标识
+  public educateOperateFlag: any ; // 操作标识
   public educateOperateField: EducateField = new AddEducateFieldClass(); // 操作字段
   public educateOperateModal: boolean = false; // 模态框
   public educateImportField: FormData = new FormData(); // 导入
