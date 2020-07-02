@@ -189,6 +189,22 @@ export class SafetrainService {
   }
 
   /**
+   * 主要负责人/安全生产管理员培训台账导出
+   * @param params
+   */
+  public importEducateInfo(params: any): Observable<any> {
+    return this.http.post(`/safeFourLevel/excelImport`, params);
+  }
+
+  /**
+   * 主要负责人/安全生产管理员培训台账导出
+   * @param params
+   */
+  public exportEducateInfo(params: any = {}): Observable<any> {
+    return this.http.post(`/safeFourLevel/excelwrite`, params);
+  }
+
+  /**
    * 主要负责人/安全生产管理员培训台账列表获取
    * * @param params
    */

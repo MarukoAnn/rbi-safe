@@ -17,7 +17,7 @@ export class ArchivesEducateComponent implements OnInit {
     {field: 'name', header: '姓名'},
     {field: 'idCardNo', header: '身份证'},
     {field: 'gender', header: '性别'},
-    {field: 'organizationName', header: '组织名'},
+    {field: 'organizationName', header: '单位组织'},
     {field: 'idt', header: '添加时间'},
   ]; // 表头字段
   public educateTableData: any[]; // 表体数据
@@ -25,6 +25,8 @@ export class ArchivesEducateComponent implements OnInit {
   public educateOperateFlag: 'update' | 'save' | 'del' | 'add' ; // 操作标识
   public educateOperateField: EducateField = new AddEducateFieldClass(); // 操作字段
   public educateOperateModal: boolean = false; // 模态框
+  public educateImportField: FormData = new FormData(); // 导入
+  public educateImportFieldModal: boolean = false; // 导入模态框
   constructor(
     private safeSrv: SafetrainService,
   ) { }
@@ -79,6 +81,20 @@ export class ArchivesEducateComponent implements OnInit {
         if (window.confirm('您确定需要删除吗？')) {
           this.educateHttpOperate(this.safeSrv.delEducateInfo({data: [{id: item.id}]}));
         }
+        break;
+      // 文件导出操作
+      case 'export':
+        this.safeSrv.exportEducateInfo().subscribe((res) => {
+          window.open(res.data.path);
+        });
+        break;
+      // 文件导入操作
+      case 'import':
+        this.educateImportField.append('file', item.files[0]);
+        this.safeSrv.importEducateInfo(this.educateImportField).subscribe((res) => {
+          this.educateImportFieldModal = false;
+          this.educateDataInit(this.educateNowPage, this.educatePageOption.pageSize);
+        });
         break;
     }
   }

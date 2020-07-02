@@ -15,7 +15,7 @@ export class ArchivesManageComponent implements OnInit {
   }; // 分页组件配置
   public manageTableHeader: TableHeader[] = [
     {field: 'name', header: '姓名'},
-    {field: 'unit', header: '单位'},
+    {field: 'unit', header: '单位组织'},
     {field: 'typeOfCertificate', header: '合格证类型'},
     {field: 'termOfValidity', header: '有效期'},
     {field: 'dateOfIssue', header: '发证时间'},
@@ -95,6 +95,7 @@ export class ArchivesManageComponent implements OnInit {
         this.manageImportField.append('file', item.files[0]);
         this.safeSrv.importManageInfo(this.manageImportField).subscribe((res) => {
           this.manageImportFieldModal = false;
+          this.manageDataInit(this.manageNowPage, this.managePageOption.pageSize);
         });
         break;
     }

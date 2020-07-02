@@ -94,6 +94,7 @@ export class ArchivesSpecialComponent implements OnInit {
         this.specialImportField.append('multipartFiles', item.files[0]);
         this.safeSrv.importArchivesInfo(this.specialImportField).subscribe((res) => {
           this.specialImportFieldModal = false;
+          this.specialDataInit(this.specialNowPage, this.specialPageOption.pageSize);
         });
         break;
     }

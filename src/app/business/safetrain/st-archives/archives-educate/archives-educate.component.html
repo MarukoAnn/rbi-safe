@@ -2,13 +2,13 @@
   <h2 class="title text-center pt-3 pb-3 text-littleGray">四级HSE教育培训台账</h2>
   <div class="header pt-2 pb-2">
     <div class="ui-inputgroup">
-      <input type="text" pInputText placeholder="搜索"/>
-      <button pButton type="button" icon="pi pi-search" class="ui-button-warn"></button>
+<!--      <input type="text" pInputText placeholder="搜索"/>-->
+<!--      <button pButton type="button" icon="pi pi-search" class="ui-button-warn"></button>-->
     </div>
     <div class="button">
       <button pButton type="button" label="新增台账" class="ui-button-rounded" (click)="educateOperate(educateOperateFlag = 'add')"></button>
-<!--      <button pButton type="button" label="文件导入" class="ui-button-rounded ui-button-darkPrimary ml-2 mr-2"></button>-->
-      <button pButton type="button" label="文件导出" class="ui-button-rounded ui-button-pink ml-2 mr-2"></button>
+      <button pButton type="button" label="文件导入" class="ui-button-rounded ui-button-darkPrimary ml-2 mr-2" (click)="educateImportFieldModal=true"></button>
+      <button pButton type="button" label="文件导出" class="ui-button-rounded ui-button-pink" (click)="educateOperate(educateOperateFlag = 'export')"></button>
     </div>
   </div>
   <div class="content">
@@ -151,6 +151,36 @@
       <p-footer>
         <button pButton label="保存" (click)="educateOperate(educateOperateFlag = 'save')"></button>
         <button pButton label="取消" class="ui-button-pink" (click)="educateOperateModal = false"></button>
+      </p-footer>
+    </p-dialog>
+    <!--文件导入弹窗-->
+    <p-dialog
+      [blockScroll]="true"
+      [(visible)]="educateImportFieldModal" [style]="{width: '50vw'}"
+    >
+      <p-header>导入四级HSE教育培训台账</p-header>
+      <div style="width: 100%;height: 30vh;overflow: hidden">
+        <p-scrollPanel [style]="{width: '100%', height: '100%'}" styleClass="role-scroll">
+          <div class="ui-g">
+            <!--选择文件-->
+            <div class="ui-g-12 ui-md-12">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>请选择文件（<span class="text-danger">只能是excel文档）</span>：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <p-fileUpload
+                  chooseLabel="点击选择上传文件" cancelLabel="清空" accept=".xlsx,.xls"
+                  [showUploadButton]="false" mode="advanced" name="file" #fileUpload
+                >
+                </p-fileUpload>
+              </div>
+            </div>
+          </div>
+        </p-scrollPanel>
+      </div>
+      <p-footer>
+        <button pButton label="保存" (click)="educateOperate(educateOperateFlag = 'import',fileUpload)"></button>
+        <button pButton label="取消" class="ui-button-pink" (click)="educateImportFieldModal = false"></button>
       </p-footer>
     </p-dialog>
   </div>
