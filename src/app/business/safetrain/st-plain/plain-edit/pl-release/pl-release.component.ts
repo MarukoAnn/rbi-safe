@@ -49,8 +49,7 @@ export class PlReleaseComponent implements OnInit {
           res.safeSubjectOptionList.forEach((item) => {
             exam.safeTestQuestionOptionsList.push(objectCopy(Object.assign({}, new TopicExamOptionClass()), item));
           });
-        }
-        else {
+        } else {
           exam.safeTestQuestionOptionsList = null;
         }
       }
@@ -59,7 +58,7 @@ export class PlReleaseComponent implements OnInit {
     this.safeTestPaper = Object.assign(this.safeTestPaper, {safeTestQuestionsList: TopicExam});
     this.releaseAddField = Object.assign(
       {},
-      {safeTrainingNeeds:  this.safeTrainingNeeds},
+      {safeTrainingNeeds: this.safeTrainingNeeds},
       {safeDataPlanList: this.safeDataPlanList},
       {safeTestPaper: this.safeTestPaper},
     );
@@ -74,11 +73,19 @@ export class PlReleaseComponent implements OnInit {
         break;
       // 确认发布
       case 'sure':
-        this.safeSrv.addExamInfo(this.releaseAddField).subscribe(() => {
-          if (window.confirm('发布成功！')) {
-            this.router.navigate(['/home/strain/plain/list']);
-          }
-        });
+        if (this.releaseAddField.id) {
+          this.safeSrv.addExamInfo(this.releaseAddField).subscribe(() => {
+            if (window.confirm('发布成功！')) {
+              this.router.navigate(['/home/strain/plain/list']);
+            }
+          });
+        } else {
+          this.safeSrv.addExamInfoNoId(this.releaseAddField).subscribe(() => {
+            if (window.confirm('发布成功！')) {
+              this.router.navigate(['/home/strain/plain/list']);
+            }
+          });
+        }
         break;
     }
   }

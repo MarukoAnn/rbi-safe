@@ -321,9 +321,16 @@ export class SafetrainService {
   }
 
   /**
-   * 考试发布
+   * 考试发布（有id）
    */
   public addExamInfo(params: any): Observable<any> {
     return this.http.post(`/handlingRequirements`, params);
+  }
+
+  /**
+   * 考试发布（无id）
+   */
+  public addExamInfoNoId(params: any): Observable<any> {
+    return this.http.post(`/insertTrainingPlanTest`, params);
   }
 }
