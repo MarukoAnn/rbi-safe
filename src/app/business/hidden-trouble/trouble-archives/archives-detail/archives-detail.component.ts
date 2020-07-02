@@ -36,6 +36,7 @@ export class ArchivesDetailComponent implements OnInit {
   public esDate: any = Es;
   public addPlanFile: any;
   public addReportFile: any;
+  public rectificationNoticeAnnex: any;
   public isHandle: boolean = false;
   public code: any = '';
   constructor(
@@ -68,6 +69,7 @@ export class ArchivesDetailComponent implements OnInit {
       beforeImg: new FormControl({value: '', disabled: true}, Validators.required), // 排查前图片
       hidType: new FormControl({value: '', disabled: true}, Validators.required),
       rectificationOpinions: new FormControl({value: '', disabled: true}),
+      rectificationNoticeAnnex: new FormControl({value: '', disabled: true}),
       // 处理的
       governanceFunds: new FormControl({value: '', disabled: true}), // 处理资金
       completionTime: new FormControl({value: '', disabled: true}), // 完成时间
@@ -121,6 +123,7 @@ export class ArchivesDetailComponent implements OnInit {
   public  setFileInfo(data): void {
     this.addPlanFile = data['rectificationPlan'];
     this.addReportFile = data['acceptanceReport'];
+    this.rectificationNoticeAnnex = data['rectificationNoticeAnnex'];
     // 截取文件名称
     this.addReport.patchValue({report: data['acceptanceReport'] ?
         data['acceptanceReport'].slice(data['acceptanceReport'].lastIndexOf('/') + 1,
@@ -128,22 +131,17 @@ export class ArchivesDetailComponent implements OnInit {
     this.addReport.patchValue({plan: data['rectificationPlan'] ?
         data['rectificationPlan'].slice(data['rectificationPlan'].lastIndexOf('/') + 1,
           data['rectificationPlan'].length) : ''});
+    this.addReport.patchValue({rectificationNoticeAnnex: data['rectificationNoticeAnnex'] ?
+        data['rectificationNoticeAnnex'].slice(data['rectificationNoticeAnnex'].lastIndexOf('/') + 1,
+          data['rectificationNoticeAnnex'].length) : ''});
   }
 
   // 下载文件
   public  downLoadFile(e): void {
-    if (e === 'plan'){
-      if (this.addPlanFile){
-        window.open(this.addPlanFile);
-      }else {
-        this.toolSrv.setToast('error', '下载失败', '文件数据为空');
-      }
+    if (this[e]){
+      window.open(this[e]);
     }else {
-      if (this.addReportFile){
-        window.open(this.addReportFile);
-      }else {
-        this.toolSrv.setToast('error', '下载失败', '文件数据为空');
-      }
+      this.toolSrv.setToast('error', '下载失败', '文件数据为空');
     }
   }
 }
