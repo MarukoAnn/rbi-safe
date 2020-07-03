@@ -41,7 +41,11 @@ export class AreaOutsideComponent implements OnInit {
   ngOnInit() {
     const data = {};
     for (const key in this.addOutside){
-      data[key] =  new FormControl('', Validators.required);
+      if (key !== 'picture'){
+        data[key] =  new FormControl('', Validators.required);
+      }else {
+        data[key] =  new FormControl('');
+      }
     }
     this.addOutsideRisk = this.fb.group(data);
     this.initRiskAreaWidtinData();

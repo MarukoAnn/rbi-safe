@@ -116,12 +116,10 @@ export class OrganizationManagerComponent implements OnInit {
   }
   // search Data (搜索事件)
   public  searchDataClick(): void {
-    console.log(123);
   }
 
   // Paging event (分页事件)
   public  clickEvent(e): void {
-    console.log(e);
     this.pageNo = e;
     this.initOrgazitonInfo();
   }

@@ -8,7 +8,7 @@ import {Subscription} from 'rxjs';
 })
 export class StExamListComponent implements OnInit {
 
-  public index: number = 2;
+  public index: number = 0;
   public noExamNum: number =  0;
   public noWrongNum: number =  0;
   public themeSub: Subscription;

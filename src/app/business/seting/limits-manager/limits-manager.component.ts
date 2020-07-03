@@ -193,6 +193,7 @@ export class LimitsManagerComponent implements OnInit {
            this.showAddLimitDialog = false;
            this.resetAllData();
            this.initLimitData();
+           this.toolSrv.setToast('success', '请求成功', val.message);
          });
        });
      }else {

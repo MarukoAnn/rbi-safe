@@ -39,7 +39,7 @@ export class RkDiscernComponent implements OnInit {
       seriousDangerCycle: new FormControl('', Validators.required),
       seriousDangerPrincipal: new FormControl('', Validators.required),
       seriousDangerTime: new FormControl('', Validators.required),
-      seriousDangerPicture: new FormControl('', Validators.required),
+      seriousDangerPicture: new FormControl(''),
       seriousDangerEmergencyMeasure: new FormControl('', Validators.required),
       seriousDangerControlLevel: new FormControl('', Validators.required),
     });

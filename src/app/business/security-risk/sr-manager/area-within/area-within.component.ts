@@ -40,7 +40,11 @@ export class AreaWithinComponent implements OnInit {
   ngOnInit() {
     const data = {};
     for (const key in this.addWidthin){
-      data[key] =  new FormControl('', Validators.required);
+      if (key !== 'picture'){
+        data[key] =  new FormControl('', Validators.required);
+      }else {
+        data[key] =  new FormControl('');
+      }
     }
     this.addWithinRisk = this.fb.group(data);
     this.initRiskAreaWidtinData();

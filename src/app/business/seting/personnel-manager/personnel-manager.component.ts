@@ -121,7 +121,6 @@ export class PersonnelManagerComponent implements OnInit {
         this.pageOption = {pageSize: val.data.pageSize, totalRecord: val.data.totalRecord};
         this.personnelData = val.data.contents;
         this.setTableOption(this.personnelData);
-        this.toolSrv.setToast('success', '请求成功', '数据返回成功');
       });
   }
   // 选择数据
@@ -178,8 +177,8 @@ export class PersonnelManagerComponent implements OnInit {
           {field: 'idCardNo', header: '身份证号'},
           {field: 'dateOfBirth', header: '出生日期'},
           {field: 'degreeOfEducation', header: '文化程度'},
-          {field: 'position', header: '所在岗位'},
-          {field: 'jobNature', header: '岗位信息'},
+          // {field: 'position', header: '所在岗位'},
+          // {field: 'jobNature', header: '岗位信息'},
           // {field: 'workType', header: '工种'},
           {field: 'entryTime', header: '入厂时间'},
           // {field: 'remarks', header: '备注'},
@@ -192,7 +191,7 @@ export class PersonnelManagerComponent implements OnInit {
         styleone: {background: this.table.tableContent[0].background, color: this.table.tableContent[0].color, textAlign: 'center', height: '3vw'},
       },
       type: 2,
-      tableList:  [{label: '编辑', color: this.table.detailBtn[0]}, {label: '删除', color: this.table.detailBtn[1]}]
+      tableList:  [{label: '详情', color: this.table.detailBtn[0]}, {label: '删除', color: this.table.detailBtn[1]}]
     };
   }
   // search Data (搜索事件)
@@ -322,7 +321,6 @@ export class PersonnelManagerComponent implements OnInit {
      this.globalSrv.getOrgazitionTreeData({}).subscribe(value => {
        if (value.data) {
          this.dataTrees = this.initializeTree(value.data);
-         console.log(this.dataTrees);
        } else {
          this.toolSrv.setToast('error', '操作', '组织数据获取失败');
        }
@@ -335,14 +333,9 @@ export class PersonnelManagerComponent implements OnInit {
       this.addPersonnel.value['dateOfBirth'] = this.dataPipe.transform(this.addPersonnel.value['dateOfBirth'], 'yyyy-MM-dd');
       this.toolSrv.setConfirmation('更新', '更新', () => {
         this.setSrv.updatePersonnelInfo(JSON.stringify(this.addPersonnel.value)).subscribe(res => {
-          if (res.status === '1000') {
-            this.addPersonnel.reset();
-            this.showEditPersionDialog = false;
-            this.initPersonnelData();
-            this.toolSrv.setToast('success', '请求成功', res.message);
-          } else {
-            this.toolSrv.setToast('error', '请求失败', res.message);
-          }
+          this.addPersonnel.reset();
+          this.showEditPersionDialog = false;
+          this.initPersonnelData();
         });
       });
     } else {

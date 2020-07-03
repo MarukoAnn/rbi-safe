@@ -6,6 +6,7 @@ import {PublicMethodService} from '../../../../common/public/public-method.servi
 import {CommpleteExamData} from '../../../../common/public/Api';
 import {ConfirmationService} from 'primeng/api';
 import {observable, Observable} from 'rxjs';
+import {LocalStorageService} from '../../../../common/services/local-storage.service';
 
 @Component({
   selector: 'app-st-taking-exam',
@@ -30,6 +31,7 @@ export class StTakingExamComponent implements OnInit {
     private stOnlineExamSrv: StOnlineExamService,
     private route: ActivatedRoute,
     private router: Router,
+    private localSrv: LocalStorageService,
     private confirmationService: ConfirmationService,
     private toolSrv: PublicMethodService,
   ) {
@@ -50,6 +52,7 @@ export class StTakingExamComponent implements OnInit {
       console.log(this.durationTime);
       this.commpleteExamData.personnelTrainingRecordId = Number(val.personnelTrainingRecordId);
     });
+    this.localSrv.set('openExam', '0');
     this.initTaskExamPaperInfo();
   }
 
@@ -136,6 +139,7 @@ export class StTakingExamComponent implements OnInit {
   }
   // 提交试卷
   public  submitPaper(): void {
+    this.localSrv.set('openExam', '1');
     this.commpleteExamDataCopy = JSON.parse(JSON.stringify(this.commpleteExamData));
     this.commpleteExamDataCopy.safeAnswerRecordList.forEach(val => {
       if (Array.isArray(val.answerResults)){

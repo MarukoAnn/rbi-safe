@@ -57,14 +57,9 @@ export class SystemMangerComponent implements OnInit {
 
   public  initSystemData(): void {
      this.systemSrv.getSystemPageData({pageNo: this.pageNo, pageSize: 10}).subscribe( val => {
-       if (val.status === '1000'){
-         this.systemContent = val.data.contents;
-         this.setTableOption(this.systemContent);
-         this.pageOption = {pageSize: val.data.pageSize, totalRecord: val.data.totalRecord};
-         this.toolSrv.setToast('success', '请求成功', val.message);
-       }else {
-         this.toolSrv.setToast('error', '请求失败', val.message);
-       }
+       this.systemContent = val.data.contents;
+       this.setTableOption(this.systemContent);
+       this.pageOption = {pageSize: val.data.pageSize, totalRecord: val.data.totalRecord};
      });
   }
   public  selectData(e): void {
@@ -126,15 +121,10 @@ export class SystemMangerComponent implements OnInit {
             data.append('multipartFiles', val);
           });
           this.systemSrv.uploadSystemFile(data).subscribe(val => {
-            if (val.status === '1000'){
-              this.showAddSystemDialog = false;
-              this.resetAllData();
-              this.initSystemData();
-              this.files = [];
-              this.toolSrv.setToast('success', '请求成功', val.message);
-            }else {
-              this.toolSrv.setToast('error', '请求失败', val.message);
-            }
+            this.showAddSystemDialog = false;
+            this.resetAllData();
+            this.initSystemData();
+            this.files = [];
           });
         });
       }else {
@@ -164,12 +154,7 @@ export class SystemMangerComponent implements OnInit {
  // 删除文件
   public  delSystemFiles(data): void {
       this.systemSrv.delSystemFile({id: data}).subscribe(val => {
-         if (val.status === '1000'){
-           this.initSystemData();
-           this.toolSrv.setToast('success', '请求成功', val.message);
-         }else {
-           this.toolSrv.setToast('error', '请求失败', val.message);
-         }
+        this.initSystemData();
       });
   }
 

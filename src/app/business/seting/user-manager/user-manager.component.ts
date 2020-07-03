@@ -83,7 +83,6 @@ export class UserManagerComponent implements OnInit {
     this.userSelect = e;
   }
   public  DetailClick(e): void {
-    console.log(e);
     if (e.label === '删除') {
        this.id = e.data.id;
        this.delUserInfo();
@@ -127,11 +126,9 @@ export class UserManagerComponent implements OnInit {
   }
   // search Data (搜索事件)
   public  searchDataClick(): void {
-    console.log(123);
   }
   // Paging event (分页事件)
   public  clickEvent(e): void {
-    console.log(e);
     this.pageNo = e;
     this.initUserInfo();
   }
@@ -144,7 +141,6 @@ export class UserManagerComponent implements OnInit {
  }
  // 添加信息
  public  addUserInfoClick(): void {
-    console.log(this.addUser.value);
    if (this.addUser.valid){
      const data = JSON.parse(JSON.stringify(this.addUser.value));
      data.sysUserRoleList = [{roleId: data.sysUserRoleList}];
