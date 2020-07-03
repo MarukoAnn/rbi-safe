@@ -222,7 +222,7 @@ export class LimitsManagerComponent implements OnInit {
     this.addLimit.patchValue({name: this.dataTree.label});
     if (this.dataTree.level === 1){
         this.addLimit.patchValue({systemId: this.dataTree.value});
-        this.addLimit.patchValue({parentId: ''});
+        this.addLimit.patchValue({parentId: 0});
 
       }else {
         this.addLimit.patchValue({parentId: this.dataTree.value});

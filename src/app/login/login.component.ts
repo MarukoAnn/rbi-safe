@@ -29,7 +29,6 @@ export class LoginComponent implements OnInit {
     if (this.username !== '' && this.password !== '') {
       this.loginSrv.login({username: this.username, password: this.password}).subscribe(val => {
         if (val.status === '1000') {
-          this.toolSrv.setToast('success', '请求成功', val.message);
           this.localSrv.set('token', val.token);
           this.localSrv.set('username', val.data.username);
           this.localSrv.set('companyPersonnelId', val.data.companyPersonnelId);

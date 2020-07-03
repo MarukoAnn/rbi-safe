@@ -17,6 +17,7 @@ export class RolesManagerComponent implements OnInit {
   public roleTableHeader: any[] = [
     {field: 'roleName', header: '角色名称'},
     {field: 'whetherSee', header: '是否可见下级'},
+    {field: 'level', header: '等级'},
     {field: 'enabled', header: '是否启用'},
   ]; // 表格组件表头内容
   public roleTableData: Role[] = []; // 表格组件表体内容
@@ -98,6 +99,7 @@ export class RolesManagerComponent implements OnInit {
         this.roleWebPermissionSelected = null; // 初始化权限树选择
         this.roleInputField = {
           roleName: '',
+          level: '',
           whetherSee: nums.one,
           enabled: nums.one,
           sysRolePermissionList: []
@@ -111,6 +113,7 @@ export class RolesManagerComponent implements OnInit {
           {
             id: null,
             roleName: '',
+            level: item.level,
             whetherSee: nums.one,
             enabled: nums.one,
             sysRolePermissionList: []

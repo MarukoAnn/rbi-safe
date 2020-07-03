@@ -35,6 +35,7 @@ export interface OraWebTree {
 export interface Role {
   id?: number;
   roleName?: string;
+  level?: string;
   whetherSee?: nums;
   enabled?: nums;
   sysRolePermissionList?: Array<any>;

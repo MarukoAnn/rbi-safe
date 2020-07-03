@@ -5,8 +5,8 @@
     "ng": "ng",
     "start": "ng serve --port 4700 --open --host 0.0.0.0  --disable-host-check",
     "startzga": "ng serve --port 4700 --open --host 0.0.0.0  --disable-host-check -c=zga",
-    "build": "ng build --prod --base-href /safe/",
-    "buildDev": "ng build --base-href /safe/",
+    "build": "ng build --prod --base-href /safetest/",
+    "buildDev": "ng build --base-href /safetest/",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"

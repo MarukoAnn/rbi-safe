@@ -127,10 +127,10 @@ export class SystemMangerComponent implements OnInit {
           });
           this.systemSrv.uploadSystemFile(data).subscribe(val => {
             if (val.status === '1000'){
+              this.showAddSystemDialog = false;
               this.resetAllData();
               this.initSystemData();
               this.files = [];
-              this.showAddSystemDialog = false;
               this.toolSrv.setToast('success', '请求成功', val.message);
             }else {
               this.toolSrv.setToast('error', '请求失败', val.message);
@@ -145,13 +145,10 @@ export class SystemMangerComponent implements OnInit {
  // 获取文件类型
  public getFileTypeList(): void {
      this.systemSrv.getSystemFileTypeList({}).subscribe(val => {
-       console.log(val);
        if (val.status === '1000'){
          this.fileType = val.data.map(v => {
             return {label: v.categoryName, value: v.id};
          });
-       }else {
-
        }
      });
  }

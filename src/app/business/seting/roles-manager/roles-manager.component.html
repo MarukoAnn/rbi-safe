@@ -35,7 +35,8 @@
         <tr [pSelectableRow]="tableData" [pReorderableRow]="index" [pSelectableRowIndex]="rowIndex">
           <td>{{rowIndex + 1}}</td>
           <td *ngFor="let col of columns">
-            {{tableData[col.field] === 1 ? '是' : tableData[col.field] === 0 ? '否' : tableData[col.field]}}
+            <span *ngIf="col.field === 'level'">{{tableData[col.field]}}</span>
+            <span *ngIf="col.field !== 'level'">{{tableData[col.field] === 1 ? '是' : tableData[col.field] === 0 ? '否' : tableData[col.field]}}</span>
           </td>
           <td>
             <button
@@ -111,10 +112,20 @@
               <label class="ui-g-4 ui-md-4 label">
                 <span>是否启用：</span>
               </label>
-              <div class="ui-g-8 ui-md-8 radioButton">
+              <div class="ui-g-8 ui-md-8">
                 <p-radioButton name="enabled" value="1" label="是" [(ngModel)]="roleInputField.enabled"></p-radioButton>
                 <p-radioButton name="enabled" value="0" label="否" styleClass="ml-3"
                                [(ngModel)]="roleInputField.enabled"></p-radioButton>
+              </div>
+            </div>
+            <!--是否启用-->
+            <div class="ui-g-6 ui-md-6">
+              <label class="ui-g-4 ui-md-4 label">
+                <span>等级：</span>
+              </label>
+              <div class="ui-g-8 ui-md-8 input">
+                <input type="text" pInputText placeholder="请填写等级" ngModel required
+                       [(ngModel)]="roleInputField.level">
               </div>
             </div>
           </div>
