@@ -1,1 +1,25 @@
-<h1>待开发中.....</h1>
+<div class="sr-control-status">
+  <header class="header">
+    <h3>风险危害种类占比</h3>
+  </header>
+  <div class="control-status-content">
+    <div class="content-type">
+       <div class="item" *ngFor="let item of itemTypeList">
+         <div class="title">
+           <span class="h2">{{item.title}}</span>
+           <i class="fa fa-question-circle"></i>
+         </div>
+         <div class="content">
+           {{item.content}}
+         </div>
+         <div class="num">
+            <span>{{item.num}}%</span>
+            <span></span>
+         </div>
+       </div>
+    </div>
+    <div class="content-chart">
+
+    </div>
+  </div>
+</div>

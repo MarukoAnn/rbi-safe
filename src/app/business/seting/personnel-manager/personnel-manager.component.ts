@@ -113,7 +113,6 @@ export class PersonnelManagerComponent implements OnInit {
       remarks: new FormControl(''),
     });
     this.initPersonnelData();
-    this.getOrgazitonTree();
   }
   // 初始化数据
   public  initPersonnelData(): void {
@@ -136,6 +135,7 @@ export class PersonnelManagerComponent implements OnInit {
         this.delpersonnelData();
       });
     } else {
+      this.getOrgazitonTree();
       this.treeFlag = 'edit';
       const List = ['employeeNumber', 'organizationId', 'organizationName', 'name', 'gender', 'maritalStatus',
         'nation', 'idCardNo', 'workshopName', 'companyName', 'factoryName', 'teamName', 'id', 'dateOfBirth',
@@ -293,6 +293,7 @@ export class PersonnelManagerComponent implements OnInit {
   }
   // 添加信息
   public  addPersonnelClick(): void {
+    this.getOrgazitonTree();
     this.showAddPersionDialog = true;
     this.treeFlag = 'add';
   }

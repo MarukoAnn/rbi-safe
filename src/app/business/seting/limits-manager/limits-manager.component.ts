@@ -73,7 +73,7 @@ export class LimitsManagerComponent implements OnInit {
       id: new FormControl(''),
     });
     this.initLimitData();
-    this.getLimitTree();
+
   }
 
   public initLimitData(): void {
@@ -97,6 +97,7 @@ export class LimitsManagerComponent implements OnInit {
         this.delLimitInfo(this.delData);
       });
     }else {
+      this.getLimitTree();
       const list = ['id', 'permissionName', 'operateCode', 'parentId', 'description', 'systemId', 'enabled'];
       list.forEach(val => {
         const a = {};
@@ -173,7 +174,9 @@ export class LimitsManagerComponent implements OnInit {
     });
   }
   public  showAddLimitClick(): void {
+    this.getLimitTree();
     this.showAddLimitDialog = true;
+
   }
 
   public  resetAllData(): void {
