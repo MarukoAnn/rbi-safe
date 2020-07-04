@@ -112,6 +112,7 @@ export class PersonnelManagerComponent implements OnInit {
       jobNature: new FormControl(''),
       remarks: new FormControl(''),
     });
+    this.getOrgazitonTree();
     this.initPersonnelData();
   }
   // 初始化数据

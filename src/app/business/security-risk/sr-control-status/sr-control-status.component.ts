@@ -14,6 +14,14 @@ export class SrControlStatusComponent implements OnInit {
     {title: '人机工效危害', content: '设计差、不便使用的工具、狭小的作业空间、重复....', num: 12},
     {title: '其他危害', content: '社会- 心里危害、行为危害、环境危害、能源危害....', num: 10}
   ];
+  public lineData = [
+    {name: '一', value1: 22, value2: 24},
+    {name: '二', value1: 32, value2: 42},
+    {name: '三', value1: 33, value2: 21},
+    {name: '四', value1: 44, value2: 35},
+    {name: '五', value1: 34, value2: 41}
+  ];
+  public lineTilte: any = '风险等级数量统计';
   constructor() { }
 
   ngOnInit() {
