@@ -128,6 +128,7 @@ export class RolesManagerComponent implements OnInit {
         }
         // 修改保存操作
         if ('id' in this.roleInputField) {
+          console.log(this.roleWebPermissionSelected);
           // 如果选择了权限
           if (this.roleWebPermissionSelected) {
             this.roleInputField.sysRolePermissionList = this.roleWebPermissionSelected.map((res) => ({permissionId: res.id}));
@@ -145,6 +146,7 @@ export class RolesManagerComponent implements OnInit {
             }
           }
           // 请求更新操作
+          console.log(this.roleInputField);
           this.roleHttpOperate(this.setSrv.updateRoleInfo(this.roleInputField));
         }
         // 新增保存操作
@@ -154,7 +156,7 @@ export class RolesManagerComponent implements OnInit {
             this.roleInputField.sysRolePermissionList = this.roleWebPermissionSelected.map((res) => ({permissionId: res.id}));
           }
           // 请求更新操作
-          this.roleHttpOperate(this.setSrv.addRoleInfo(this.roleInputField));
+          // this.roleHttpOperate(this.setSrv.addRoleInfo(this.roleInputField));
         }
         break;
       // 查看权限操作
