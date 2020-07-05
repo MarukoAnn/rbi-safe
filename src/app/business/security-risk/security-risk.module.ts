@@ -25,6 +25,8 @@ import {PaginationModule} from '../../common/components/pagination/pagination.mo
 import { ArchiveBigRiskComponent } from './sr-archives/archive-big-risk/archive-big-risk.component';
 import { SrInstitutionComponent } from './sr-institution/sr-institution.component';
 import { SrControlStatusComponent } from './sr-control-status/sr-control-status.component';
+import {EchartsBarModule} from '../../common/components/echarts-bar/echarts-bar.module';
+import {EchartsPieModule} from '../../common/components/echarts-pie/echarts-pie.module';
 
 
 @NgModule({
@@ -39,26 +41,28 @@ import { SrControlStatusComponent } from './sr-control-status/sr-control-status.
     ArchiveBigRiskComponent,
     SrInstitutionComponent,
     SrControlStatusComponent],
-    imports: [
-        CommonModule,
-        SecurityRiskRoutingModule,
-        ScrollPanelModule,
-        CheckboxModule,
-        DropdownModule,
-        UploadImageModule,
-        RadioButtonModule,
-        CalendarModule,
-        ReactiveFormsModule,
-        DialogModule,
-        TreeModule,
-        InputTextModule,
-        InputTextareaModule,
-        SpinnerModule,
-        FormsModule,
-        TableModule,
-        PaginationModule,
-        TooltipModule
-    ],
+  imports: [
+    CommonModule,
+    SecurityRiskRoutingModule,
+    ScrollPanelModule,
+    CheckboxModule,
+    DropdownModule,
+    UploadImageModule,
+    RadioButtonModule,
+    CalendarModule,
+    ReactiveFormsModule,
+    DialogModule,
+    TreeModule,
+    InputTextModule,
+    InputTextareaModule,
+    SpinnerModule,
+    FormsModule,
+    TableModule,
+    PaginationModule,
+    TooltipModule,
+    EchartsBarModule,
+    EchartsPieModule
+  ],
   providers: [DatePipe]
 })
 export class SecurityRiskModule { }

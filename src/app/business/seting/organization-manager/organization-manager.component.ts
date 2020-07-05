@@ -80,6 +80,7 @@ export class OrganizationManagerComponent implements OnInit {
     if (e.label === '删除'){
       this.toolSrv.setToast('error', '删除失败', '删除待开发');
     } else{
+      this.getOrgazationTreeInfo();
       const list = ['organizationName', 'parentLevel', 'parentId', 'id'];
       list.forEach(val => {
         const a = {};

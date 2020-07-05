@@ -32,6 +32,8 @@ import { TroubleDetailComponent } from './trouble-process/trouble-detail/trouble
 import { TroubleNoticeComponent } from './trouble-process/trouble-notice/trouble-notice.component';
 import { ArchivesListComponent } from './trouble-archives/archives-list/archives-list.component';
 import { ArchivesDetailComponent } from './trouble-archives/archives-detail/archives-detail.component';
+import {EchartsBarModule} from '../../common/components/echarts-bar/echarts-bar.module';
+import {EchartsPieModule} from '../../common/components/echarts-pie/echarts-pie.module';
 
 
 @NgModule({
@@ -71,6 +73,8 @@ import { ArchivesDetailComponent } from './trouble-archives/archives-detail/arch
     TreeModule,
     PaginationModule,
     BasicTableModule,
+    EchartsBarModule,
+    EchartsPieModule,
   ],
   providers: [DatePipe]
 })
