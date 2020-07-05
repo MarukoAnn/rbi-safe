@@ -27,7 +27,6 @@ export class RegularTestComponent implements OnInit {
     { field: 'monitoringOrganization', header: '检测机构' },
     { field: 'monitoringProject', header: '检测项目' },
     { field: 'monitoringResult', header: '检测结论' },
-    { field: 'annex', header: '附件' },
     { field: 'operating', header: '操作' },
   ];
   public dailyTestContent: Array<object> = [];

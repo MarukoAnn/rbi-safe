@@ -140,6 +140,7 @@
                 <p-tree
                   [value]="roleWebPermissionTree" [style]="{width: '100%'}"
                   emptyMessage="暂无WEB端权限数据"
+                  (onNodeSelect)="roleOperate('test')"
                   selectionMode="checkbox" [(selection)]="roleWebPermissionSelected"
                 ></p-tree>
               </div>

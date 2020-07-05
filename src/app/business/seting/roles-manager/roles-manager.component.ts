@@ -3,9 +3,10 @@ import {Observable, Subscription} from 'rxjs';
 import {ThemeService} from '../../../common/public/theme.service';
 import {SetingService} from '../../../common/services/seting.service';
 import {nums, PageOption, Role} from '../../../common/public/Api';
-import {initializeTree, objectCopy, reverseTree} from '../../../common/public/contents';
+import {initializeTree, objectCopy, reverseTree, rmRepeatArray} from '../../../common/public/contents';
 import {GlobalService} from '../../../common/services/global.service';
 import {PublicMethodService} from '../../../common/public/public-method.service';
+import {TreeNode} from 'primeng/api';
 
 @Component({
   selector: 'app-roles-manager',
@@ -54,7 +55,6 @@ export class RolesManagerComponent implements OnInit {
 
   ngOnInit() {
     this.roleDataInit(this.roleNowPage, this.rolePageOption.pageSize);
-    this.rolePermissionTreeInit();
   }
 
   // 数据初始化
@@ -68,7 +68,7 @@ export class RolesManagerComponent implements OnInit {
   }
 
   // 权限树初始化函数
-  private rolePermissionTreeInit() {
+  private rolePermissionTreeInit(item = null) {
     this.globalSrv.getLimitTreeData().subscribe((res) => {
       this.roleWebPermissionTree = initializeTree(
         res.data[0].permissionTreeInfoList ? res.data[0].permissionTreeInfoList : [],
@@ -95,6 +95,7 @@ export class RolesManagerComponent implements OnInit {
     switch (flag) {
       // 添加操作初始化
       case 'add':
+        this.rolePermissionTreeInit();
         this.roleUpdateModal = true;
         this.roleWebPermissionSelected = null; // 初始化权限树选择
         this.roleInputField = {
@@ -107,6 +108,7 @@ export class RolesManagerComponent implements OnInit {
         break;
       // 编辑操作初始化
       case 'update':
+        this.rolePermissionTreeInit(item);
         this.roleUpdateModal = true; // 显示弹窗
         this.roleWebPermissionSelected = null; // 初始化权限树选择
         this.roleInputField = Object.assign(objectCopy(
@@ -128,10 +130,13 @@ export class RolesManagerComponent implements OnInit {
         }
         // 修改保存操作
         if ('id' in this.roleInputField) {
-          console.log(this.roleWebPermissionSelected);
           // 如果选择了权限
           if (this.roleWebPermissionSelected) {
-            this.roleInputField.sysRolePermissionList = this.roleWebPermissionSelected.map((res) => ({permissionId: res.id}));
+            this.roleInputField.sysRolePermissionList = [];
+            this.roleWebPermissionSelected.forEach((res) => {
+              this.roleInputField.sysRolePermissionList.push({permissionId: res.id});
+              this.roleInputField.sysRolePermissionList.push({permissionId: res.parentId});
+            });
           }
           // 如果没有选择权限，则初始化自身权限
           else {
@@ -145,18 +150,22 @@ export class RolesManagerComponent implements OnInit {
                 );
             }
           }
+          this.roleInputField.sysRolePermissionList = rmRepeatArray(this.roleInputField.sysRolePermissionList);
           // 请求更新操作
-          console.log(this.roleInputField);
           this.roleHttpOperate(this.setSrv.updateRoleInfo(this.roleInputField));
         }
         // 新增保存操作
         else {
           // 如果选择了权限
           if (this.roleWebPermissionSelected) {
-            this.roleInputField.sysRolePermissionList = this.roleWebPermissionSelected.map((res) => ({permissionId: res.id}));
+            this.roleWebPermissionSelected.forEach((res) => {
+              this.roleInputField.sysRolePermissionList.push({permissionId: res.id});
+              this.roleInputField.sysRolePermissionList.push({permissionId: res.parentId});
+            });
           }
-          // 请求更新操作
-          // this.roleHttpOperate(this.setSrv.addRoleInfo(this.roleInputField));
+          // 请求保存操作
+          this.roleInputField.sysRolePermissionList = rmRepeatArray(this.roleInputField.sysRolePermissionList);
+          this.roleHttpOperate(this.setSrv.addRoleInfo(this.roleInputField));
         }
         break;
       // 查看权限操作
@@ -170,6 +179,10 @@ export class RolesManagerComponent implements OnInit {
       // 删除操作
       case 'del':
         console.log('暂时不做');
+        break;
+      // 测试操作：
+      case 'test':
+        console.log(this.roleWebPermissionSelected);
         break;
     }
   }

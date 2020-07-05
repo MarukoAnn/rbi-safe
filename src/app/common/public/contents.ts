@@ -65,7 +65,8 @@ export function initializeTree(data: Array<any>, option: TreeOption): any {
     }
     if (item[option.childrenName] != null && item[option.childrenName].length !== 0) {
       childnode.children = initializeTree(item[option.childrenName], option);
-    } else {
+    }
+    else {
       childnode.children = [];
       childnode.icon = option.icon;
     }
@@ -156,4 +157,26 @@ export function setValueToFromValue(list: Array<string>, data: object, formGroup
     obj[val] = data[val];
     formGroup.patchValue(obj);
   });
+}
+
+/**
+ * 去除数组中重复的项
+ * @param arr
+ */
+export function rmRepeatArray(arr: Array<any>): Array<any> {
+  const oldArr = [];
+  const newArr = [];
+  const resArr = [];
+  for (const item of arr) {
+    oldArr.push(item.permissionId);
+  }
+  oldArr.forEach((item, i) => {
+    if (newArr.indexOf(oldArr[i]) < 0) {
+     newArr.push(oldArr[i]);
+   }
+  });
+  newArr.forEach((item, i) => {
+    resArr.push({permissionId: item});
+  });
+  return resArr;
 }
