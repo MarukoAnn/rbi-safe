@@ -13,8 +13,8 @@ export class EchartsBarDoubleComponent implements OnInit {
 
   ngOnInit() {
     const seriesName = ['岗位员工\n安全培训', '外来人员\n安全培训', '应急救援\n培训', '受限空间\n作业培训', '全员安全持证\n复审培训', '相关方\n安全培训', '岗位员工\n安全培训'];
-    const threshold = [1.05, 1.05, 1.09, 1.02, 1.72, 1.6, 1.6];
-    const avgTime = [0.8, 0.8, 2, 1.57, 1.12, 2.97, 2.97];
+    const threshold = [60, 90, 50, 70, 85, 95, 55];
+    const avgTime = [55, 80, 45, 44, 38, 72, 63];
     this.option = {
       title: {
         text: '安全管理培训计划',
@@ -38,8 +38,8 @@ export class EchartsBarDoubleComponent implements OnInit {
             color = '#37C611';
           }
           return `${val[0].name}<br/>
-										<span style="color:${color};">   ● </span>${val[0].seriesName}: ${val[0].data}s<br/>
-										<span style="color:#3AB6EB;">   ● </span>${val[1].seriesName}: ${val[1].data}s`;
+										<span style="color:${color};">   ● </span>${val[0].seriesName}: ${val[0].data}<br/>
+										<span style="color:#3AB6EB;">   ● </span>${val[1].seriesName}: ${val[1].data}`;
         }
       },
       grid: [

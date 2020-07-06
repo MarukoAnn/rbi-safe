@@ -9,6 +9,9 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    /deep/.ui-table .ui-table-scrollable-header-box{
+      margin-right: 0!important;
+    }
   }
   .modal{
     .label{

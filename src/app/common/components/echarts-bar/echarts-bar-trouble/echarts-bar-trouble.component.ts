@@ -16,7 +16,7 @@ export class EchartsBarTroubleComponent implements OnInit {
     {name: '5月', value: 66},
     {name: '6月', value: 80},
     {name: '7月', value: 80},
-    {name: '7月', value: 80}
+    {name: '8月', value: 80}
     ];
   public min = 50;
   constructor() { }
@@ -48,9 +48,9 @@ export class EchartsBarTroubleComponent implements OnInit {
         },
         formatter: (prams) => {
           if (prams[0].data === this.min) {
-            return '合格率：0%';
+            return '隐患数：0';
           } else {
-            return '合格率：' + prams[0].data + '%';
+            return '隐患数：' + prams[0].data;
           }
         }
       },
