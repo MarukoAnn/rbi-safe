@@ -6,7 +6,6 @@ import {nums, PageOption, Role} from '../../../common/public/Api';
 import {initializeTree, objectCopy, reverseTree, rmRepeatArray} from '../../../common/public/contents';
 import {GlobalService} from '../../../common/services/global.service';
 import {PublicMethodService} from '../../../common/public/public-method.service';
-import {TreeNode} from 'primeng/api';
 
 @Component({
   selector: 'app-roles-manager',
@@ -35,6 +34,12 @@ export class RolesManagerComponent implements OnInit {
     whetherSee: nums.one,
     enabled: nums.one,
   }; // 角色初始化
+  public roleDropdown: any[] = [
+    {name: '0', value: 0},
+    {name: '1', value: 1},
+    {name: '2', value: 2},
+  ];
+  public roleDropdownSelect: any;
   public roleWebPermissionTree: any; // web端权限树
   public roleAppPermissionTree: any; // app端权限树
   public roleWebPermissionSelected: any; // web端权限选择
@@ -46,10 +51,7 @@ export class RolesManagerComponent implements OnInit {
     private globalSrv: GlobalService,
     private publicSrv: PublicMethodService,
   ) {
-    this.themeSub = this.themeSrv.changeEmitted$.subscribe(
-      value => {
-      }
-    );
+
   }
 
 
@@ -111,6 +113,7 @@ export class RolesManagerComponent implements OnInit {
         this.rolePermissionTreeInit(item);
         this.roleUpdateModal = true; // 显示弹窗
         this.roleWebPermissionSelected = null; // 初始化权限树选择
+        this.roleDropdownSelect = Object.assign({},{name: item.level, value: item.level}); // 下拉初始化
         this.roleInputField = Object.assign(objectCopy(
           {
             id: null,
@@ -152,6 +155,9 @@ export class RolesManagerComponent implements OnInit {
           }
           this.roleInputField.sysRolePermissionList = rmRepeatArray(this.roleInputField.sysRolePermissionList);
           // 请求更新操作
+          if (this.roleDropdownSelect) {
+            this.roleInputField.level = this.roleDropdownSelect.value;
+          }
           this.roleHttpOperate(this.setSrv.updateRoleInfo(this.roleInputField));
         }
         // 新增保存操作
@@ -164,6 +170,9 @@ export class RolesManagerComponent implements OnInit {
             });
           }
           // 请求保存操作
+          if (this.roleDropdownSelect) {
+            this.roleInputField.level = this.roleDropdownSelect.value;
+          }
           this.roleInputField.sysRolePermissionList = rmRepeatArray(this.roleInputField.sysRolePermissionList);
           this.roleHttpOperate(this.setSrv.addRoleInfo(this.roleInputField));
         }

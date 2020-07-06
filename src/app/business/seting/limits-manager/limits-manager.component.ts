@@ -121,9 +121,6 @@ export class LimitsManagerComponent implements OnInit {
       const list = ['id', 'permissionName', 'operateCode', 'parentId', 'description', 'systemId', 'enabled'];
       list.forEach(val => {
         const a = {};
-        if (val === 'enabled') {
-          this.limitSelect.data[val] = this.limitSelect.data[val] === '启用' ? 1 : 0;
-        }
         if (val === 'permissionName') {
           a[val] = this.limitSelect.data.name;
         } else {
