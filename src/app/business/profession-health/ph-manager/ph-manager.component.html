@@ -1,25 +1,39 @@
 <div class="ph-manager">
   <p-tabView [activeIndex]="index">
     <p-tabPanel header="职业卫生“三同时”台账">
-      <app-pr-hygiene></app-pr-hygiene>
+      <ng-template pTemplate="content">
+        <app-pr-hygiene></app-pr-hygiene>
+      </ng-template>
     </p-tabPanel>
     <p-tabPanel header="职业病防护设施">
-      <app-pr-disease-protect></app-pr-disease-protect>
+      <ng-template pTemplate="content">
+        <app-pr-disease-protect></app-pr-disease-protect>
+      </ng-template>
     </p-tabPanel>
     <p-tabPanel header="职业病防护设施运行状况">
-      <app-pr-disease-status></app-pr-disease-status>
+      <ng-template pTemplate="content">
+        <app-pr-disease-status></app-pr-disease-status>
+      </ng-template>
     </p-tabPanel>
     <p-tabPanel header="职业病防护用品">
-     <app-pr-disease-equipment></app-pr-disease-equipment>
+      <ng-template pTemplate="content">
+        <app-pr-disease-equipment></app-pr-disease-equipment>
+      </ng-template>
     </p-tabPanel>
     <p-tabPanel header="接触职业病危害因素汇总表">
-      <app-pr-hazards-summary></app-pr-hazards-summary>
+      <ng-template pTemplate="content">
+        <app-pr-hazards-summary></app-pr-hazards-summary>
+      </ng-template>
     </p-tabPanel>
     <p-tabPanel header="职业健康检查登记表">
-      <app-pr-health-check></app-pr-health-check>
+      <ng-template pTemplate="content">
+        <app-pr-health-check></app-pr-health-check>
+      </ng-template>
     </p-tabPanel>
     <p-tabPanel header="接触职业病危害因素人员管理情况汇总表">
-      <app-pr-disease></app-pr-disease>
+      <ng-template pTemplate="content">
+        <app-pr-disease></app-pr-disease>
+      </ng-template>
     </p-tabPanel>
   </p-tabView>
 </div>

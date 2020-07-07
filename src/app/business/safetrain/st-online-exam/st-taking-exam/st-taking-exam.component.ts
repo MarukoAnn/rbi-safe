@@ -130,6 +130,12 @@ export class StTakingExamComponent implements OnInit {
        this.submitPaper();
      });
   }
+  public  canclePaperClik(): void {
+    this.toolSrv.setConfirmation('退出', '退出', () => {
+      this.localSrv.set('openExam', '1');
+      window.history.back();
+    });
+  }
 
   public  setSubMitConpleteData(list: Array<object>): void {
      list.forEach(val => {
