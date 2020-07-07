@@ -25,6 +25,9 @@
   }
   .roles-manager-table{
     margin-top: 2vh;
+    /deep/.ui-table .ui-table-scrollable-header-box{
+      margin-right: 0!important;
+    }
   }
   .roles-manager-pagination{
     position: absolute;

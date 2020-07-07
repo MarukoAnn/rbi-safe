@@ -13,14 +13,42 @@
     </div>
     <div class="limits-manager-button">
       <button pButton type="button" label="添加权限" class="ui-button-rounded" (click)="showAddLimitClick()"></button>
-      <button pButton type="button" label="批量删除" class="ui-button-rounded" (click)="delLimitInfoClick()"></button>
+<!--      <button pButton type="button" label="编辑权限" class="ui-button-rounded ui-button-darkPrimary"></button>-->
+<!--      <button pButton type="button" label="删除权限" class="ui-button-rounded ui-button-danger"></button>-->
+<!--      <button pButton type="button" label="批量删除" class="ui-button-rounded" (click)="delLimitInfoClick()"></button>-->
     </div>
   </div>
   <div class="limits-manager-table">
-    <app-check-table-btn [select]="limitSelect"   (selectData)="selectData($event)" [option]="optionTable" (detail)="DetailClick($event)"></app-check-table-btn>
+<!--    <app-check-table-btn [select]="limitSelect" (selectData)="selectData($event)" [option]="optionTable" (detail)="DetailClick($event)"></app-check-table-btn>-->
+    <p-treeTable
+      selectionMode="single"  [(selection)]="limitSelect" dataKey="id"
+      [value]="educateTableData" [columns]="educateTableHeader"
+      [scrollable]="true" scrollHeight="70vh"
+    >
+      <ng-template pTemplate="header" let-columns>
+        <tr>
+          <th *ngFor="let col of columns">
+            {{col.header}}
+          </th>
+          <th>操作</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
+        <tr [ttRow]="rowNode" [ttSelectableRow]="rowNode">
+          <td *ngFor="let col of columns;let i = index" style="overflow: hidden;text-overflow: ellipsis" [pTooltip]="rowData[col.field]">
+            <p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treeTableToggler>
+            {{rowData[col.field]}}
+          </td>
+          <td>
+            <button pButton label="编辑" class="ui-button-rounded mr-3" (click)="DetailClick({label: '编辑'})"></button>
+<!--            <button pButton label="删除" class="ui-button-rounded ui-button-pink" (click)="DetailClick({label: '删除'})"></button>-->
+          </td>
+        </tr>
+      </ng-template>
+    </p-treeTable>
   </div>
   <div class="limits-manager-pagination">
-    <app-pagination [option]="pageOption" (clickEvent)="clickEvent($event)"></app-pagination>
+<!--    <app-pagination [option]="pageOption" (clickEvent)="clickEvent($event)"></app-pagination>-->
   </div>
 <!--  <p-toast position="top-center" key="toast"></p-toast>-->
 <!--  <p-confirmDialog header="Confirmation" acceptLabel="取消" rejectLabel="确认选择" acceptIcon="" rejectIcon=""></p-confirmDialog>-->

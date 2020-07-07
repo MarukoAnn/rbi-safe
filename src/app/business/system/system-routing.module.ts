@@ -5,7 +5,7 @@ import {SystemMangerComponent} from './system-manger/system-manger.component';
 
 
 const routes: Routes = [
-  {path: '', component: SystemComponent, children:[
+  {path: '', component: SystemComponent, children: [
       {path: 'symanger', component: SystemMangerComponent},
     ]}
 ];

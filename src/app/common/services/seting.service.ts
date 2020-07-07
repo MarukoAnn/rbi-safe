@@ -110,6 +110,11 @@ export class SetingService {
     return this.http.post(`/sysPermission/findSysPermissionByPage`, pamars);
   }
 
+  // 获取权限树
+  public  getPermissionTreeInfo(params): Observable<any> {
+    return this.http.post(`/sysPermission/permissionTreeByPage`, params);
+  }
+
   // 添加权限信息
   public  addPermissionInfo(pamars): Observable<any> {
     return this.http.post(`/sysPermission/insertSysPermission`, pamars);

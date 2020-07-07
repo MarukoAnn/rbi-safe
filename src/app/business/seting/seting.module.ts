@@ -18,7 +18,7 @@ import {ToastModule} from 'primeng/toast';
 import {ConfirmDialogModule} from 'primeng/confirmdialog';
 import {BasicDialogModule} from '../../common/components/basic-dialog/basic-dialog.module';
 import {DialogModule} from 'primeng/dialog';
-import {CalendarModule, FileUploadModule, InputTextareaModule, MessageModule, MessagesModule, RadioButtonModule, ScrollPanelModule, TreeModule} from 'primeng/primeng';
+import {CalendarModule, FileUploadModule, InputTextareaModule, MessageModule, MessagesModule, RadioButtonModule, ScrollPanelModule, TooltipModule, TreeModule, TreeTableModule} from 'primeng/primeng';
 import {TableModule} from 'primeng/table';
 import {AppConfig, init_app} from '../../common/services/app.config';
 
@@ -54,6 +54,8 @@ import {AppConfig, init_app} from '../../common/services/app.config';
     MessagesModule,
     MessageModule,
     TableModule,
+    TooltipModule,
+    TreeTableModule
   ],
   providers: [
     DatePipe,

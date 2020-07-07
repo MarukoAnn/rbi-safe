@@ -1,6 +1,6 @@
 <!--培训内容分类-->
 <div class="scs-contents-type">
-  <h2 class="title text-center pt-3 pb-3 text-littleGray">培训内容</h2>
+  <h2 class="title text-center pt-3 pb-3 text-littleGray">培训内容库分类</h2>
   <div class="header pt-2 pb-2">
     <div class="ui-inputgroup">
       <input type="text" pInputText placeholder="请输入关键字" [(ngModel)]="typeOperateField.contentCategoryName">
@@ -22,7 +22,7 @@
     >
       <ng-template pTemplate="header" let-columns>
         <tr>
-          <th>#</th>
+          <th>序号</th>
           <th *ngFor="let col of columns">
             {{col.header}}
           </th>

@@ -7,13 +7,12 @@
   <div class="roles-manager-header">
     <div class="roles-manager-search">
       <div class="ui-inputgroup">
-        <input type="text" pInputText placeholder="搜索"/>
-        <button pButton type="button" icon="pi pi-search" class="ui-button-warn" (click)="roleSearchOperate()"></button>
+       <!-- <input type="text" pInputText placeholder="搜索"/>
+        <button pButton type="button" icon="pi pi-search" class="ui-button-warn" (click)="roleSearchOperate()"></button>-->
       </div>
     </div>
     <div class="roles-manager-button">
       <button pButton type="button" label="添加角色" class="ui-button-rounded" (click)="roleOperate(roleOperateFlag='add')"></button>
-      <button pButton type="button" label="批量删除" class="ui-button-rounded ui-button-pink ml-2"></button>
     </div>
   </div>
   <div class="roles-manager-table">
@@ -24,7 +23,7 @@
     >
       <ng-template pTemplate="header" let-columns>
         <tr>
-          <th>#</th>
+          <th>序号</th>
           <th *ngFor="let col of columns">
             {{col.header}}
           </th>
@@ -44,14 +43,14 @@
               (click)="this.roleOperate(roleOperateFlag='update',tableData)"
               class="ui-button-rounded">
             </button>
-            <button
+          <!--  <button
               pButton type="button" label="删除"
               (click)="this.roleOperate(roleOperateFlag='del',tableData)"
               class="ui-button-pink ui-button-rounded ml-2 mr-2">
-            </button>
+            </button>-->
             <button
               pButton type="button" label="查看权限"
-              class="ui-button-darkPrimary ui-button-rounded"
+              class="ui-button-darkPrimary ui-button-rounded ml-2 mr-2"
               (click)="roleOperate(roleOperateFlag='permission', tableData)">
             </button>
           </td>
@@ -95,10 +94,10 @@
                 <p class="text-danger mt-1" *ngIf="!roleInputField.roleName">角色名称必填</p>
               </div>
             </div>
-            <!--是否可看下级-->
+            <!--是否能看全部隐患-->
             <div class="ui-g-6 ui-md-6">
               <label class="ui-g-4 ui-md-4 label">
-                <span>是否可看下级：</span>
+                <span>是否能看全部隐患：</span>
               </label>
               <div class="ui-g-8 ui-md-8 radioButton">
                 <p-radioButton name="whetherSee" value="1" label="是"
@@ -118,14 +117,18 @@
                                [(ngModel)]="roleInputField.enabled"></p-radioButton>
               </div>
             </div>
-            <!--是否启用-->
+            <!--等级-->
             <div class="ui-g-6 ui-md-6">
               <label class="ui-g-4 ui-md-4 label">
                 <span>等级：</span>
               </label>
               <div class="ui-g-8 ui-md-8 input">
-                <input type="text" pInputText placeholder="请填写等级" ngModel required
-                       [(ngModel)]="roleInputField.level">
+                <p-dropdown
+                  [options]="roleDropdown"
+                  [(ngModel)]="roleDropdownSelect"
+                  [placeholder]="roleDropdownSelect?.name?roleDropdownSelect.name: '请选择等级'"
+                  optionLabel="name">
+                </p-dropdown>
               </div>
             </div>
           </div>

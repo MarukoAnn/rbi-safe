@@ -65,7 +65,43 @@ export function initializeTree(data: Array<any>, option: TreeOption): any {
     }
     if (item[option.childrenName] != null && item[option.childrenName].length !== 0) {
       childnode.children = initializeTree(item[option.childrenName], option);
-    } else {
+    }
+    else {
+      childnode.children = [];
+      childnode.icon = option.icon;
+    }
+    oneChild.push(childnode);
+  }
+  return oneChild;
+}
+
+/**
+ * 树型结构表初始化
+ * @param data
+ * @param option
+ */
+export function initializeTableTree(data: Array<any>, option: TreeOption): any {
+  const oneChild = [];
+  for (const item of data) {
+    const childnode: any = {};
+    const childnodeTable: any = {};
+    for (const refs in item) {
+      if (item.hasOwnProperty(refs)) {
+        if (refs === option.labelName) {
+          childnodeTable.name = item[option.labelName];
+          continue;
+        }
+        if (refs === option.childrenName) {
+          continue;
+        }
+        childnodeTable[refs] = item[refs];
+      }
+    }
+    childnode.data = childnodeTable;
+    if (item[option.childrenName] != null && item[option.childrenName].length !== 0) {
+      childnode.children = initializeTableTree(item[option.childrenName], option);
+    }
+    else {
       childnode.children = [];
       childnode.icon = option.icon;
     }
@@ -149,6 +185,7 @@ export function setLabelToVlaue(list: Array<any>, data: string){
   });
   return data;
 }
+
 // 给表单赋值
 export function setValueToFromValue(list: Array<string>, data: object, formGroup: FormGroup) {
   list.forEach(val => {
@@ -156,4 +193,26 @@ export function setValueToFromValue(list: Array<string>, data: object, formGroup
     obj[val] = data[val];
     formGroup.patchValue(obj);
   });
+}
+
+/**
+ * 去除数组中重复的项
+ * @param arr
+ */
+export function rmRepeatArray(arr: Array<any>): Array<any> {
+  const oldArr = [];
+  const newArr = [];
+  const resArr = [];
+  for (const item of arr) {
+    oldArr.push(item.permissionId);
+  }
+  oldArr.forEach((item, i) => {
+    if (newArr.indexOf(oldArr[i]) < 0) {
+     newArr.push(oldArr[i]);
+   }
+  });
+  newArr.forEach((item, i) => {
+    resArr.push({permissionId: item});
+  });
+  return resArr;
 }

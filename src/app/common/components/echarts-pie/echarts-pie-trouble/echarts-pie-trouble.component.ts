@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-echarts-pie-trouble',
@@ -7,10 +7,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EchartsPieTroubleComponent implements OnInit {
 
-  public colorList: Array<any> = ['#226AD5', '#3B86FF', '#63DCAF'];
-  public name: any = '物的隐患';
+  public colorList: Array<any> = ['#226AD5', '#3B86FF', '#63DCAF', '#FCCF4F', '#94F6D2'];
+  @Input() public name: any = '物的隐患';
   public option: any;
-  public data = [
+  @Input() public data = [
     {name: '物的隐患', value: 200},
     {name: '人的隐患', value: 50},
     {name: '管理的隐患', value: 50},
@@ -32,20 +32,17 @@ export class EchartsPieTroubleComponent implements OnInit {
           color: '#5797FF'
         },
         textAlign: 'center',
-        left: '30%',
-        top: '35%'
+        left: '33%',
+        top: '50%'
       },
       tooltip: {
         trigger: 'item',
-        // formatter: (params) => {
-        //   this.name = params.name;
-        // }
       },
       legend: {
         type: 'scroll',
         orient: 'vertical',
-        right: 200,
-        top: 'center',
+        right: '15%',
+        top: '45%',
         itemGap: 20,
         selectedMode: false,
         icon: 'pin',
@@ -78,8 +75,8 @@ export class EchartsPieTroubleComponent implements OnInit {
         {
           name: '隐患类型',
           type: 'pie',
-          radius: [50, 70],
-          center: ['30%', '45%'],
+          radius: ['45%', '60%'],
+          center: ['35%', '60%'],
           label: {
             show: false
           },

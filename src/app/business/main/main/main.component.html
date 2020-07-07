@@ -1,1 +1,37 @@
-<p>main works!</p>
+<div class="main pt-3">
+  <div class="top">
+    <div class="items p-2">
+      <app-echarts-bar-risk [title]="lineTilte" [echartData]="lineData"></app-echarts-bar-risk>
+    </div>
+    <div class="items p-2">
+      <app-echarts-bar-trouble></app-echarts-bar-trouble>
+    </div>
+    <div class="items p-2">
+      <span class="title">工总人员统计</span>
+      <span class="number pr-4 pl-4 pb-1 pt-1 text-center">860/<small>人</small></span>
+      <app-echarts-pie-trouble [data]="mainPieDate" [name]="'维修工'"></app-echarts-pie-trouble>
+    </div>
+  </div>
+  <div class="bottom mt-3">
+    <div class="left">
+      <app-echarts-bar-double></app-echarts-bar-double>
+    </div>
+    <div class="right">
+      <div class="header pt-3 pb-3 pl-3 pr-3">
+        <span class="title">综合信息公告栏</span>
+        <span class="sub-title pl-3 pr-3 pt-1 pb-1">查看全部</span>
+      </div>
+      <div class="list pl-2 pr-3">
+        <div class="list-item p-3 mb-3" *ngFor="let item of [0,1,2]">
+          <div class="left pb-2 pt-2 text-center">
+            <span class="fa fa-server"></span>
+          </div>
+          <div class="right pl-3">
+            <p class="mb-2">企业一季度安全检查情况通报</p>
+            <span class="text-gray">2020/07/03</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
