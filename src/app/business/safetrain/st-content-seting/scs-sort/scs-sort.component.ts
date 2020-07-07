@@ -16,9 +16,9 @@ export class ScsSortComponent implements OnInit {
   public optionTable: any;
   public questionSelect = [];
   public table = {
-    tableheader: {background: '#F5F6FA', color: '#C3C3C5'},
+    tableheader: {background: '#F5F6FA', color: '#000'},
     tableContent: [
-      {background: '#FFFFFF', color: '#9899A0'}],
+      {background: '#FFFFFF', color: '#000'}],
     detailBtn: ['#3B86FF', '#FF8A9A']
   };
   public themeSub: Subscription;
@@ -32,11 +32,9 @@ export class ScsSortComponent implements OnInit {
   public editId: any = '';
   public addDialog: boolean;
   public subjectStoreName: string = ''; // 添加题库名称
-  // 修改xiangguan
-  public showAddSingleQuestionDialog: boolean;
   // 搜索相关
   public searchData: any;
-  public showQuesType = 1;
+
 
   constructor(
     private themeSrv: ThemeService,

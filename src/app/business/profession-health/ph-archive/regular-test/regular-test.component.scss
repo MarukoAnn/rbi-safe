@@ -72,16 +72,16 @@
 
   }
   .regular-test-table {
-    ::ng-deep .ui-table .ui-table-thead>tr >th{
-      border: 0;
-
-    }
-    ::ng-deep .ui-table .ui-table-tbody>tr >td{
-      border-bottom: 1px solid #EDEDED;
-      border-top: 0;
-      border-left: 0;
-      border-right: 0;
-    }
+    //::ng-deep .ui-table .ui-table-thead>tr >th{
+    //  border: 0;
+    //
+    //}
+    //::ng-deep .ui-table .ui-table-tbody>tr >td{
+    //  border-bottom: 1px solid #EDEDED;
+    //  border-top: 0;
+    //  border-left: 0;
+    //  border-right: 0;
+    //}
     ::ng-deep .ui-table-scrollable-body::-webkit-scrollbar {
       display: inline;
       //position: absolute;

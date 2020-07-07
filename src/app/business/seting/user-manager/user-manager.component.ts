@@ -27,9 +27,9 @@ export class UserManagerComponent implements OnInit {
   public id: any;
   public addUser: FormGroup;
   public table = {
-    tableheader: {background: '#F5F6FA', color: '#C3C3C5'},
+    tableheader: {background: '#F5F6FA', color: '#000'},
     tableContent: [
-      {background: '#FFFFFF', color: '#9899A0'}],
+      {background: '#FFFFFF', color: '#000'}],
     detailBtn: ['#3B86FF', '#FF8A9A']
   };
   public rolesList = [];
@@ -67,6 +67,7 @@ export class UserManagerComponent implements OnInit {
   }
   public  initUserInfo(): void {
     this.setSrv.getUserInfoPageData({pageNo: this.pageNo, pageSize: 10}).subscribe(val => {
+      console.log(val);
       this.userContent = val.data.contents;
       this.setTableOption(this.userContent);
       this.pageOption = {pageSize: val.data.pageSize, totalRecord: val.data.totalRecord};
@@ -103,13 +104,14 @@ export class UserManagerComponent implements OnInit {
       width: '100%',
       header: {
         data:  [
-          {field: 'id', header: '用户id'},
+          // {field: 'id', header: '用户id'},
           {field: 'username', header: '用户账号'},
-          {field: 'companyPersonnelId', header: '公司人员信息id'},
+          // {field: 'companyPersonnelId', header: '公司人员信息id'},
           {field: 'companyName', header: '公司名称'},
           {field: 'factoryName', header: '工厂名称'},
           {field: 'workshopName', header: '车间名称'},
-          {field: 'teamName', header: '姓名'},
+          {field: 'teamName', header: '班组'},
+          {field: 'name', header: '姓名'},
           {field: 'roleName', header: '角色'},
           {field: 'idCardNo', header: '身份证'},
           {field: 'operating', header: '操作'}

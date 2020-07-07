@@ -17,17 +17,17 @@
     margin-top: 2vh;
     .right {
       text-align: right;
-      color: #787A84;
+      color: #000;
       font-size: 13px;
     }
     .left {
       text-align: left;
-      color: #4D4F5C;
+      color: #000;
     }
     .dialog-input {
       line-height: 3vh;
       text-align: left;
-      color: #4D4F5C;
+      color: #000;
       ::ng-deep .ui-chkbox .ui-chkbox-box{
         //color: #A498A0;
         border: 1px solid #C8DDFF;

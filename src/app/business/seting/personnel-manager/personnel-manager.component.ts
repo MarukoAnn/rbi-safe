@@ -18,9 +18,9 @@ export class PersonnelManagerComponent implements OnInit {
   public optionTable: any;
   public personnelSelect = [];
   public table = {
-    tableheader: {background: '#F5F6FA', color: '#C3C3C5'},
+    tableheader: {background: '#F5F6FA', color: '#000'},
     tableContent: [
-      {background: '#FFFFFF', color: '#9899A0'}],
+      {background: '#FFFFFF', color: '#000'}],
     detailBtn: ['#3B86FF', '#FF8A9A']
   };
   public themeSub: Subscription;
@@ -103,7 +103,7 @@ export class PersonnelManagerComponent implements OnInit {
       companyName: new FormControl({value: '', disabled: true}),
       factoryName: new FormControl({value: '', disabled: true}),
       teamName: new FormControl({value: '', disabled: true}),
-      id: new FormControl({value: '', disabled: true}),
+      id: new FormControl(''),
       dateOfBirth: new FormControl(''),
       degreeOfEducation: new FormControl(''),
       position: new FormControl(''),

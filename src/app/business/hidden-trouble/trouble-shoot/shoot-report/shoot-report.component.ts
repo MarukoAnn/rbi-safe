@@ -179,8 +179,8 @@ export class ShootReportComponent implements OnInit {
         this.formData.append('hidTypeManage', '');
         data[key].forEach(val => {
           switch (val) {
-            case '人': this.formData.set('hidTypeThing', '1'); break;
-            case '事物': this.formData.set('hidTypePerson', '1'); break;
+            case '人': this.formData.set('hidTypePerson', '1'); break;
+            case '事物': this.formData.set('hidTypeThing', '1'); break;
             case '管理': this.formData.set('hidTypeManage', '1'); break;
           }
         });

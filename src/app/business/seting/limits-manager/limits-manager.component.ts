@@ -18,9 +18,9 @@ export class LimitsManagerComponent implements OnInit {
   public optionTable: any;
   public limitSelect = [];
   public table = {
-    tableheader: {background: '#F5F6FA', color: '#C3C3C5'},
+    tableheader: {background: '#F5F6FA', color: '#000'},
     tableContent: [
-      {background: '#FFFFFF', color: '#9899A0'}],
+      {background: '#FFFFFF', color: '#000'}],
     detailBtn: ['#3B86FF', '#FF8A9A']
   };
   public themeSub: Subscription;

@@ -13,7 +13,7 @@ import {DatePipe} from '@angular/common';
 })
 export class PrHygieneComponent implements OnInit {
   public table = {
-    tableheader: {background: '#F5F6FA', color: '#C3C3C5'},
+    tableheader: {background: '#F5F6FA', color: '#333333'},
     tableContent: [
       {background: '#FFFFFF', color: '#9899A0'}],
     detailBtn: ['#3B86FF', '#FF8A9A']

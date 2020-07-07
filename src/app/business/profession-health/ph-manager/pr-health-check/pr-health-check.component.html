@@ -24,7 +24,7 @@
           <td style="width: 3em">
             <p-tableCheckbox [value]="rowData" ></p-tableCheckbox>
           </td>
-          <td *ngFor="let col of columns.slice(0, columns.length -1)" class="text-center" style="height: 5vh;color: #5E5F6B;">
+          <td *ngFor="let col of columns.slice(0, columns.length -1)" class="text-center" style="height: 5vh;color: #5E5F6B;word-wrap: break-word">
             {{rowData[col.field]}}
           </td>
           <td  class="text-center" style="height: 5vh"  *ngFor="let col of columns.slice(columns.length -1 ,  columns.length)">
