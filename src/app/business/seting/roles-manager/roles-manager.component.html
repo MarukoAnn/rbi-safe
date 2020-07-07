@@ -23,7 +23,7 @@
     >
       <ng-template pTemplate="header" let-columns>
         <tr>
-          <th>#</th>
+          <th>序号</th>
           <th *ngFor="let col of columns">
             {{col.header}}
           </th>
@@ -94,10 +94,10 @@
                 <p class="text-danger mt-1" *ngIf="!roleInputField.roleName">角色名称必填</p>
               </div>
             </div>
-            <!--是否可看下级-->
+            <!--是否能看全部隐患-->
             <div class="ui-g-6 ui-md-6">
               <label class="ui-g-4 ui-md-4 label">
-                <span>是否可看下级：</span>
+                <span>是否能看全部隐患：</span>
               </label>
               <div class="ui-g-8 ui-md-8 radioButton">
                 <p-radioButton name="whetherSee" value="1" label="是"

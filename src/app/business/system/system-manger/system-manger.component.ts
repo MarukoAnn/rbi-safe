@@ -57,6 +57,7 @@ export class SystemMangerComponent implements OnInit {
 
   public  initSystemData(): void {
      this.systemSrv.getSystemPageData({pageNo: this.pageNo, pageSize: 10}).subscribe( val => {
+       console.log(val);
        this.systemContent = val.data.contents;
        this.setTableOption(this.systemContent);
        this.pageOption = {pageSize: val.data.pageSize, totalRecord: val.data.totalRecord};
@@ -73,7 +74,7 @@ export class SystemMangerComponent implements OnInit {
       });
     }else {
       // console.log();
-      window.open('http://' + e.data.filePath);
+      window.open(e.data.filePath);
     }
   }
   // set table data （设置列表数据）

@@ -145,8 +145,8 @@
     >
       <ng-template pTemplate="header" let-columns>
         <tr>
-          <th style="width: 3em">
-            #
+          <th style="width: 4em">
+            选择
             <!--<p-tableHeaderCheckbox></p-tableHeaderCheckbox>-->
           </th>
           <th *ngFor="let col of columns">
@@ -164,7 +164,7 @@
       </ng-template>
       <ng-template pTemplate="body" let-rowData let-columns="columns">
         <tr>
-          <td style="width: 3em">
+          <td style="width: 4em;text-align: center">
             <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
           </td>
           <td *ngFor="let col of columns" style="overflow: hidden;text-overflow: ellipsis;" [pTooltip]="rowData[col.field]">
@@ -185,7 +185,7 @@
     [modal]="true"
     [(visible)]="reportOrgTreeModal" [blockScroll]="true"
     [contentStyle]="{width: '30vw',height: '30vh'}">
-    <p-header>请选择组织培训单位进行数据赛选</p-header>
+    <p-header>请选择组织培训单位进行数据筛选</p-header>
     <p-scrollPanel [style]="{width: '100%', height: '250px'}">
       <p-tree
         [style]="{width: '100%'}"

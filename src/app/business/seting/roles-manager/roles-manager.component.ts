@@ -16,8 +16,8 @@ export class RolesManagerComponent implements OnInit {
   public themeSub: Subscription;
   public roleTableHeader: any[] = [
     {field: 'roleName', header: '角色名称'},
-    {field: 'whetherSee', header: '是否可见下级'},
     {field: 'level', header: '等级'},
+    {field: 'whetherSee', header: '是否能看全部隐患'},
     {field: 'enabled', header: '是否启用'},
   ]; // 表格组件表头内容
   public roleTableData: Role[] = []; // 表格组件表体内容

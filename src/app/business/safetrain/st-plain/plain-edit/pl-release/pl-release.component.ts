@@ -73,13 +73,14 @@ export class PlReleaseComponent implements OnInit {
         break;
       // 确认发布
       case 'sure':
-        if (this.releaseAddField.id) {
+        if (this.releaseAddField.safeTrainingNeeds.id) {
           this.safeSrv.addExamInfo(this.releaseAddField).subscribe(() => {
             if (window.confirm('发布成功！')) {
               this.router.navigate(['/home/strain/plain/list']);
             }
           });
         } else {
+          delete this.releaseAddField.safeTrainingNeeds.id;
           this.safeSrv.addExamInfoNoId(this.releaseAddField).subscribe(() => {
             if (window.confirm('发布成功！')) {
               this.router.navigate(['/home/strain/plain/list']);
