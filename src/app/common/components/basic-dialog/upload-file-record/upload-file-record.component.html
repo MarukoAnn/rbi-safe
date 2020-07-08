@@ -1,6 +1,6 @@
 <div class="upload-file-record">
     <div class="upload-file-record" *ngIf="uploadRecordOption">
-      <p-dialog [header]="uploadRecordOption.title" [(visible)]="uploadRecordOption.dialog"  [width]="uploadRecordOption.width" [closable]="false">
+      <p-dialog [header]="uploadRecordOption.title" [(visible)]="uploadRecordOption.dialog"  [width]="uploadRecordOption.width">
         <!--Content-->
         <div class="ui-g ui-fluid" [ngStyle]="{'line-height':'4vh'}">
           <div class="ui-g-6" style="text-align: center; font-size: 1rem; font-weight: bold">
@@ -24,8 +24,8 @@
           </div>
         </div>
         <p-footer>
-          <button  class="upload-file-record-btn " (click)="uploadRecordOption.dialog = false">取消</button>
-          <button  class="upload-file-record-btn " (click)="uploadRecordOption.dialog = false">确认选择</button>
+          <button  class="upload-file-record-btn" style="background: #4F88DE" (click)="uploadRecordOption.dialog = false">取消</button>
+          <button  class="upload-file-record-btn" style="background: #FF8A9A" (click)="uploadRecordOption.dialog = false">确认选择</button>
         </p-footer>
       </p-dialog>
     </div>

@@ -20,6 +20,7 @@ export class ArchivesEducateComponent implements OnInit {
     {field: 'organizationName', header: '单位组织'},
     {field: 'idt', header: '添加时间'},
   ]; // 表头字段
+  public educateUploadRecordOption: any;
   public educateTableData: any[]; // 表体数据
   public educateNowPage: number = 1; // 当前页
   public educateOperateFlag: any ; // 操作标识
@@ -92,11 +93,40 @@ export class ArchivesEducateComponent implements OnInit {
       case 'import':
         this.educateImportField.append('file', item.files[0]);
         this.safeSrv.importEducateInfo(this.educateImportField).subscribe((res) => {
+          console.log(res);
           this.educateImportFieldModal = false;
+          this.showUploadRecord(res.data);
           this.educateDataInit(this.educateNowPage, this.educatePageOption.pageSize);
         });
         break;
     }
+  }
+  public  showUploadRecord(value): void {
+    this.educateUploadRecordOption = {
+      width: '900',
+      dialog: true,
+      title: '上传记录',
+      totalNumber: value.totalNumber,
+      realNumber: value.realNumber,
+      uploadOption: {
+        width: '100%',
+        tableHeader: {
+          data: [
+            {field: 'code', header: '序号'},
+            {field: 'roomCode', header: '房间编号'},
+            {field: 'result', header: '结果'},
+            {field: 'remarks', header: '备注'},
+          ],
+          style: { background: '#F4F4F4', color: '#000', height: '6vh'}
+        },
+        tableContent: {
+          data: value.log,
+          styleone: { color: '#000', height: '2vw', textAlign: 'center'},
+          styletwo: { color: '#000', height: '2vw', textAlign: 'center'}
+        }
+      }
+    };
+
   }
 
   // 分页操作

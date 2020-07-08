@@ -95,6 +95,39 @@
     bottom: 8vh;
     right: 4vw;
   }
+  .dialog{
+    ::ng-deep  .ui-dialog .ui-dialog-titlebar{
+      text-align: center;
+      background: #F8F8F8;
+      font-size: 16px;
+      border: 0;
+      color: #6F6F6F;
+      border-bottom: 1px solid #CACED5;
+      .ui-dialog-titlebar-icon{
+        color: #6F6F6F;
+      }
+    }
+    ::ng-deep .ui-dialog .ui-dialog-content{
+      border: 0;
+    }
+    ::ng-deep  .ui-dialog .ui-dialog-footer{
+      text-align: center;
+      border: 0;
+      padding: 20px 0;
+      button:first-child{
+        //padding: 4px 6px;
+        border-radius: 20px;
+        background: #fff;
+        color: #575C65;
+        border: 1px solid #575C65;
+      }
+      button:last-child{
+        //padding: 4px 6px;
+        background: #3B86FF;
+        border-radius: 20px;
+      }
+    }
+  }
   ::ng-deep .ui-inputgroup .ui-widget {
     color: #8D8E96;
     font-size: 14px;
@@ -103,37 +136,7 @@
     border-left: 0;
     background: #F8F8F8;
   }
-  ::ng-deep  .ui-dialog .ui-dialog-titlebar{
-    text-align: center;
-    background: #F8F8F8;
-    font-size: 16px;
-    border: 0;
-    color: #6F6F6F;
-    border-bottom: 1px solid #CACED5;
-    .ui-dialog-titlebar-icon{
-      color: #6F6F6F;
-    }
-  }
-  ::ng-deep .ui-dialog .ui-dialog-content{
-    border: 0;
-  }
-  ::ng-deep  .ui-dialog .ui-dialog-footer{
-    text-align: center;
-    border: 0;
-    padding: 20px 0;
-    button:first-child{
-      //padding: 4px 6px;
-      border-radius: 20px;
-      background: #fff;
-      color: #575C65;
-      border: 1px solid #575C65;
-    }
-    button:last-child{
-      //padding: 4px 6px;
-      background: #3B86FF;
-      border-radius: 20px;
-    }
-  }
+
   .right {
     text-align: right;
     color: #4D4F5C;

@@ -164,9 +164,7 @@ export class PersonnelManagerComponent implements OnInit {
       width: '100%',
       header: {
         data:  [
-          // {field: 'id', header: '公司人员ID'},
           {field: 'employeeNumber', header: '员工号'},
-          // {field: 'organizationId', header: '组织ID'},
           {field: 'companyName', header: '单位'},
           {field: 'factoryName', header: '厂(矿)'},
           {field: 'workshopName', header: '车间'},
@@ -174,15 +172,10 @@ export class PersonnelManagerComponent implements OnInit {
           {field: 'name', header: '姓名'},
           {field: 'gender', header: '性别'},
           {field: 'nation', header: '民族'},
-          // {field: 'maritalStatus', header: '婚姻状况'},
           {field: 'idCardNo', header: '身份证号'},
           {field: 'dateOfBirth', header: '出生日期'},
           {field: 'degreeOfEducation', header: '文化程度'},
-          // {field: 'position', header: '所在岗位'},
-          // {field: 'jobNature', header: '岗位信息'},
-          // {field: 'workType', header: '工种'},
           {field: 'entryTime', header: '入厂时间'},
-          // {field: 'remarks', header: '备注'},
           {field: 'operating', header: '操作'}
         ],
         style: {background: this.table.tableheader.background, color: this.table.tableheader.color, height: '6vh'}
@@ -270,7 +263,7 @@ export class PersonnelManagerComponent implements OnInit {
             totalNumber: val.data.totalNumber,
             realNumber: val.data.realNumber,
             uploadOption: {
-              width: '102%',
+              width: '100%',
               tableHeader: {
                 data: [
                   {field: 'code', header: '序号'},
@@ -279,11 +272,11 @@ export class PersonnelManagerComponent implements OnInit {
                   {field: 'result', header: '结果'},
                   {field: 'remarks', header: '备注'},
                 ],
-                style: {background: '#F5F6FA', color: '#C3C3C5', height: '6vh'}
+                style: {background: '#F5F6FA', color: '#000', height: '6vh'}
               },
               tableContent: {
                 data: val.data.importLog,
-                styleone: {background: '#FFFFFF', color: '#9899A0', height: '2vw', textAlign: 'center'},
+                styleone: {background: '#FFFFFF', color: '#000', height: '2vw', textAlign: 'center'},
               }
             }
           };

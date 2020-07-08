@@ -64,6 +64,7 @@ import {TopicModule} from '../../common/components/topic/topic.module';
 import { StMyplanDetailComponent } from './st-start-study/st-learn-myplan/st-myplan-detail/st-myplan-detail.component';
 import { ScsContentsTypeComponent } from './st-content-seting/scs-contents-type/scs-contents-type.component';
 import {StWrongQuestionComponent} from './st-online-exam/st-exam-list/st-wrong-question/st-wrong-question.component';
+import {BasicDialogModule} from '../../common/components/basic-dialog/basic-dialog.module';
 
 @NgModule({
   declarations: [
@@ -112,33 +113,34 @@ import {StWrongQuestionComponent} from './st-online-exam/st-exam-list/st-wrong-q
     StWrongQuestionComponent
   ],
     imports: [
-      CommonModule,
-      SafetrainRoutingModule,
-      InputTextModule,
-      ButtonModule,
-      BasicTableModule,
-      ScrollPanelModule,
-      StDemandModule,
-      PaginationModule,
-      StepsModule,
-      TabViewModule,
-      DropdownModule,
-      CalendarModule,
-      FormsModule,
-      DialogModule,
-      TreeModule,
-      TableModule,
-      RadioButtonModule,
-      InputTextareaModule,
-      FileUploadModule,
-      QuestionTemplateModule,
-      CheckboxModule,
-      TooltipModule,
-      CardModule,
-      ProgressBarModule,
-      TopicModule,
-      ConfirmDialogModule,
-      SidebarModule
+        CommonModule,
+        SafetrainRoutingModule,
+        InputTextModule,
+        ButtonModule,
+        BasicTableModule,
+        ScrollPanelModule,
+        StDemandModule,
+        PaginationModule,
+        StepsModule,
+        TabViewModule,
+        DropdownModule,
+        CalendarModule,
+        FormsModule,
+        DialogModule,
+        TreeModule,
+        TableModule,
+        RadioButtonModule,
+        InputTextareaModule,
+        FileUploadModule,
+        QuestionTemplateModule,
+        CheckboxModule,
+        TooltipModule,
+        CardModule,
+        ProgressBarModule,
+        TopicModule,
+        ConfirmDialogModule,
+        SidebarModule,
+        BasicDialogModule
     ],
   providers: []
 })

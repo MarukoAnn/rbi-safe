@@ -21,6 +21,7 @@ export class ArchivesSpecialComponent implements OnInit {
     {field: 'degreeOfEducation', header: '文化程度'},
     {field: 'yearsOfWork', header: '工种年限'},
   ]; // 表头字段
+  public specialUploadRecordOption: any;
   public specialTableData: any[]; // 表体数据
   public specialNowPage: number = 1; // 当前页
   public specialOperateFlag: any ; // 操作标识
@@ -94,11 +95,39 @@ export class ArchivesSpecialComponent implements OnInit {
         this.specialImportField.append('multipartFiles', item.files[0]);
         this.safeSrv.importArchivesInfo(this.specialImportField).subscribe((res) => {
           this.specialImportFieldModal = false;
+          this.showUploadRecord(res.data);
           this.specialDataInit(this.specialNowPage, this.specialPageOption.pageSize);
         });
         break;
     }
   }
+    public  showUploadRecord(value): void {
+        this.specialUploadRecordOption = {
+            width: '900',
+            dialog: true,
+            title: '上传记录',
+            totalNumber: value.totalNumber,
+            realNumber: value.realNumber,
+            uploadOption: {
+                width: '100%',
+                tableHeader: {
+                    data: [
+                        {field: 'code', header: '序号'},
+                        {field: 'roomCode', header: '房间编号'},
+                        {field: 'result', header: '结果'},
+                        {field: 'remarks', header: '备注'},
+                    ],
+                    style: { background: '#F4F4F4', color: '#000', height: '6vh'}
+                },
+                tableContent: {
+                    data: value.log,
+                    styleone: { color: '#000', height: '2vw', textAlign: 'center'},
+                    styletwo: { color: '#000', height: '2vw', textAlign: 'center'}
+                }
+            }
+        };
+
+    }
 
   // 分页操作
   public specialPageEvent(page) {
