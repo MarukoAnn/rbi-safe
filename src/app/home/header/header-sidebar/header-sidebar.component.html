@@ -59,6 +59,10 @@
       <span class="text-gray">岗位性质</span>
       <span class="ml-2">{{hdPersonInfo.jobNature}}</span>
     </div>
+    <div class="row ac-border p-3" style="cursor: pointer" (click)="hsUpdatePasswordModal = true">
+      <span class="text-gray">密码修改</span>
+      <i class="fa fa-chevron-right ml-2" aria-hidden="true"></i>
+    </div>
   </div>
   <div class="button p-3 text-center" (click)="loginOut()">
     <button pButton class="ui-button-rounded" label="退出账号"></button>
@@ -89,4 +93,26 @@
       </div>
     </p-sidebar>
   </div>
+  <div class="modal">
+    <p-dialog [modal]="false" [(visible)]="hsUpdatePasswordModal">
+      <p-header>
+        <span>密码修改</span>
+      </p-header>
+      <div>
+        <div class="ui-g">
+          <div class="ui-md-12 ui-lg-12">
+            <input type="password" pInputText placeholder="请输入新密码" style="width: 100%">
+          </div>
+          <div class="ui-md-12 ui-lg-12">
+            <input type="password" pInputText placeholder="再次请输入新密码" style="width: 100%">
+          </div>
+        </div>
+      </div>
+      <p-footer>
+        <button pButton class="ui-button-pink" label="取消修改" (click)="hsUpdatePasswordModal = false"></button>
+        <button pButton label="确认修改" (click)="hsUpdatePasswordModal = false"></button>
+      </p-footer>
+    </p-dialog>
+  </div>
 </div>
+

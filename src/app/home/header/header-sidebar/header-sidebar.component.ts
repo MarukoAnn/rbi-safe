@@ -13,6 +13,7 @@ import {objectCopy} from '../../../common/public/contents';
 export class HeaderSidebarComponent implements OnInit {
   public hdPersonInfo: PersonInfo = new PersonInfoClass();
   public hdSideBarShow: boolean = false;
+  public hsUpdatePasswordModal: boolean = false;
   constructor(
     private router: Router,
     private localSrv: LocalStorageService,
