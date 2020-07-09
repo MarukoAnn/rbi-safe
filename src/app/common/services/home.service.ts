@@ -13,4 +13,8 @@ export class HomeService {
   public getPersonInfo(params?: {}): Observable<any> {
     return this.http.post(`/findById`, params);
   }
+  // 获取个人信息
+  public subMitPassword(params?: {}): Observable<any> {
+    return this.http.post(`/modifyPwd`, params);
+  }
 }

@@ -101,16 +101,19 @@
       <div>
         <div class="ui-g">
           <div class="ui-md-12 ui-lg-12">
-            <input type="password" pInputText placeholder="请输入新密码" style="width: 100%">
+            <input type="password" pInputText placeholder="请输入新密码" style="width: 100%" [(ngModel)]="hdPersionPassword.originalPassword">
           </div>
           <div class="ui-md-12 ui-lg-12">
-            <input type="password" pInputText placeholder="再次请输入新密码" style="width: 100%">
+            <input type="password" pInputText placeholder="请输入新密码" style="width: 100%" [(ngModel)]="hdPersionPassword.latestPassword">
+          </div>
+          <div class="ui-md-12 ui-lg-12">
+            <input type="password" pInputText placeholder="再次输入新密码" style="width: 100%" [(ngModel)]="surePsd">
           </div>
         </div>
       </div>
       <p-footer>
         <button pButton class="ui-button-pink" label="取消修改" (click)="hsUpdatePasswordModal = false"></button>
-        <button pButton label="确认修改" (click)="hsUpdatePasswordModal = false"></button>
+        <button pButton label="确认修改" (click)="submitPassword()"></button>
       </p-footer>
     </p-dialog>
   </div>

@@ -792,6 +792,14 @@ export class PersonInfoClass implements PersonInfo {
   workshopName: string = '';
 }
 
+export interface PersionPassword {
+  originalPassword?: any;
+  latestPassword?: any;
+}
+export class PersionPasswordClass  implements PersionPassword{
+  originalPassword: string = '';
+  latestPassword: string = '';
+}
 // 提醒过期时间接口及实现
 export interface SpecialDay {
   id: any;

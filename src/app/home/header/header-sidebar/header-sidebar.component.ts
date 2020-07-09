@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
 import {LocalStorageService} from '../../../common/services/local-storage.service';
 import {HomeService} from '../../../common/services/home.service';
-import {PersonInfo, PersonInfoClass} from '../../../common/public/Api';
+import {PersionPasswordClass, PersonInfo, PersonInfoClass} from '../../../common/public/Api';
 import {objectCopy} from '../../../common/public/contents';
 
 @Component({
@@ -12,6 +12,8 @@ import {objectCopy} from '../../../common/public/contents';
 })
 export class HeaderSidebarComponent implements OnInit {
   public hdPersonInfo: PersonInfo = new PersonInfoClass();
+  public hdPersionPassword: PersionPasswordClass = new PersionPasswordClass();
+  public surePsd: string = '';
   public hdSideBarShow: boolean = false;
   public hsUpdatePasswordModal: boolean = false;
   constructor(
@@ -29,4 +31,18 @@ export class HeaderSidebarComponent implements OnInit {
     this.localSrv.clear();
     this.router.navigate(['/login']);
   }
+
+  public  submitPassword(): void {
+    if (this.hdPersionPassword.latestPassword === this.surePsd){
+      this.HomeSrv.subMitPassword(this.hdPersionPassword).subscribe(val => {
+        this.hsUpdatePasswordModal = false;
+        if (window.confirm('修改成功,请退出重新登录')){
+          this.router.navigate(['/login']);
+        }
+      });
+    }else {
+      window.alert('两次密码输入不一致');
+    }
+  }
+
 }
