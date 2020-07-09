@@ -20,6 +20,7 @@ export class TroubleNoticeComponent implements OnInit {
   public hidCorrectorOption: Array<object> = [];
   public time: any;
   public code: any;
+  public grade: any;
   constructor(
     private route: ActivatedRoute,
     private fb: FormBuilder,
@@ -34,12 +35,17 @@ export class TroubleNoticeComponent implements OnInit {
   ngOnInit() {
     this.route.queryParams.subscribe(val => {
       this.code = val.code;
+      this.grade = val.grade;
       this.time = this.datePipe.transform(val.time, 'yyyy-MM-dd');
     });
     const rectificationOpinion = this.localSrv.get('rectificationOpinions');
     this.addNotice = this.fb.group({
       correctorId: new FormControl('', Validators.required),
       hidDangerCode: new FormControl(this.code, Validators.required),
+      hidTypeManage: new FormControl(''),
+      hidTypePerson: new FormControl(''),
+      hidTypeThing: new FormControl(''),
+      hidDangerGrade: new FormControl(this.grade),
       rectificationOpinions: new FormControl({value: rectificationOpinion, disabled: rectificationOpinion !== 'null'}, Validators.required),
       specifiedRectificationTime: new FormControl({value: this.time, disabled: this.time}, Validators.required),
     });
@@ -55,10 +61,16 @@ export class TroubleNoticeComponent implements OnInit {
       // console.log(123);
     if (this.addNotice.valid){
       // this.formData.append('hidDangerCode', this.code);
-      console.log(this.addNotice.value);
       const subMitDta = JSON.parse(JSON.stringify(this.addNotice.value));
       subMitDta.rectificationOpinions =  subMitDta.rectificationOpinions ? subMitDta.rectificationOpinions : this.localSrv.get('rectificationOpinions');
       subMitDta.specifiedRectificationTime = subMitDta.specifiedRectificationTime ? this.datePipe.transform(subMitDta.specifiedRectificationTime, 'yyyy-MM-dd') : this.time;
+      this.localSrv.getObject('hidType').forEach(val => {
+        switch (val) {
+          case '人':  subMitDta.hidTypePerson = '1'; break;
+          case '管理': subMitDta.hidTypeManage = '1'; break;
+          case '事物': subMitDta.hidTypeThing = '1'; break;
+        }
+      });
       this.toolSrv.setConfirmation('下发整改', '通知整改', () => {
         this.troubleSrv.issuedNoticeToRectify(subMitDta).subscribe(value => {
           this.addNotice.reset();

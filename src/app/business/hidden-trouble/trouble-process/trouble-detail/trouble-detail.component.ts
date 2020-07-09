@@ -45,6 +45,13 @@ export class TroubleDetailComponent implements OnInit {
   public btnTotalList: Array<object> = [];
   public processingStatus: string = '0'; // 6 为审核不通过
   public rectificationNoticeAnnex: string;
+  public subMitReportData = {
+    hidDangerCode: '',
+    hidDangerGrade: '',
+    hidTypeThing: '',
+    hidTypePerson: '',
+    hidTypeManage: '',
+  };
   public hidTypeList: Array<object> = [
     {label: '人', value: 1, name: 'hidTypePerson'},
     {label: '管理', value: 1, name: 'hidTypeManage'},
@@ -75,13 +82,13 @@ export class TroubleDetailComponent implements OnInit {
       factoryName: new FormControl({value: '', disabled: true}, Validators.required), // 工厂名称
       // ifControlMeasures: new FormControl({value: '', disabled: true}, Validators.required), // 控制措施
       hidDangerContent: new FormControl({value: '', disabled: true}, Validators.required), // 隐患内容
-      hidDangerGrade: new FormControl({value: '', disabled: true}, Validators.required), // 	隐患等级
+      hidDangerGrade: new FormControl({value: '', disabled: false}, Validators.required), // 	隐患等级
       // ifRectificationPlan: new FormControl({value: '', disabled: true}, Validators.required), // 整改方案
       ifDeal: new FormControl({value: '', disabled: false}, Validators.required), // 是否处理
       organizationId: new FormControl({value: '', disabled: true}, Validators.required),
       organizationName: new FormControl({value: '', disabled: true}, Validators.required),
       beforeImg: new FormControl({value: '', disabled: true}, Validators.required), // 排查前图片
-      hidType: new FormControl({value: '', disabled: true}, Validators.required),
+      hidType: new FormControl({value: '', disabled: false}, Validators.required),
       rectificationEvaluate: new FormControl({value: '', disabled: true}),
       rectificationOpinions: new FormControl({value: '', disabled: true}),
       // 处理的
@@ -119,20 +126,11 @@ export class TroubleDetailComponent implements OnInit {
       });
       this.addReport.patchValue({hidType: typeList});
       // 处理的图片
-      // console.log(this.addReport.value);
       res.data.beforImgs.forEach(val => {
         this.ImageOption.imgUrls.push(val.beforePicture);
       });
       this.rectificationNoticeAnnex = res.data.hidDangerDO.rectificationNoticeAnnex;
       if (this.addReport.value.ifDeal === '是'){
-        // if(res.hidDangerDO.processingStatus === '4') {
-        //   this.btnList = [];
-        //   this.btnList.push({botton: '完成整改'});
-        // }else {
-        //   this.btnTotalList.forEach(val => {
-        //     this.btnList.push(val);
-        //   });
-        // }
         this.isHandle = true;
         this.isDownLoadStatus = true;
         res.data.afterImgs.forEach(v => {
@@ -248,6 +246,7 @@ export class TroubleDetailComponent implements OnInit {
   // 完成整改
   public compelteReportClick(): void {
     if (this.addReport.valid){
+      // console.log(this.addReport.value.hidType);
       this.formData = new FormData();
       this.formData.append('hidDangerCode', this.code);
       setImageToFromData(this.addReport, 'afterImg', this.formData);
@@ -268,12 +267,23 @@ export class TroubleDetailComponent implements OnInit {
   }
   // 通知整改
   public  noticeToRectifyClick(): void {
-     this.router.navigate(['home/trouble/process/notice'], {queryParams: {code: this.code, time: this.specifiedRectificationTime}});
+     this.localSrv.setObject('hidType', this.addReport.value.hidType);
+     this.router.navigate(['home/trouble/process/notice'], {queryParams: {code: this.code, time: this.specifiedRectificationTime, grade: this.addReport.value.hidDangerGrade}});
   }
   // 上报处理
   public  submitReportToSuperiorClick(): void {
     this.toolSrv.setConfirmation('上报处理', '上报处理', () => {
-      this.troubleSrv.submitReportToSuperior({hidDangerCode: this.code}).subscribe(val => {
+      // const data =
+      this.subMitReportData.hidDangerCode = this.code;
+      this.subMitReportData.hidDangerGrade = this.addReport.value.hidDangerGrade;
+      this.addReport.value.hidType.forEach(val => {
+        switch (val) {
+          case '人': this.subMitReportData.hidTypePerson = '1'; break;
+          case '管理': this.subMitReportData.hidTypeManage = '1'; break;
+          case '事物': this.subMitReportData.hidTypeThing = '1'; break;
+        }
+      });
+      this.troubleSrv.submitReportToSuperior(this.subMitReportData).subscribe(val => {
         this.resetAllData();
         this.isHandle = false;
         this.router.navigate(['home/trouble/process/list']);
@@ -296,15 +306,34 @@ export class TroubleDetailComponent implements OnInit {
     this.addReport.reset();
     this.ImageClear.clearImage();
     this.isDownLoadStatus = false;
+    this.showReViewDialog = false;
+    this.rectificationEvaluate = '';
     this.isHandle = false;
     this.revieLabelText = '整改评估';
   }
   // 转换json对象为formdata 对象
   private setDataConvertToFromData(data): void{
-    for (const key in data){
-      if (key === 'report' || key === 'plan'){
+    for (const key in data) {
+      if (key === 'report' || key === 'plan') {
         this.formData.append(key, key === 'plan' ? (this.addPlanFile === undefined ? '' : this.addPlanFile) : (this.addReportFile === undefined ? '' : this.addReportFile));
-      }else if (key !== 'afterImg') {
+      } else if (key === 'hidType') {
+        this.formData.append('hidTypeThing', '');
+        this.formData.append('hidTypePerson', '');
+        this.formData.append('hidTypeManage', '');
+        data[key].forEach(val => {
+          switch (val) {
+            case '人':
+              this.formData.set('hidTypeThing', '1');
+              break;
+            case '事物':
+              this.formData.set('hidTypePerson', '1');
+              break;
+            case '管理':
+              this.formData.set('hidTypeManage', '1');
+              break;
+          }
+        });
+      } else if (key !== 'afterImg') {
         this.formData.append(key, data[key]);
       }
     }
@@ -314,10 +343,9 @@ export class TroubleDetailComponent implements OnInit {
       if (this.rectificationEvaluate !== ''){
         if (this.revieLabelText === '整改评估'){
           this.toolSrv.setConfirmation('审核通过', '审核通过', () => {
-            this.troubleSrv.reviewToPass({hidDangerCode: this.code, rectificationEvaluate: this.rectificationEvaluate}).subscribe(val => {
+            const reviewData = this.setData();
+            this.troubleSrv.reviewToPass(reviewData).subscribe(val => {
               this.resetAllData();
-              this.showReViewDialog = false;
-              this.rectificationEvaluate = '';
               this.router.navigate(['home/trouble/process/list']);
             });
           });
@@ -331,12 +359,28 @@ export class TroubleDetailComponent implements OnInit {
 // 审核不通过
   public  reviewNoToPassClick(): void {
     this.toolSrv.setConfirmation('审核不通过', '审不核通过', () => {
-      this.troubleSrv.reviewNoToPass({hidDangerCode: this.code, rectificationEvaluate: this.rectificationEvaluate}).subscribe(val => {
+      const reviewData = this.setData();
+      this.troubleSrv.reviewNoToPass(reviewData).subscribe(val => {
         this.resetAllData();
         this.router.navigate(['home/trouble/process/list']);
       });
     });
   }
 
-
+  public  setData(): any {
+    const reviewData = {
+      hidDangerCode: '', rectificationEvaluate: '', hidDangerGrade: '', hidTypeThing: '', hidTypePerson: '', hidTypeManage: '',
+    };
+    reviewData.hidDangerCode = this.code;
+    reviewData.rectificationEvaluate = this.rectificationEvaluate;
+    reviewData.hidDangerGrade = this.addReport.value.hidDangerGrade;
+    this.addReport.value.hidType.forEach(val => {
+      switch (val) {
+        case '人': reviewData.hidTypePerson = '1'; break;
+        case '管理': reviewData.hidTypeManage = '1'; break;
+        case '事物': reviewData.hidTypeThing = '1'; break;
+      }
+    });
+    return reviewData;
+  }
 }

@@ -2,6 +2,7 @@ import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {PageOption} from '../../../../common/public/Api';
 import {StStartStudyService} from '../../../../common/services/st-start-study.service';
 import {Router} from '@angular/router';
+import {PublicMethodService} from '../../../../common/public/public-method.service';
 
 @Component({
   selector: 'app-st-learn-myplan',
@@ -19,6 +20,7 @@ export class StLearnMyplanComponent implements OnInit {
   public eventEmit: EventEmitter<any> = new EventEmitter<any>();
   constructor(
     private stStudySrv: StStartStudyService,
+    private toolSrv: PublicMethodService,
     private router: Router
   ) { }
   ngOnInit() {
@@ -39,7 +41,17 @@ export class StLearnMyplanComponent implements OnInit {
   }
 
   public  myPlanItemClick(e): void {
+    if (this.judgeTimeIsOrInPeriod(e.startTime, e.endTime)) {
       this.router.navigate(['home/strain/learn/detail'], {queryParams: {id: e.id, title: e.trainingContent}});
+    }else {
+      this.toolSrv.setToast('error', '操作错误', '时间未到或者时间已过期');
+    }
   }
-
+  public judgeTimeIsOrInPeriod(beginDateStr, endDateStr): boolean {
+    // tslint:disable-next-line:one-variable-per-declaration
+    const curDate = new Date(),
+      beginDate = new Date(beginDateStr),
+      endDate = new Date(endDateStr);
+    return curDate >= beginDate && curDate <= endDate;
+  }
 }

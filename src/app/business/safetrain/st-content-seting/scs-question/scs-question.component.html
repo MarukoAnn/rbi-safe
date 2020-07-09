@@ -33,7 +33,7 @@
             {{rowData[col.field]}}
           </td>
           <td>
-            <button pButton type="button" label="删除" class="ui-button-rounded" [ngStyle]="{'background': table.detailBtn[0], 'border': '1px solid'+table.detailBtn[0]}" (click)="delClick(rowData)"></button>
+            <button pButton type="button" disabled label="删除" class="ui-button-rounded" [ngStyle]="{'background': table.detailBtn[0], 'border': '1px solid'+table.detailBtn[0]}" (click)="delClick(rowData)"></button>
           </td>
         </tr>
       </ng-template>
