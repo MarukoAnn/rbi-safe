@@ -79,7 +79,10 @@ export class DemandReportComponent implements OnInit {
           this.reportOperateField.trainingTypeId = this.reportDropdownSelected.id;
           this.reportOperateField.organizationTrainingDepartmentId = this.reportOrgTreeSelect.id;
           this.reportOperateField.targetSet = this.reportTableSelect.map((res) => res.id).join(',');
-          this.safeSrv.addReportsInfo(this.reportOperateField).subscribe(() => this.reportOperateField = new TrainingFieldAddClass());
+          this.safeSrv.addReportsInfo(this.reportOperateField).subscribe(() => {
+            this.reportOperateField = new TrainingFieldAddClass();
+            window.alert('提交成功');
+          });
           break;
         }
         window.alert('请把参数填写完整');
