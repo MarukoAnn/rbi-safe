@@ -34,14 +34,12 @@ export class LoginComponent implements OnInit {
   public loginClick(): void {
     if (this.username !== '' && this.password !== '') {
       this.loginSrv.login({username: this.username, password: this.password}).subscribe(val => {
-        if (val.status === '1000') {
-          this.localSrv.set('token', val.token);
-          this.localSrv.set('username', val.data.username);
-          this.localSrv.set('companyPersonnelId', val.data.companyPersonnelId);
-          this.route.navigate(['home/main']);
-        } else {
-          this.toolSrv.setToast('error', '登录错误', val.message);
-        }
+        console.log(val);
+        this.localSrv.set('token', val.token);
+        this.localSrv.set('username', this.username);
+        this.localSrv.setObject('limitData', val.data);
+        // this.localSrv.set('companyPersonnelId', val.data.companyPersonnelId);
+        this.route.navigate(['home/main']);
       });
     }
   }

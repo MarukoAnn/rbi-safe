@@ -36,7 +36,6 @@ export class GlobalService {
    * 1安全教育培训制度 2风险分级管控制度 3重大危险源管理制度 4隐患排查治理制度 5职业健康规章制度 6 一岗双责管理制度
    */
   public getEducationList(params?: {systemCategoryId: 1 | 2 |3 |4 |5 | 6}): Observable<any> {
-    console.log(params);
     return this.http.post('/getSystemFileByTypeId', params);
   }
 

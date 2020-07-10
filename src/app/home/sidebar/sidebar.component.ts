@@ -60,7 +60,7 @@ export class SidebarComponent implements OnInit {
       link: '/home/risk/institution',
       children: [
         // {item: {label: '重大危险源现状分析', bgc: '#D1E0F7', ftcolor: '#4F88DE'}, link: '/home/risk/analysis', isHas: true},
-        {item: {label: '重大危险源管理制度', bgc: '#fff', ftcolor: '#8E8E8E'}, link: '/home/risk/institution', isHas: true},
+        {item: {label: '重大危险源管理制度', bgc: '#D1E0F7', ftcolor: '#4F88DE'}, link: '/home/risk/institution', isHas: true},
         {item: {label: '重大危险源识别', bgc: '#fff', ftcolor: '#8E8E8E'}, link: '/home/risk/discern', isHas: true},
         {item: {label: '重大危险源档案', bgc: '#fff', ftcolor: '#8E8E8E'}, link: '/home/risk/archive', isHas: true},
       ]
@@ -163,6 +163,8 @@ export class SidebarComponent implements OnInit {
     },
   ];
   public isSetBar: any;
+  public limitDataBar: any;
+  public limitDataBarTwo: any;
   public secItem = [];
   public barItem = [];
 
@@ -174,10 +176,30 @@ export class SidebarComponent implements OnInit {
 
   ngOnInit() {
     this.isSetBar = this.localSrv.get('isSetBar');
+    this.limitDataBar = this.localSrv.getObject('limitData');
     if (this.isSetBar !== 'true') {
-      this.barItem = this.fistItem;
+      this.fistItem.forEach(res => {
+        this.limitDataBar.forEach(v => {
+          if (v.permissionName === res.label){
+            this.barItem.push(res);
+          }
+        });
+      });
+      this.barItem.unshift(this.fistItem[0]);
     } else {
-      this.barItem = this.setItem;
+      this.limitDataBar.forEach(v => {
+        if (v.permissionName === '系统设置'){
+          this.limitDataBarTwo = v.sysPermissionList;
+        }
+      });
+      this.setItem.forEach(res => {
+        this.limitDataBarTwo.forEach(v => {
+          if (v.permissionName === res.label){
+            this.barItem.push(res);
+          }
+        });
+      });
+      this.barItem.unshift(this.setItem[0]);
     }
     this.keetRouterStatus();
   }
@@ -187,9 +209,11 @@ export class SidebarComponent implements OnInit {
       val.icon.color = '#fff';
       val.bgc = '#226AD5';
       if (val.children.length !== 0) {
-        if ( this.barItem === this.fistItem) {
-          val.lefticon = 'fa-angle-down';
-        }
+        this.fistItem.forEach(v => {
+          if (v.label === item.label){
+            val.lefticon = 'fa-angle-down';
+          }
+        });
       } else {
         val.lefticon = '';
       }
@@ -197,20 +221,44 @@ export class SidebarComponent implements OnInit {
     item.icon.color = '#FCCF4F';
     item.bgc = '#4E88DE';
     if (item.children.length !== 0) {
-      if ( this.barItem === this.fistItem) {
-        item.lefticon = 'fa-angle-right';
-        // this.secItem = this.
-        item.children.forEach(val => {
-          val.item.bgc = '#fff';
-          val.item.ftcolor = '#8E8E8E';
-        });
-        item.children[0].item.bgc = '#D1E0F7';
-        item.children[0].item.ftcolor = '#4F88DE';
-      }
+      // if (this.item)
+      this.fistItem.forEach(v => {
+        if (v.label === item.label){
+          item.lefticon = 'fa-angle-right';
+          // this.secItem = this.
+          item.children.forEach(val => {
+            val.item.bgc = '#fff';
+            val.item.ftcolor = '#8E8E8E';
+          });
+          item.children[0].item.bgc = '#D1E0F7';
+          item.children[0].item.ftcolor = '#4F88DE';
+        }
+      });
     }
     if (this.isSetBar !== 'true') {
       this.setBodyMarginLeft(item.children);
-      this.secItem = item.children;
+      let limitdata = [];
+      this.limitDataBar.forEach(v => {
+        if (item.label === v.permissionName){
+          limitdata = v.sysPermissionList;
+        }
+      });
+      console.log(limitdata);
+      console.log(item.children);
+      // if (item.label)
+      if (item.children.length !== 0){
+        this.secItem = [];
+        item.children.forEach(val => {
+          limitdata.forEach(res => {
+            if (res.permissionName === val.item.label){
+              this.secItem.push(val);
+            }
+          });
+        });
+      }else {
+        this.secItem = [];
+      }
+      // this.secItem = item.children;
     } else {
       // this.secItem = item.children;
       if (item.label === '首页') {
