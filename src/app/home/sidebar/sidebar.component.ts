@@ -79,7 +79,7 @@ export class SidebarComponent implements OnInit {
         {item: {label: '职业健康规章制度', bgc: '#D1E0F7', ftcolor: '#4F88DE'}, link: '/home/health/phinstitution', isHas: true},
         {item: {label: '职业健康台账管理', bgc: '#fff', ftcolor: '#8E8E8E'}, link: '/home/health/phmanager', isHas: true},
         // {item: {label: '职业病危害项目申报', bgc: '#fff', ftcolor: '#8E8E8E'}, link: '', isHas: true},
-        {item: {label: '职业病危害检测与评价管理', bgc: '#fff', ftcolor: '#8E8E8E'}, link: '/home/health/pharchive', isHas: true},
+        {item: {label: '职业病危害因素监测与评价管理', bgc: '#fff', ftcolor: '#8E8E8E'}, link: '/home/health/pharchive', isHas: true},
         // {item: {label: '隐患档案', bgc: '#fff', ftcolor: '#8E8E8E'}, link: '', isHas: true},
       ]
     },

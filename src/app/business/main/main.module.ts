@@ -5,6 +5,10 @@ import { MainRoutingModule } from './main-routing.module';
 import { MainComponent } from './main/main.component';
 import {EchartsBarModule} from '../../common/components/echarts-bar/echarts-bar.module';
 import {EchartsPieModule} from '../../common/components/echarts-pie/echarts-pie.module';
+import {DialogModule} from 'primeng/dialog';
+import {FormsModule} from '@angular/forms';
+import {ButtonModule} from 'primeng/button';
+import {InputTextModule} from 'primeng/inputtext';
 
 
 @NgModule({
@@ -13,7 +17,11 @@ import {EchartsPieModule} from '../../common/components/echarts-pie/echarts-pie.
     CommonModule,
     MainRoutingModule,
     EchartsBarModule,
-    EchartsPieModule
+    EchartsPieModule,
+    DialogModule,
+    FormsModule,
+    ButtonModule,
+    InputTextModule
   ]
 })
 export class MainModule { }

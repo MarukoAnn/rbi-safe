@@ -860,3 +860,16 @@ export class TreeNodeClass implements TreeNode{
   selectable?: any;
   children?: TreeNode[];
 }
+
+export interface GeneralInfoData {
+  title?: any;
+  content?: any;
+  file?: any;
+  filePath?: any;
+}
+export class GeneralInfoClass implements GeneralInfoData{
+  title: any = null;
+  content: any = null;
+  file: any = null;
+  filePath: any = null;
+}

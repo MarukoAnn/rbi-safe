@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import {GeneralInfoService} from '../../../common/services/general-info.service';
+import {Router} from '@angular/router';
+import {GeneralInfoClass} from '../../../common/public/Api';
 
 @Component({
   selector: 'app-main',
@@ -21,9 +24,40 @@ export class MainComponent implements OnInit {
     {name: '焊接工', value: 80},
     {name: '尾矿坝作业共', value: 120}
   ];
-  constructor() { }
-
-  ngOnInit() {
+  public mainPageNo: number = 1;
+  public genneralInfoList: Array<object> = [];
+  public showDetailDialog: boolean = false;
+  public genneralInfoData: GeneralInfoClass = new GeneralInfoClass();
+  constructor(
+    private builletinSrv: GeneralInfoService,
+    private router: Router
+  ) {
   }
 
+  ngOnInit() {
+     this.initMainData();
+  }
+
+  public initMainData(): void {
+    this.builletinSrv.getBulletinBoradPageData({pageNo: this.mainPageNo, pageSize: 3}).subscribe((res) => {
+      this.genneralInfoList = res.data.contents;
+      console.log(this.genneralInfoList);
+    });
+  }
+  // 查看更多信息
+  public  lookGenneralInfoClick(): void {
+      this.router.navigate(['/home/genneral/board']);
+  }
+  // 点击查看详情
+  public  generalInfoItemClick(data): void {
+      this.genneralInfoData.content = data.content;
+      this.genneralInfoData.title = data.title;
+      this.genneralInfoData.file = data.annex.slice(data.annex.lastIndexOf('/') + 1);
+      this.genneralInfoData.filePath = data.annex;
+      this.showDetailDialog = true;
+  }
+  // 下载附件
+  public downFile(e): void {
+    window.open(e);
+  }
 }

@@ -7,7 +7,7 @@
       <app-echarts-bar-trouble></app-echarts-bar-trouble>
     </div>
     <div class="items p-2">
-      <span class="title">工总人员统计</span>
+      <span class="title">工种人员统计</span>
       <span class="number pr-4 pl-4 pb-1 pt-1 text-center">860/<small>人</small></span>
       <app-echarts-pie-trouble [data]="mainPieDate" [name]="'维修工'"></app-echarts-pie-trouble>
     </div>
@@ -19,19 +19,46 @@
     <div class="right">
       <div class="header pt-3 pb-3 pl-3 pr-3">
         <span class="title">综合信息公告栏</span>
-        <span class="sub-title pl-3 pr-3 pt-1 pb-1">查看全部</span>
+        <span class="sub-title pl-3 pr-3 pt-1 pb-1" (click)="lookGenneralInfoClick()">查看全部</span>
       </div>
       <div class="list pl-2 pr-3">
-        <div class="list-item p-3 mb-3" *ngFor="let item of [0,1,2]">
+        <div class="list-item p-3 mb-3" *ngFor="let item of genneralInfoList" (click)="generalInfoItemClick(item)">
           <div class="left pb-2 pt-2 text-center">
             <span class="fa fa-server"></span>
           </div>
           <div class="right pl-3">
-            <p class="mb-2">企业一季度安全检查情况通报</p>
-            <span class="text-gray">2020/07/03</span>
+            <p class="mb-2">{{item.title}}</p>
+            <span class="text-gray">{{item.idt}}</span>
           </div>
         </div>
       </div>
     </div>
+  </div>
+  <div class="dialog">
+    <p-dialog header="详细信息" [(visible)]="showDetailDialog" [style]="{width: '800px'}">
+      <div class="ui-g ui-md ui-fiuld">
+        <div class="ui-g-12 ui-md-12 center">
+          <h2>{{genneralInfoData.title}}</h2>
+        </div>
+        <div class="ui-g-12 ui-md-12"></div>
+        <div class="ui-g-12 ui-md-12 center">
+          <span>{{genneralInfoData.content}}</span>
+        </div>
+        <div class="ui-g-12 ui-md-12"></div>
+        <div class="ui-g-12 ui-md-12 center">
+          <span>附件：</span>
+          <div class="dialog-input">
+            <div class="ui-inputgroup" style="position: relative">
+              <input type="text" pInputText placeholder="请选择通知书附件"  disabled [(ngModel)]="genneralInfoData.file">
+              <button pButton type="button" icon="pi pi-download" class="ui-button-warn" style="background: #F8F8F8;border: 1px solid #E0E3E7;border-left: 0;color: #007AD9" (click)="downFile(genneralInfoData.filePath)"></button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p-footer>
+        <button class="dialog-btn" (click)="showDetailDialog = false;">取消</button>
+        <!--      <button class="dialog-btn" (click)="sureEditRegularTestClick()">确认选择</button>-->
+      </p-footer>
+    </p-dialog>
   </div>
 </div>
