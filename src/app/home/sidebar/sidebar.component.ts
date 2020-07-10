@@ -164,7 +164,7 @@ export class SidebarComponent implements OnInit {
   ];
   public isSetBar: any;
   public limitDataBar: any;
-  public limitDataBarTwo: any;
+  public limitDataBarTwo: any = [];
   public secItem = [];
   public barItem = [];
 
@@ -177,29 +177,15 @@ export class SidebarComponent implements OnInit {
   ngOnInit() {
     this.isSetBar = this.localSrv.get('isSetBar');
     this.limitDataBar = this.localSrv.getObject('limitData');
+    this.limitDataBar.forEach(v => {
+      if (v.permissionName === '系统设置'){
+        this.limitDataBarTwo = v.sysPermissionList;
+      }
+    });
     if (this.isSetBar !== 'true') {
-      this.fistItem.forEach(res => {
-        this.limitDataBar.forEach(v => {
-          if (v.permissionName === res.label){
-            this.barItem.push(res);
-          }
-        });
-      });
-      this.barItem.unshift(this.fistItem[0]);
+     this.setFirstBar();
     } else {
-      this.limitDataBar.forEach(v => {
-        if (v.permissionName === '系统设置'){
-          this.limitDataBarTwo = v.sysPermissionList;
-        }
-      });
-      this.setItem.forEach(res => {
-        this.limitDataBarTwo.forEach(v => {
-          if (v.permissionName === res.label){
-            this.barItem.push(res);
-          }
-        });
-      });
-      this.barItem.unshift(this.setItem[0]);
+      this.setSetingBar();
     }
     this.keetRouterStatus();
   }
@@ -243,8 +229,6 @@ export class SidebarComponent implements OnInit {
           limitdata = v.sysPermissionList;
         }
       });
-      console.log(limitdata);
-      console.log(item.children);
       // if (item.label)
       if (item.children.length !== 0){
         this.secItem = [];
@@ -258,9 +242,8 @@ export class SidebarComponent implements OnInit {
       }else {
         this.secItem = [];
       }
-      // this.secItem = item.children;
     } else {
-      // this.secItem = item.children;
+      // 判断为设置导航，首页点击时导航切换
       if (item.label === '首页') {
         this.isSetBar = 'false';
         this.fistItem.forEach((value, index) => {
@@ -282,11 +265,9 @@ export class SidebarComponent implements OnInit {
           } else {
             value.icon.color = '#FCCF4F';
             value.bgc = '#4E88DE';
-
           }
         });
-        this.barItem = this.fistItem;
-        // this.keetRouterStatus();
+        this.setFirstBar();
         this.localSrv.set('isSetBar', 'false');
       }
     }
@@ -326,9 +307,9 @@ export class SidebarComponent implements OnInit {
   // }
 
   public  changeBar(): void {
-      this.barItem = this.setItem;
+      this.setSetingBar();
       this.secItem = [];
-      this.setBodyMarginLeft(this.secItem );
+      this.setBodyMarginLeft(this.secItem);
       this.router.navigate(['/home/main']);
   }
 
@@ -393,5 +374,31 @@ export class SidebarComponent implements OnInit {
         }
       });
     }
+  }
+
+  public setFirstBar(): void {
+    this.barItem = [];
+    this.fistItem.forEach(res => {
+      this.limitDataBar.forEach(v => {
+        if (v.permissionName === res.label){
+          this.barItem.push(res);
+        }
+      });
+    });
+    this.barItem.unshift(this.fistItem[0]);
+  }
+
+  public  setSetingBar(): void {
+    this.barItem = [];
+    this.setItem.forEach(res => {
+      if (this.limitDataBarTwo.length !== 0){
+        this.limitDataBarTwo.forEach(v => {
+          if (v.permissionName === res.label){
+            this.barItem.push(res);
+          }
+        });
+      }
+    });
+    this.barItem.unshift(this.setItem[0]);
   }
 }

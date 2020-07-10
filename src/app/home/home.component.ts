@@ -39,9 +39,7 @@ export class HomeComponent implements OnInit {
       this.bodyMarginLeft = e;
   }
   public  getSetBarStatus(e): void {
-    console.log('进入home');
     this.isBar = e;
-    console.log(this.isBar);
     this.child.isSetBar = e;
     this.child.changeBar();
   }
