@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Observable, Subscription} from 'rxjs';
 import {ThemeService} from '../../../common/public/theme.service';
 import {SetingService} from '../../../common/services/seting.service';
-import {nums, PageOption, Role} from '../../../common/public/Api';
+import {nums, PageOption, Role, TreeNodeClass} from '../../../common/public/Api';
 import {initializeTree, objectCopy, reverseTree, rmRepeatArray} from '../../../common/public/contents';
 import {GlobalService} from '../../../common/services/global.service';
 import {PublicMethodService} from '../../../common/public/public-method.service';
@@ -39,10 +39,11 @@ export class RolesManagerComponent implements OnInit {
     {name: '1', value: 1},
     {name: '2', value: 2},
   ];
+  public roleWebPermissionCheckList: any = []; // 已选择的权限id列表
   public roleDropdownSelect: any;
   public roleWebPermissionTree: any; // web端权限树
   public roleAppPermissionTree: any; // app端权限树
-  public roleWebPermissionSelected: any; // web端权限选择
+  public roleWebPermissionSelected: any[] = []; // web端权限选择
   public roleAppPermissionSelected: any; // app端权限选择
   public roleOperateFlag: 'update' | 'save' | 'del' | 'permission' | 'add' | 'addSave'; // 角色操作标签
   constructor(
@@ -76,6 +77,7 @@ export class RolesManagerComponent implements OnInit {
         res.data[0].permissionTreeInfoList ? res.data[0].permissionTreeInfoList : [],
         {labelName: 'permissionName', childrenName: 'sysPermissionList'}
       );
+      this.checkNode(this.roleWebPermissionSelected, this.roleWebPermissionTree, this.roleWebPermissionCheckList);
       this.roleAppPermissionTree = initializeTree(
         res.data[1].permissionTreeInfoList ? res.data[1].permissionTreeInfoList : [],
         {labelName: 'permissionName', childrenName: 'sysPermissionList'}
@@ -89,6 +91,7 @@ export class RolesManagerComponent implements OnInit {
       // 操作成功后重新初始化数据列表
       this.roleDataInit(this.roleNowPage, this.rolePageOption.pageSize);
       this.roleUpdateModal = false;
+      this.roleWebPermissionCheckList = [];
     });
   }
 
@@ -110,10 +113,11 @@ export class RolesManagerComponent implements OnInit {
         break;
       // 编辑操作初始化
       case 'update':
+        this.getTreeValue(item.rolePermissionInfoList);
         this.rolePermissionTreeInit(item);
         this.roleUpdateModal = true; // 显示弹窗
-        this.roleWebPermissionSelected = null; // 初始化权限树选择
-        this.roleDropdownSelect = Object.assign({},{name: item.level, value: item.level}); // 下拉初始化
+        this.roleWebPermissionSelected = []; // 初始化权限树选择
+        this.roleDropdownSelect = Object.assign({}, { name: item.level, value: item.level}); // 下拉初始化
         this.roleInputField = Object.assign(objectCopy(
           {
             id: null,
@@ -123,6 +127,8 @@ export class RolesManagerComponent implements OnInit {
             enabled: nums.one,
             sysRolePermissionList: []
           }, item), {sysRolePermissionList: item.rolePermissionInfoList ? item.rolePermissionInfoList : []});
+        //
+        // console.log(this.roleWebPermissionTree);
         break;
       // 保存操作
       case 'save':
@@ -205,5 +211,60 @@ export class RolesManagerComponent implements OnInit {
   // 角色搜索
   public roleSearchOperate(): void {
     console.log(123);
+  }
+  // 递归赛选后台给的权限id列表
+  public  getTreeValue(data): void {
+    if (data !== undefined) {
+      for (let i = 0; i < data.length; i++) {
+        this.roleWebPermissionCheckList.push(data[i].permissionId);
+        // 追加子元素
+        if (data[i].hasOwnProperty('rolePermissionInfos')) {
+          if (data[i].rolePermissionInfos !== null && data[i].rolePermissionInfos.length !== 0) {
+            this.getTreeValue(data[i].rolePermissionInfos);
+          }
+        }
+      }
+    } else {
+      this.roleWebPermissionCheckList = [];
+    }
+  }
+  /**
+   * 还原选中树结构
+   * @param selectData  树结构绑定选择的列表
+   * @param nodes  递归出来的树结构
+   * @param str   后端返回过来的权限id列表
+   */
+  public  checkNode(selectData, nodes: TreeNodeClass[], str: any[]): any {
+    for (let i = 0 ; i < nodes.length ; i++) {
+      if (!nodes[i].check) {
+        for (let j = 0 ; j < nodes[i].children.length ; j++) {
+          if (str.includes(nodes[i].children[j].id)) {
+            if (!selectData.includes(nodes[i].children[j])) {
+              selectData.push(nodes[i].children[j]);
+            }
+          }
+        }
+      }
+      if (nodes[i].check) {
+        return;
+      }
+      this.checkNode(selectData, nodes[i].children, str);
+      const count = nodes[i].children.length;
+      let c = 0;
+      for (let j = 0 ; j < nodes[i].children.length ; j++) {
+        if (selectData.includes(nodes[i].children[j])) {
+          c++;
+        }
+        if (nodes[i].children[j].partialSelected) { nodes[i].partialSelected = true; }
+      }
+      if (c === 0) {} else if (c === count) {
+        nodes[i].partialSelected = false;
+        if (!selectData.includes(nodes[i])) {
+          selectData.push(nodes[i]);
+        }
+      } else {
+        nodes[i].partialSelected = true;
+      }
+    }
   }
 }

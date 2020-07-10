@@ -16,12 +16,19 @@ export class HeaderComponent implements OnInit {
   public logoWidth = 10;
   public showNotice = false;
   public headerSideBarShow: boolean = false;
+  public setingBar: any = [];
   constructor(
     private localSrv: LocalStorageService
   ) { }
 
   ngOnInit() {
-   this.username = this.localSrv.get('username');
+    this.username = this.localSrv.get('username');
+    const data = this.localSrv.getObject('limitData');
+    data.forEach(v => {
+      if (v.permissionName === '系统设置'){
+        this.setingBar = v.sysPermissionList;
+      }
+    });
   }
 
   public  logoClick(): void {
