@@ -91,7 +91,6 @@ export class RolesManagerComponent implements OnInit {
       // 操作成功后重新初始化数据列表
       this.roleDataInit(this.roleNowPage, this.rolePageOption.pageSize);
       this.roleUpdateModal = false;
-      this.roleWebPermissionCheckList = [];
     });
   }
 
@@ -113,6 +112,7 @@ export class RolesManagerComponent implements OnInit {
         break;
       // 编辑操作初始化
       case 'update':
+        this.roleWebPermissionCheckList = []; // 初始化权限树id列表
         this.getTreeValue(item.rolePermissionInfoList);
         this.rolePermissionTreeInit(item);
         this.roleUpdateModal = true; // 显示弹窗
