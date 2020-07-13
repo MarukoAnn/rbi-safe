@@ -22,17 +22,20 @@
       padding: 0.97em;
     }
     .input{
-      .ui-inputtext{
+      /deep/.ui-inputtext{
         width: 100%;
       }
-    /deep/ .ui-fileupload .ui-fileupload-content{
-      border: none;
-      padding: 0;
-    }
-    /deep/ .ui-fileupload .ui-fileupload-buttonbar{
-      border-bottom-left-radius: 3px;
-      border-bottom-right-radius: 3px;
-    }
+      /deep/.ui-calendar{
+        width: 100%;
+      }
+      /deep/ .ui-fileupload .ui-fileupload-content{
+        border: none;
+        padding: 0;
+      }
+      /deep/ .ui-fileupload .ui-fileupload-buttonbar{
+        border-bottom-left-radius: 3px;
+        border-bottom-right-radius: 3px;
+      }
     }
   }
 }

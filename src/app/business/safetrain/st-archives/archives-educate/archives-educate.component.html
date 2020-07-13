@@ -50,7 +50,7 @@
       [(visible)]="educateOperateModal" [style]="{width: '50vw'}"
     >
       <p-header>{{educateOperateFlag === 'update' ? '台账编辑' : '台账添加'}}</p-header>
-      <div style="width: 100%;height: 40vh;overflow: hidden">
+      <div style="width: 100%;height: 50vh;">
         <p-scrollPanel [style]="{width: '100%', height: '100%'}" styleClass="role-scroll">
           <div class="ui-g" *ngIf="!(educateOperateField.id)">
             <!--身份证-->
@@ -79,7 +79,16 @@
                 <span>公司培训时间：</span>
               </label>
               <div class="ui-g-8 ui-md-8 input">
-                <input type="text" pInputText placeholder="请填写公司培训时间，如：2020-05-30" [(ngModel)]="educateOperateField.companyEducationTime">
+                <p-calendar
+                  #calendarStart
+                  placeholder="点击选择时间......"
+                  [locale]="educateEs" [(ngModel)]="educateOperateField.companyEducationTime"
+                  dateFormat="yy-mm-dd"
+                  dataType="string"
+                  [monthNavigator]="true"
+                  [yearNavigator]="true"
+                  yearRange="2017:2030">
+                </p-calendar>
               </div>
             </div>
             <!--公司培训成绩-->
@@ -97,7 +106,16 @@
                 <span>工厂培训时间：</span>
               </label>
               <div class="ui-g-8 ui-md-8 input">
-                <input type="text" pInputText placeholder="请填写工厂培训时间，如：2020-05-30" [(ngModel)]="educateOperateField.factoryEducationTime">
+                <p-calendar
+                  #calendarStart
+                  placeholder="点击选择时间......"
+                  [locale]="educateEs" [(ngModel)]="educateOperateField.factoryEducationTime"
+                  dateFormat="yy-mm-dd"
+                  dataType="string"
+                  [monthNavigator]="true"
+                  [yearNavigator]="true"
+                  yearRange="2017:2030">
+                </p-calendar>
               </div>
             </div>
             <!--工厂培训成绩-->
@@ -115,7 +133,16 @@
                 <span>车间培训时间：</span>
               </label>
               <div class="ui-g-8 ui-md-8 input">
-                <input type="text" pInputText placeholder="请填写车间培训时间，如：2020-05-30" [(ngModel)]="educateOperateField.workshopEducationTime">
+                <p-calendar
+                  #calendarStart
+                  placeholder="点击选择时间......"
+                  [locale]="educateEs" [(ngModel)]="educateOperateField.workshopEducationTime"
+                  dateFormat="yy-mm-dd"
+                  dataType="string"
+                  [monthNavigator]="true"
+                  [yearNavigator]="true"
+                  yearRange="2017:2030">
+                </p-calendar>
               </div>
             </div>
             <!--车间培训成绩-->
@@ -133,7 +160,16 @@
                 <span>班组培训时间：</span>
               </label>
               <div class="ui-g-8 ui-md-8 input">
-                <input type="text" pInputText placeholder="请填写班组培训时间，如：2020-05-30" [(ngModel)]="educateOperateField.classEducationTime">
+                <p-calendar
+                  #calendarStart
+                  placeholder="点击选择时间......"
+                  [locale]="educateEs" [(ngModel)]="educateOperateField.classEducationTime"
+                  dateFormat="yy-mm-dd"
+                  dataType="string"
+                  [monthNavigator]="true"
+                  [yearNavigator]="true"
+                  yearRange="2017:2030">
+                </p-calendar>
               </div>
             </div>
             <!--班组培训成绩-->

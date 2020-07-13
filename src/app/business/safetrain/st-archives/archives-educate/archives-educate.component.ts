@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {AddEducateFieldClass, EducateField, PageOption, TableHeader, UpdateEducateFieldClass} from '../../../../common/public/Api';
 import {SafetrainService} from '../../../../common/services/safetrain.service';
 import {Observable} from 'rxjs';
+import {Es} from '../../../../common/public/contents';
 
 @Component({
   selector: 'app-archives-educate',
@@ -28,6 +29,7 @@ export class ArchivesEducateComponent implements OnInit {
   public educateOperateModal: boolean = false; // 模态框
   public educateImportField: FormData = new FormData(); // 导入
   public educateImportFieldModal: boolean = false; // 导入模态框
+  public educateEs: any = Es; // 时间选择面板本地化
   constructor(
     private safeSrv: SafetrainService,
   ) { }

@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import { PageOption, SpecialField, SpecialFieldClass, TableHeader} from '../../../../common/public/Api';
 import {Observable} from 'rxjs';
 import {SafetrainService} from '../../../../common/services/safetrain.service';
-import {objectCopy} from '../../../../common/public/contents';
+import {Es, objectCopy} from '../../../../common/public/contents';
 
 @Component({
   selector: 'app-archives-special',
@@ -29,6 +29,7 @@ export class ArchivesSpecialComponent implements OnInit {
   public specialOperateModal: boolean = false; // 模态框
   public specialImportField: FormData = new FormData(); // 导入
   public specialImportFieldModal: boolean = false; // 导入模态框
+  public specialEs: any = Es; // 时间选择面板本地化
   constructor(
     private safeSrv: SafetrainService,
   ) {

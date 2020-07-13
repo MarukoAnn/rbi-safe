@@ -22,7 +22,10 @@
       padding: 0.97em;
     }
     .input{
-      .ui-inputtext{
+      /deep/.ui-inputtext{
+        width: 100%;
+      }
+      /deep/.ui-calendar{
         width: 100%;
       }
       /deep/ .ui-fileupload .ui-fileupload-content{

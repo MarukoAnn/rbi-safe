@@ -103,52 +103,52 @@ export interface TreeOption {
  */
 export interface SpecialField {
   id?: any;
-  idCardNo: string; // 身份证
+  idCardNo: any; // 身份证
   typeOfWork: string; // 工种
   operationItems: string; // 操作项目
   workingYears: string; // 本工种工龄
-  theoreticalAchievements: string; // 理论成绩
-  actualResults: string; // 实际成绩
+  theoreticalAchievements: number; // 理论成绩
+  actualResults: number; // 实际成绩
   operationCertificateNo: string; // 操作证号
   dateOfIssue: string; // 发证日期
-  yearsOfWork: string; // 工种年限
-  oneReviewResults?: string; // 第一次复审成绩
+  yearsOfWork: number; // 工种年限
+  oneReviewResults?: number; // 第一次复审成绩
   oneReviewTime?: string; // 第一次复审时间
-  towReviewResults?: string; // 第二次复审成绩
+  towReviewResults?: number; // 第二次复审成绩
   towReviewTime?: string; // 第二次复审时间
-  threeReviewResults?: string; // 第三次复审成绩
+  threeReviewResults?: number; // 第三次复审成绩
   threeReviewTime?: string; // 第三次复审时间
-  fourReviewResults?: string; // 第四次复审成绩
+  fourReviewResults?: number; // 第四次复审成绩
   fourReviewTime?: string; // 第四次复审时间
-  fiveReviewResults?: string; // 第五次复审成绩
+  fiveReviewResults?: number; // 第五次复审成绩
   fiveReviewTime?: string; // 第五次复审时间
-  sixReviewResults?: string; // 第六次复审成绩
+  sixReviewResults?: number; // 第六次复审成绩
   sixReviewTime?: string; // 第六次复审时间
   remarks?: string; // 备注
   validityPeriod: number; // 复审年限，默认为3
 }
 export class SpecialFieldClass implements SpecialField {
-  yearsOfWork: string = '';
+  yearsOfWork: number = 3;
   typeOfWork: string = '';
-  actualResults: string = '';
+  actualResults: number = null;
   dateOfIssue: string = '';
-  fiveReviewResults: string = null;
+  fiveReviewResults: number = null;
   fiveReviewTime: string = null;
-  fourReviewResults: string = null;
+  fourReviewResults: number = null;
   fourReviewTime: string = null;
   id: any = null;
-  idCardNo: string = '';
-  oneReviewResults: string = null;
+  idCardNo: any = null;
+  oneReviewResults: number = null;
   oneReviewTime: string = null;
   operationCertificateNo: string = '';
   operationItems: string = '';
   remarks: string = null;
-  sixReviewResults: string = null;
+  sixReviewResults: number = null;
   sixReviewTime: string = null;
-  theoreticalAchievements: string = '';
-  threeReviewResults: string = null;
+  theoreticalAchievements: number = null;
+  threeReviewResults: number = null;
   threeReviewTime: string = null;
-  towReviewResults: string = null;
+  towReviewResults: number = null;
   towReviewTime: string = null;
   validityPeriod: number = 3;
   workingYears: string = '';
@@ -466,6 +466,7 @@ export interface CompanyPersonParams {
   name?: string; // 根据姓名查询
   idCardNo?: string; // 根据身份证号查询
   position?: string; // 根据所在职位查询
+  workType?: string; // 根据所在职位查询
 }
 
 export interface MYLevelFourEducationInfo {

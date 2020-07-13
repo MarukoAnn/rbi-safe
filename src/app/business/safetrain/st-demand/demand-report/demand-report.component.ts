@@ -34,6 +34,7 @@ export class DemandReportComponent implements OnInit {
   public reportTableSelect: any[]; // 表体数据选择
   public reportTableSelectName: any = '请选择受训单位人员'; // 表体数据选择名字
   public reportNowPage: number = 1; // 当前页
+  public reportWorkType: string = null; // 当前页
 
   constructor(
     private globalSrv: GlobalService,
@@ -62,9 +63,9 @@ export class DemandReportComponent implements OnInit {
   }
 
   //  公司人员分页
-  private reportCompanyDataInit(pageNo, pageSize, organizationIds = '') {
+  private reportCompanyDataInit(pageNo, pageSize, organizationIds = '', workType= '') {
     const organizationId = organizationIds ? organizationIds : null;
-    this.globalSrv.publicGetCompanyPerson({pageNo, pageSize, organizationId}).subscribe((res) => {
+    this.globalSrv.publicGetCompanyPerson({pageNo, pageSize, organizationId, workType}).subscribe((res) => {
       this.reportTableData = res.data.contents;
       this.reportPageOption.totalRecord = res.data.totalRecord;
     });
@@ -100,8 +101,14 @@ export class DemandReportComponent implements OnInit {
         }
         break;
       case 'search':
+        if (this.reportWorkType && this.reportOrgTreeSelect.id) {
+          this.reportCompanyDataInit(this.reportNowPage = 1, this.reportPageOption.pageSize, this.reportOrgTreeSelect.id, this.reportWorkType);
+        } else if (this.reportWorkType) {
+          this.reportCompanyDataInit(this.reportNowPage = 1, this.reportPageOption.pageSize, '', this.reportWorkType);
+        } else {
+          this.reportCompanyDataInit(this.reportNowPage = 1, this.reportPageOption.pageSize, this.reportOrgTreeSelect.id);
+        }
         this.reportOrgTreeModal = false;
-        this.reportCompanyDataInit(this.reportNowPage = 1, this.reportPageOption.pageSize, this.reportOrgTreeSelect.id);
         break;
     }
   }
@@ -109,10 +116,19 @@ export class DemandReportComponent implements OnInit {
   // 分页操作
   public reportPageEvent(page) {
     this.reportNowPage = page;
-    if (this.reportOrgTreeSelect.id) {
-      this.reportCompanyDataInit(this.reportNowPage, this.reportPageOption.pageSize, this.reportOrgTreeSelect.id);
-      return;
+    if (this.reportWorkType && this.reportOrgTreeSelect.id) {
+      this.reportCompanyDataInit(this.reportNowPage = 1, this.reportPageOption.pageSize, this.reportOrgTreeSelect.id, this.reportWorkType);
+    } else if (this.reportWorkType) {
+      this.reportCompanyDataInit(this.reportNowPage = 1, this.reportPageOption.pageSize, '', this.reportWorkType);
+    }else if (this.reportOrgTreeSelect.id) {
+      this.reportCompanyDataInit(this.reportNowPage = 1, this.reportPageOption.pageSize, this.reportOrgTreeSelect.id);
+    } else {
+      this.reportCompanyDataInit(page, this.reportPageOption.pageSize);
     }
-    this.reportCompanyDataInit(page, this.reportPageOption.pageSize);
+  }
+
+  //
+  test(item) {
+    console.log(item);
   }
 }

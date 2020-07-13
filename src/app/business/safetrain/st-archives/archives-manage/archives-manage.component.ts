@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {AddManageFieldClass, ManageField, PageOption, TableHeader, UpdateManageFieldClass} from '../../../../common/public/Api';
 import {SafetrainService} from '../../../../common/services/safetrain.service';
 import {Observable} from 'rxjs';
+import {Es, objectCopy} from '../../../../common/public/contents';
+import {isArray} from 'util';
 
 @Component({
   selector: 'app-archives-manage',
@@ -28,6 +30,7 @@ export class ArchivesManageComponent implements OnInit {
   public manageOperateModal: boolean = false; // 模态框
   public manageImportField: FormData = new FormData(); // 导入
   public manageImportFieldModal: boolean = false; // 导入模态框
+  public manageEs: any = Es; // 时间选择面板本地化
   constructor(
     private safeSrv: SafetrainService,
   ) {
@@ -70,13 +73,19 @@ export class ArchivesManageComponent implements OnInit {
         break;
       // 保存操作
       case 'save':
+        const field = objectCopy(this.manageOperateField, this.manageOperateField);
+        Object.keys(field).forEach((key) => {
+          if (isArray(field[key])) {
+            field[key] = field[key].join('至');
+          }
+        });
         // 修改保存
         if (this.manageOperateField.id) {
-          this.manageHttpOperate(this.safeSrv.updateManageInfo(this.manageOperateField));
+          this.manageHttpOperate(this.safeSrv.updateManageInfo(field));
         }
         // 新增保存
         else {
-          this.manageHttpOperate(this.safeSrv.addManageInfo(this.manageOperateField));
+          this.manageHttpOperate(this.safeSrv.addManageInfo(field));
         }
         break;
       // 删除操作
